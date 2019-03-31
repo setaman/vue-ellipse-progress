@@ -1,11 +1,15 @@
 <template>
-    <svg :height="size" :width="size">
+    <svg :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+      <circle-progress :options="options"/>
     </svg>
 </template>
 
 <script>
+import CircleProgress from '@/components/CircleProgress';
+
 export default {
   name: 'EllipseProgressContainer',
+  components: { CircleProgress },
   props: {
     progress: {
       type: Number,
@@ -21,11 +25,13 @@ export default {
     thickness: {
       type: Number,
       required: false,
+      default: 5,
       validator: value => value > -1,
     },
     empty_thickness: {
       type: Number,
       required: false,
+      default: 5,
       validator: value => value > -1,
     },
     line: {
@@ -62,6 +68,11 @@ export default {
       type: String,
       required: false,
       default: 'gray',
+    },
+  },
+  computed: {
+    options() {
+      return this.$props;
     },
   },
 };
