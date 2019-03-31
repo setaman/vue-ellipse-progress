@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <ellipse-progress-container :progress="45"/>
+    <ellipse-progress-container :progress="45" :size="300" :thickness="10"/>
   </div>
 </template>
 
 <script>
 
-import EllipseProgressContainer from './components/EllipseProgressContainer';
+import EllipseProgressContainer from '@/components/EllipseProgressContainer';
 
 export default {
   name: 'app',
