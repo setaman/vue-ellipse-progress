@@ -1,6 +1,5 @@
 <template>
-    <svg>
-
+    <svg :height="size" :width="size">
     </svg>
 </template>
 
