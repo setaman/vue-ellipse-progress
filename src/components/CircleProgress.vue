@@ -5,14 +5,14 @@
             :cx="getPosition()"
             :cy="getPosition()"
             :stroke="emptyColor"
-            fill="transparent"
-            :stroke-width="getThickness()">
+            :fill="emptyColorFill"
+            :stroke-width="getEmptyThickness()">
     </circle>
     <circle class="ep-circle--progress"
             :r="getBaseRadius()"
             :cx="getPosition()"
             :cy="getPosition()"
-            fill="transparent"
+            :fill="colorFill"
             :stroke="color"
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
@@ -54,6 +54,18 @@ export default {
       }
       return this.options.empty_color;
     },
+    colorFill() {
+      if (this.options.color_fill.gradient && this.options.color_fill.gradient.colors.length > 0) {
+        return `url(#circle-progress-fill-gradient-${this._uid})`;
+      }
+      return this.options.color_fill || 'transparent';
+    },
+    emptyColorFill() {
+      if (this.options.empty_color_fill.gradient && this.options.empty_color_fill.gradient.colors.length > 0) {
+        return `url(#circle-empty-fill-gradient-${this._uid})`;
+      }
+      return this.options.empty_color_fill || 'transparent';
+    }
   },
   methods: {
     getBaseRadius() {
@@ -68,6 +80,9 @@ export default {
     getThickness() {
       return this.options.thickness;
     },
+    getEmptyThickness() {
+      return this.options.empty_thickness;
+    },
     getPosition() {
       return this.getSize() / 2;
     },
@@ -78,6 +93,8 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .ep-circle--empty, .ep-circle--progress {
+    transition: 0.5s;
+  }
 </style>

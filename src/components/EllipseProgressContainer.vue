@@ -4,13 +4,13 @@
       <circle-progress :options="options"/>
     </svg>
 
-    <span class="ep-progress">{{progress}}</span>
+    <span class="ep-progress" :style="{fontSize: font_size, color: font_color}">{{progress}}</span>
 
   </div>
 </template>
 
 <script>
-import CircleProgress from '@/components/CircleProgress';
+import CircleProgress from '@/components/CircleProgress.vue';
 
 export default {
   name: 'EllipseProgressContainer',
@@ -63,6 +63,16 @@ export default {
       type: [String, Object],
       required: false,
       default: '#e6e9f0',
+    },
+    color_fill: {
+      type: [String, Object],
+      required: false,
+      default: 'transparent',
+    },
+    empty_color_fill: {
+      type: [String, Object],
+      required: false,
+      default: 'transparent',
     },
     font_size: {
       type: String,
