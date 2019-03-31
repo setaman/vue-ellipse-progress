@@ -12,5 +12,8 @@ export default {
 </script>
 
 <style lang="scss">
-#app {}
+#app {
+  color: white;
+  background-color: black;
+}
 </style>
