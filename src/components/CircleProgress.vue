@@ -1,7 +1,7 @@
 <template>
   <g>
     <circle class="ep-circle--empty"
-            :r="getBaseRadius()"
+            :r="emptyRadius"
             :cx="getPosition()"
             :cy="getPosition()"
             :stroke="emptyColor"
@@ -9,7 +9,7 @@
             :stroke-width="getEmptyThickness()">
     </circle>
     <circle class="ep-circle--progress"
-            :r="getBaseRadius()"
+            :r="radius"
             :cx="getPosition()"
             :cy="getPosition()"
             :fill="colorFill"
@@ -42,6 +42,7 @@ export default {
       }
       return offset < circumference ? offset : circumference + 1;
     },
+    /* Colors */
     color() {
       if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
         return `url(#ep-circle-progress-gradient-${this._uid})`;
@@ -65,11 +66,56 @@ export default {
         return `url(#circle-empty-fill-gradient-${this._uid})`;
       }
       return this.options.empty_color_fill || 'transparent';
-    }
+    },
+    /* Radius depending on line mode */
+    radius() {
+      const offset = Number(this.options.line_mode.offset || 0);
+
+      switch (this.options.line_mode.mode) {
+        case 'normal':
+          return this.getNormalRadius();
+        case 'in':
+          return this.getBaseRadius() - (this.getEmptyThickness() + offset);
+        case 'in_overlap':
+          return this.getBaseRadius();
+        case 'bottom':
+          return this.emptyRadius - (this.getEmptyThickness() / 2 + offset);
+        default:
+          return this.getBaseRadius();
+      }
+    },
+    emptyRadius() {
+      const offset = Number(this.options.line_mode.offset || 0);
+
+      switch (this.options.line_mode.mode) {
+        case 'normal':
+          return this.getNormalRadius();
+        case 'out':
+          return this.getBaseRadius() - ((this.getThickness() / 2) + (this.getEmptyThickness() / 2));
+        case 'out_overlap':
+          return this.getBaseRadius() - ((this.getThickness() / 2) - (this.getEmptyThickness() / 2));
+        case 'bottom':
+          if (this.getEmptyThickness() < (this.getThickness() / 2)) {
+            return this.getEmptyBaseRadius() - (this.getThickness() / 2 - this.getEmptyThickness());
+          }
+          return this.getEmptyBaseRadius();
+        default:
+          return this.getEmptyBaseRadius();
+      }
+    },
   },
   methods: {
     getBaseRadius() {
       return (this.getSize() / 2) - (this.getThickness() / 2);
+    },
+    getEmptyBaseRadius() {
+      return (this.getSize() / 2) - (this.getEmptyThickness() / 2);
+    },
+    getNormalRadius() {
+      if (this.getThickness() < this.getEmptyThickness()) {
+        return this.getEmptyBaseRadius();
+      }
+      return this.getBaseRadius();
     },
     getSize() {
       return this.options.size;

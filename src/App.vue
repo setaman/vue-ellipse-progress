@@ -3,7 +3,8 @@
     <ellipse-progress-container :progress="parseFloat(progress)"
                                 :size="300"
                                 :thickness="20"
-                                :empty_thickness="10"
+                                :empty_thickness="40"
+                                :line_mode="{mode: 'bottom', offset: 0}"
                                 font_size="5rem"/>
     <label for="progress">
       Progress
