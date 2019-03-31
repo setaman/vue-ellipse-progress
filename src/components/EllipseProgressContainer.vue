@@ -1,7 +1,12 @@
 <template>
-    <svg :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+  <div class="ep-container">
+    <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
       <circle-progress :options="options"/>
     </svg>
+
+    <span class="ep-progress">{{progress}}</span>
+
+  </div>
 </template>
 
 <script>
@@ -79,5 +84,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .ep-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .ep-progress {
+    position: absolute;
+    color: black;
+  }
+  svg.ep-svg-container {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
 
 </style>
