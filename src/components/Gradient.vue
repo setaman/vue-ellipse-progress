@@ -8,7 +8,7 @@
   </linearGradient>
   <radialGradient v-else
                   :id="`ep-${type}-gradient-${id}`"
-                  x1="0%" y1="0%" x2="100%" y2="0%"
+                  x1="0%" y1="100%" x2="0%" y2="0%"
                   area-hidden="true">
     <stop v-for="(col, i) in color.gradient.colors" :key="i"
           :offset="`${col.offset}%`" :stop-color="`${col.color}`" :stop-opacity="`${col.opacity}`"/>
