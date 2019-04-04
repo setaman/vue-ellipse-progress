@@ -6,6 +6,7 @@
             :cy="getPosition()"
             :stroke="emptyColor"
             :fill="emptyColorFill"
+            :style="{transition: animationDuration}"
             :stroke-width="getEmptyThickness()">
     </circle>
     <circle class="ep-circle--progress"
@@ -17,7 +18,7 @@
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
             :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: progressOffset}"
+            :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
     >
     </circle>
 
@@ -48,6 +49,9 @@ export default {
         return 0;
       }
       return offset < circumference ? offset : circumference + 0.5;
+    },
+    animationDuration() {
+      return `${this.options.animation.duration}ms`;
     },
     /* Colors */
     color() {
@@ -146,6 +150,9 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
+    setInitialAnimation() {
+
+    },
   },
   mounted() {
     this.is_mounted = true;
@@ -155,6 +162,6 @@ export default {
 
 <style scoped lang="scss">
   .ep-circle--empty, .ep-circle--progress {
-    transition: 0.5s;
+    //transition: 0.5s;
   }
 </style>

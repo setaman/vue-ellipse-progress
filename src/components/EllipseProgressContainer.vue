@@ -97,7 +97,7 @@ export default {
       required: false,
       default: () => ({
         type: '',
-        duration: 300,
+        duration: 500,
       }),
     },
   },
