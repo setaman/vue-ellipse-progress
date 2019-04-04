@@ -1,6 +1,13 @@
 <template>
   <div class="ep-container">
     <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
+        <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
+        <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
+        <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill"
+                         :id="_uid"/>
+      </defs>
       <circle-progress :options="options"/>
     </svg>
 
@@ -11,10 +18,11 @@
 
 <script>
 import CircleProgress from '@/components/CircleProgress.vue';
+import Gradient from '@/components/Gradient.vue';
 
 export default {
   name: 'EllipseProgressContainer',
-  components: { CircleProgress },
+  components: { Gradient, CircleProgress },
   props: {
     progress: {
       type: Number,
@@ -87,7 +95,7 @@ export default {
   },
   computed: {
     options() {
-      return this.$props;
+      return { ...this.$props, id: this._uid };
     },
   },
 };

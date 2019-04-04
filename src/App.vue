@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <ellipse-progress-container :progress="parseFloat(progress)"
-                                :size="500"
-                                :thickness="2"
-                                :empty_thickness="2"
-                                :line_mode="{mode: 'normal', offset: 0}"
-                                font_size="5rem"/>
-    <label for="progress">
-      Progress
+    <div class="ep-test-card" :style="{maxHeight: size + 100 + 'px'}">
+      <label for="progress">
+        Progress
+      </label>
       <input v-model="progress" type="number" id="progress"/>
-    </label>
+      <button @click="updateProgress">Update</button>
+      <ellipse-progress-container :progress="parseFloat(progress)"
+                                  :color="color"
+                                  :empty_color="empty_color"
+                                  :size="size"
+                                  :thickness="21"
+                                  :empty_thickness="20"
+                                  :line_mode="{mode: 'normal', offset: 0}"
+                                  font_size="5rem"/>
+    </div>
   </div>
 </template>
 
@@ -21,15 +26,135 @@ export default {
   name: 'app',
   components: { EllipseProgressContainer },
   data: () => ({
-    progress: 35,
+    progress: 100,
+    size: 400,
+    color: {
+      gradient: {
+        radial: false,
+        direction: '',
+        colors: [
+          {
+            color: '#6546f7',
+            offset: '0',
+            opacity: '1',
+          },
+          {
+            color: '#6849ff',
+            offset: '100',
+            opacity: '1',
+          },
+        ],
+      },
+    },
+    color_fill: {
+      gradient: {
+        radial: false,
+        direction: '',
+        colors: [
+          {
+            color: '#572883',
+            offset: '00',
+            opacity: '0.1',
+          },
+          {
+            color: '#fc4982',
+            offset: '100',
+            opacity: '0.1',
+          },
+        ],
+      },
+    },
+    empty_color: {
+      gradient: {
+        radial: false,
+        direction: '',
+        colors: [
+          {
+            color: '#050a27',
+            offset: '0',
+            opacity: '1',
+          },
+          {
+            color: '#050a27',
+            offset: '100',
+            opacity: '1',
+          },
+        ],
+      },
+    },
+    empty_color_fill: {
+      gradient: {
+        radial: false,
+        direction: '',
+        colors: [
+          {
+            color: '#0062fc',
+            offset: '0',
+            opacity: '1',
+          },
+          {
+            color: 'transparent',
+            offset: '100',
+            opacity: '0.1',
+          },
+        ],
+      },
+    },
   }),
+  methods: {
+    updateProgress() {
+      this.progress = parseFloat((Math.floor(Math.random() * 100).toFixed(2)));
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+  body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 #app {
-  border: 2px red solid;
-  color: black;
-  //background-color: gray;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  color: white;
+  background-color: #050a27;
 }
+  .ep-test-card {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: #273266;
+    label {
+      padding-bottom: 5px;
+      display: block;
+    }
+    input {
+      transition: 0.3s;
+      border: none;
+      color: white;
+      border-radius: 2px;
+      padding: 5px 10px;
+      background-color: #0b1656;
+      border-bottom: gray 2px solid;
+      outline: none;
+      &:focus {
+        border-bottom: #009eff 2px solid;
+      }
+    }
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 2px;
+      margin-left: 10px;
+      color: white;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+      background-color: #0b1656;
+    }
+  }
 </style>
