@@ -40,7 +40,6 @@ export default {
   computed: {
     progressOffset() {
       const circumference = this.getCircumference();
-      console.log(this.is_mounted);
       if (!this.is_mounted) {
         return circumference;
       }
@@ -150,12 +149,9 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
-    setInitialAnimation() {
-
-    },
   },
   mounted() {
-    this.is_mounted = true;
+    setTimeout(() => this.is_mounted = true, this.options.animation.duration);
   },
 };
 </script>
