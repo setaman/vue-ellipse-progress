@@ -1,18 +1,22 @@
 <template>
-  <div class="ep-container">
-    <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
-        <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
-        <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
-        <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill"
-                         :id="_uid"/>
-      </defs>
-      <circle-progress :options="options"/>
-    </svg>
+  <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`,
+                            transition: `${animation.duration}ms ease-in-out`}">
+    <div class="ep-content">
+      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
+          <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
+          <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
+          <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill" :id="_uid"/>
+        </defs>
+        <circle-progress :options="options"/>
+      </svg>
 
-    <span class="ep-progress" :style="{fontSize: font_size, color: font_color}">{{progress}}</span>
-
+      <div class="ep-legend-container" :style="{maxWidth: `${size}px`}">
+        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{progress}}%</span>
+        <slot></slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -100,6 +104,11 @@ export default {
         duration: 500,
       }),
     },
+    legend: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   computed: {
     options() {
@@ -111,16 +120,32 @@ export default {
 
 <style scoped lang="scss">
   .ep-container {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .ep-content {
+    transition: inherit;
+    max-width: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
   }
-  .ep-progress {
+
+  .ep-legend-container {
+    transition: inherit;
     position: absolute;
+    text-align: center;
+  }
+  .ep-legend {
+    transition: inherit;
+    text-align: center;
+    display: block;
     color: black;
   }
   svg.ep-svg-container {
+    transition: inherit;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
   }

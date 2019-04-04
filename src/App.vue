@@ -1,32 +1,49 @@
 <template>
   <div id="app">
-    <div class="ep-test-card" :style="{maxHeight: size + 100 + 'px'}">
-      <label for="progress">
-        Progress
-      </label>
-      <input v-model="progress" type="number" id="progress"/>
-      <button @click="updateProgress">Update</button>
-      <ellipse-progress-container :progress="parseFloat(progress)"
-                                  :color="color"
-                                  :empty_color="empty_color"
-                                  :size="size"
-                                  :thickness="21"
-                                  :empty_thickness="20"
-                                  :line_mode="{mode: 'normal', offset: 0}"
-                                  font_size="5rem"/>
+    <div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
+      <div>
+        <label for="progress">
+          Progress
+        </label>
+        <input v-model="progress" max="100" min="0" type="number" id="progress"/>
+        <button @click="updateProgress">Update</button>
+        <label for="size">
+          Size
+        </label>
+        <input v-model="size" type="number" id="size"/>
+      </div>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="parseInt(size)"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="false"
+                            font_size="5rem">
+        <img src="@/assets/icon.svg">
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="false"
+                            font_size="5rem">
+        <img src="@/assets/icon.svg">
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>
 
 <script>
-
-import EllipseProgressContainer from '@/components/EllipseProgressContainer.vue';
-
 export default {
   name: 'app',
-  components: { EllipseProgressContainer },
+  components: {},
   data: () => ({
-    progress: 100,
+    progress: 46,
     size: 400,
     color: {
       gradient: {
@@ -120,6 +137,7 @@ export default {
   display: flex;
   align-items: center;
   height: 100vh;
+  font-family: 'Arial',serif ;
   color: white;
   background-color: #050a27;
 }
@@ -155,6 +173,14 @@ export default {
       cursor: pointer;
       box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
       background-color: #0b1656;
+    }
+    h1 {
+      font-weight: normal;
+      letter-spacing: 0.2rem;
+    }
+    img {
+      color: white;
+      width: 200px;
     }
   }
 </style>
