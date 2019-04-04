@@ -92,6 +92,14 @@ export default {
       required: false,
       default: 'gray',
     },
+    animation: {
+      type: Object,
+      required: false,
+      default: () => ({
+        type: '',
+        duration: 500,
+      }),
+    },
   },
   computed: {
     options() {

@@ -6,6 +6,7 @@
             :cy="getPosition()"
             :stroke="emptyColor"
             :fill="emptyColorFill"
+            :style="{transition: animationDuration}"
             :stroke-width="getEmptyThickness()">
     </circle>
     <circle class="ep-circle--progress"
@@ -17,7 +18,7 @@
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
             :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: progressOffset}"
+            :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
     >
     </circle>
 
@@ -27,6 +28,9 @@
 <script>
 export default {
   name: 'CircleProgress',
+  data: () => ({
+    is_mounted: false,
+  }),
   props: {
     options: {
       type: Object,
@@ -36,11 +40,17 @@ export default {
   computed: {
     progressOffset() {
       const circumference = this.getCircumference();
+      if (!this.is_mounted) {
+        return circumference;
+      }
       const offset = circumference - this.getProgress() / 100 * circumference;
       if (offset <= 0) {
         return 0;
       }
-      return offset < circumference ? offset : circumference + 1;
+      return offset < circumference ? offset : circumference + 0.5;
+    },
+    animationDuration() {
+      return `${this.options.animation.duration}ms`;
     },
     /* Colors */
     color() {
@@ -140,11 +150,14 @@ export default {
       return this.radius * 2 * Math.PI;
     },
   },
+  mounted() {
+    setTimeout(() => this.is_mounted = true, this.options.animation.duration);
+  },
 };
 </script>
 
 <style scoped lang="scss">
   .ep-circle--empty, .ep-circle--progress {
-    transition: 0.5s;
+    //transition: 0.5s;
   }
 </style>
