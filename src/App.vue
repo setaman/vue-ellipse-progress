@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <ellipse-progress-container :progress="parseFloat(progress)"
-                                :size="300"
-                                :thickness="20"
-                                :empty_thickness="120"
-                                :line_mode="{mode: 'out', offset: 10}"
+                                :size="500"
+                                :thickness="65"
+                                :empty_thickness="20"
+                                :line_mode="{mode: 'bottom', offset: 0}"
                                 font_size="5rem"/>
     <label for="progress">
       Progress

@@ -79,7 +79,7 @@ export default {
         case 'in_overlap':
           return this.getBaseRadius();
         case 'bottom':
-          return this.emptyRadius - (this.getEmptyThickness() / 2 + offset);
+          return this.emptyRadius - (this.getEmptyThickness() / 2);
         default:
           return this.getBaseRadius();
       }
