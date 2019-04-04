@@ -2,9 +2,9 @@
   <div id="app">
     <ellipse-progress-container :progress="parseFloat(progress)"
                                 :size="500"
-                                :thickness="65"
-                                :empty_thickness="20"
-                                :line_mode="{mode: 'bottom', offset: 0}"
+                                :thickness="2"
+                                :empty_thickness="2"
+                                :line_mode="{mode: 'normal', offset: 0}"
                                 font_size="5rem"/>
     <label for="progress">
       Progress
@@ -28,6 +28,7 @@ export default {
 
 <style lang="scss">
 #app {
+  border: 2px red solid;
   color: black;
   //background-color: gray;
 }

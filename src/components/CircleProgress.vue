@@ -80,6 +80,8 @@ export default {
           return this.getBaseRadius();
         case 'bottom':
           return this.emptyRadius - (this.getEmptyThickness() / 2);
+        case 'top':
+          return this.emptyRadius + (this.getEmptyThickness() / 2);
         default:
           return this.getBaseRadius();
       }
@@ -99,6 +101,8 @@ export default {
             return this.getEmptyBaseRadius() - (this.getThickness() / 2 - this.getEmptyThickness());
           }
           return this.getEmptyBaseRadius();
+        case 'top':
+          return this.getEmptyBaseRadius() - (this.getThickness() / 2);
         default:
           return this.getEmptyBaseRadius();
       }

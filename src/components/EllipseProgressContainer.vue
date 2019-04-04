@@ -52,7 +52,7 @@ export default {
         mode: 'normal',
         offset: 0,
       }),
-      validator: value => ['normal', 'out', 'out_overlap', 'in', 'in_overlap'].includes(value.mode),
+      validator: value => ['normal', 'out', 'out_overlap', 'in', 'in_overlap', 'top', 'bottom'].includes(value.mode),
     },
     color: {
       type: [String, Object],
