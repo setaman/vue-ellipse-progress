@@ -1,22 +1,33 @@
 <template>
   <div id="app">
     <div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
-      <label for="progress">
-        Progress
-      </label>
-      <input v-model="progress" type="number" id="progress"/>
-      <button @click="updateProgress">Update</button>
+      <div>
+        <label for="progress">
+          Progress
+        </label>
+        <input v-model="progress" max="100" min="0" type="number" id="progress"/>
+        <button @click="updateProgress">Update</button>
+      </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
                             :empty_color="empty_color"
                             :size="size"
                             :thickness="21"
                             :empty_thickness="20"
-                            :line_mode="{mode: 'normal', offset: 0}"
-                            :legend="true"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="false"
                             font_size="5rem">
-        <h1>2075</h1>
-        <h1>PROGRESS</h1>
+        <img src="@/assets/icon.svg">
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="false"
+                            font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>
     </div>
@@ -162,6 +173,10 @@ export default {
     h1 {
       font-weight: normal;
       letter-spacing: 0.2rem;
+    }
+    img {
+      color: white;
+      width: 200px;
     }
   }
 </style>

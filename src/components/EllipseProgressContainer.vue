@@ -1,19 +1,22 @@
 <template>
-  <div class="ep-container">
-    <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
-        <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
-        <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
-        <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill"
-                         :id="_uid"/>
-      </defs>
-      <circle-progress :options="options"/>
-    </svg>
+  <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`}">
+    <div class="ep-content">
+      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg"
+            :style="{transition: `${animation.duration}ms ease-in-out`}">
+        <defs>
+          <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
+          <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
+          <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
+          <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill"
+                    :id="_uid"/>
+        </defs>
+        <circle-progress :options="options"/>
+      </svg>
 
-    <div class="ep-legend-container" :style="{maxWidth: size}">
-      <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{progress}}%</span>
-      <slot></slot>
+      <div class="ep-legend-container" :style="{maxWidth: `${size}px`}">
+        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{progress}}%</span>
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -118,6 +121,12 @@ export default {
 
 <style scoped lang="scss">
   .ep-container {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .ep-content {
+    max-width: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
