@@ -27,6 +27,9 @@
 <script>
 export default {
   name: 'CircleProgress',
+  data: () => ({
+    is_mounted: false,
+  }),
   props: {
     options: {
       type: Object,
@@ -36,11 +39,15 @@ export default {
   computed: {
     progressOffset() {
       const circumference = this.getCircumference();
+      console.log(this.is_mounted);
+      if (!this.is_mounted) {
+        return circumference;
+      }
       const offset = circumference - this.getProgress() / 100 * circumference;
       if (offset <= 0) {
         return 0;
       }
-      return offset < circumference ? offset : circumference + 1;
+      return offset < circumference ? offset : circumference + 0.5;
     },
     /* Colors */
     color() {
@@ -139,6 +146,9 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
+  },
+  mounted() {
+    this.is_mounted = true;
   },
 };
 </script>
