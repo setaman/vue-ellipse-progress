@@ -11,8 +11,10 @@
       <circle-progress :options="options"/>
     </svg>
 
-    <span class="ep-progress" :style="{fontSize: font_size, color: font_color}">{{progress}}</span>
-
+    <div class="ep-legend-container" :style="{maxWidth: size}">
+      <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{progress}}%</span>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -100,6 +102,11 @@ export default {
         duration: 500,
       }),
     },
+    legend: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   computed: {
     options() {
@@ -116,8 +123,14 @@ export default {
     align-items: center;
     position: relative;
   }
-  .ep-progress {
+
+  .ep-legend-container {
     position: absolute;
+    text-align: center;
+  }
+  .ep-legend {
+    text-align: center;
+    display: block;
     color: black;
   }
   svg.ep-svg-container {
