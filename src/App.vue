@@ -3,12 +3,12 @@
     <ellipse-progress-container :progress="parseFloat(progress)"
                                 :size="300"
                                 :thickness="20"
-                                :empty_thickness="40"
-                                :line_mode="{mode: 'bottom', offset: 0}"
+                                :empty_thickness="120"
+                                :line_mode="{mode: 'out', offset: 10}"
                                 font_size="5rem"/>
     <label for="progress">
       Progress
-      <input v-model="progress" id="progress"/>
+      <input v-model="progress" type="number" id="progress"/>
     </label>
   </div>
 </template>

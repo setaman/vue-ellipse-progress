@@ -91,7 +91,7 @@ export default {
         case 'normal':
           return this.getNormalRadius();
         case 'out':
-          return this.getBaseRadius() - ((this.getThickness() / 2) + (this.getEmptyThickness() / 2));
+          return this.getBaseRadius() - ((this.getThickness() / 2) + (this.getEmptyThickness() / 2) + offset);
         case 'out_overlap':
           return this.getBaseRadius() - ((this.getThickness() / 2) - (this.getEmptyThickness() / 2));
         case 'bottom':
@@ -133,7 +133,7 @@ export default {
       return this.getSize() / 2;
     },
     getCircumference() {
-      return this.getBaseRadius() * 2 * Math.PI;
+      return this.radius * 2 * Math.PI;
     },
   },
 };
