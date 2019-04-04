@@ -7,11 +7,15 @@
         </label>
         <input v-model="progress" max="100" min="0" type="number" id="progress"/>
         <button @click="updateProgress">Update</button>
+        <label for="size">
+          Size
+        </label>
+        <input v-model="size" type="number" id="size"/>
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
                             :empty_color="empty_color"
-                            :size="size"
+                            :size="parseInt(size)"
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"

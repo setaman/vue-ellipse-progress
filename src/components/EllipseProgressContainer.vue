@@ -1,14 +1,13 @@
 <template>
-  <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`}">
+  <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`,
+                            transition: `${animation.duration}ms ease-in-out`}">
     <div class="ep-content">
-      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg"
-            :style="{transition: `${animation.duration}ms ease-in-out`}">
+      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
           <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
           <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid"/>
-          <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill"
-                    :id="_uid"/>
+          <gradient v-if="empty_color_fill.gradient" :color="empty_color_fill" type="empty-fill" :id="_uid"/>
         </defs>
         <circle-progress :options="options"/>
       </svg>
@@ -126,6 +125,7 @@ export default {
   }
 
   .ep-content {
+    transition: inherit;
     max-width: inherit;
     display: flex;
     justify-content: center;
@@ -134,15 +134,18 @@ export default {
   }
 
   .ep-legend-container {
+    transition: inherit;
     position: absolute;
     text-align: center;
   }
   .ep-legend {
+    transition: inherit;
     text-align: center;
     display: block;
     color: black;
   }
   svg.ep-svg-container {
+    transition: inherit;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
   }
