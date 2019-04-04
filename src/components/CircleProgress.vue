@@ -45,25 +45,25 @@ export default {
     /* Colors */
     color() {
       if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
-        return `url(#ep-circle-progress-gradient-${this._uid})`;
+        return `url(#ep-progress-gradient-${this.options.id})`;
       }
       return this.options.color;
     },
     emptyColor() {
       if (this.options.empty_color.gradient && this.options.empty_color.gradient.colors.length > 0) {
-        return `url(#ep-circle-empty-gradient-${this._uid})`;
+        return `url(#ep-empty-gradient-${this.options.id})`;
       }
       return this.options.empty_color;
     },
     colorFill() {
       if (this.options.color_fill.gradient && this.options.color_fill.gradient.colors.length > 0) {
-        return `url(#circle-progress-fill-gradient-${this._uid})`;
+        return `url(#ep-progress-fill-gradient-${this.options.id})`;
       }
       return this.options.color_fill || 'transparent';
     },
     emptyColorFill() {
       if (this.options.empty_color_fill.gradient && this.options.empty_color_fill.gradient.colors.length > 0) {
-        return `url(#circle-empty-fill-gradient-${this._uid})`;
+        return `url(#ep-empty-fill-gradient-${this.options.id})`;
       }
       return this.options.empty_color_fill || 'transparent';
     },
