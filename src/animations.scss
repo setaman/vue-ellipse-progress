@@ -1,0 +1,24 @@
+@mixin ep-progress--init__normal ($offset, $circumference) {
+  @keyframes ep-progress--init__normal {
+    0% {
+      stroke-dashoffset: $circumference;
+    }
+    100% {
+      stroke-dashoffset: $offset;
+    }
+  }
+}
+
+@mixin ep-progress--init__rs ($offset, $circumference) {
+  @keyframes ep-progress--init__rs {
+    0% {
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: $offset;
+    }
+  }
+}

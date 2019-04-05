@@ -1,5 +1,5 @@
 <template>
-  <g>
+  <g class="ep-circle--container">
     <circle class="ep-circle--empty"
             :r="emptyRadius"
             :cx="getPosition()"
@@ -151,13 +151,28 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => this.is_mounted = true, this.options.animation.duration);
+    //setTimeout(() => this.is_mounted = true, this.options.animation.duration);
   },
 };
 </script>
 
 <style scoped lang="scss">
+  @import "~@/animations.scss";
+
   .ep-circle--empty, .ep-circle--progress {
-    //transition: 0.5s;
+    --ep-stroke-offset: 500;
+    --ep-circumference: 1200;
   }
+
+  .ep-circle--progress {
+    &.animation__normal {
+      animation: ep-progress--init__normal 2s ease-in-out forwards;
+    }
+    &.animation__normal {
+      animation: ep-progress--init__rs 2s ease-in-out forwards;
+    }
+  }
+
+  @include ep-progress--init__normal(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
 </style>

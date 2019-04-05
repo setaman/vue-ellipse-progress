@@ -119,6 +119,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
   .ep-container {
     display: inline-block;
     overflow: hidden;
