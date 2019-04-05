@@ -38,8 +38,8 @@
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="true"
                             :legend_value="tasks_done"
-                            :animation="{type:'', duration: 5000}"
-                            font_size="5rem">
+                            :animation="{type:'', duration: 500}"
+                            font_size="3rem">
         <span slot="legend_value">/200</span>
         <p slot="legend">GOOD JOB</p>
       </vue-ellipse-progress>
@@ -52,7 +52,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
-    tasks_done: 134,
+    tasks_done: 125,
     progress: 46,
     size: 400,
     color: {
@@ -151,7 +151,7 @@ export default {
   padding: 20px;
   display: flex;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Arial',serif ;
   color: white;
   background-color: #050a27;

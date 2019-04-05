@@ -13,7 +13,7 @@
       </svg>
 
       <div class="ep-legend-container" :style="{maxWidth: `${size}px`}">
-        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{animated_legend_value}}
+        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend"></slot>
@@ -31,6 +31,8 @@ export default {
   components: { Gradient, CircleProgress },
   data: () => ({
     animated_legend_value: 0,
+    raf_id: null,
+    animation_offset: 0,
   }),
   props: {
     progress: {
@@ -126,23 +128,63 @@ export default {
     options() {
       return { ...this.$props, id: this._uid };
     },
+    legendValue() {
+      return Number.parseFloat(this.animated_legend_value.toFixed(this.countDecimals())) || 0;
+    },
   },
   watch: {
-    legend_value () {
-      console.log('WATCHER');
-    }
+    legend_value(updated, old) {
+      cancelAnimationFrame(this.raf_id);
+      this.animateLegendValue(old, updated);
+    },
   },
   methods: {
-    animatedLegend() {
-      console.log(this.progress);
-      this.animated_legend_value++;
-      if (this.animated_legend_value !== this.legend_value) {
-        requestAnimationFrame(this.animatedLegend);
+    animateLegendValue(old = 0, updated = this.legend_value) {
+      if (!this.legend_value) {
+        updated = 0;
       }
+
+      this.animation_offset = this.legendAnimationOffset(Math.abs(updated - this.animated_legend_value));
+
+      if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
+
+      if (updated > old) {
+        this.raf_id = requestAnimationFrame(this.countUp);
+      } else if (updated < old) {
+        this.raf_id = requestAnimationFrame(this.countDown);
+      }
+    },
+    legendAnimationOffset(value) {
+      return value / ((this.animation.duration / 1000) * 60);
+    },
+    countUp() {
+      this.animated_legend_value += this.animation_offset;
+      if (this.animated_legend_value < this.legend_value) {
+        requestAnimationFrame(this.countUp);
+      } else {
+        cancelAnimationFrame(this.raf_id);
+        this.animated_legend_value = this.toNumber(this.legend_value);
+      }
+    },
+    countDown() {
+      this.animated_legend_value -= this.animation_offset;
+      if (this.animated_legend_value > this.legend_value) {
+        requestAnimationFrame(this.countDown);
+      } else {
+        cancelAnimationFrame(this.raf_id);
+        this.animated_legend_value = this.toNumber(this.legend_value);
+      }
+    },
+    countDecimals() {
+      if ((this.legend_value % 1) === 0) return 0;
+      return this.legend_value.toString().split('.')[1].length;
+    },
+    toNumber(value) {
+      return Number.parseFloat(value);
     },
   },
   mounted() {
-     //requestAnimationFrame(this.animatedLegend);
+    this.raf_id = this.animateLegendValue();
   },
 };
 </script>
