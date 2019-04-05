@@ -13,8 +13,10 @@
       </svg>
 
       <div class="ep-legend-container" :style="{maxWidth: `${size}px`}">
-        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{progress}}%</span>
-        <slot></slot>
+        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{animated_legend_value}}
+          <slot name="legend_value"></slot>
+        </span>
+        <slot name="legend"></slot>
       </div>
     </div>
   </div>
@@ -27,6 +29,9 @@ import Gradient from '@/components/Gradient.vue';
 export default {
   name: 'EllipseProgressContainer',
   components: { Gradient, CircleProgress },
+  data: () => ({
+    animated_legend_value: 0,
+  }),
   props: {
     progress: {
       type: Number,
@@ -109,11 +114,35 @@ export default {
       required: false,
       default: true,
     },
+    legend_value: {
+      type: Number,
+      required: false,
+      default() {
+        return this.progress;
+      },
+    },
   },
   computed: {
     options() {
       return { ...this.$props, id: this._uid };
     },
+  },
+  watch: {
+    legend_value () {
+      console.log('WATCHER');
+    }
+  },
+  methods: {
+    animatedLegend() {
+      console.log(this.progress);
+      this.animated_legend_value++;
+      if (this.animated_legend_value !== this.legend_value) {
+        requestAnimationFrame(this.animatedLegend);
+      }
+    },
+  },
+  mounted() {
+     //requestAnimationFrame(this.animatedLegend);
   },
 };
 </script>

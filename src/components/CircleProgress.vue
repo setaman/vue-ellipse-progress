@@ -151,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => this.is_mounted = true, this.options.animation.duration);
+    setTimeout(() => this.is_mounted = true, /*this.options.animation.duration*/0);
   },
 };
 </script>
