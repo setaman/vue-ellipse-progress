@@ -10,6 +10,7 @@
             :stroke-width="getEmptyThickness()">
     </circle>
     <circle class="ep-circle--progress"
+            :class="animationClass"
             :r="radius"
             :cx="getPosition()"
             :cy="getPosition()"
@@ -28,9 +29,7 @@
 <script>
 export default {
   name: 'CircleProgress',
-  data: () => ({
-    is_mounted: false,
-  }),
+  data: () => ({}),
   props: {
     options: {
       type: Object,
@@ -40,9 +39,6 @@ export default {
   computed: {
     progressOffset() {
       const circumference = this.getCircumference();
-      if (!this.is_mounted) {
-        return circumference;
-      }
       const offset = circumference - this.getProgress() / 100 * circumference;
       if (offset <= 0) {
         return 0;
@@ -117,6 +113,9 @@ export default {
           return this.getEmptyBaseRadius();
       }
     },
+    animationClass() {
+      return [`animation__${this.options.animation.type || 'default'}`];
+    },
   },
   methods: {
     getBaseRadius() {
@@ -151,7 +150,10 @@ export default {
     },
   },
   mounted() {
-    //setTimeout(() => this.is_mounted = true, this.options.animation.duration);
+    const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
+    circle.style.setProperty('--ep-circumference', this.getCircumference());
+    circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+    circle.style.setProperty('animation-duration', this.animationDuration);
   },
 };
 </script>
@@ -160,19 +162,18 @@ export default {
   @import "~@/animations.scss";
 
   .ep-circle--empty, .ep-circle--progress {
-    --ep-stroke-offset: 500;
-    --ep-circumference: 1200;
   }
 
   .ep-circle--progress {
-    &.animation__normal {
-      animation: ep-progress--init__normal 2s ease-in-out forwards;
+    animation-timing-function: ease-out;
+    &.animation__default {
+      animation-name: ep-progress--init__default;
     }
-    &.animation__normal {
-      animation: ep-progress--init__rs 2s ease-in-out forwards;
+    &.animation__rs {
+      animation-name: ep-progress--init__rs;
     }
   }
 
-  @include ep-progress--init__normal(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
 </style>

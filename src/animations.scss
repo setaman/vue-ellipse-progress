@@ -1,5 +1,5 @@
-@mixin ep-progress--init__normal ($offset, $circumference) {
-  @keyframes ep-progress--init__normal {
+@mixin ep-progress--init__default ($offset, $circumference) {
+  @keyframes ep-progress--init__default {
     0% {
       stroke-dashoffset: $circumference;
     }

@@ -31,6 +31,7 @@
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="false"
+                            :animation="{type: 'rs', duration: '2000'}"
                             font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -43,7 +44,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
-    progress: 46,
+    progress: 75,
     size: 400,
     color: {
       gradient: {

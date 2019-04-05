@@ -100,7 +100,7 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        type: '',
+        type: 'default',
         duration: 500,
       }),
     },
