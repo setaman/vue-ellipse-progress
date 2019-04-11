@@ -1,12 +1,15 @@
 @mixin ep-progress--loading ($offset, $circumference) {
   @keyframes ep-progress--loading {
     0% {
+      opacity: 0.5;
       stroke-dashoffset: $circumference;
     }
     50% {
+      opacity: 1;
       stroke-dashoffset: $offset;
     }
     100% {
+      opacity: 0.5;
       stroke-dashoffset: $circumference;
     }
   }

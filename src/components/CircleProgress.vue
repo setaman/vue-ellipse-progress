@@ -36,6 +36,14 @@ export default {
       required: true,
     },
   },
+  watch: {
+    options: {
+      handler() {
+        this.setCustomProperties();
+      },
+      deep: true,
+    },
+  },
   computed: {
     progressOffset() {
       const circumference = this.getCircumference();
@@ -148,12 +156,15 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
+    setCustomProperties() {
+      const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
+      circle.style.setProperty('--ep-circumference', this.getCircumference());
+      circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+      circle.style.setProperty('animation-duration', this.animationDuration);
+    },
   },
   mounted() {
-    const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
-    circle.style.setProperty('--ep-circumference', this.getCircumference());
-    circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
-    circle.style.setProperty('animation-duration', this.animationDuration);
+    this.setCustomProperties();
   },
 };
 </script>

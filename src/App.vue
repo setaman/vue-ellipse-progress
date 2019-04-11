@@ -11,10 +11,14 @@
           Size
         </label>
         <input v-model="size" type="number" id="size"/>
+        <label for="load">
+          LOADING
+          <input id="load" type="checkbox" v-model="loading"/>
+        </label>
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
-                            :loading="true"
+                            :loading="loading"
                             :empty_color="empty_color"
                             :size="parseInt(size)"
                             :thickness="21"
@@ -37,6 +41,7 @@
                             :size="size"
                             :thickness="21"
                             angle=""
+                            :loading="false"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend_value="tasks_done"
@@ -55,6 +60,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
+    loading: true,
     progress: 75,
     tasks_done: 125,
     size: 400,

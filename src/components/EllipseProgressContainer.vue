@@ -239,7 +239,8 @@ export default {
     //transform: rotate(-90deg);
     //transform-origin: 50% 50%;
     &.animation__loading {
-      animation: 1s ep-svg-container--loading infinite forwards;
+      opacity: 0.5;
+      animation: 1s ep-svg-container--loading infinite linear;
     }
   }
 
