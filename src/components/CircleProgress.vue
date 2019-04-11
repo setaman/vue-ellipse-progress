@@ -161,9 +161,6 @@ export default {
 <style scoped lang="scss">
   @import "~@/animations.scss";
 
-  .ep-circle--empty, .ep-circle--progress {
-  }
-
   .ep-circle--progress {
     animation-timing-function: ease-out;
     &.animation__default {
@@ -172,8 +169,20 @@ export default {
     &.animation__rs {
       animation-name: ep-progress--init__rs;
     }
+    &.animation__bounce {
+      animation-name: ep-progress--init__bounce;
+    }
+    &.animation__reverse {
+      animation-name: ep-progress--init__reverse;
+    }
+    &.animation__loop {
+      animation-name: ep-progress--init__loop;
+    }
   }
 
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__loop(var(--ep-stroke-offset), var(--ep-circumference));
 </style>

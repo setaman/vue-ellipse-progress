@@ -122,7 +122,7 @@ export default {
 
   .ep-container {
     display: inline-block;
-    overflow: hidden;
+    //overflow: hidden;
   }
 
   .ep-content {
@@ -148,7 +148,7 @@ export default {
   svg.ep-svg-container {
     transition: inherit;
     transform: rotate(-90deg);
-    transform-origin: 50% 50%;
+    //transform-origin: 50% 50%;
   }
 
 </style>

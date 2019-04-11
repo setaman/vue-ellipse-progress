@@ -22,3 +22,53 @@
     }
   }
 }
+
+@mixin ep-progress--init__reverse ($offset, $circumference) {
+  @keyframes ep-progress--init__reverse {
+    0% {
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      stroke-dashoffset: calc(#{$circumference} * 2);
+    }
+    100% {
+      stroke-dashoffset: calc(#{$circumference} * 2 + #{$offset});
+    }
+  }
+}
+
+@mixin ep-progress--init__loop ($offset, $circumference) {
+  @keyframes ep-progress--init__loop {
+    0% {
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    70% {
+      stroke-dashoffset: calc(#{$circumference} * -1);
+    }
+    100% {
+      stroke-dashoffset: calc((#{$circumference} * -1) - (#{$circumference} - #{$offset}));
+    }
+  }
+}
+
+@mixin ep-progress--init__bounce ($offset, $circumference) {
+  @keyframes ep-progress--init__bounce {
+    0% {
+      animation-timing-function: linear;
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      stroke-dashoffset: calc(#{$offset} - 50);
+    }
+    70% {
+      stroke-dashoffset: calc(#{$offset} + 50);
+    }
+    100% {
+      animation-timing-function: ease-out;
+      stroke-dashoffset: $offset;
+    }
+  }
+}

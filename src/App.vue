@@ -27,14 +27,48 @@
                             :color="color"
                             :empty_color="empty_color"
                             :size="size"
-                            :thickness="21"
+                            :thickness="31"
                             :empty_thickness="20"
-                            :line_mode="{mode: 'normal', offset: 10}"
+                            :line_mode="{mode: 'in_overlap', offset: 10}"
                             :legend="false"
-                            :animation="{type: 'rs', duration: '2000'}"
+                            :animation="{type: 'rs', duration: '1000'}"
                             font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="true"
+                            :animation="{type: 'bounce', duration: '1000'}"
+                            font_size="5rem">
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="true"
+                            :animation="{type: 'reverse', duration: '1000'}"
+                            font_size="5rem">
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(progress)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend="true"
+                            :animation="{type: 'loop', duration: '2000'}"
+                            font_size="5rem">
+      </vue-ellipse-progress>
+      loop
     </div>
   </div>
 </template>
