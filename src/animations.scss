@@ -1,3 +1,17 @@
+@mixin ep-progress--loading ($offset, $circumference) {
+  @keyframes ep-progress--loading {
+    0% {
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      stroke-dashoffset: $offset;
+    }
+    100% {
+      stroke-dashoffset: $circumference;
+    }
+  }
+}
+
 @mixin ep-progress--init__default ($offset, $circumference) {
   @keyframes ep-progress--init__default {
     0% {

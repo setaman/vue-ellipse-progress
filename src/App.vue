@@ -14,11 +14,13 @@
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
+                            :loading="true"
                             :empty_color="empty_color"
                             :size="parseInt(size)"
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
+                            :animation="{type: '', duration: '4000'}"
                             :legend="false"
                             font_size="5rem">
         <img slot="legend_capture" src="@/assets/icon.svg">

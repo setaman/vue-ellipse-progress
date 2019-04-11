@@ -5,7 +5,8 @@
       <svg class="ep-svg-container"
            :height="size" :width="size"
            xmlns="http://www.w3.org/2000/svg"
-           :style="{transform: `rotate(${angle || -90}deg)`}">
+           :class="{'animation__loading': loading}"
+           :style="{transform: `rotate(${startAngle}deg)`}">
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
           <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
@@ -141,6 +142,9 @@ export default {
     options() {
       return { ...this.$props, id: this._uid };
     },
+    startAngle() {
+      return this.loading ? '' : (this.angle || -90);
+    },
     legendValue() {
       return Number.parseFloat(this.animated_legend_value.toFixed(this.countDecimals())) || 0;
     },
@@ -234,6 +238,15 @@ export default {
     transition: inherit;
     //transform: rotate(-90deg);
     //transform-origin: 50% 50%;
+    &.animation__loading {
+      animation: 1s ep-svg-container--loading infinite forwards;
+    }
+  }
+
+  @keyframes ep-svg-container--loading {
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
 </style>

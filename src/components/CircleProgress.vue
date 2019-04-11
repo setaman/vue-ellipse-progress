@@ -114,7 +114,7 @@ export default {
       }
     },
     animationClass() {
-      return [`animation__${this.options.animation.type || 'default'}`];
+      return [`animation__${this.options.animation.type || 'default'}`, { 'animation__loading': this.options.loading }];
     },
   },
   methods: {
@@ -180,10 +180,16 @@ export default {
     &.animation__loop {
       animation-name: ep-progress--init__loop;
     }*/
+    &.animation__loading {
+      animation-name: ep-progress--loading;
+      animation-iteration-count: infinite;
+      animation-duration: 2s !important;
+    }
   }
 
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--loading(var(--ep-stroke-offset), var(--ep-circumference));
   /*@include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__loop(var(--ep-stroke-offset), var(--ep-circumference));*/
