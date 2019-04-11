@@ -131,6 +131,11 @@ export default {
       required: false,
       default: -90,
     },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     options() {
