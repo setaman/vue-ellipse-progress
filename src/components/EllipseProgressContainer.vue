@@ -101,7 +101,7 @@ export default {
       required: false,
       default: () => ({
         type: 'default',
-        duration: 500,
+        duration: 1000,
       }),
     },
     legend: {
