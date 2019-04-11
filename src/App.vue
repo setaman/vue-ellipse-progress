@@ -36,10 +36,10 @@
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
-                            :legend="false"
                             :legend_value="tasks_done"
-                            :animation="{type:'', duration: 5000}"
-                            font_size="3rem">
+                            font_color="white"
+                            :animation="{type:'', duration: 500}"
+                            font_size="4rem">
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
