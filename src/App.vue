@@ -21,18 +21,27 @@
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="false"
                             font_size="5rem">
-        <img src="@/assets/icon.svg">
+        <img slot="legend_capture" src="@/assets/icon.svg">
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="parseFloat(progress)"
+      <div>
+        <label for="tasks">
+          Tasks
+        </label>
+        <input v-model="tasks_done" max="200" min="0" type="number" id="tasks"/>
+      </div>
+      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
                             :empty_color="empty_color"
                             :size="size"
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
-                            :legend="false"
-                            font_size="5rem">
-        <img src="@/assets/icon.svg">
+                            :legend_value="tasks_done"
+                            font_color="white"
+                            :animation="{type:'', duration: 500}"
+                            font_size="4rem">
+        <span slot="legend_value">/200</span>
+        <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
     </div>
   </div>
@@ -43,6 +52,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
+    tasks_done: 125,
     progress: 46,
     size: 400,
     color: {
@@ -118,6 +128,11 @@ export default {
       },
     },
   }),
+  computed: {
+    tasksDonePercent() {
+      return this.tasks_done * 100 / 200;
+    },
+  },
   methods: {
     updateProgress() {
       this.progress = parseFloat((Math.floor(Math.random() * 100).toFixed(2)));
@@ -136,7 +151,7 @@ export default {
   padding: 20px;
   display: flex;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Arial',serif ;
   color: white;
   background-color: #050a27;
