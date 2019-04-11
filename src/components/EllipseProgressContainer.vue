@@ -12,11 +12,11 @@
         <circle-progress :options="options"/>
       </svg>
 
-      <div class="ep-legend-container" :style="{maxWidth: `${size}px`}">
-        <span v-if="legend" class="ep-legend" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
+      <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
+        <span v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
-        <slot name="legend"></slot>
+        <slot name="legend_capture"></slot>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   data: () => ({
     animated_legend_value: 0,
     raf_id: null,
-    animation_offset: 0,
+    animation_step: 0,
   }),
   props: {
     progress: {
@@ -140,11 +140,12 @@ export default {
   },
   methods: {
     animateLegendValue(old = 0, updated = this.legend_value) {
+      if (!this.legend) { return; }
       if (!this.legend_value) {
         updated = 0;
       }
 
-      this.animation_offset = this.legendAnimationOffset(Math.abs(updated - this.animated_legend_value));
+      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value));
 
       if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
 
@@ -154,11 +155,11 @@ export default {
         this.raf_id = requestAnimationFrame(this.countDown);
       }
     },
-    legendAnimationOffset(value) {
-      return value / ((this.animation.duration / 1000) * 60);
+    legendAnimationStep(difference) {
+      return difference / ((this.animation.duration / 1000) * 60);
     },
     countUp() {
-      this.animated_legend_value += this.animation_offset;
+      this.animated_legend_value += this.animation_step;
       if (this.animated_legend_value < this.legend_value) {
         requestAnimationFrame(this.countUp);
       } else {
@@ -167,7 +168,7 @@ export default {
       }
     },
     countDown() {
-      this.animated_legend_value -= this.animation_offset;
+      this.animated_legend_value -= this.animation_step;
       if (this.animated_legend_value > this.legend_value) {
         requestAnimationFrame(this.countDown);
       } else {
@@ -204,12 +205,12 @@ export default {
     position: relative;
   }
 
-  .ep-legend-container {
+  .ep-legend--container {
     transition: inherit;
     position: absolute;
     text-align: center;
   }
-  .ep-legend {
+  .ep-legend--value {
     transition: inherit;
     text-align: center;
     display: block;
