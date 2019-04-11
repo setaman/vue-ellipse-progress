@@ -34,6 +34,7 @@
                             :empty_color="empty_color"
                             :size="size"
                             :thickness="21"
+                            angle=""
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend_value="tasks_done"
