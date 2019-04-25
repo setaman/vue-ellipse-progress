@@ -5,7 +5,6 @@
       <svg class="ep-svg-container"
            :height="size" :width="size"
            xmlns="http://www.w3.org/2000/svg"
-           :class="{'animation__loading': loading}"
            :style="{transform: `rotate(${startAngle}deg)`}">
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
@@ -154,6 +153,12 @@ export default {
       cancelAnimationFrame(this.raf_id);
       this.animateLegendValue(old, updated);
     },
+    loading(updated) {
+      if (!updated) {
+        this.animated_legend_value = 0;
+        this.animateLegendValue();
+      }
+    },
   },
   methods: {
     animateLegendValue(old = 0, updated = this.legend_value) {
@@ -162,7 +167,7 @@ export default {
         updated = 0;
       }
 
-      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value));
+      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value || updated));
 
       if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
 
@@ -202,7 +207,9 @@ export default {
     },
   },
   mounted() {
-    this.raf_id = this.animateLegendValue();
+    if (!this.loading) {
+      this.raf_id = this.animateLegendValue();
+    }
   },
 };
 </script>
@@ -237,16 +244,5 @@ export default {
   svg.ep-svg-container {
     transition: inherit;
     transform-origin: 50% 50%;
-    &.animation__loading {
-      opacity: 0.5;
-      //animation: 1s ep-svg-container--loading infinite linear;
-    }
   }
-
-  @keyframes ep-svg-container--loading {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
 </style>
