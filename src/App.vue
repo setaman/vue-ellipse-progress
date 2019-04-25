@@ -15,11 +15,12 @@
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
                             :empty_color="empty_color"
-                            :size="parseInt(size)"
+                            :size="Number(size)"
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="false"
+                            :animation="{type: 'rs', duration: '1500', delay: 500}"
                             font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -28,10 +29,11 @@
                             :empty_color="empty_color"
                             :size="size"
                             :thickness="31"
+                            line="square"
                             :empty_thickness="20"
                             :line_mode="{mode: 'in_overlap', offset: 10}"
                             :legend="false"
-                            :animation="{type: 'reverse', duration: '1500'}"
+                            :animation="{type: 'bounce', duration: '1000', delay: 500}"
                             font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -44,7 +46,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
-    progress: 75,
+    progress: 0,
     size: 400,
     color: {
       gradient: {

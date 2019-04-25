@@ -54,20 +54,19 @@
   }
 }
 
-@mixin ep-progress--init__bounce ($offset, $circumference) {
+@mixin ep-progress--init__bounce ($offset, $in_offset, $out_offset, $circumference) {
   @keyframes ep-progress--init__bounce {
     0% {
       animation-timing-function: linear;
       stroke-dashoffset: $circumference;
     }
-    50% {
-      stroke-dashoffset: calc(#{$offset} - 50);
+    33% {
+      stroke-dashoffset: $out_offset;
     }
-    70% {
-      stroke-dashoffset: calc(#{$offset} + 50);
+    66% {
+      stroke-dashoffset: $in_offset;
     }
     100% {
-      animation-timing-function: ease-out;
       stroke-dashoffset: $offset;
     }
   }

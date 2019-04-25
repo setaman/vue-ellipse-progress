@@ -19,7 +19,9 @@
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
             :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
+            :style="{strokeDashoffset: is_initialized ? progressOffset : getCircumference(),
+                    transition: animationDuration,
+                    'animation-delay': animationDelay}"
     >
     </circle>
 
@@ -29,7 +31,9 @@
 <script>
 export default {
   name: 'CircleProgress',
-  data: () => ({}),
+  data: () => ({
+    is_initialized: false,
+  }),
   props: {
     options: {
       type: Object,
@@ -43,10 +47,15 @@ export default {
       if (offset <= 0) {
         return 0;
       }
+      console.log('CIRCUM', circumference);
+      console.log('OFFSET', offset < circumference ? offset : circumference + 0.5);
       return offset < circumference ? offset : circumference + 0.5;
     },
     animationDuration() {
-      return `${this.options.animation.duration}ms`;
+      return `${this.options.animation.duration || 1000}ms`;
+    },
+    animationDelay() {
+      return `${this.options.animation.delay || 300}ms`;
     },
     /* Colors */
     color() {
@@ -134,7 +143,7 @@ export default {
       return this.options.size;
     },
     getProgress() {
-      return parseFloat(this.options.progress);
+      return parseFloat(this.options.progress || 0);
     },
     getThickness() {
       return this.options.thickness;
@@ -161,14 +170,24 @@ export default {
     getReverseOffset() {
       return this.getDoubleCircumference() + this.progressOffset;
     },
+    getBounceOutOffset() {
+      return (this.progressOffset < 100) ? 0 : this.progressOffset - 100;
+    },
+    getBounceInOffset() {
+      return (this.getCircumference() - this.progressOffset < 100) ? this.progressOffset
+        : this.progressOffset + 100;
+    },
   },
   mounted() {
+    setTimeout(() => { this.is_initialized = true; }, this.options.animation.delay + 100 || 400);
     const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
     circle.style.setProperty('--ep-circumference', this.getCircumference());
     circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
     circle.style.setProperty('--ep-double-circumference', this.getDoubleCircumference());
     circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
     circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
+    circle.style.setProperty('--ep-bounce-out-stroke-offset', this.getBounceOutOffset());
+    circle.style.setProperty('--ep-bounce-in-stroke-offset', this.getBounceInOffset());
     circle.style.setProperty('--ep-reverse-stroke-offset', this.getReverseOffset());
     circle.style.setProperty('animation-duration', this.animationDuration);
   },
@@ -179,8 +198,6 @@ export default {
   @import "~@/animations.scss";
 
   .ep-circle--progress {
-    animation-delay: 1000ms;
-    stroke-dashoffset: var(--ep-circumference) !important;
     &.animation__default {
       animation-timing-function: ease-in-out;
       animation-name: ep-progress--init__default;
@@ -190,6 +207,7 @@ export default {
       animation-name: ep-progress--init__rs;
     }
     &.animation__bounce {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__bounce;
     }
     &.animation__reverse {
@@ -204,7 +222,7 @@ export default {
 
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
-  @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-bounce-in-stroke-offset), var(--ep-bounce-out-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__reverse(var(--ep-reverse-stroke-offset), var(--ep-circumference), var(--ep-double-circumference));
   @include ep-progress--init__loop(var(--ep-loop-stroke-offset), var(--ep-circumference), var(--ep-negative-circumference));
 </style>
