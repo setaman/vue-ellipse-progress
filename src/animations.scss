@@ -42,10 +42,10 @@
     0% {
       stroke-dashoffset: $circumference;
     }
-    50% {
+    33% {
       stroke-dashoffset: 0;
     }
-    70% {
+    66% {
       stroke-dashoffset: $negative_circumference;
     }
     100% {

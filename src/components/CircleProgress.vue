@@ -187,6 +187,7 @@ export default {
       animation-name: ep-progress--init__reverse;
     }*/
     &.animation__loop {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__loop;
     }
   }
