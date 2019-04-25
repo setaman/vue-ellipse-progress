@@ -152,16 +152,24 @@ export default {
     getNegativeCircumference() {
       return this.getCircumference() * -1;
     },
+    getDoubleCircumference() {
+      return this.getCircumference() * 2;
+    },
     getLoopOffset() {
       return this.getNegativeCircumference() - (this.getCircumference() - this.progressOffset);
+    },
+    getReverseOffset() {
+      return this.getDoubleCircumference() + this.progressOffset;
     },
   },
   mounted() {
     const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
     circle.style.setProperty('--ep-circumference', this.getCircumference());
     circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
+    circle.style.setProperty('--ep-double-circumference', this.getDoubleCircumference());
     circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
     circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
+    circle.style.setProperty('--ep-reverse-stroke-offset', this.getReverseOffset());
     circle.style.setProperty('animation-duration', this.animationDuration);
   },
 };
@@ -171,7 +179,8 @@ export default {
   @import "~@/animations.scss";
 
   .ep-circle--progress {
-    //animation-delay: 300ms;
+    animation-delay: 1000ms;
+    stroke-dashoffset: var(--ep-circumference) !important;
     &.animation__default {
       animation-timing-function: ease-in-out;
       animation-name: ep-progress--init__default;
@@ -180,12 +189,13 @@ export default {
       animation-timing-function: ease-out;
       animation-name: ep-progress--init__rs;
     }
-    /*&.animation__bounce {
+    &.animation__bounce {
       animation-name: ep-progress--init__bounce;
     }
     &.animation__reverse {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__reverse;
-    }*/
+    }
     &.animation__loop {
       animation-timing-function: ease-out;
       animation-name: ep-progress--init__loop;
@@ -195,6 +205,6 @@ export default {
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
-  @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__reverse(var(--ep-reverse-stroke-offset), var(--ep-circumference), var(--ep-double-circumference));
   @include ep-progress--init__loop(var(--ep-loop-stroke-offset), var(--ep-circumference), var(--ep-negative-circumference));
 </style>

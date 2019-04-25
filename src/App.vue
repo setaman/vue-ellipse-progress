@@ -31,7 +31,7 @@
                             :empty_thickness="20"
                             :line_mode="{mode: 'in_overlap', offset: 10}"
                             :legend="false"
-                            :animation="{type: 'loop', duration: '1500'}"
+                            :animation="{type: 'reverse', duration: '1500'}"
                             font_size="5rem">
         <img src="@/assets/icon.svg">
       </vue-ellipse-progress>

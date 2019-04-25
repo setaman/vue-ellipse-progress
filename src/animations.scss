@@ -23,16 +23,16 @@
   }
 }
 
-@mixin ep-progress--init__reverse ($offset, $circumference) {
+@mixin ep-progress--init__reverse ($offset, $circumference, $double_circumference) {
   @keyframes ep-progress--init__reverse {
     0% {
       stroke-dashoffset: $circumference;
     }
     50% {
-      stroke-dashoffset: calc(#{$circumference} * 2);
+      stroke-dashoffset: $double_circumference;
     }
     100% {
-      stroke-dashoffset: calc(#{$circumference} * 2 + #{$offset});
+      stroke-dashoffset: $offset;
     }
   }
 }
