@@ -48,51 +48,50 @@
   }
 }
 
-@mixin ep-progress--init__reverse ($offset, $circumference) {
+@mixin ep-progress--init__reverse ($offset, $circumference, $double_circumference) {
   @keyframes ep-progress--init__reverse {
     0% {
       stroke-dashoffset: $circumference;
     }
     50% {
-      stroke-dashoffset: calc(#{$circumference} * 2);
+      stroke-dashoffset: $double_circumference;
     }
     100% {
-      stroke-dashoffset: calc(#{$circumference} * 2 + #{$offset});
+      stroke-dashoffset: $offset;
     }
   }
 }
 
-@mixin ep-progress--init__loop ($offset, $circumference) {
+@mixin ep-progress--init__loop ($offset, $circumference, $negative_circumference) {
   @keyframes ep-progress--init__loop {
     0% {
       stroke-dashoffset: $circumference;
     }
-    50% {
+    33% {
       stroke-dashoffset: 0;
     }
-    70% {
-      stroke-dashoffset: calc(#{$circumference} * -1);
+    66% {
+      stroke-dashoffset: $negative_circumference;
     }
     100% {
-      stroke-dashoffset: calc((#{$circumference} * -1) - (#{$circumference} - #{$offset}));
+      stroke-dashoffset: $offset;
     }
   }
 }
 
-@mixin ep-progress--init__bounce ($offset, $circumference) {
+@mixin ep-progress--init__bounce ($offset, $in_offset, $out_offset, $circumference) {
   @keyframes ep-progress--init__bounce {
     0% {
       animation-timing-function: linear;
       stroke-dashoffset: $circumference;
     }
-    50% {
-      stroke-dashoffset: calc(#{$offset} - 50);
+    33% {
+      stroke-dashoffset: $out_offset;
     }
-    70% {
-      stroke-dashoffset: calc(#{$offset} + 50);
+    66% {
+      stroke-dashoffset: $in_offset;
     }
     100% {
-      animation-timing-function: ease-out;
       stroke-dashoffset: $offset;
     }
   }

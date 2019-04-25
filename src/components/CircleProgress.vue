@@ -9,19 +9,20 @@
             :style="{transition: animationDuration}"
             :stroke-width="getEmptyThickness()">
     </circle>
-    <circle
-      class="ep-circle--progress"
-      :class="animationClass"
-      :r="radius"
-      :cx="getPosition()"
-      :cy="getPosition()"
-      :fill="colorFill"
-      :stroke="color"
-      :stroke-width="getThickness()"
-      :stroke-linecap="options.line"
-      :stroke-dasharray="getCircumference()"
-      :style="{strokeDashoffset: progressOffset, transition: animationDuration,
-      'transform-origin': transformOrigin}"
+    <circle class="ep-circle--progress"
+            :class="animationClass"
+            :r="radius"
+            :cx="getPosition()"
+            :cy="getPosition()"
+            :fill="colorFill"
+            :stroke="color"
+            :stroke-width="getThickness()"
+            :stroke-linecap="options.line"
+            :stroke-dasharray="getCircumference()"
+            :style="{strokeDashoffset: is_initialized ? progressOffset : getCircumference(),
+                    transition: animationDuration,
+                    'animation-delay': animationDelay,
+                    'transform-origin': transformOrigin}"
     >
     </circle>
   </g>
@@ -30,7 +31,9 @@
 <script>
 export default {
   name: 'CircleProgress',
-  data: () => ({}),
+  data: () => ({
+    is_initialized: false,
+  }),
   props: {
     options: {
       type: Object,
@@ -47,7 +50,10 @@ export default {
       return offset < circumference ? offset : circumference + 0.5;
     },
     animationDuration() {
-      return `${this.options.animation.duration}ms`;
+      return `${this.options.animation.duration || 1000}ms`;
+    },
+    animationDelay() {
+      return `${this.options.animation.delay || 300}ms`;
     },
     transformOrigin() {
       return '50% 50%';
@@ -139,7 +145,7 @@ export default {
       return this.options.size;
     },
     getProgress() {
-      return parseFloat(this.options.progress);
+      return parseFloat(this.options.progress || 0);
     },
     getThickness() {
       return this.options.thickness;
@@ -153,16 +159,40 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
-    setCustomProperties() {
-      const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
-      circle.style.setProperty('--ep-circumference', this.getCircumference());
-      circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
-      circle.style.setProperty('--ep-loading-stroke-offset', this.getCircumference() * 0.2);
-      circle.style.setProperty('animation-duration', this.animationDuration);
+    /* Animations helper Methods */
+    getNegativeCircumference() {
+      return this.getCircumference() * -1;
+    },
+    getDoubleCircumference() {
+      return this.getCircumference() * 2;
+    },
+    getLoopOffset() {
+      return this.getNegativeCircumference() - (this.getCircumference() - this.progressOffset);
+    },
+    getReverseOffset() {
+      return this.getDoubleCircumference() + this.progressOffset;
+    },
+    getBounceOutOffset() {
+      return (this.progressOffset < 100) ? 0 : this.progressOffset - 100;
+    },
+    getBounceInOffset() {
+      return (this.getCircumference() - this.progressOffset < 100) ? this.progressOffset
+        : this.progressOffset + 100;
     },
   },
   mounted() {
-    this.setCustomProperties();
+    setTimeout(() => { this.is_initialized = true; }, this.options.animation.delay + 100 || 400);
+    const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
+    circle.style.setProperty('--ep-circumference', this.getCircumference());
+    circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
+    circle.style.setProperty('--ep-double-circumference', this.getDoubleCircumference());
+    circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+    circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
+    circle.style.setProperty('--ep-bounce-out-stroke-offset', this.getBounceOutOffset());
+    circle.style.setProperty('--ep-bounce-in-stroke-offset', this.getBounceInOffset());
+    circle.style.setProperty('--ep-reverse-stroke-offset', this.getReverseOffset());
+    circle.style.setProperty('--ep-loading-stroke-offset', this.getCircumference() * 0.2);
+    circle.style.setProperty('animation-duration', this.animationDuration);
   },
 };
 </script>
@@ -171,8 +201,7 @@ export default {
   @import "~@/animations.scss";
 
   .ep-circle--progress {
-    transform-origin: 50% 50%;
-    opacity: 1;
+    //transform-origin: 50% 50%;
     &.animation__default {
       animation-timing-function: ease-in-out;
       animation-name: ep-progress--init__default;
@@ -181,29 +210,30 @@ export default {
       animation-timing-function: ease-out;
       animation-name: ep-progress--init__rs;
     }
-    /*&.animation__bounce {
+    &.animation__bounce {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__bounce;
     }
     &.animation__reverse {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__reverse;
     }
     &.animation__loop {
+      animation-timing-function: ease-out;
       animation-name: ep-progress--init__loop;
-    }*/
+    }
     &.animation__loading {
       animation-name: ep-progress--loading, ep-progress--loading__rotation;
       animation-iteration-count: infinite !important;
       animation-duration: 2s, 1s !important;
       animation-timing-function: ease-in-out, linear;
-      //animation: 1s ep-svg-container--loading infinite linear;
-
     }
   }
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-bounce-in-stroke-offset), var(--ep-bounce-out-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__reverse(var(--ep-reverse-stroke-offset), var(--ep-circumference), var(--ep-double-circumference));
+  @include ep-progress--init__loop(var(--ep-loop-stroke-offset), var(--ep-circumference), var(--ep-negative-circumference));
   @include ep-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference));
   @include ep-progress--loading__rotation();
-  /*@include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
-  @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
-  @include ep-progress--init__loop(var(--ep-stroke-offset), var(--ep-circumference));*/
 </style>
