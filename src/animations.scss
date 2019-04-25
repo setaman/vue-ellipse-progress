@@ -5,12 +5,20 @@
       stroke-dashoffset: $circumference;
     }
     50% {
-      opacity: 1;
+      opacity: 0.8;
       stroke-dashoffset: $offset;
     }
     100% {
       opacity: 0.5;
       stroke-dashoffset: $circumference;
+    }
+  }
+}
+
+@mixin ep-progress--loading__rotation {
+  @keyframes ep-progress--loading__rotation {
+    100% {
+      transform: rotate(360deg);
     }
   }
 }

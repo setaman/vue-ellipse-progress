@@ -77,7 +77,7 @@ export default {
   components: {},
   data: () => ({
     loading: true,
-    progress: 75,
+    progress: 10,
     tasks_done: 125,
     size: 400,
     color: {

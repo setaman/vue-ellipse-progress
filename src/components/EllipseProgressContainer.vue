@@ -1,6 +1,6 @@
 <template>
   <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`,
-                            transition: `${animation.duration}ms ease-in-out`}">
+                            transition: `width ${animation.duration}ms ease-in-out`}">
     <div class="ep-content">
       <svg class="ep-svg-container"
            :height="size" :width="size"
@@ -211,7 +211,7 @@ export default {
 
   .ep-container {
     display: inline-block;
-    //overflow: hidden;
+    overflow: hidden;
   }
 
   .ep-content {
@@ -236,11 +236,10 @@ export default {
   }
   svg.ep-svg-container {
     transition: inherit;
-    //transform: rotate(-90deg);
-    //transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     &.animation__loading {
       opacity: 0.5;
-      animation: 1.5s ep-svg-container--loading infinite linear;
+      //animation: 1s ep-svg-container--loading infinite linear;
     }
   }
 
