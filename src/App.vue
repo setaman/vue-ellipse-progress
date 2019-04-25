@@ -16,7 +16,7 @@
           <input id="load" type="checkbox" v-model="loading"/>
         </label>
       </div>
-      <!--<vue-ellipse-progress :progress="parseFloat(progress)"
+      <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
                             :loading="loading"
                             :empty_color="empty_color"
@@ -28,14 +28,14 @@
                             :legend="false"
                             font_size="5rem">
         <img slot="legend_capture" src="@/assets/icon.svg">
-      </vue-ellipse-progress>-->
+      </vue-ellipse-progress>
       <div>
         <label for="tasks">
           Tasks
         </label>
         <input v-model="tasks_done" max="200" min="0" type="number" id="tasks"/>
       </div>
-      <!--<vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
+      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
                             :empty_color="empty_color"
                             :size="size"
@@ -50,7 +50,7 @@
                             font_size="4rem">
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
-      </vue-ellipse-progress>-->
+      </vue-ellipse-progress>
       <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
                             :empty_color="empty_color"
@@ -77,7 +77,7 @@ export default {
   components: {},
   data: () => ({
     loading: true,
-    progress: 10,
+    progress: 75,
     tasks_done: 125,
     size: 400,
     color: {
