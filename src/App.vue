@@ -51,6 +51,22 @@
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            angle=""
+                            :loading="loading"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend_value="tasks_done"
+                            font_color="white"
+                            :animation="{type: 'rs', duration: '1500'}"
+                            font_size="4rem">
+        <span slot="legend_value">/200</span>
+        <p slot="legend_capture">GOOD JOB</p>
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>

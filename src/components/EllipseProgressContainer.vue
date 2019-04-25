@@ -17,7 +17,7 @@
       </svg>
 
       <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
-        <span v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
+        <span v-show="!loading" v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend_capture"></slot>
@@ -240,7 +240,7 @@ export default {
     //transform-origin: 50% 50%;
     &.animation__loading {
       opacity: 0.5;
-      animation: 1s ep-svg-container--loading infinite linear;
+      animation: 1.5s ep-svg-container--loading infinite linear;
     }
   }
 

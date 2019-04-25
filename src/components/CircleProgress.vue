@@ -9,8 +9,24 @@
             :style="{transition: animationDuration}"
             :stroke-width="getEmptyThickness()">
     </circle>
-    <circle class="ep-circle--progress"
-            :class="animationClass"
+    <circle
+      v-if="!options.loading"
+      class="ep-circle--progress"
+      :class="animationClass"
+      :r="radius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :fill="colorFill"
+      :stroke="color"
+      :stroke-width="getThickness()"
+      :stroke-linecap="options.line"
+      :stroke-dasharray="getCircumference()"
+      :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
+    >
+    </circle>
+    <circle
+            v-else
+            class="ep-circle--progress animation__loading"
             :r="radius"
             :cx="getPosition()"
             :cy="getPosition()"
@@ -19,10 +35,9 @@
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
             :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
+            :style="{transition: animationDuration}"
     >
     </circle>
-
   </g>
 </template>
 
@@ -122,7 +137,7 @@ export default {
       }
     },
     animationClass() {
-      return [`animation__${this.options.animation.type || 'default'}`, { 'animation__loading': this.options.loading }];
+      return [`animation__${this.options.animation.type || 'default'}`, /*{ 'animation__loading': this.options.loading }*/];
     },
   },
   methods: {
@@ -193,7 +208,7 @@ export default {
     }*/
     &.animation__loading {
       animation-name: ep-progress--loading;
-      animation-iteration-count: infinite;
+      animation-iteration-count: infinite !important;
       animation-duration: 2s !important;
     }
   }
