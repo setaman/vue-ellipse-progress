@@ -47,8 +47,6 @@ export default {
       if (offset <= 0) {
         return 0;
       }
-      console.log('CIRCUM', circumference);
-      console.log('OFFSET', offset < circumference ? offset : circumference + 0.5);
       return offset < circumference ? offset : circumference + 0.5;
     },
     animationDuration() {
