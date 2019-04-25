@@ -9,20 +9,21 @@
             :style="{transition: animationDuration}"
             :stroke-width="getEmptyThickness()">
     </circle>
-    <circle class="ep-circle--progress"
-            :class="animationClass"
-            :r="radius"
-            :cx="getPosition()"
-            :cy="getPosition()"
-            :fill="colorFill"
-            :stroke="color"
-            :stroke-width="getThickness()"
-            :stroke-linecap="options.line"
-            :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: progressOffset, transition: animationDuration}"
+    <circle
+      class="ep-circle--progress"
+      :class="animationClass"
+      :r="radius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :fill="colorFill"
+      :stroke="color"
+      :stroke-width="getThickness()"
+      :stroke-linecap="options.line"
+      :stroke-dasharray="getCircumference()"
+      :style="{strokeDashoffset: progressOffset, transition: animationDuration,
+      'transform-origin': transformOrigin}"
     >
     </circle>
-
   </g>
 </template>
 
@@ -47,6 +48,9 @@ export default {
     },
     animationDuration() {
       return `${this.options.animation.duration}ms`;
+    },
+    transformOrigin() {
+      return '50% 50%';
     },
     /* Colors */
     color() {
@@ -114,7 +118,8 @@ export default {
       }
     },
     animationClass() {
-      return [`animation__${this.options.animation.type || 'default'}`];
+      return [`animation__${!this.options.loading ? this.options.animation.type || 'default' : ''}`,
+        `${this.options.loading ? 'animation__loading' : ''}`];
     },
   },
   methods: {
@@ -148,12 +153,16 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
+    setCustomProperties() {
+      const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
+      circle.style.setProperty('--ep-circumference', this.getCircumference());
+      circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+      circle.style.setProperty('--ep-loading-stroke-offset', this.getCircumference() * 0.2);
+      circle.style.setProperty('animation-duration', this.animationDuration);
+    },
   },
   mounted() {
-    const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
-    circle.style.setProperty('--ep-circumference', this.getCircumference());
-    circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
-    circle.style.setProperty('animation-duration', this.animationDuration);
+    this.setCustomProperties();
   },
 };
 </script>
@@ -162,7 +171,8 @@ export default {
   @import "~@/animations.scss";
 
   .ep-circle--progress {
-    //animation-delay: 300ms;
+    transform-origin: 50% 50%;
+    opacity: 1;
     &.animation__default {
       animation-timing-function: ease-in-out;
       animation-name: ep-progress--init__default;
@@ -180,10 +190,19 @@ export default {
     &.animation__loop {
       animation-name: ep-progress--init__loop;
     }*/
-  }
+    &.animation__loading {
+      animation-name: ep-progress--loading, ep-progress--loading__rotation;
+      animation-iteration-count: infinite !important;
+      animation-duration: 2s, 1s !important;
+      animation-timing-function: ease-in-out, linear;
+      //animation: 1s ep-svg-container--loading infinite linear;
 
+    }
+  }
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference));
+  @include ep-progress--loading__rotation();
   /*@include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__loop(var(--ep-stroke-offset), var(--ep-circumference));*/
