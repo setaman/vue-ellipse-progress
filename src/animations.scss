@@ -37,7 +37,7 @@
   }
 }
 
-@mixin ep-progress--init__loop ($offset, $circumference) {
+@mixin ep-progress--init__loop ($offset, $circumference, $negative_circumference) {
   @keyframes ep-progress--init__loop {
     0% {
       stroke-dashoffset: $circumference;
@@ -46,10 +46,10 @@
       stroke-dashoffset: 0;
     }
     70% {
-      stroke-dashoffset: calc(#{$circumference} * -1);
+      stroke-dashoffset: $negative_circumference;
     }
     100% {
-      stroke-dashoffset: calc((#{$circumference} * -1) - (#{$circumference} - #{$offset}));
+      stroke-dashoffset: $offset;
     }
   }
 }

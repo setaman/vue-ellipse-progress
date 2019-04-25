@@ -148,11 +148,20 @@ export default {
     getCircumference() {
       return this.radius * 2 * Math.PI;
     },
+    /* Animations helper Methods */
+    getNegativeCircumference() {
+      return this.getCircumference() * -1;
+    },
+    getLoopOffset() {
+      return this.getNegativeCircumference() - (this.getCircumference() - this.progressOffset);
+    },
   },
   mounted() {
     const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
     circle.style.setProperty('--ep-circumference', this.getCircumference());
+    circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
     circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+    circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
     circle.style.setProperty('animation-duration', this.animationDuration);
   },
 };
@@ -176,15 +185,15 @@ export default {
     }
     &.animation__reverse {
       animation-name: ep-progress--init__reverse;
-    }
+    }*/
     &.animation__loop {
       animation-name: ep-progress--init__loop;
-    }*/
+    }
   }
 
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
-  /*@include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
+  @include ep-progress--init__bounce(var(--ep-stroke-offset), var(--ep-circumference));
   @include ep-progress--init__reverse(var(--ep-stroke-offset), var(--ep-circumference));
-  @include ep-progress--init__loop(var(--ep-stroke-offset), var(--ep-circumference));*/
+  @include ep-progress--init__loop(var(--ep-loop-stroke-offset), var(--ep-circumference), var(--ep-negative-circumference));
 </style>
