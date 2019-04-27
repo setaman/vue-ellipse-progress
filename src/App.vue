@@ -44,7 +44,7 @@
                             :legend="true"
                             :legend_value="progress"
                             :noData="noData"
-                            :animation="{type: 'rs', duration: 700}"
+                            :animation="{type: 'reverse', duration: 700}"
                             font_size="5rem">
       </vue-ellipse-progress>
       <div>
