@@ -16,7 +16,7 @@
       </svg>
 
       <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
-        <span v-show="!loading" v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
+        <span v-show="!loading" v-if="legend && dataIsAvailable" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend_capture"></slot>
@@ -123,9 +123,6 @@ export default {
     legend_value: {
       type: Number,
       required: false,
-      /*default() {
-        return this.progress;
-      },*/
     },
     angle: {
       type: [String, Number],
@@ -156,6 +153,9 @@ export default {
     getLegendValue() {
       return this.legend_value || this.progress;
     },
+    dataIsAvailable() {
+      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+    },
   },
   watch: {
     legend_value(updated, old) {
@@ -174,12 +174,20 @@ export default {
         this.animateLegendValue();
       }
     },
+    noData(updated) {
+      if (!updated) {
+        this.animated_legend_value = 0;
+        this.animateLegendValue();
+      }
+    },
   },
   methods: {
     animateLegendValue(old = 0, updated = this.getLegendValue) {
-      if (!this.legend) { return; }
+      if (!this.legend && this.dataIsAvailable) { return; }
 
-      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value || updated));
+      this.animation_step = this.legendAnimationStep(
+        Math.abs(updated - this.animated_legend_value || updated),
+      );
 
       if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
 

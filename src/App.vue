@@ -15,6 +15,10 @@
           LOADING
           <input id="load" type="checkbox" v-model="loading"/>
         </label>
+        <label for="nodata">
+          No DATA
+          <input id="nodata" type="checkbox" v-model="noData"/>
+        </label>
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
@@ -34,11 +38,12 @@
                             :loading="loading"
                             :empty_color="empty_color"
                             :size="Number(size)"
-                            :thickness="40"
+                            :thickness="10"
                             :empty_thickness="5"
-                            :line_mode="{mode: 'normal', offset: 20}"
+                            :line_mode="{mode: 'in', offset: 10}"
                             :legend="true"
                             :legend_value="progress"
+                            :noData="noData"
                             :animation="{type: 'rs', duration: 700}"
                             font_size="5rem">
       </vue-ellipse-progress>
@@ -77,9 +82,9 @@
                             :legend_value="tasks_done"
                             font_color="white"
                             :animation="{type: 'bounce', duration: 1000}"
-                            font_size="4rem">
+                            font_size="2rem">
         <span slot="legend_value">/200</span>
-        <p slot="legend_capture">GOOD JOB</p>
+        <p style="margin-bottom: 0" slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
     </div>
   </div>
@@ -91,6 +96,7 @@ export default {
   components: {},
   data: () => ({
     loading: false,
+    noData: false,
     progress: 45.5,
     tasks_done: 125,
     size: 250,

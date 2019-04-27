@@ -7,6 +7,7 @@
       :stroke="emptyColor"
       :fill="emptyColorFill"
       :style="{transition: animationDuration}"
+      :class="{'ep_circle--nodata': options.noData}"
       :stroke-width="getEmptyThickness()">
     </circle>
     <circle
@@ -50,8 +51,7 @@ export default {
   },
   watch: {
     options: {
-      handler(updated) {
-        console.log('UPDATE', updated);
+      handler() {
         this.setProperties();
       },
       deep: true,
@@ -138,7 +138,7 @@ export default {
       }
     },
     dataIsAvailable() {
-      return !Number.isNaN(this.options.progress) && this.options;
+      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
     },
     animationClass() {
       return [`animation__${!this.options.loading && this.dataIsAvailable ? this.options.animation.type || 'default' : 'none'}`,
@@ -260,6 +260,11 @@ export default {
       animation-iteration-count: infinite !important;
       animation-duration: 2s, 1s !important;
       animation-timing-function: ease-in-out, linear;
+    }
+  }
+  .ep-circle--empty {
+    &.ep_circle--nodata {
+      opacity: 0.5;
     }
   }
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
