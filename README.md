@@ -20,16 +20,19 @@ import VueEllipseProgress from 'vue-ellipse-progress';
 Vue.use(VueEllipseProgress);
 ```
 ## Options
+This table provide a quick overview over all available options. For more information and how to create exclusive circles 
+using this properties please read below the table.
 
-
-| Prop     | Type   | Values  | Default | Required | Desciption |
-|----------|--------|---------|---------|----------|------------|
-| `progress` | Number | 0 - 100 |         | &check;      |      |
+| Prop     | Type   | Values  | Default | Required |
+|----------|--------|---------|---------|----------|
+| **[`progress`](#progress)** | Number | 0 - 100 |         | &check;      | 
 | `size` | Number | any |  200       |     |      |
-| `line` | String | "round", "square", "butt" |  round|    |      |
-| `thickness` | Number | \>0 |  5 |    |      |
-| `lineMode` | Object | `{` <br> `mode: [normal \ out \ out_overlap \ in \ in_overlap \ top \ bottom]` <br> `offset: >0 `<br> `}`|  5 |    |      |
-| `empty_thickness` | Number | \>0 |  5 |    |      |
+| `line` | String | "round", "square", "butt" |  round|    |
+| `thickness` | Number | \>=0 |  5 |    |     
+| `lineMode` | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
+| `empty_thickness` | Number | \>=0 |  5 |    |   
+
+- ### `progress` - coming soon
 
 ## Run project local
 ```
