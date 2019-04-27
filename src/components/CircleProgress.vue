@@ -10,7 +10,6 @@
       :stroke-width="getEmptyThickness()">
     </circle>
     <circle
-      v-if="dataIsAvailable"
       class="ep-circle--progress"
       :class="animationClass"
       :r="radius"
@@ -21,7 +20,7 @@
       :stroke-width="getThickness()"
       :stroke-linecap="options.line"
       :stroke-dasharray="getCircumference()"
-      :style="{strokeDashoffset: (is_initialized && !options.loading) ? progressOffset
+      :style="{strokeDashoffset: (dataIsAvailable && is_initialized && !options.loading) ? progressOffset
               : getCircumference(),
               transition: animationDuration,
               'animation-delay': `${delay}ms`,
@@ -129,12 +128,10 @@ export default {
       }
     },
     dataIsAvailable() {
-      console.log(this.options.progress);
-      console.log(Number.isNaN(this.options.progress));
-      return !Number.isNaN(this.options.progress);
+      return !Number.isNaN(this.options.progress) && this.options;
     },
     animationClass() {
-      return [`animation__${!this.options.loading ? this.options.animation.type || 'default' : ''}`,
+      return [`animation__${!this.options.loading && this.dataIsAvailable ? this.options.animation.type || 'default' : 'none'}`,
         `${this.options.loading ? 'animation__loading' : ''}`];
     },
   },
@@ -199,7 +196,6 @@ export default {
     },
   },
   mounted() {
-    if (!this.dataIsAvailable) return;
     this.setAnimationDelay();
     if (this.loading) {
       this.is_initialized = true;
