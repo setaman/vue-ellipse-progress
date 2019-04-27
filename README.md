@@ -5,6 +5,9 @@ A Vue.js component to create beautiful animated circular progress bars
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 ## How to use
 install the library via npm
 ```
@@ -17,6 +20,10 @@ import VueEllipseProgress from '@/plugin';
 Vue.use(VueEllipseProgress);
 ```
 ## Options
+
+| Prop     | Type   | Values  | Default | Required | Desciption |
+|----------|--------|---------|---------|----------|------------|
+| progress | Number | 0 - 100 |         | yes      |            |
 
 ## Run project local
 ```
