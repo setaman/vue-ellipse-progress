@@ -19,9 +19,10 @@
             :stroke-width="getThickness()"
             :stroke-linecap="options.line"
             :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: is_initialized ? progressOffset : getCircumference(),
+            :style="{strokeDashoffset: (is_initialized && !options.loading) ? progressOffset
+                    : getCircumference(),
                     transition: animationDuration,
-                    'animation-delay': animationDelay,
+                    'animation-delay': `${delay}ms`,
                     'transform-origin': transformOrigin}"
     >
     </circle>
@@ -29,11 +30,16 @@
 </template>
 
 <script>
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 export default {
   name: 'CircleProgress',
-  data: () => ({
-    is_initialized: false,
-  }),
+  data() {
+    return {
+      is_initialized: false,
+      delay: this.options.animation.delay || 400,
+      loading: this.options.loading,
+    };
+  },
   props: {
     options: {
       type: Object,
@@ -51,9 +57,6 @@ export default {
     },
     animationDuration() {
       return `${this.options.animation.duration || 1000}ms`;
-    },
-    animationDelay() {
-      return `${this.options.animation.delay || 300}ms`;
     },
     transformOrigin() {
       return '50% 50%';
@@ -179,9 +182,22 @@ export default {
       return (this.getCircumference() - this.progressOffset < 100) ? this.progressOffset
         : this.progressOffset + 100;
     },
+    async setAnimationDelay() {
+      if (this.loading) {
+        this.delay = 0;
+        return;
+      }
+      await wait(this.delay + (this.options.animation.duration || 1000));
+      this.delay = 0;
+    },
   },
   mounted() {
-    setTimeout(() => { this.is_initialized = true; }, this.options.animation.delay + 100 || 400);
+    this.setAnimationDelay();
+    if (this.loading) {
+      this.is_initialized = true;
+    } else {
+      setTimeout(() => { this.is_initialized = true; }, this.options.animation.delay + 100 || 400);
+    }
     const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
     circle.style.setProperty('--ep-circumference', this.getCircumference());
     circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());

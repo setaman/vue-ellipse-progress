@@ -24,9 +24,8 @@
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
-                            :animation="{type: '', duration: '4000'}"
                             :legend="false"
-                            :animation="{type: 'rs', duration: '1500', delay: 500}"
+                            :animation="{type: 'rs', duration: 700}"
                             font_size="5rem">
         <img slot="legend_capture" src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -35,6 +34,7 @@
           Tasks
         </label>
         <input v-model="tasks_done" max="200" min="0" type="number" id="tasks"/>
+        <button @click="updateTasksDone">Update Tasks</button>
       </div>
       <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
@@ -47,7 +47,7 @@
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend_value="tasks_done"
                             font_color="white"
-                            :animation="{type: 'rs', duration: '1500'}"
+                            :animation="{type: 'loop', duration: 1000}"
                             font_size="4rem">
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
@@ -63,7 +63,7 @@
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend_value="tasks_done"
                             font_color="white"
-                            :animation="{type: 'rs', duration: '1500'}"
+                            :animation="{type: 'bounce'}"
                             font_size="4rem">
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
@@ -162,6 +162,9 @@ export default {
   methods: {
     updateProgress() {
       this.progress = parseFloat((Math.floor(Math.random() * 100).toFixed(2)));
+    },
+    updateTasksDone() {
+      this.tasks_done = (Math.floor(Math.random() * 200).toFixed(0));
     },
   },
 };

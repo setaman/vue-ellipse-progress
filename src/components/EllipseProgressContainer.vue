@@ -209,7 +209,7 @@ export default {
   },
   mounted() {
     if (!this.loading) {
-      this.raf_id = this.animateLegendValue();
+      setTimeout(() => { this.raf_id = this.animateLegendValue(); }, this.animation.delay || 400);
     }
   },
 };
