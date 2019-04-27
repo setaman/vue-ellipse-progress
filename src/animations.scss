@@ -1,3 +1,28 @@
+@mixin ep-progress--loading ($offset, $circumference) {
+  @keyframes ep-progress--loading {
+    0% {
+      opacity: 0.5;
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      opacity: 0.8;
+      stroke-dashoffset: $offset;
+    }
+    100% {
+      opacity: 0.5;
+      stroke-dashoffset: $circumference;
+    }
+  }
+}
+
+@mixin ep-progress--loading__rotation {
+  @keyframes ep-progress--loading__rotation {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 @mixin ep-progress--init__default ($offset, $circumference) {
   @keyframes ep-progress--init__default {
     0% {

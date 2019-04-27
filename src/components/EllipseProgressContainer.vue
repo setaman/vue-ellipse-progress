@@ -1,11 +1,11 @@
 <template>
   <div class="ep-container" :style="{maxWidth: `${size}px`, maxHeight: `${size}px`,
-                            transition: `${animation.duration}ms ease-in-out`}">
+                            transition: `width ${animation.duration}ms ease-in-out`}">
     <div class="ep-content">
       <svg class="ep-svg-container"
            :height="size" :width="size"
            xmlns="http://www.w3.org/2000/svg"
-           :style="{transform: `rotate(${angle || -90}deg)`}">
+           :style="{transform: `rotate(${startAngle}deg)`}">
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid"/>
           <gradient v-if="color_fill.gradient" :color="color_fill" type="progress-fill" :id="_uid"/>
@@ -16,7 +16,7 @@
       </svg>
 
       <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
-        <span v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
+        <span v-show="!loading" v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend_capture"></slot>
@@ -132,10 +132,18 @@ export default {
       required: false,
       default: -90,
     },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     options() {
       return { ...this.$props, id: this._uid };
+    },
+    startAngle() {
+      return this.loading ? '' : (this.angle || -90);
     },
     legendValue() {
       return Number.parseFloat(this.animated_legend_value.toFixed(this.countDecimals())) || 0;
@@ -146,6 +154,12 @@ export default {
       cancelAnimationFrame(this.raf_id);
       this.animateLegendValue(old, updated);
     },
+    loading(updated) {
+      if (!updated) {
+        this.animated_legend_value = 0;
+        this.animateLegendValue();
+      }
+    },
   },
   methods: {
     animateLegendValue(old = 0, updated = this.legend_value) {
@@ -154,7 +168,7 @@ export default {
         updated = 0;
       }
 
-      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value));
+      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value || updated));
 
       if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
 
@@ -194,7 +208,9 @@ export default {
     },
   },
   mounted() {
-    this.raf_id = this.animateLegendValue();
+    if (!this.loading) {
+      setTimeout(() => { this.raf_id = this.animateLegendValue(); }, this.animation.delay || 400);
+    }
   },
 };
 </script>
@@ -203,7 +219,7 @@ export default {
 
   .ep-container {
     display: inline-block;
-    //overflow: hidden;
+    overflow: hidden;
   }
 
   .ep-content {
@@ -228,8 +244,6 @@ export default {
   }
   svg.ep-svg-container {
     transition: inherit;
-    //transform: rotate(-90deg);
-    //transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
   }
-
 </style>

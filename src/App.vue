@@ -11,16 +11,21 @@
           Size
         </label>
         <input v-model="size" type="number" id="size"/>
+        <label for="load">
+          LOADING
+          <input id="load" type="checkbox" v-model="loading"/>
+        </label>
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
                             :color="color"
+                            :loading="loading"
                             :empty_color="empty_color"
                             :size="Number(size)"
                             :thickness="21"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="false"
-                            :animation="{type: 'rs', duration: '1500', delay: 500}"
+                            :animation="{type: 'rs', duration: 700}"
                             font_size="5rem">
         <img slot="legend_capture" src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -29,6 +34,7 @@
           Tasks
         </label>
         <input v-model="tasks_done" max="200" min="0" type="number" id="tasks"/>
+        <button @click="updateTasksDone">Update Tasks</button>
       </div>
       <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
@@ -36,11 +42,28 @@
                             :size="size"
                             :thickness="21"
                             angle=""
+                            :loading="false"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend_value="tasks_done"
                             font_color="white"
-                            :animation="{type: 'rs', duration: '1500'}"
+                            :animation="{type: 'loop', duration: 1000}"
+                            font_size="4rem">
+        <span slot="legend_value">/200</span>
+        <p slot="legend_capture">GOOD JOB</p>
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
+                            :color="color"
+                            :empty_color="empty_color"
+                            :size="size"
+                            :thickness="21"
+                            angle=""
+                            :loading="loading"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend_value="tasks_done"
+                            font_color="white"
+                            :animation="{type: 'bounce'}"
                             font_size="4rem">
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
@@ -54,6 +77,7 @@ export default {
   name: 'app',
   components: {},
   data: () => ({
+    loading: true,
     progress: 75,
     tasks_done: 125,
     size: 400,
@@ -138,6 +162,9 @@ export default {
   methods: {
     updateProgress() {
       this.progress = parseFloat((Math.floor(Math.random() * 100).toFixed(2)));
+    },
+    updateTasksDone() {
+      this.tasks_done = (Math.floor(Math.random() * 200).toFixed(0));
     },
   },
 };
