@@ -15,15 +15,21 @@ npm i -S vue-ellipse-progress
 ```
 The library is provided as Vuejs plugin. So just initialize it in your ``main.js``
 ```js
-import VueEllipseProgress from '@/plugin';
+import VueEllipseProgress from 'vue-ellipse-progress';
 
 Vue.use(VueEllipseProgress);
 ```
 ## Options
 
+
 | Prop     | Type   | Values  | Default | Required | Desciption |
 |----------|--------|---------|---------|----------|------------|
-| progress | Number | 0 - 100 |         | yes      |            |
+| `progress` | Number | 0 - 100 |         | &check;      |      |
+| `size` | Number | any |  200       |     |      |
+| `line` | String | "round", "square", "butt" |  round|    |      |
+| `thickness` | Number | \>0 |  5 |    |      |
+| `lineMode` | Object | `{` <br> `mode: [normal \ out \ out_overlap \ in \ in_overlap \ top \ bottom]` <br> `offset: >0 `<br> `}`|  5 |    |      |
+| `empty_thickness` | Number | \>0 |  5 |    |      |
 
 ## Run project local
 ```
