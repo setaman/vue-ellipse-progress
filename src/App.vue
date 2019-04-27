@@ -23,7 +23,7 @@
                             :size="Number(size)"
                             :thickness="21"
                             :empty_thickness="20"
-                            :line_mode="{mode: 'normal', offset: 10}"
+                            :line_mode="{mode: 'in', offset: 0}"
                             :legend="false"
                             :animation="{type: 'rs', duration: 700}"
                             font_size="5rem">
@@ -65,7 +65,7 @@
                             font_color="white"
                             :animation="{type: 'bounce'}"
                             font_size="4rem">
-        <span slot="legend_value">/200</span>
+        <!--<span slot="legend_value">/200</span>-->
         <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
     </div>
@@ -78,7 +78,7 @@ export default {
   components: {},
   data: () => ({
     loading: true,
-    progress: 75,
+    progress: null,
     tasks_done: 125,
     size: 400,
     color: {

@@ -1,29 +1,31 @@
 <template>
   <g class="ep-circle--container">
     <circle class="ep-circle--empty"
-            :r="emptyRadius"
-            :cx="getPosition()"
-            :cy="getPosition()"
-            :stroke="emptyColor"
-            :fill="emptyColorFill"
-            :style="{transition: animationDuration}"
-            :stroke-width="getEmptyThickness()">
+      :r="emptyRadius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :stroke="emptyColor"
+      :fill="emptyColorFill"
+      :style="{transition: animationDuration}"
+      :stroke-width="getEmptyThickness()">
     </circle>
-    <circle class="ep-circle--progress"
-            :class="animationClass"
-            :r="radius"
-            :cx="getPosition()"
-            :cy="getPosition()"
-            :fill="colorFill"
-            :stroke="color"
-            :stroke-width="getThickness()"
-            :stroke-linecap="options.line"
-            :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: (is_initialized && !options.loading) ? progressOffset
-                    : getCircumference(),
-                    transition: animationDuration,
-                    'animation-delay': `${delay}ms`,
-                    'transform-origin': transformOrigin}"
+    <circle
+      v-if="dataIsAvailable"
+      class="ep-circle--progress"
+      :class="animationClass"
+      :r="radius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :fill="colorFill"
+      :stroke="color"
+      :stroke-width="getThickness()"
+      :stroke-linecap="options.line"
+      :stroke-dasharray="getCircumference()"
+      :style="{strokeDashoffset: (is_initialized && !options.loading) ? progressOffset
+              : getCircumference(),
+              transition: animationDuration,
+              'animation-delay': `${delay}ms`,
+              'transform-origin': transformOrigin}"
     >
     </circle>
   </g>
@@ -126,6 +128,11 @@ export default {
           return this.getEmptyBaseRadius();
       }
     },
+    dataIsAvailable() {
+      console.log(this.options.progress);
+      console.log(Number.isNaN(this.options.progress));
+      return !Number.isNaN(this.options.progress);
+    },
     animationClass() {
       return [`animation__${!this.options.loading ? this.options.animation.type || 'default' : ''}`,
         `${this.options.loading ? 'animation__loading' : ''}`];
@@ -192,6 +199,7 @@ export default {
     },
   },
   mounted() {
+    if (!this.dataIsAvailable) return;
     this.setAnimationDelay();
     if (this.loading) {
       this.is_initialized = true;
