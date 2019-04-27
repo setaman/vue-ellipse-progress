@@ -1,29 +1,31 @@
 <template>
   <g class="ep-circle--container">
     <circle class="ep-circle--empty"
-            :r="emptyRadius"
-            :cx="getPosition()"
-            :cy="getPosition()"
-            :stroke="emptyColor"
-            :fill="emptyColorFill"
-            :style="{transition: animationDuration}"
-            :stroke-width="getEmptyThickness()">
+      :r="emptyRadius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :stroke="emptyColor"
+      :fill="emptyColorFill"
+      :style="{transition: animationDuration}"
+      :class="{'ep_circle--nodata': options.noData}"
+      :stroke-width="getEmptyThickness()">
     </circle>
-    <circle class="ep-circle--progress"
-            :class="animationClass"
-            :r="radius"
-            :cx="getPosition()"
-            :cy="getPosition()"
-            :fill="colorFill"
-            :stroke="color"
-            :stroke-width="getThickness()"
-            :stroke-linecap="options.line"
-            :stroke-dasharray="getCircumference()"
-            :style="{strokeDashoffset: (is_initialized && !options.loading) ? progressOffset
-                    : getCircumference(),
-                    transition: animationDuration,
-                    'animation-delay': `${delay}ms`,
-                    'transform-origin': transformOrigin}"
+    <circle
+      class="ep-circle--progress"
+      :class="animationClass"
+      :r="radius"
+      :cx="getPosition()"
+      :cy="getPosition()"
+      :fill="colorFill"
+      :stroke="color"
+      :stroke-width="getThickness()"
+      :stroke-linecap="options.line"
+      :stroke-dasharray="getCircumference()"
+      :style="{strokeDashoffset: (dataIsAvailable && is_initialized && !options.loading) ? progressOffset
+              : getCircumference(),
+              transition: animationDuration,
+              'animation-delay': `${delay}ms`,
+              'transform-origin': transformOrigin}"
     >
     </circle>
   </g>
@@ -38,12 +40,21 @@ export default {
       is_initialized: false,
       delay: this.options.animation.delay || 400,
       loading: this.options.loading,
+      circle: null,
     };
   },
   props: {
     options: {
       type: Object,
       required: true,
+    },
+  },
+  watch: {
+    options: {
+      handler() {
+        this.setProperties();
+      },
+      deep: true,
     },
   },
   computed: {
@@ -126,8 +137,11 @@ export default {
           return this.getEmptyBaseRadius();
       }
     },
+    dataIsAvailable() {
+      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+    },
     animationClass() {
-      return [`animation__${!this.options.loading ? this.options.animation.type || 'default' : ''}`,
+      return [`animation__${!this.options.loading && this.dataIsAvailable ? this.options.animation.type || 'default' : 'none'}`,
         `${this.options.loading ? 'animation__loading' : ''}`];
     },
   },
@@ -190,6 +204,18 @@ export default {
       await wait(this.delay + (this.options.animation.duration || 1000));
       this.delay = 0;
     },
+    setProperties() {
+      this.circle.style.setProperty('--ep-circumference', this.getCircumference());
+      this.circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
+      this.circle.style.setProperty('--ep-double-circumference', this.getDoubleCircumference());
+      this.circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
+      this.circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
+      this.circle.style.setProperty('--ep-bounce-out-stroke-offset', this.getBounceOutOffset());
+      this.circle.style.setProperty('--ep-bounce-in-stroke-offset', this.getBounceInOffset());
+      this.circle.style.setProperty('--ep-reverse-stroke-offset', this.getReverseOffset());
+      this.circle.style.setProperty('--ep-loading-stroke-offset', this.getCircumference() * 0.2);
+      this.circle.style.setProperty('animation-duration', this.animationDuration);
+    },
   },
   mounted() {
     this.setAnimationDelay();
@@ -198,17 +224,8 @@ export default {
     } else {
       setTimeout(() => { this.is_initialized = true; }, this.options.animation.delay + 100 || 400);
     }
-    const circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
-    circle.style.setProperty('--ep-circumference', this.getCircumference());
-    circle.style.setProperty('--ep-negative-circumference', this.getNegativeCircumference());
-    circle.style.setProperty('--ep-double-circumference', this.getDoubleCircumference());
-    circle.style.setProperty('--ep-stroke-offset', this.progressOffset);
-    circle.style.setProperty('--ep-loop-stroke-offset', this.getLoopOffset());
-    circle.style.setProperty('--ep-bounce-out-stroke-offset', this.getBounceOutOffset());
-    circle.style.setProperty('--ep-bounce-in-stroke-offset', this.getBounceInOffset());
-    circle.style.setProperty('--ep-reverse-stroke-offset', this.getReverseOffset());
-    circle.style.setProperty('--ep-loading-stroke-offset', this.getCircumference() * 0.2);
-    circle.style.setProperty('animation-duration', this.animationDuration);
+    this.circle = this.$el.getElementsByClassName('ep-circle--progress')[0];
+    this.setProperties();
   },
 };
 </script>
@@ -243,6 +260,11 @@ export default {
       animation-iteration-count: infinite !important;
       animation-duration: 2s, 1s !important;
       animation-timing-function: ease-in-out, linear;
+    }
+  }
+  .ep-circle--empty {
+    &.ep_circle--nodata {
+      opacity: 0.5;
     }
   }
   @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));

@@ -16,7 +16,7 @@
       </svg>
 
       <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
-        <span v-show="!loading" v-if="legend" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
+        <span v-show="!loading" v-if="legend && dataIsAvailable" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend_capture"></slot>
@@ -123,9 +123,6 @@ export default {
     legend_value: {
       type: Number,
       required: false,
-      default() {
-        return this.progress;
-      },
     },
     angle: {
       type: [String, Number],
@@ -133,6 +130,11 @@ export default {
       default: -90,
     },
     loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    noData: {
       type: Boolean,
       required: false,
       default: false,
@@ -148,9 +150,21 @@ export default {
     legendValue() {
       return Number.parseFloat(this.animated_legend_value.toFixed(this.countDecimals())) || 0;
     },
+    getLegendValue() {
+      return this.legend_value || this.progress;
+    },
+    dataIsAvailable() {
+      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+    },
   },
   watch: {
     legend_value(updated, old) {
+      if (Number.isNaN(this.legend_value)) return;
+      cancelAnimationFrame(this.raf_id);
+      this.animateLegendValue(old, updated);
+    },
+    progress(updated, old) {
+      if (!Number.isNaN(parseFloat(this.legend_value))) return;
       cancelAnimationFrame(this.raf_id);
       this.animateLegendValue(old, updated);
     },
@@ -160,15 +174,20 @@ export default {
         this.animateLegendValue();
       }
     },
+    noData(updated) {
+      if (!updated) {
+        this.animated_legend_value = 0;
+        this.animateLegendValue();
+      }
+    },
   },
   methods: {
-    animateLegendValue(old = 0, updated = this.legend_value) {
-      if (!this.legend) { return; }
-      if (!this.legend_value) {
-        updated = 0;
-      }
+    animateLegendValue(old = 0, updated = this.getLegendValue) {
+      if (!this.legend && this.dataIsAvailable) { return; }
 
-      this.animation_step = this.legendAnimationStep(Math.abs(updated - this.animated_legend_value || updated));
+      this.animation_step = this.legendAnimationStep(
+        Math.abs(updated - this.animated_legend_value || updated),
+      );
 
       if (this.raf_id) { cancelAnimationFrame(this.raf_id); }
 
@@ -179,29 +198,29 @@ export default {
       }
     },
     legendAnimationStep(difference) {
-      return difference / ((this.animation.duration / 1000) * 60);
+      return difference / (((this.animation.duration || 1000) / 1000) * 60);
     },
     countUp() {
       this.animated_legend_value += this.animation_step;
-      if (this.animated_legend_value < this.legend_value) {
+      if (this.animated_legend_value < this.getLegendValue) {
         requestAnimationFrame(this.countUp);
       } else {
         cancelAnimationFrame(this.raf_id);
-        this.animated_legend_value = this.toNumber(this.legend_value);
+        this.animated_legend_value = this.toNumber(this.getLegendValue);
       }
     },
     countDown() {
       this.animated_legend_value -= this.animation_step;
-      if (this.animated_legend_value > this.legend_value) {
+      if (this.animated_legend_value > this.getLegendValue) {
         requestAnimationFrame(this.countDown);
       } else {
         cancelAnimationFrame(this.raf_id);
-        this.animated_legend_value = this.toNumber(this.legend_value);
+        this.animated_legend_value = this.toNumber(this.getLegendValue);
       }
     },
     countDecimals() {
-      if ((this.legend_value % 1) === 0) return 0;
-      return this.legend_value.toString().split('.')[1].length;
+      if ((this.getLegendValue % 1) === 0) return 0;
+      return this.getLegendValue.toString().split('.')[1].length;
     },
     toNumber(value) {
       return Number.parseFloat(value);
