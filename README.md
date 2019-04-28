@@ -1,6 +1,10 @@
 # vue-ellipse-progress
 A Vue.js component to create beautiful animated circular progress bars
 
+<div style="text-align: center;">
+  <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">  
+</div>
+
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
@@ -23,6 +27,7 @@ Now use the component
 ```html
 <vue-ellipse-progress 
   :progress="progress"
+  :angle="-90"
   :color="color"
   :loading="loading"
   :emptyColor="empty_color"
@@ -76,6 +81,8 @@ using this properties please read below the table.
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 
+<br>
+
 - ### `progress`
 
 ###### Animated: :heavy_check_mark: 
@@ -94,6 +101,8 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 >:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
 
+<br>
+
 - ### `size` 
 
 ###### Animated: :heavy_check_mark: 
@@ -102,15 +111,21 @@ is any Number from 0 to infinity. Defines the width and height of the circle. Th
 
 >:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
+<br>
+
 - ### `line` 
 
 is any string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+
+<br>
 
 - ### `thickness` 
 
 ###### Animated: :heavy_check_mark:
 
 is any Number >=0. Defines the progress circle line thickness. Internaly is used the css property `stroke-width`.
+
+<br>
 
 - ### `lineMode` 
 
@@ -152,11 +167,15 @@ Lets take a look at few examples
 
 As you can see in the second and fourth examples these are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But these modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
 
+<br>
+
 - ### `emptyThickness` 
 
 ###### Animated: :heavy_check_mark:
 
 is any Number >=0. Defines the empty circle line thickness. Internaly is used the css property `stroke-width`.
+
+<br>
 
 - ### `color`
 
@@ -172,7 +191,7 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
     
 ###### Example: :scroll:
 
-Now you are ready for an bad example. Takes the same value as **[`color`](#color)**
+Now you are ready for an bad example.
 
 ```js
 color: {
@@ -197,21 +216,31 @@ color: {
     
 I also recommend you to play with this values in the demo to finde perfect colors for you!
 
+<br>
+
 - ### `colorFill`
 
 defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
+
+<br>
 
 - ### `emptyColor`
 
 defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
 
+<br>
+
 - ### `emptyColorFill`
 
 defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
+<br>
+
 - ### `legend`
 
 is a Boolean. Defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
+
+<br>
 
 - ### `legendValue`
 
@@ -230,9 +259,11 @@ Now you can display custom progress value that still animated and circle progres
 
 >:heavy_exclamation_mark: note that `legendValue` excludes **[`progress`](#progress)** but not vice versa.
 
+<br>
+
 - ### `animation`
 
-defines the initial animation of progress circle line filling. You can choose one from predefined animation and set a specific duration and delay. 
+defines the initial animation of progress circle line filling. You can choose one from predefined animations and set a specific duration and delay. 
 
 - `type:`
   - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
@@ -245,9 +276,13 @@ defines the initial animation of progress circle line filling. You can choose on
 :animation="{type: 'rs', duration: 700, duration: 200}"
 ```
 
+<br>
+
 - ### `loading`
 
 forces loading state. The component provide an indeterminate state for the case that you data is not available immediately. With this property set `true` you can use the component as the indeterminate progress. 
+
+<br>
 
 - ### `noData`
 
@@ -255,21 +290,31 @@ forces no data state. The component provide an no data state for the case that y
 
 >:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
 
+<br>
+
 - ### `angle`
 
 is any Number. Defines the statring point of the progress cirlce line 
+
+<br>
 
 - ### `fontSize`
 
 is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend
 
+<br>
+
 - ### `fontColor`
 
 is any valid css color. Defines the color of the circles legend
 
+<br>
+
 - ### `legendClass`
 
 adds class to the circles legend to give you the possibility to style it
+
+<br>
 
 ### Slot options
 
@@ -294,6 +339,8 @@ This code ...
 ... produces following result. The slots are marked corresponding:
 
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
+
+<br>
 
 ## Run project local
 ```
