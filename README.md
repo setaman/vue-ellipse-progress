@@ -50,7 +50,7 @@ using this properties please read below the table.
 |----------|--------|---------|---------|----------|
 | **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      |
 | **[`size`](#size)** | Number | >=0 |  200       |     |      |
-| **[`line`](#line)** | String | "round", "square", "butt" |  round|    |
+| **[`line`](#line)** | String | round \| square \| butt |  round|    |
 | **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
 | **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |  
@@ -79,14 +79,18 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to infinity. Defines the width and height of the circle.
+is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exeeds the `size` value! 
 
->:heavy_exclamation_mark: check **[`lineMode`](#lineMode)** property to understand how the progress circle behaves depending on line mode and offset.
+>:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on line mode and offset.
 
 - ### `line` 
-coming soon
+
+is any string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+
 - ### `thickness` 
-coming soon
+
+is any Number >=0. Defines the progress circle line thickness. Internaly is used the css property `stroke-width`.
+
 - ### `lineMode` 
 coming soon
 - ### `emptyThickness` 
