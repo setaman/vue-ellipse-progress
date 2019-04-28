@@ -26,13 +26,24 @@ using this properties please read below the table.
 | Prop     | Type   | Values  | Default | Required |
 |----------|--------|---------|---------|----------|
 | **[`progress`](#progress)** | Number | 0 - 100 |         | &check;      | 
-| `size` | Number | any |  200       |     |      |
-| `line` | String | "round", "square", "butt" |  round|    |
-| `thickness` | Number | \>=0 |  5 |    |     
-| `lineMode` | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
-| `empty_thickness` | Number | \>=0 |  5 |    |   
+| **[`size`](#size)** | Number | any |  200       |     |      |
+| **[`line`](#line)** | String | "round", "square", "butt" |  round|    |
+| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |     
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
+| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |   
 
-- ### `progress` - coming soon
+- ###`progress` 
+coming soon
+- ###`size` 
+coming soon
+- ###`line` 
+coming soon
+- ###`thickness` 
+coming soon
+- ###`lineMode` 
+coming soon
+- ###`emptyThickness` 
+coming soon
 
 ## Run project local
 ```
