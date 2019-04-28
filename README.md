@@ -79,7 +79,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exeeds the `size` value! 
+is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
 >:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on line mode and offset.
 
@@ -89,10 +89,50 @@ is any string value from `round | square | butt`. Defines the progress circle li
 
 - ### `thickness` 
 
+###### Animated: :heavy_check_mark:
+
 is any Number >=0. Defines the progress circle line thickness. Internaly is used the css property `stroke-width`.
 
 - ### `lineMode` 
-coming soon
+
+###### Animated: :heavy_check_mark: 
+
+This property defines how the progress line is aligned in relation to empty line. You can undestand the modes as the preset values, that defines in wich direction the progress line grows. 
+
+- `mode`:
+  - `normal`: this is the default value and both lines are aligned at the base line (centered).
+  <img width="100" height="50" src="https://github.com/setaman/Bilder/blob/master/ellipse-normal.png">
+  
+  - `in`: the progress line is inside the empty circle and grows inside
+  <img width="100" height="40" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.png">
+  
+   - `in-over`: the progress line is also inside the empty circle but overlap the empty circle and grows inside 
+  <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.over.png">
+  
+  - `out`: the progress line is outside the empty circle
+  <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out.png">
+  
+  - `out-over`: the progress line is also outside the empty circle but overlap the empty circle and grows outside
+  <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out-over.png">
+  
+  - `bottom`: the progress line is aligned at the bottom of the empty circle
+  <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-bottom.png">
+  
+  - `top`: the progress line is aligned at the top of the empty circle
+  <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-top.png">
+
+- `offset`: is any negative o positive number and defines the distance between the progress and empty lines. Can be **only** combied with the `in` and `out` modes
+
+###### Example: :scroll:
+
+Lets take a look at few examples
+
+| `{mode: 'in', offset: 10}`  | `{mode: 'in', offset: -10}`   | `{mode: 'out', offset: 10}`  | `{mode: 'out', offset: -15}` |
+|----------|--------|---------|---------|
+| <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
+
+As you can see in the second and fourth examples these are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But these modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
+
 - ### `emptyThickness` 
 coming soon
 - ### `color`
