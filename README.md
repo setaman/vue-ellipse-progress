@@ -52,8 +52,8 @@ The `progress` is the only one required property. However in order to created un
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
-| Prop     | Type   | Values  | Default | Required |
-|----------|--------|---------|---------|----------|
+| Prop     | Type   | Values  | Default |
+|----------|--------|---------|---------|
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
@@ -64,6 +64,8 @@ using this properties please read below the table.
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
+| **[`legend`](#legend)** | Boolean | your know this |  true |
+| **[`legendValue`](#legendvalue)** | Number |  |   |
 
 - ### `progress`
 
@@ -82,7 +84,6 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 >:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
-
 
 - ### `size` 
 
@@ -199,6 +200,28 @@ defines the color of the empty circle **line**. Takes the same value as **[`colo
 
 defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
+- ### `legend`
+
+is a Boolean. Defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
+
+- ### `legendValue`
+
+###### Animated: :heavy_check_mark:
+
+is any Number. Use this property if you want to customize the shown progress as the legend of the circle. If defined `legendValue` replaces **[`progress`](#progress)** as the circle legend!
+
+###### Example: :scroll:
+
+Lets say you have to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set 'legendValue = 3.5' and calculate the progress something like that:
+
+```js
+this.progress = 3.5 * 100 / 5; // the rating percentage
+```
+Now you can display custom progress value that still animated and circle progress fills properly!
+
+Defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
+
+>:heavy_exclamation_mark: note that `legendValue` excludes **[`progress`](#progress)** but not vice versa.
 
 - ### `animation`
 coming soon  
