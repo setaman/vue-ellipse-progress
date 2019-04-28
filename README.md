@@ -19,30 +19,53 @@ import VueEllipseProgress from 'vue-ellipse-progress';
 
 Vue.use(VueEllipseProgress);
 ```
+Now use the component
+```html
+<vue-ellipse-progress 
+  :progress="progress"
+  :color="color"
+  :loading="loading"
+  :emptyColor="empty_color"
+  :size="size"
+  :thickness="10"
+  :emptyThickness="5"
+  :lineMode="{mode: 'in', offset: 10}"
+  :legend="true"
+  :legendValue="tasks_done"
+  :noData="noData"
+  :animation="{type: 'reverse', duration: 700, delay: 400}"
+  :fontColor="white"
+  fontSize="5rem">
+  
+  <span slot="legend_value">/200</span>
+  <p slot="legend_capture">GOOD JOB</p>
+  
+</vue-ellipse-progress>
+``` 
 ## Options
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
-| Prop     | Type   | Values  | Default | Required |
-|----------|--------|---------|---------|----------|
-| **[`progress`](#progress)** | Number | 0 - 100 |         | &check;      | 
+| Prop     | Type   | Values  | Default | Required | Animated|
+|----------|--------|---------|---------|----------|---------|
+| **[`progress`](#progress)** | Number | 0 - 100 |         | &check;      | &check;      |
 | **[`size`](#size)** | Number | any |  200       |     |      |
-| **[`line`](#line)** | String | "round", "square", "butt" |  round|    |
-| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |     
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
-| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |   
+| **[`line`](#line)** | String | "round", "square", "butt" |  round|    | &check;      |
+| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | &check;      | 
+| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    | &check;      |   
 
 - ### `progress` 
 coming soon
-###`size` 
+- ### `size` 
 coming soon
-###`line` 
+- ### `line` 
 coming soon
-###`thickness` 
+- ### `thickness` 
 coming soon
-###`lineMode` 
+- ### `lineMode` 
 coming soon
-###`emptyThickness` 
+- ### `emptyThickness` 
 coming soon
 
 ## Run project local
