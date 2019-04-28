@@ -52,6 +52,8 @@ The `progress` is the only one required property. However in order to created un
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
+> :grey_exclamation: Also make sure to check **[slot options](#slot-options)** 
+
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
 | **[`progress`](#progress)** | Number | 0 - 100 |   
@@ -98,7 +100,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
->:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on line the mode and offset.
+>:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
 - ### `line` 
 
@@ -268,6 +270,30 @@ is any valid css color. Defines the color of the circles legend
 - ### `legendClass`
 
 adds class to the circles legend to give you the possibility to style it
+
+### Slot options
+
+- #### `legend-value`
+
+in this slot you can put an additionall elemnt that you want to display biside the progress
+
+- #### `legend-caption`
+in this slot you can put any HTML and slye it on your own. This slot is aligned below the progress 
+
+###### Example: :scroll:
+
+This code ...
+```html
+<vue-ellipse-progress ....>
+  
+        <span slot="legend-value">/200</span>
+        <p slot="legend-caption">TASKS DONE</p>
+  
+      </vue-ellipse-progress>
+```
+... produces following result. The slots are marked corresponding:
+
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
 
 ## Run project local
 ```
