@@ -1,7 +1,7 @@
 # vue-ellipse-progress
 A Vue.js component to create beautiful animated circular progress bars
 
-<div style="text-align: center;">
+<div align="center" style="text-align: center;">
   <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">  
 </div>
 
