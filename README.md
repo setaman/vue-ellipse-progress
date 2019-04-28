@@ -54,13 +54,16 @@ using this properties please read below the table.
 
 | Prop     | Type   | Values  | Default | Required |
 |----------|--------|---------|---------|----------|
-| **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      |
-| **[`size`](#size)** | Number | >=0 |  200       |     |      |
-| **[`line`](#line)** | String | round \| square \| butt |  round|    |
-| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
+| **[`progress`](#progress)** | Number | 0 - 100 |   
+| **[`size`](#size)** | Number | >=0 |  200       |     |     
+| **[`line`](#line)** | String | round \| square \| butt |  round|   
+| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |        
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
 | **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |  
-| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |    |  
+| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
+| **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
+| **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
+| **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 
 - ### `progress`
 
@@ -157,11 +160,9 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
     - `direction` not implemented yet
     - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0, opacity: 1}`
     
-I also recommend you to play with this values in the demo to finde perfect colors for you!
-
 ###### Example: :scroll:
 
-Now you are ready for an bad example
+Now you are ready for an bad example. Takes the same value as **[`color`](#color)**
 
 ```js
 color: {
@@ -183,6 +184,20 @@ color: {
     },
 ```
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
+    
+I also recommend you to play with this values in the demo to finde perfect colors for you!
+
+- ### `colorFill`
+
+defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
+
+- ### `emptyColor`
+
+defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
+
+- ### `emptyColorFill`
+
+defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
 
 - ### `animation`
