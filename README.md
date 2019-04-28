@@ -134,9 +134,51 @@ Lets take a look at few examples
 As you can see in the second and fourth examples these are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But these modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
 
 - ### `emptyThickness` 
-coming soon
+
+###### Animated: :heavy_check_mark:
+
+is any Number >=0. Defines the empty circle line thickness. Internaly is used the css property `stroke-width`.
+
 - ### `color`
-coming soon 
+
+Defines the color of progress circle **line**. Is any css color like `#123` or `lime` or an objects that defines gradient.
+
+- `color:` (String) '#3f79ff'
+
+- `color:` (Object)
+  - `gradient:` (Object) defines the gradient
+    - `radial` default `false`. Defines whether the gradient is radial or linear
+    - `direction` not implemented yet
+    - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0, opacity: 1}`
+    
+I also recommend you to play with this values in the demo to finde perfect colors for you!
+
+###### Example: :scroll:
+
+Now you are ready for an bad example
+
+```js
+color: {
+      gradient: {
+        radial: false,
+        colors: [
+          {
+            color: '#6546f7',
+            offset: '0',
+            opacity: '1',
+          },
+          {
+            color: 'lime',
+            offset: '100',
+            opacity: '1',
+          },
+        ],
+      },
+    },
+```
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
+
+
 - ### `animation`
 coming soon  
 ## Run project local
