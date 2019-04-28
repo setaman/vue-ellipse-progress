@@ -67,6 +67,8 @@ using this properties please read below the table.
 | **[`legend`](#legend)** | Boolean | your know this |  true |
 | **[`legendValue`](#legendvalue)** | Number |  |   |
 | **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> '}'|
+| **[`loading`](#loading)** | Boolean |  |false|
+| **[`noData`](#nodata)** | Boolean |  |false|
 
 - ### `progress`
 
@@ -213,14 +215,12 @@ is any Number. Use this property if you want to customize the shown progress as 
 
 ###### Example: :scroll:
 
-Lets say you have to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set 'legendValue = 3.5' and calculate the progress something like that:
+Lets say you have to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
 
 ```js
 this.progress = 3.5 * 100 / 5; // the rating percentage
 ```
 Now you can display custom progress value that still animated and circle progress fills properly!
-
-Defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
 
 >:heavy_exclamation_mark: note that `legendValue` excludes **[`progress`](#progress)** but not vice versa.
 
@@ -238,6 +238,16 @@ defines the initial animation of progress circle line filling. You can choose on
 ```js
 :animation="{type: 'rs', duration: 700, duration: 200}"
 ```
+
+- ### `loading`
+
+forces loading state. The component provide an indeterminate state for the case that you data is not available immediately. With this property set `true` you can use the component as the indeterminate progress. 
+
+- ### `noData`
+
+forces no data state. The component provide an no data state for the case that you data is not available. The circle progress still empty.
+
+>:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
 
 ## Run project local
 ```
