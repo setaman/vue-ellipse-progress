@@ -46,20 +46,35 @@ Now use the component
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
-| Prop     | Type   | Values  | Default | Required | Animated|
-|----------|--------|---------|---------|----------|---------|
-| **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      | &check;      |
+| Prop     | Type   | Values  | Default | Required |
+|----------|--------|---------|---------|----------|
+| **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      |
 | **[`size`](#size)** | Number | any |  200       |     |      |
-| **[`line`](#line)** | String | "round", "square", "butt" |  round|    | &check;      |
+| **[`line`](#line)** | String | "round", "square", "butt" |  round|    |
 | **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | &check;      | 
-| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    | &check;      |   
-| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |    |    |   
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
+| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |  
+| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |    |  
 
-- ### `progress` 
+- ### `progress`
+
+###### Animated: :heavy_check_mark: 
+
 is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle in 
-percent. 'progress' is animated and count up or down on any value changes whit duration defined in 
-**[`animation:duration`](#animation)** property. 
+percent. `progress` is animated and count up or down on any value changes whit duration defined in 
+**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** of the circle.
+
+###### Example: :scroll:
+
+```js
+this.progress = 55.5;
+this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
+```
+
+>:heavy_exclamation_mark: the progress is always used to fill the circle progress area. so you can not customize this value and all values under 0 or above are ignored. For customisation purpose please use **[`legendValue`](#legendvalue)**. 
+>if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
+
+
 - ### `size` 
 coming soon
 - ### `line` 
