@@ -48,15 +48,18 @@ using this properties please read below the table.
 
 | Prop     | Type   | Values  | Default | Required | Animated|
 |----------|--------|---------|---------|----------|---------|
-| **[`progress`](#progress)** | Number | 0 - 100 |         | &check;      | &check;      |
+| **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      | &check;      |
 | **[`size`](#size)** | Number | any |  200       |     |      |
 | **[`line`](#line)** | String | "round", "square", "butt" |  round|    | &check;      |
 | **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | &check;      | 
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | &check;      | 
 | **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    | &check;      |   
+| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |    |    |   
 
 - ### `progress` 
-coming soon
+is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle in 
+percent. 'progress' is animated and count up or down on any value changes whit duration defined in 
+**[`animation:duration`](#animation)** property. 
 - ### `size` 
 coming soon
 - ### `line` 
@@ -67,7 +70,10 @@ coming soon
 coming soon
 - ### `emptyThickness` 
 coming soon
-
+- ### `color`
+coming soon 
+- ### `animation`
+coming soon  
 ## Run project local
 ```
 npm install
