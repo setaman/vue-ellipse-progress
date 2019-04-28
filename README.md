@@ -69,6 +69,10 @@ using this properties please read below the table.
 | **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> '}'|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
+| **[`angle`](#angle)** | Number | any number |-90|
+| **[`fontSize`](#fontsize)** | String | any valid css value |-90|
+| **[`fontColor`](#fontsize)** | String | any valid css value | gray |
+| **[`legendClass`](#legendclass)** | String | any |  |
 
 - ### `progress`
 
@@ -248,6 +252,22 @@ forces loading state. The component provide an indeterminate state for the case 
 forces no data state. The component provide an no data state for the case that you data is not available. The circle progress still empty.
 
 >:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
+
+- ### `angle`
+
+is any Number. Defines the statring point of the progress cirlce line 
+
+- ### `fontSize`
+
+is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend
+
+- ### `fontColor`
+
+is any valid css color. Defines the color of the circles legend
+
+- ### `legendClass`
+
+adds class to the circles legend to give you the possibility to style it
 
 ## Run project local
 ```
