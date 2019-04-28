@@ -32,17 +32,17 @@ using this properties please read below the table.
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: >=0 `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
 | **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |   
 
-- ###`progress` 
+###`progress` 
 coming soon
-- ###`size` 
+###`size` 
 coming soon
-- ###`line` 
+###`line` 
 coming soon
-- ###`thickness` 
+###`thickness` 
 coming soon
-- ###`lineMode` 
+###`lineMode` 
 coming soon
-- ###`emptyThickness` 
+###`emptyThickness` 
 coming soon
 
 ## Run project local
