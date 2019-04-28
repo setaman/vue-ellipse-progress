@@ -66,11 +66,11 @@ using this properties please read below the table.
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`legend`](#legend)** | Boolean | your know this |  true |
 | **[`legendValue`](#legendvalue)** | Number |  |   |
-| **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> '}'|
+| **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> `}`|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any number |-90|
-| **[`fontSize`](#fontsize)** | String | any valid css value |-90|
+| **[`fontSize`](#fontsize)** | String | any valid css value | relative |
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 
