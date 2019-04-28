@@ -66,6 +66,7 @@ using this properties please read below the table.
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`legend`](#legend)** | Boolean | your know this |  true |
 | **[`legendValue`](#legendvalue)** | Number |  |   |
+| **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> '}'|
 
 - ### `progress`
 
@@ -224,7 +225,20 @@ Defines whether the **[`progress`](#progress)** or from you defined  **[`legendV
 >:heavy_exclamation_mark: note that `legendValue` excludes **[`progress`](#progress)** but not vice versa.
 
 - ### `animation`
-coming soon  
+
+defines the initial animation of progress circle line filling. You can choose one from predefined animation and set a specific duration and delay. 
+
+- `type:`
+  - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
+- `durations` Number in milliseconds, default `1000`
+- `delay` Number in milliseconds, default `400`
+
+###### Example: :scroll:
+
+```js
+:animation="{type: 'rs', duration: 700, duration: 200}"
+```
+
 ## Run project local
 ```
 npm install
