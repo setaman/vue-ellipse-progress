@@ -13,7 +13,7 @@ install the library via npm
 ```
 npm i -S vue-ellipse-progress
 ```
-The library is provided as Vuejs plugin. So just initialize it in your ``main.js``
+The library is provided as a Vuejs plugin. So just initialize it in your ``main.js``
 ```js
 import VueEllipseProgress from 'vue-ellipse-progress';
 
@@ -43,6 +43,12 @@ Now use the component
 </vue-ellipse-progress>
 ``` 
 ## Options
+Actually you are ready to go with only following line:
+```html
+<vue-ellipse-progress :progress="progress"/>
+```
+The `progress` is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
+
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
@@ -60,8 +66,8 @@ using this properties please read below the table.
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle in 
-percent. `progress` is animated and count up or down on any value changes whit duration defined in 
+is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
+percent. `progress` is animated and count up or down on any value changes with duration defined in 
 **[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** of the circle.
 
 ###### Example: :scroll:
@@ -71,7 +77,7 @@ this.progress = 55.5;
 this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: the progress is always used to fill the circle progress area. so you can not customize this value and all values under 0 and above 100 are ignored. For customisation purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
 
 
@@ -81,7 +87,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
->:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on line mode and offset.
+>:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on line the mode and offset.
 
 - ### `line` 
 
