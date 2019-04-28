@@ -49,7 +49,7 @@ using this properties please read below the table.
 | Prop     | Type   | Values  | Default | Required |
 |----------|--------|---------|---------|----------|
 | **[`progress`](#progress)** | Number | 0 - 100 |         | :heavy_check_mark:      |
-| **[`size`](#size)** | Number | any |  200       |     |      |
+| **[`size`](#size)** | Number | >=0 |  200       |     |      |
 | **[`line`](#line)** | String | "round", "square", "butt" |  round|    |
 | **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |  &check;      |    
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |    | 
@@ -71,12 +71,18 @@ this.progress = 55.5;
 this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: the progress is always used to fill the circle progress area. so you can not customize this value and all values under 0 or above are ignored. For customisation purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: the progress is always used to fill the circle progress area. so you can not customize this value and all values under 0 and above 100 are ignored. For customisation purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
 
 
 - ### `size` 
-coming soon
+
+###### Animated: :heavy_check_mark: 
+
+is any Number from 0 to infinity. Defines the width and height of the circle.
+
+>:heavy_exclamation_mark: check **[`lineMode`](#lineMode)** property to understand how the progress circle behaves depending on line mode and offset.
+
 - ### `line` 
 coming soon
 - ### `thickness` 
