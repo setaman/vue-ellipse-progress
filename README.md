@@ -39,11 +39,11 @@ Now use the component
   :legendValue="tasks_done"
   :noData="noData"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
-  :fontColor="white"
+  fontColor="white"
   fontSize="5rem">
   
-  <span slot="legend_value">/200</span>
-  <p slot="legend_capture">GOOD JOB</p>
+  <span slot="legend-value">/200</span>
+  <p slot="legend-capture">GOOD JOB</p>
   
 </vue-ellipse-progress>
 ``` 
@@ -131,22 +131,22 @@ is any Number >=0. Defines the progress circle line thickness. Internaly is used
 
 ###### Animated: :heavy_check_mark: 
 
-This property defines how the progress line is aligned in relation to empty line. You can undestand the modes as the preset values, that defines in wich direction the progress line grows. 
+This property defines how the progress line is aligned in relation to empty line. You can undestand the modes as the preset that helps you to easy align lines as you need. 
 
 - `mode`:
   - `normal`: this is the default value and both lines are aligned at the base line (centered).
   <img width="100" height="50" src="https://github.com/setaman/Bilder/blob/master/ellipse-normal.png">
   
-  - `in`: the progress line is inside the empty circle and grows inside
+  - `in`: the progress line is inside the empty circle
   <img width="100" height="40" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.png">
   
-   - `in-over`: the progress line is also inside the empty circle but overlap the empty circle and grows inside 
+   - `in-over`: the progress line is also inside the empty circle but overlap the empty circle 
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.over.png">
   
   - `out`: the progress line is outside the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out.png">
   
-  - `out-over`: the progress line is also outside the empty circle but overlap the empty circle and grows outside
+  - `out-over`: the progress line is also outside the empty circle but overlap the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out-over.png">
   
   - `bottom`: the progress line is aligned at the bottom of the empty circle
@@ -165,7 +165,7 @@ Lets take a look at few examples
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
-As you can see in the second and fourth examples these are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But these modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
+As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But the povided modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
 
 <br>
 
