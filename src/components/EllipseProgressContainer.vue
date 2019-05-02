@@ -139,6 +139,11 @@ export default {
       required: false,
       default: false,
     },
+    dash: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   computed: {
     options() {

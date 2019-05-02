@@ -5,6 +5,7 @@
       :cx="getPosition()"
       :cy="getPosition()"
       :stroke="emptyColor"
+      :stroke-dasharray="options.dash"
       :fill="emptyColorFill"
       :style="{transition: animationDuration}"
       :class="{'ep_circle--nodata': options.noData}"

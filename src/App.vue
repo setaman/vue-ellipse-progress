@@ -38,9 +38,10 @@
                             :loading="loading"
                             :empty_color="empty_color"
                             :size="Number(size)"
-                            :thickness="10"
-                            :empty_thickness="5"
-                            :line_mode="{mode: 'in', offset: 10}"
+                            :thickness="5"
+                            :empty_thickness="60"
+                            dash="1 81"
+                            :line_mode="{mode: 'out', offset: 10}"
                             :legend="true"
                             :legend_value="progress"
                             :noData="noData"
@@ -76,6 +77,7 @@
                             :size="size"
                             :thickness="21"
                             angle=""
+                            dash="5 5"
                             :loading="loading"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
@@ -99,7 +101,7 @@ export default {
     noData: false,
     progress: 45.5,
     tasks_done: 125,
-    size: 250,
+    size: 400,
     color: {
       gradient: {
         radial: false,
@@ -108,12 +110,12 @@ export default {
           {
             color: '#6546f7',
             offset: '0',
-            opacity: '1',
+            opacity: '0.5',
           },
           {
             color: '#6849ff',
             offset: '100',
-            opacity: '1',
+            opacity: '0.5',
           },
         ],
       },
