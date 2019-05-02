@@ -17,7 +17,7 @@ install the library via npm
 ```
 npm i -S vue-ellipse-progress
 ```
-The library is provided as a Vuejs plugin. So just initialize it in your ``main.js``
+The library is provided as a Vue.js plugin. So just initialize it in your ``main.js``
 ```js
 import VueEllipseProgress from 'vue-ellipse-progress';
 
@@ -294,7 +294,7 @@ forces no data state. The component provide an no data state for the case that y
 
 - ### `angle`
 
-is any Number. Defines the statring point of the progress cirlce line 
+is any Number. Defines the starting point of the progress circle line 
 
 <br>
 
@@ -331,10 +331,10 @@ This code ...
 ```html
 <vue-ellipse-progress ....>
   
-        <span slot="legend-value">/200</span>
-        <p slot="legend-caption">TASKS DONE</p>
+    <span slot="legend-value">/200</span>
+    <p slot="legend-caption">TASKS DONE</p>
   
-      </vue-ellipse-progress>
+</vue-ellipse-progress>
 ```
 ... produces following result. The slots are marked corresponding:
 

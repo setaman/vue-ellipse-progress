@@ -17,9 +17,9 @@
 
       <div class="ep-legend--container" :style="{maxWidth: `${size}px`}">
         <span v-show="!loading" v-if="legend && dataIsAvailable" class="ep-legend--value" :style="{fontSize: font_size, color: font_color}">{{legendValue}}
-          <slot name="legend_value"></slot>
+          <slot name="legend-value"></slot>
         </span>
-        <slot name="legend_capture"></slot>
+        <slot name="legend-caption"></slot>
       </div>
     </div>
   </div>

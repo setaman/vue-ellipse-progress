@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
+    <!--<div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
       <div>
         <label for="progress">
           Progress
@@ -40,6 +40,7 @@
                             :size="Number(size)"
                             :thickness="10"
                             :empty_thickness="5"
+                            line="round"
                             :line_mode="{mode: 'in', offset: 10}"
                             :legend="true"
                             :legend_value="progress"
@@ -68,7 +69,7 @@
                             :animation="{type: 'loop', duration: 1000}"
                             font_size="4rem">
         <span slot="legend_value">/200</span>
-        <p slot="legend_capture">GOOD JOB</p>
+        <p slot="legend-caption">GOOD JOB</p>
       </vue-ellipse-progress>
       <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
@@ -84,7 +85,35 @@
                             :animation="{type: 'bounce', duration: 1000}"
                             font_size="2rem">
         <span slot="legend_value">/200</span>
-        <p style="margin-bottom: 0" slot="legend_capture">GOOD JOB</p>
+        <p style="margin-bottom: 0" slot="legend-caption">GOOD JOB</p>
+      </vue-ellipse-progress>
+    </div>-->
+    <div class="ep-test-card" style="background-color: white; padding: 10%" :style="{maxHeight: size + 2000 + 'px'}">
+      <vue-ellipse-progress :progress="parseFloat(progress)" :size="size"
+                            :thickness="15"
+                            :empty_thickness="15"
+                            font_size="6rem"
+                            font_color="black"
+                            :color="color"
+                            :line_mode="{mode: 'normal', offset: 10}"
+      >
+        <span slot="legend-value" style="color: black">legend value</span>
+        <p style="color: black" slot="legend-caption">legend Caption</p>
+      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
+                            :color="color"
+                            :size="size"
+                            :thickness="21"
+                            angle=""
+                            :loading="loading"
+                            :empty_thickness="20"
+                            :line_mode="{mode: 'normal', offset: 10}"
+                            :legend_value="tasks_done"
+                            font_color="black"
+                            :animation="{type: 'bounce', duration: 1000}"
+                            font_size="6rem">
+        <span style="color: black; display: inline-block; border: 2px red solid" slot="legend-value">/200</span>
+        <p  style="margin-bottom: 0; border: 2px blue solid; color: black; font-size: 3rem" slot="legend-caption">TASKS DONE</p>
       </vue-ellipse-progress>
     </div>
   </div>
@@ -97,9 +126,9 @@ export default {
   data: () => ({
     loading: false,
     noData: false,
-    progress: 45.5,
-    tasks_done: 125,
-    size: 250,
+    progress: 100,
+    tasks_done: 180,
+    size: 550,
     color: {
       gradient: {
         radial: false,
@@ -111,7 +140,7 @@ export default {
             opacity: '1',
           },
           {
-            color: '#6849ff',
+            color: '#572883',
             offset: '100',
             opacity: '1',
           },
