@@ -50,16 +50,16 @@ export default {
       validator: value => value > -1,
     },
     thickness: {
-      type: Number,
+      type: [Number, String],
       required: false,
-      default: 5,
-      validator: value => value > -1,
+      default: '5%',
+      validator: value => parseFloat(value) > -1,
     },
     empty_thickness: {
-      type: Number,
+      type: [Number, String],
       required: false,
-      default: 5,
-      validator: value => value > -1,
+      default: '5%',
+      validator: value => parseFloat(value) > -1,
     },
     line: {
       type: String,

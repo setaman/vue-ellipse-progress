@@ -166,10 +166,21 @@ export default {
       return parseFloat(this.options.progress || 0);
     },
     getThickness() {
-      return this.options.thickness;
+      return this.calculateThickness(this.options.thickness.toString());
     },
     getEmptyThickness() {
-      return this.options.empty_thickness;
+      return this.calculateThickness(this.options.empty_thickness.toString());
+    },
+    calculateThickness(thickness) {
+      const percent = parseFloat(thickness);
+      switch (true) {
+        case thickness.includes('%'):
+          return percent * this.options.size / 100;
+        case thickness.includes('rem'): // TODO: Is it worth to implement?
+          return percent * this.options.size / 100;
+        default:
+          return percent;
+      }
     },
     getPosition() {
       return this.getSize() / 2;
