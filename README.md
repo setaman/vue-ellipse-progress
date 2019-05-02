@@ -2,8 +2,10 @@
 A Vue.js component to create beautiful animated circular progress bars
 
 <div align="center" style="text-align: center;">
-  <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">  
+  <img width="300" height="300" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v2.svg">  
 </div>
+
+<br/>
 
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
