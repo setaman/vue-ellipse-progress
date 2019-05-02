@@ -25,7 +25,7 @@
                             :loading="loading"
                             :empty_color="empty_color"
                             :size="Number(size)"
-                            :empty_thickness="20"
+                            :empty_thickness="5"
                             :line_mode="{mode: 'in', offset: 0}"
                             :legend="false"
                             :animation="{type: 'rs', duration: 700}"
@@ -36,9 +36,11 @@
                             :color="color"
                             :loading="loading"
                             :empty_color="empty_color"
+                            thickness="5%"
                             :size="Number(size)"
-                            dash="1 81"
-                            :line_mode="{mode: 'out', offset: 10}"
+                            line="square"
+                            :dash="{count: 120, spacing: 0.9}"
+                            :line_mode="{mode: 'normal', offset: 10}"
                             :legend="true"
                             :legend_value="progress"
                             :noData="noData"
@@ -74,7 +76,6 @@
                             :size="size"
                             :thickness="21"
                             angle=""
-                            dash="5 5"
                             :loading="loading"
                             :empty_thickness="20"
                             :line_mode="{mode: 'normal', offset: 10}"
@@ -107,12 +108,12 @@ export default {
           {
             color: '#6546f7',
             offset: '0',
-            opacity: '0.5',
+            opacity: '1',
           },
           {
             color: '#6849ff',
             offset: '100',
-            opacity: '0.5',
+            opacity: '1',
           },
         ],
       },
