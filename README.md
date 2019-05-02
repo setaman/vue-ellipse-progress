@@ -35,7 +35,7 @@ Now use the component
   :emptyColor="empty_color"
   :size="size"
   :thickness="10"
-  :emptyThickness="5"
+  emptyThickness="10%"
   :lineMode="{mode: 'in', offset: 10}"
   :legend="true"
   :legendValue="tasks_done"
@@ -54,7 +54,7 @@ Actually you are ready to go with only following line:
 ```html
 <vue-ellipse-progress :progress="progress"/>
 ```
-The `progress` is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
+The **[`progress`](#progress)** is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
 
 This table provide a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
@@ -66,9 +66,9 @@ using this properties please read below the table.
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
-| **[`thickness`](#thickness)** | Number | \>=0 |  5 |    |        
+| **[`thickness`](#thickness)** | Number\|String | \>=0 |  5% |      
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
-| **[`emptyThickness`](#emptythickness)** | Number | \>=0 |  5 |    |  
+| **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
@@ -117,7 +117,7 @@ is any Number from 0 to infinity. Defines the width and height of the circle. Th
 
 - ### `line` 
 
-is any string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
 
 <br>
 
@@ -125,7 +125,7 @@ is any string value from `round | square | butt`. Defines the progress circle li
 
 ###### Animated: :heavy_check_mark:
 
-is any Number >=0. Defines the progress circle line thickness. Internaly is used the css property `stroke-width`.
+is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent thicknees will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
 
 <br>
 
@@ -175,13 +175,13 @@ As you can see the second and fourth examples are similar to the modes `bottom` 
 
 ###### Animated: :heavy_check_mark:
 
-is any Number >=0. Defines the empty circle line thickness. Internaly is used the css property `stroke-width`.
+is any Number or percent value >=0. Defines the empty circle line thickness. If you define the value in percent thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
 
 <br>
 
 - ### `color`
 
-Defines the color of progress circle **line**. Is any css color like `#123` or `lime` or an objects that defines gradient.
+Defines the color of progress circle **line**. Is any css color like `#123` or `lime` or an object that defines the gradient.
 
 - `color:` (String) '#3f79ff'
 
