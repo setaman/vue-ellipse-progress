@@ -269,7 +269,7 @@ defines the initial animation of progress circle line filling. You can choose on
 
 - `type:`
   - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
-- `durations` Number in milliseconds, default `1000`
+- `duration` Number in milliseconds, default `1000`
 - `delay` Number in milliseconds, default `400`
 
 ###### Example: :scroll:
