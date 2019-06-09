@@ -327,7 +327,7 @@ adds class to the circles legend to give you the possibility to style it
 is string or object. Internaly is used the value `stroke-dasharray` so if you defining the value as **string** you can define the size and the spacing of the dashes. For more precise dashes calculations you can define the value as the object with explicit number of dashes and spacing. 
 
 ###### Example: :scroll:
-`10 10` - as String with `10px` big dashes and `10px` spacing. Or just '"10"'
+`"10 10"` - as String with 10px big dashes and 10px spacing. Or just `"10"`
 ```js
 {
   count: 60 // Number of dashes
