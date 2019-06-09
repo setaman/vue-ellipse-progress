@@ -1,89 +1,97 @@
 <template>
   <div id="app">
-    <div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
+    <div class="ep-test-card" :style="{ maxHeight: size + 2000 + 'px' }">
       <div>
         <label for="progress">
           Progress
         </label>
-        <input v-model="progress" max="100" min="0" type="number" id="progress"/>
+        <input v-model="progress" max="100" min="0" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <label for="size">
           Size
         </label>
-        <input v-model="size" type="number" id="size"/>
+        <input v-model="size" type="number" id="size" />
         <label for="load">
           LOADING
-          <input id="load" type="checkbox" v-model="loading"/>
+          <input id="load" type="checkbox" v-model="loading" />
         </label>
         <label for="nodata">
           No DATA
-          <input id="nodata" type="checkbox" v-model="noData"/>
+          <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <vue-ellipse-progress :progress="parseFloat(progress)"
-                            :color="color"
-                            :loading="loading"
-                            :empty_color="empty_color"
-                            :size="Number(size)"
-                            :empty_thickness="5"
-                            :line_mode="{mode: 'in', offset: 10}"
-                            :legend="false"
-                            :animation="{type: 'rs', duration: 700}"
-                            dash="49 50"
-                            font_size="5rem">
-        <img slot="legend_capture" src="@/assets/icon.svg">
+      <vue-ellipse-progress
+        :progress="parseFloat(progress)"
+        :color="color"
+        :loading="loading"
+        :empty_color="empty_color"
+        :size="Number(size)"
+        :empty_thickness="5"
+        :line_mode="{ mode: 'in', offset: 10 }"
+        :legend="false"
+        :animation="{ type: 'rs', duration: 700 }"
+        dash="10 10"
+        font_size="5rem"
+      >
+        <img slot="legend_capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="parseFloat(progress)"
-                            :color="color"
-                            :loading="loading"
-                            :empty_color="empty_color"
-                            thickness="5%"
-                            :size="Number(size)"
-                            line="round"
-                            :dash="{count: 60, spacing: 0.9}"
-                            :line_mode="{mode: 'normal', offset: 10}"
-                            :legend="true"
-                            :legend_value="progress"
-                            :noData="noData"
-                            :animation="{type: 'reverse', duration: 700}"
-                            font_size="5rem">
+      <vue-ellipse-progress
+        :progress="parseFloat(progress)"
+        :color="color"
+        :loading="loading"
+        :empty_color="empty_color"
+        thickness="5%"
+        :size="Number(size)"
+        line="round"
+        :dash="{ count: 70, spacing: 0.9 }"
+        :line_mode="{ mode: 'normal', offset: 10 }"
+        :legend="true"
+        :legend_value="progress"
+        :noData="noData"
+        :animation="{ type: 'reverse', duration: 700 }"
+        font_size="5rem"
+      >
       </vue-ellipse-progress>
       <div>
         <label for="tasks">
           Tasks
         </label>
-        <input v-model="tasks_done" max="200" min="0" type="number" id="tasks"/>
+        <input v-model="tasks_done" max="200" min="0" type="number" id="tasks" />
         <button @click="updateTasksDone">Update Tasks</button>
       </div>
-      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
-                            :color="color"
-                            :empty_color="empty_color"
-                            :size="size"
-                            :thickness="21"
-                            angle=""
-                            :loading="false"
-                            :empty_thickness="20"
-                            :line_mode="{mode: 'normal', offset: 10}"
-                            :legend_value="tasks_done"
-                            font_color="white"
-                            :animation="{type: 'loop', duration: 1000}"
-                            font_size="4rem">
+      <vue-ellipse-progress
+        :progress="parseFloat(tasksDonePercent)"
+        :color="color"
+        :empty_color="empty_color"
+        :size="size"
+        :thickness="21"
+        angle=""
+        :loading="false"
+        :empty_thickness="20"
+        :line_mode="{ mode: 'normal', offset: 10 }"
+        :legend_value="tasks_done"
+        font_color="white"
+        :animation="{ type: 'loop', duration: 1000 }"
+        font_size="4rem"
+      >
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
-                            :color="color"
-                            :empty_color="empty_color"
-                            :size="size"
-                            :thickness="21"
-                            angle=""
-                            :loading="loading"
-                            :empty_thickness="20"
-                            :line_mode="{mode: 'normal', offset: 10}"
-                            :legend_value="tasks_done"
-                            font_color="white"
-                            :animation="{type: 'bounce', duration: 1000}"
-                            font_size="2rem">
+      <vue-ellipse-progress
+        :progress="parseFloat(tasksDonePercent)"
+        :color="color"
+        :empty_color="empty_color"
+        :size="size"
+        :thickness="21"
+        angle=""
+        :loading="loading"
+        :empty_thickness="20"
+        :line_mode="{ mode: 'normal', offset: 10 }"
+        :legend_value="tasks_done"
+        font_color="white"
+        :animation="{ type: 'bounce', duration: 1000 }"
+        font_size="2rem"
+      >
         <span slot="legend_value">/200</span>
         <p style="margin-bottom: 0" slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
@@ -93,7 +101,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   components: {},
   data: () => ({
     loading: false,
@@ -104,147 +112,147 @@ export default {
     color: {
       gradient: {
         radial: false,
-        direction: '',
+        direction: "",
         colors: [
           {
-            color: '#6546f7',
-            offset: '0',
-            opacity: '1',
+            color: "#6546f7",
+            offset: "0",
+            opacity: "1"
           },
           {
-            color: '#6849ff',
-            offset: '100',
-            opacity: '1',
-          },
-        ],
-      },
+            color: "#6849ff",
+            offset: "100",
+            opacity: "1"
+          }
+        ]
+      }
     },
     color_fill: {
       gradient: {
         radial: false,
-        direction: '',
+        direction: "",
         colors: [
           {
-            color: '#572883',
-            offset: '00',
-            opacity: '0.1',
+            color: "#572883",
+            offset: "00",
+            opacity: "0.1"
           },
           {
-            color: '#fc4982',
-            offset: '100',
-            opacity: '0.1',
-          },
-        ],
-      },
+            color: "#fc4982",
+            offset: "100",
+            opacity: "0.1"
+          }
+        ]
+      }
     },
     empty_color: {
       gradient: {
         radial: false,
-        direction: '',
+        direction: "",
         colors: [
           {
-            color: '#050a27',
-            offset: '0',
-            opacity: '1',
+            color: "#050a27",
+            offset: "0",
+            opacity: "1"
           },
           {
-            color: '#050a27',
-            offset: '100',
-            opacity: '1',
-          },
-        ],
-      },
+            color: "#050a27",
+            offset: "100",
+            opacity: "1"
+          }
+        ]
+      }
     },
     empty_color_fill: {
       gradient: {
         radial: false,
-        direction: '',
+        direction: "",
         colors: [
           {
-            color: '#0062fc',
-            offset: '0',
-            opacity: '1',
+            color: "#0062fc",
+            offset: "0",
+            opacity: "1"
           },
           {
-            color: 'transparent',
-            offset: '100',
-            opacity: '0.1',
-          },
-        ],
-      },
-    },
+            color: "transparent",
+            offset: "100",
+            opacity: "0.1"
+          }
+        ]
+      }
+    }
   }),
   computed: {
     tasksDonePercent() {
-      return this.tasks_done * 100 / 200;
-    },
+      return (this.tasks_done * 100) / 200;
+    }
   },
   methods: {
     updateProgress() {
       this.progress = parseFloat((Math.floor(Math.random() * 100) * 0.3).toFixed(2));
     },
     updateTasksDone() {
-      this.tasks_done = (Math.floor(Math.random() * 200).toFixed(0));
-    },
-  },
+      this.tasks_done = Math.floor(Math.random() * 200).toFixed(0);
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-  body {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 #app {
   padding: 20px;
   display: flex;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Arial',serif ;
+  font-family: "Arial", serif;
   color: white;
   background-color: #050a27;
 }
-  .ep-test-card {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    background-color: #273266;
-    label {
-      padding-bottom: 5px;
-      display: block;
-    }
-    input {
-      transition: 0.3s;
-      border: none;
-      color: white;
-      border-radius: 2px;
-      padding: 5px 10px;
-      background-color: #0b1656;
-      border-bottom: gray 2px solid;
-      outline: none;
-      &:focus {
-        border-bottom: #009eff 2px solid;
-      }
-    }
-    button {
-      padding: 5px 10px;
-      border: none;
-      border-radius: 2px;
-      margin-left: 10px;
-      color: white;
-      outline: none;
-      cursor: pointer;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-      background-color: #0b1656;
-    }
-    h1 {
-      font-weight: normal;
-      letter-spacing: 0.2rem;
-    }
-    img {
-      color: white;
-      width: 200px;
+.ep-test-card {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #273266;
+  label {
+    padding-bottom: 5px;
+    display: block;
+  }
+  input {
+    transition: 0.3s;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    padding: 5px 10px;
+    background-color: #0b1656;
+    border-bottom: gray 2px solid;
+    outline: none;
+    &:focus {
+      border-bottom: #009eff 2px solid;
     }
   }
+  button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 2px;
+    margin-left: 10px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    background-color: #0b1656;
+  }
+  h1 {
+    font-weight: normal;
+    letter-spacing: 0.2rem;
+  }
+  img {
+    color: white;
+    width: 200px;
+  }
+}
 </style>
