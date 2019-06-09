@@ -5,7 +5,7 @@
       :cx="getPosition()"
       :cy="getPosition()"
       :stroke="emptyColor"
-      :stroke-dasharray="options.dash"
+      :stroke-dasharray="emptyDasharray"
       :fill="emptyColorFill"
       :style="{transition: animationDuration}"
       :class="{'ep_circle--nodata': options.noData}"
@@ -145,6 +145,13 @@ export default {
       return [`animation__${!this.options.loading && this.dataIsAvailable ? this.options.animation.type || 'default' : 'none'}`,
         `${this.options.loading ? 'animation__loading' : ''}`];
     },
+    emptyDasharray() {
+      if (!this.options.dash.count || !this.options.dash.spacing) {
+        return this.options.dash;
+      }
+      return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
+              ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
+    },
   },
   methods: {
     getBaseRadius() {
@@ -187,6 +194,12 @@ export default {
     },
     getCircumference() {
       return this.radius * 2 * Math.PI;
+    },
+    getDashSpacingPercent() {
+      return this.options.dash.spacing / this.options.dash.count;
+    },
+    getDashPercent() {
+      return (1 - this.options.dash.spacing) / this.options.dash.count;
     },
     /* Animations helper Methods */
     getNegativeCircumference() {

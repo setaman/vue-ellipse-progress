@@ -140,9 +140,22 @@ export default {
       default: false,
     },
     dash: {
-      type: String,
+      type: [String, Object],
       required: false,
       default: '',
+      validator: (value) => {
+        /* if (typeof value === 'string') {
+          return RegExp(/^[1-9]\d*$/g).test(value);
+        } */
+        if (!value || typeof value === 'string') {
+          return true;
+        }
+
+        if (typeof value === 'object') {
+          return value.count > -1 && value.spacing > -1;
+        }
+        return false;
+      },
     },
   },
   computed: {
