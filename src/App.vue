@@ -40,6 +40,7 @@
         :color="color"
         :loading="loading"
         :empty_color="empty_color"
+        :empty_color_fill="empty_color_fill"
         thickness="5%"
         :size="Number(size)"
         line="round"
@@ -48,7 +49,7 @@
         :legend="true"
         :legend_value="progress"
         :noData="noData"
-        :animation="{ type: 'reverse', duration: 700 }"
+        :animation="{ type: 'reverse', duration: 700, delay: 300 }"
         font_size="5rem"
       >
       </vue-ellipse-progress>
@@ -73,6 +74,7 @@
         font_color="white"
         :animation="{ type: 'loop', duration: 1000 }"
         font_size="4rem"
+        :noData="noData"
       >
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
@@ -165,22 +167,22 @@ export default {
     },
     empty_color_fill: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#0062fc",
-            offset: "0",
-            opacity: "1"
+            color: "#3260FC",
+            offset: "83",
+            opacity: "0.1"
           },
           {
             color: "transparent",
-            offset: "100",
+            offset: "41",
             opacity: "0.1"
           }
         ]
       }
-    }
+    },
   }),
   computed: {
     tasksDonePercent() {
@@ -211,7 +213,7 @@ body {
   min-height: 100vh;
   font-family: "Arial", serif;
   color: white;
-  background-color: #050a27;
+  background-color: #0b1656;
 }
 .ep-test-card {
   width: 100%;

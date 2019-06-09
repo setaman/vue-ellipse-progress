@@ -36,11 +36,17 @@
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <span
-          v-show="!loading"
-          v-if="legend && dataIsAvailable"
+          v-if="legend"
           class="ep-legend--value"
+          :class="{ hidden: shouldHideLegendValue }"
           :style="{ fontSize: font_size, color: font_color }"
-          >{{ legendValue }}
+        >
+          <CountUp
+            ref="count"
+            :endVal="legendValue"
+            :delay="animation.delay"
+            :options="countOptions"
+          ></CountUp>
           <slot name="legend_value"></slot>
         </span>
         <slot name="legend_capture"></slot>
@@ -52,10 +58,11 @@
 <script>
 import CircleProgress from "@/components/CircleProgress.vue";
 import Gradient from "@/components/Gradient.vue";
+import CountUp from "vue-countup-v2";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { Gradient, CircleProgress },
+  components: { Gradient, CircleProgress, CountUp },
   data: () => ({
     animated_legend_value: 0,
     raf_id: null,
@@ -191,95 +198,31 @@ export default {
       return this.loading ? "" : this.angle || -90;
     },
     legendValue() {
-      return Number.parseFloat(this.animated_legend_value.toFixed(this.countDecimals())) || 0;
-    },
-    getLegendValue() {
+      if (this.loading || this.noData) {
+        return 0;
+      }
       return this.legend_value || this.progress;
     },
+    shouldHideLegendValue() {
+      return !this.dataIsAvailable || this.loading || this.noData;
+    },
     dataIsAvailable() {
-      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
-    }
-  },
-  watch: {
-    legend_value(updated, old) {
-      if (Number.isNaN(this.legend_value)) return;
-      cancelAnimationFrame(this.raf_id);
-      this.animateLegendValue(old, updated);
-    },
-    progress(updated, old) {
-      if (!Number.isNaN(parseFloat(this.legend_value))) return;
-      cancelAnimationFrame(this.raf_id);
-      this.animateLegendValue(old, updated);
-    },
-    loading(updated) {
-      if (!updated) {
-        this.animated_legend_value = 0;
-        this.animateLegendValue();
-      }
-    },
-    noData(updated) {
-      if (!updated) {
-        this.animated_legend_value = 0;
-        this.animateLegendValue();
-      }
-    }
-  },
-  methods: {
-    animateLegendValue(old = 0, updated = this.getLegendValue) {
-      if (!this.legend && this.dataIsAvailable) {
-        return;
-      }
-
-      this.animation_step = this.legendAnimationStep(
-        Math.abs(updated - this.animated_legend_value || updated)
-      );
-
-      if (this.raf_id) {
-        cancelAnimationFrame(this.raf_id);
-      }
-
-      if (updated > old) {
-        this.raf_id = requestAnimationFrame(this.countUp);
-      } else if (updated < old) {
-        this.raf_id = requestAnimationFrame(this.countDown);
-      }
-    },
-    legendAnimationStep(difference) {
-      return difference / (((this.animation.duration || 1000) / 1000) * 60);
-    },
-    countUp() {
-      this.animated_legend_value += this.animation_step;
-      if (this.animated_legend_value < this.getLegendValue) {
-        requestAnimationFrame(this.countUp);
-      } else {
-        cancelAnimationFrame(this.raf_id);
-        this.animated_legend_value = this.toNumber(this.getLegendValue);
-      }
-    },
-    countDown() {
-      this.animated_legend_value -= this.animation_step;
-      if (this.animated_legend_value > this.getLegendValue) {
-        requestAnimationFrame(this.countDown);
-      } else {
-        cancelAnimationFrame(this.raf_id);
-        this.animated_legend_value = this.toNumber(this.getLegendValue);
-      }
+      return this.noData ? false : !Number.isNaN(parseFloat(this.progress));
     },
     countDecimals() {
-      if (this.getLegendValue % 1 === 0) return 0;
-      return this.getLegendValue.toString().split(".")[1].length;
+      if (this.legendValue % 1 === 0) return 0;
+      return this.legendValue.toString().split(".")[1].length;
     },
-    toNumber(value) {
-      return Number.parseFloat(value);
+    countOptions() {
+      return {
+        duration: this.animation.duration / 1000,
+        target: "span",
+        decimalPlaces: this.countDecimals,
+        decimal: "."
+      };
     }
   },
-  mounted() {
-    if (!this.loading) {
-      setTimeout(() => {
-        this.raf_id = this.animateLegendValue();
-      }, this.animation.delay || 400);
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -304,10 +247,14 @@ export default {
   text-align: center;
 }
 .ep-legend--value {
-  transition: inherit;
+  transition: 0.3s;
   text-align: center;
   display: block;
   color: black;
+  opacity: 1;
+}
+.hidden {
+  opacity: 0;
 }
 svg.ep-svg-container {
   transition: inherit;
