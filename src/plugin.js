@@ -1,7 +1,7 @@
-import EllipseProgress from '@/components/EllipseProgressContainer.vue';
+import EllipseProgress from "@/components/EllipseProgressContainer.vue";
 
 export default {
   install(Vue) {
-    Vue.component('vue-ellipse-progress', EllipseProgress);
-  },
+    Vue.component("vue-ellipse-progress", EllipseProgress);
+  }
 };
