@@ -40,6 +40,7 @@ Now use the component
   :legend="true"
   :legendValue="tasks_done"
   :noData="noData"
+  :dash="{count: 60, spacing: 0.9}"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
   fontColor="white"
   fontSize="5rem">
@@ -66,7 +67,7 @@ using this properties please read below the table.
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
-| **[`thickness`](#thickness)** | Number\|String | \>=0 |  5% |      
+| **[`thickness`](#thickness)** | Number\| String | \>=0 |  5% |      
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
 | **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
@@ -82,6 +83,7 @@ using this properties please read below the table.
 | **[`fontSize`](#fontsize)** | String | any valid css value | relative |
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
+| **[`dash`](#dash)** | String \| Object | see details |  |
 
 <br>
 
@@ -101,7 +103,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
 >:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
->if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed.
+>if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed as circle legend.
 
 <br>
 
@@ -315,6 +317,23 @@ is any valid css color. Defines the color of the circles legend
 - ### `legendClass`
 
 adds class to the circles legend to give you the possibility to style it
+
+<br>
+
+- ### `dash` 
+
+###### Animated: :heavy_check_mark: 
+
+is string or object. Internaly is used the value `stroke-dasharray` so if you defining the value as **string** you can define the size and the spacing of the dashes. For more precise dashes calculations you can define the value as the object with explicit number of dashes and spacing. 
+
+###### Example: :scroll:
+`10 10` - as String with `10px` big dashes and `10px` spacing. Or just '"10"'
+```js
+{
+  count: 60 // Number of dashes
+  spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
+}
+```
 
 <br>
 
