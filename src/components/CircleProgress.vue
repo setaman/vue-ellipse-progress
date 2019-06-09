@@ -149,10 +149,6 @@ export default {
       if (!this.options.dash.count || !this.options.dash.spacing) {
         return this.options.dash;
       }
-      console.log('CIRCUM', this.getCircumference());
-      console.log('EMPTY R', this.emptyRadius);
-      console.log('EMPTY CIRC', 2 * Math.PI * this.emptyRadius);
-      console.log('DASH PERC', this.getDashSpacingPercent());
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },

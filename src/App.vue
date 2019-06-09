@@ -26,9 +26,10 @@
                             :empty_color="empty_color"
                             :size="Number(size)"
                             :empty_thickness="5"
-                            :line_mode="{mode: 'in', offset: 0}"
+                            :line_mode="{mode: 'in', offset: 10}"
                             :legend="false"
                             :animation="{type: 'rs', duration: 700}"
+                            dash="49 50"
                             font_size="5rem">
         <img slot="legend_capture" src="@/assets/icon.svg">
       </vue-ellipse-progress>
@@ -38,8 +39,8 @@
                             :empty_color="empty_color"
                             thickness="5%"
                             :size="Number(size)"
-                            line="square"
-                            :dash="{count: 120, spacing: 0.9}"
+                            line="round"
+                            :dash="{count: 60, spacing: 0.9}"
                             :line_mode="{mode: 'normal', offset: 10}"
                             :legend="true"
                             :legend_value="progress"
