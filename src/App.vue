@@ -36,21 +36,27 @@
         <img slot="legend_capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
       <vue-ellipse-progress
-        :progress="parseFloat(progress)"
+        id="timer-example"
+        :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
         :empty_color="empty_color"
-        thickness="5%"
+        :empty_color_fill="empty_color_fill"
+        thickness="2%"
+        empty_thickness="5%"
         :size="Number(size)"
         line="round"
-        :dash="{ count: 70, spacing: 0.9 }"
-        :line_mode="{ mode: 'normal', offset: 10 }"
+        :dash="{ count: 60, spacing: 0.95 }"
+        :line_mode="{ mode: 'in-overlap', offset: 10 }"
         :legend="true"
-        :legend_value="progress"
+        :legend_value="sec"
+        legendClass="legend-custom-style"
         :noData="noData"
-        :animation="{ type: 'reverse', duration: 700 }"
-        font_size="5rem"
+        :animation="{ type: 'reverse', duration: 700, delay: 300 }"
+        font_size="4rem"
+        font_color="white"
       >
+        <span slot="legend_value">sec</span>
       </vue-ellipse-progress>
       <div>
         <label for="tasks">
@@ -73,6 +79,7 @@
         font_color="white"
         :animation="{ type: 'loop', duration: 1000 }"
         font_size="4rem"
+        :noData="noData"
       >
         <span slot="legend_value">/200</span>
         <p slot="legend_capture">GOOD JOB</p>
@@ -107,20 +114,22 @@ export default {
     loading: false,
     noData: false,
     progress: 45.5,
+    timerProgress: 0,
+    sec: 0,
     tasks_done: 125,
     size: 400,
     color: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#6546f7",
+            color: "#3260FC",
             offset: "0",
-            opacity: "1"
+            opacity: "0"
           },
           {
-            color: "#6849ff",
+            color: "#3260FC",
             offset: "100",
             opacity: "1"
           }
@@ -129,17 +138,27 @@ export default {
     },
     color_fill: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#572883",
-            offset: "00",
+            color: "#3260FC",
+            offset: "40",
+            opacity: "1"
+          },
+          {
+            color: "transparent",
+            offset: "80",
             opacity: "0.1"
           },
           {
-            color: "#fc4982",
-            offset: "100",
+            color: "transparent",
+            offset: "95",
+            opacity: "0.1"
+          },
+          {
+            color: "#3260FC",
+            offset: "95",
             opacity: "0.1"
           }
         ]
@@ -153,29 +172,59 @@ export default {
           {
             color: "#050a27",
             offset: "0",
-            opacity: "1"
+            opacity: "0.3"
           },
           {
             color: "#050a27",
             offset: "100",
-            opacity: "1"
+            opacity: "0.3"
           }
         ]
       }
     },
     empty_color_fill: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#0062fc",
-            offset: "0",
-            opacity: "1"
+            color: "#3260FC",
+            offset: "50",
+            opacity: "0.2"
+          },
+          {
+            color: "#3260FC",
+            offset: "50",
+            opacity: "0.15"
+          },
+          {
+            color: "#3260FC",
+            offset: "70",
+            opacity: "0.15"
+          },
+          {
+            color: "#3260FC",
+            offset: "70",
+            opacity: "0.1"
+          },
+          {
+            color: "#3260FC",
+            offset: "90",
+            opacity: "0.1"
           },
           {
             color: "transparent",
-            offset: "100",
+            offset: "90",
+            opacity: "0.1"
+          },
+          {
+            color: "transparent",
+            offset: "95",
+            opacity: "0.1"
+          },
+          {
+            color: "transparent",
+            offset: "95",
             opacity: "0.1"
           }
         ]
@@ -189,11 +238,25 @@ export default {
   },
   methods: {
     updateProgress() {
-      this.progress = parseFloat((Math.floor(Math.random() * 100) * 0.3).toFixed(2));
+      this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
       this.tasks_done = Math.floor(Math.random() * 200).toFixed(0);
+    },
+    runTimer() {
+      setInterval(() => {
+        if (this.sec === 60) {
+          this.sec = 0;
+          this.timerProgress = (this.sec * 100) / 60;
+          return;
+        }
+        this.sec++;
+        this.timerProgress = (this.sec * 100) / 60;
+      }, 1000);
     }
+  },
+  mounted() {
+    this.runTimer();
   }
 };
 </script>
@@ -211,7 +274,7 @@ body {
   min-height: 100vh;
   font-family: "Arial", serif;
   color: white;
-  background-color: #050a27;
+  background-color: #0b1656;
 }
 .ep-test-card {
   width: 100%;
