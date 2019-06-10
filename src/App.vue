@@ -35,23 +35,29 @@
       >
         <img slot="legend_capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
+      <h1>{{sec}}</h1>
       <vue-ellipse-progress
-        :progress="parseFloat(progress)"
+        id="timer-example"
+        :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
         :empty_color="empty_color"
         :empty_color_fill="empty_color_fill"
-        thickness="5%"
+        thickness="2%"
+        empty_thickness="5%"
         :size="Number(size)"
         line="round"
-        :dash="{ count: 70, spacing: 0.9 }"
-        :line_mode="{ mode: 'normal', offset: 10 }"
+        :dash="{ count: 60, spacing: 0.95 }"
+        :line_mode="{ mode: 'in-overlap', offset: 10 }"
         :legend="true"
-        :legend_value="progress"
+        :legend_value="sec"
         :noData="noData"
         :animation="{ type: 'reverse', duration: 700, delay: 300 }"
-        font_size="5rem"
+        font_size="4rem"
+        font_color="white"
       >
+        <span slot="legend_value">sec</span>
+        <p style="margin-bottom: 0" slot="legend_capture">round</p>
       </vue-ellipse-progress>
       <div>
         <label for="tasks">
@@ -109,20 +115,22 @@ export default {
     loading: false,
     noData: false,
     progress: 45.5,
+    timerProgress: 0,
+    sec: 0,
     tasks_done: 125,
     size: 400,
     color: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#6546f7",
+            color: "#3260FC",
             offset: "0",
-            opacity: "1"
+            opacity: "0"
           },
           {
-            color: "#6849ff",
+            color: "#3260FC",
             offset: "100",
             opacity: "1"
           }
@@ -131,17 +139,27 @@ export default {
     },
     color_fill: {
       gradient: {
-        radial: false,
+        radial: true,
         direction: "",
         colors: [
           {
-            color: "#572883",
-            offset: "00",
+            color: "#3260FC",
+            offset: "40",
+            opacity: "1"
+          },
+          {
+            color: "transparent",
+            offset: "80",
             opacity: "0.1"
           },
           {
-            color: "#fc4982",
-            offset: "100",
+            color: "transparent",
+            offset: "95",
+            opacity: "0.1"
+          },
+          {
+            color: "#3260FC",
+            offset: "95",
             opacity: "0.1"
           }
         ]
@@ -155,12 +173,12 @@ export default {
           {
             color: "#050a27",
             offset: "0",
-            opacity: "1"
+            opacity: "0.3"
           },
           {
             color: "#050a27",
             offset: "100",
-            opacity: "1"
+            opacity: "0.3"
           }
         ]
       }
@@ -172,17 +190,47 @@ export default {
         colors: [
           {
             color: "#3260FC",
-            offset: "83",
+            offset: "50",
+            opacity: "0.2"
+          },
+          {
+            color: "#3260FC",
+            offset: "50",
+            opacity: "0.15"
+          },
+          {
+            color: "#3260FC",
+            offset: "70",
+            opacity: "0.15"
+          },
+          {
+            color: "#3260FC",
+            offset: "70",
+            opacity: "0.1"
+          },
+          {
+            color: "#3260FC",
+            offset: "90",
             opacity: "0.1"
           },
           {
             color: "transparent",
-            offset: "41",
+            offset: "90",
+            opacity: "0.1"
+          },
+          {
+            color: "transparent",
+            offset: "95",
+            opacity: "0.1"
+          },
+          {
+            color: "transparent",
+            offset: "95",
             opacity: "0.1"
           }
         ]
       }
-    },
+    }
   }),
   computed: {
     tasksDonePercent() {
@@ -191,11 +239,24 @@ export default {
   },
   methods: {
     updateProgress() {
-      this.progress = parseFloat((Math.floor(Math.random() * 100) * 0.3).toFixed(2));
+      this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
       this.tasks_done = Math.floor(Math.random() * 200).toFixed(0);
+    },
+    runTimer() {
+      setInterval(() => {
+        if (this.sec === 60) {
+          this.sec = 0;
+          return;
+        }
+        this.sec++;
+        this.timerProgress = (this.sec * 100) / 60;
+      }, 1000);
     }
+  },
+  mounted() {
+    this.runTimer();
   }
 };
 </script>
