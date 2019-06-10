@@ -119,7 +119,7 @@ export default {
           return this.getNormalRadius();
         case "in":
           return this.getBaseRadius() - (this.getEmptyThickness() + offset);
-        case "in_overlap":
+        case "in-overlap":
           return this.getBaseRadius();
         case "bottom":
           return this.emptyRadius - this.getEmptyThickness() / 2;
@@ -139,7 +139,7 @@ export default {
           return (
             this.getBaseRadius() - (this.getThickness() / 2 + this.getEmptyThickness() / 2 + offset)
           );
-        case "out_overlap":
+        case "out-overlap":
           return this.getBaseRadius() - (this.getThickness() / 2 - this.getEmptyThickness() / 2);
         case "bottom":
           if (this.getEmptyThickness() < this.getThickness() / 2) {

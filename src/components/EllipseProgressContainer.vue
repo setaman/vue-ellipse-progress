@@ -106,7 +106,7 @@ export default {
         offset: 0
       }),
       validator: value =>
-        ["normal", "out", "out_overlap", "in", "in_overlap", "top", "bottom"].includes(value.mode)
+        ["normal", "out", "out-overlap", "in", "in-overlap", "top", "bottom"].includes(value.mode)
     },
     color: {
       type: [String, Object],

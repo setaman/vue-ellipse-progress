@@ -249,6 +249,7 @@ export default {
       setInterval(() => {
         if (this.sec === 60) {
           this.sec = 0;
+          this.timerProgress = (this.sec * 100) / 60;
           return;
         }
         this.sec++;
