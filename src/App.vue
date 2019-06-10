@@ -35,7 +35,6 @@
       >
         <img slot="legend_capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <h1>{{sec}}</h1>
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
@@ -58,7 +57,6 @@
         font_color="white"
       >
         <span slot="legend_value">sec</span>
-        <p style="margin-bottom: 0" slot="legend_capture">round</p>
       </vue-ellipse-progress>
       <div>
         <label for="tasks">
