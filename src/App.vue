@@ -51,6 +51,7 @@
         :line_mode="{ mode: 'in-overlap', offset: 10 }"
         :legend="true"
         :legend_value="sec"
+        legendClass="legend-custom-style"
         :noData="noData"
         :animation="{ type: 'reverse', duration: 700, delay: 300 }"
         font_size="4rem"

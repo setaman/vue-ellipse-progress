@@ -201,7 +201,7 @@ export default {
       if (this.loading || this.noData) {
         return 0;
       }
-      return this.legend_value || this.progress;
+      return !Number.isNaN(this.legend_value) ? this.legend_value : this.progress;
     },
     shouldHideLegendValue() {
       return !this.dataIsAvailable || this.loading || this.noData;
