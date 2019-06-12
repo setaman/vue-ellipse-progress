@@ -68,7 +68,7 @@ export default {
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
         case "out-overlap":
-          return this.baseRadius - (this.thickness / 2 - this.emptyBaseRadius / 2);
+          return this.baseRadius - (this.thickness / 2 - this.emptyThickness / 2);
         case "bottom":
           if (this.emptyThickness < this.thickness / 2) {
             return this.emptyBaseRadius - (this.thickness / 2 - this.emptyThickness);
@@ -117,8 +117,6 @@ export default {
       const percent = parseFloat(thickness);
       switch (true) {
         case thickness.includes("%"):
-          return (percent * this.size) / 100;
-        case thickness.includes("rem"): // TODO: Is it worth to implement?
           return (percent * this.size) / 100;
         default:
           return percent;
