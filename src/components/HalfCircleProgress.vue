@@ -32,17 +32,20 @@ export default {
   },
   computed: {
     path() {
-      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
+      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this
+        .radius * 2},0`;
     },
     emptyPath() {
-      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.emptyRadius * 2},0`;
+      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${
+        this.emptyRadius
+      } 0 1,1 ${this.emptyRadius * 2},0`;
     },
     radius() {
       const offset = Number(this.options.line_mode.offset || 0);
 
       switch (this.options.line_mode.mode) {
         case "normal":
-          return this.normalRadius;
+          return this.normalLineModeRadius;
         case "in":
           return this.baseRadius - (this.emptyThickness + offset);
         case "in-overlap":
@@ -61,7 +64,7 @@ export default {
 
       switch (this.options.line_mode.mode) {
         case "normal":
-          return this.normalRadius;
+          return this.normalLineModeRadius;
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
         case "out-overlap":
@@ -84,18 +87,17 @@ export default {
     emptyBaseRadius() {
       return this.size / 2 - this.emptyThickness / 2;
     },
-    normalRadius() {
+    normalLineModeRadius() {
       if (this.thickness < this.emptyThickness) {
         return this.emptyBaseRadius;
       }
       return this.baseRadius;
     },
     position() {
-      console.log(this.getThicknessOfBiggestCircle());
-      return this.getThicknessOfBiggestCircle() / 2;
+      return this.size / 2 - this.radius;
     },
     emptyPosition() {
-      return this.size - this.emptyRadius;
+      return this.size / 2 - this.emptyRadius;
     },
     size() {
       return this.options.size;
@@ -111,19 +113,6 @@ export default {
     }
   },
   methods: {
-    getThicknessOfBiggestCircle() {
-      // the biggest circle is that with the biggest radius
-      if (this.getFullRadius() < this.getFullEmptyRadius()) {
-        return this.emptyThickness;
-      }
-      return this.thickness;
-    },
-    getFullRadius() {
-      return this.radius + this.thickness;
-    },
-    getFullEmptyRadius() {
-      return this.emptyRadius + this.emptyThickness;
-    },
     calculateThickness(thickness) {
       const percent = parseFloat(thickness);
       switch (true) {

@@ -65,12 +65,12 @@
         :loading="loading"
         :empty_color="empty_color"
         :empty_color_fill="empty_color_fill"
-        thickness="80"
-        empty_thickness="40"
+        thickness="10"
+        empty_thickness="20"
         :size="Number(size)"
         line="round"
         :dash="{ count: 60, spacing: 0.95 }"
-        :line_mode="{ mode: 'normal', offset: 10 }"
+        :line_mode="{ mode: 'normal', offset: 0 }"
         :legend="true"
         :legend_value="sec"
         legendClass="legend-custom-style"
@@ -281,7 +281,7 @@ export default {
     }
   },
   mounted() {
-    this.runTimer();
+    // this.runTimer();
   }
 };
 </script>
