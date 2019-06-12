@@ -174,12 +174,16 @@ export default {
     }
   },
   methods: {
+    // the radius of the progress circle without taking into account the lineMode, baseline for advanced radius
+    // calculations depending on lineMode
     getBaseRadius() {
       return this.getSize() / 2 - this.getThickness() / 2;
     },
     getEmptyBaseRadius() {
       return this.getSize() / 2 - this.getEmptyThickness() / 2;
     },
+    // with lineMode.type = normal need to calculate which of the circles is bigger so the radius does not exceeds the
+    // size property
     getNormalRadius() {
       if (this.getThickness() < this.getEmptyThickness()) {
         return this.getEmptyBaseRadius();

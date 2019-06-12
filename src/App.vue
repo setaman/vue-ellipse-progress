@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="ep-test-card" :style="{ maxHeight: size + 2000 + 'px' }">
-      <div>
+      <!--<div>
         <label for="progress">
           Progress
         </label>
@@ -57,8 +57,33 @@
         font_color="white"
       >
         <span slot="legend_value">sec</span>
+      </vue-ellipse-progress>-->
+      <vue-ellipse-progress
+        id="half-example"
+        :progress="parseFloat(timerProgress)"
+        :color="color"
+        :loading="loading"
+        :empty_color="empty_color"
+        :empty_color_fill="empty_color_fill"
+        thickness="80"
+        empty_thickness="40"
+        :size="Number(size)"
+        line="round"
+        :dash="{ count: 60, spacing: 0.95 }"
+        :line_mode="{ mode: 'normal', offset: 10 }"
+        :legend="true"
+        :legend_value="sec"
+        legendClass="legend-custom-style"
+        :noData="noData"
+        :animation="{ type: 'reverse', duration: 700, delay: 300 }"
+        font_size="4rem"
+        font_color="white"
+        angle="0"
+        half
+      >
+        <span slot="legend_value">sec</span>
       </vue-ellipse-progress>
-      <div>
+      <!--<div>
         <label for="tasks">
           Tasks
         </label>
@@ -101,7 +126,7 @@
       >
         <span slot="legend_value">/200</span>
         <p style="margin-bottom: 0" slot="legend_capture">GOOD JOB</p>
-      </vue-ellipse-progress>
+      </vue-ellipse-progress>-->
     </div>
   </div>
 </template>
