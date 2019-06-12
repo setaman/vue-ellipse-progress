@@ -13,7 +13,7 @@
         :height="size"
         :width="size"
         xmlns="http://www.w3.org/2000/svg"
-        :style="{ transform: `rotate(${startAngle}deg)`, background: 'blue' }"
+        :style="{ transform: `rotate(${startAngle}deg)` }"
       >
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
