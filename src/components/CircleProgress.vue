@@ -71,7 +71,7 @@ export default {
       if (offset <= 0) {
         return 0;
       }
-      return offset < circumference ? offset : circumference + 0.5;
+      return offset < circumference ? offset : circumference - 0.5;
     },
     animationDuration() {
       return `${this.options.animation.duration || 1000}ms`;

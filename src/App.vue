@@ -60,7 +60,7 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="parseFloat(progress)"
+        :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
         :empty_color="empty_color"
@@ -68,7 +68,7 @@
         thickness="10"
         empty_thickness="10"
         :size="Number(size)"
-        line="round"
+        line="square"
         :line_mode="{ mode: 'in', offset: 10 }"
         :legend="true"
         :legend_value="sec"
