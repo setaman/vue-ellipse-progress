@@ -19,6 +19,9 @@ export default {
     }
   },
   computed: {
+    progress() {
+      return parseFloat(this.options.progress || 0);
+    },
     /* Radius Calculation */
     radius() {
       const offset = Number(this.options.line_mode.offset || 0);
@@ -61,6 +64,8 @@ export default {
       }
     },
 
+    // the radius of the progress circle without taking into account the lineMode, baseline for advanced radius
+    // calculations depending on lineMode
     baseRadius() {
       return this.size / 2 - this.thickness / 2;
     },
@@ -69,6 +74,8 @@ export default {
       return this.size / 2 - this.emptyThickness / 2;
     },
 
+    // with lineMode.type = normal need to calculate which of the circles is bigger so the radius does not exceeds the
+    // size property
     normalLineModeRadius() {
       if (this.thickness < this.emptyThickness) {
         return this.emptyBaseRadius;
@@ -121,7 +128,7 @@ export default {
       return this.options.empty_color_fill || "transparent";
     },
     size() {
-      return this.options.size;
+      return this.options.size.width;
     },
     thickness() {
       return this.calculateThickness(this.options.thickness.toString());
@@ -144,6 +151,23 @@ export default {
     }
   },
   methods: {
+    calculateThickness(thickness) {
+      const percent = parseFloat(thickness);
+      switch (true) {
+        case thickness.includes("%"):
+          return (percent * this.options.size) / 100;
+        case thickness.includes("rem"): // TODO: Is it worth to implement?
+          return (percent * this.options.size) / 100;
+        default:
+          return percent;
+      }
+    },
+    getDashSpacingPercent() {
+      return this.options.dash.spacing / this.options.dash.count;
+    },
+    getDashPercent() {
+      return (1 - this.options.dash.spacing) / this.options.dash.count;
+    },
     /* Animations helper Methods */
     getNegativeCircumference() {
       return this.circumference * -1;

@@ -55,9 +55,6 @@ export default {
     circumference() {
       return (this.radius * 2 * Math.PI) / 2;
     },
-    progress() {
-      return parseFloat(this.options.progress || 0);
-    },
     path() {
       return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this
         .radius * 2},0`;
@@ -74,23 +71,7 @@ export default {
       return this.size / 2 - this.emptyRadius;
     }
   },
-  methods: {
-    calculateThickness(thickness) {
-      const percent = parseFloat(thickness);
-      switch (true) {
-        case thickness.includes("%"):
-          return (percent * this.size) / 100;
-        default:
-          return percent;
-      }
-    },
-    getDashSpacingPercent() {
-      return this.options.dash.spacing / this.options.dash.count;
-    },
-    getDashPercent() {
-      return (1 - this.options.dash.spacing) / this.options.dash.count;
-    }
-  }
+  methods: {}
 };
 </script>
 
