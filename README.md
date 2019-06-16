@@ -68,9 +68,9 @@ using this properties please read below the table.
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
-| **[`thickness`](#thickness)** | Number\| String | \>=0 |  5% |      
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out_overlap \| in \| in_overlap \| top \| bottom` <br> `offset: any `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
-| **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 |  5% |     
+| **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  5% |      
+| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out-over \| in \| in-over \| top \| bottom` <br> `offset: any number `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
+| **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 as Number or percent value as String |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
@@ -326,7 +326,7 @@ adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-is string or object. Internaly is used the value `stroke-dasharray` so if you defining the value as **string** you can define the size and the spacing of the dashes. For more precise dashes calculations you can define the value as the object with explicit number of dashes and spacing. 
+is string or object. Internaly is used the value `stroke-dasharray` so if you defin the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
 
 ###### Example: :scroll:
 `"10 10"` - as String with 10px big dashes and 10px spacing. Or just `"10"`
@@ -344,6 +344,7 @@ is string or object. Internaly is used the value `stroke-dasharray` so if you de
 boolean value that specifies the type of the circle. If set to true only the half of the circle is drawn like a gague chart  
 
 ###### Example: :scroll:
+<img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png"/>
 
 <br>
 
@@ -351,7 +352,7 @@ boolean value that specifies the type of the circle. If set to true only the hal
 
 - #### `legend-value`
 
-in this slot you can put an additionall elemnt that you want to display biside the progress
+in this slot you can put an additionall element that you want to display biside the progress
 
 - #### `legend-caption`
 in this slot you can put any HTML and slye it on your own. This slot is aligned below the progress 
