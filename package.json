@@ -1,6 +1,6 @@
 {
   "name": "vue-ellipse-progress",
-  "version": "0.12.2",
+  "version": "0.18.2",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
   "main": "./src/plugin.js",
@@ -14,6 +14,7 @@
     "vue",
     "vue2",
     "circle",
+    "half circle",
     "oval",
     "elipse",
     "chart",
@@ -29,7 +30,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vue-countup-v2": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
@@ -41,9 +43,12 @@
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
     "eslint": "^5.8.0",
+    "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
   }
 }

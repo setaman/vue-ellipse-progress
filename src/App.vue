@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <!--<div class="ep-test-card" :style="{maxHeight: size + 2000 + 'px'}">
+    <div class="ep-test-card" :style="{ maxHeight: size + 2000 + 'px' }">
       <div>
         <label for="progress">
           Progress
         </label>
-        <input v-model="progress" max="100" min="0" type="number" id="progress"/>
+        <input v-model="progress" max="100" min="-10" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <label for="size">
           Size
         </label>
-        <input v-model="size" type="number" id="size"/>
+        <input v-model="size" type="number" id="size" />
         <label for="load">
           LOADING
-          <input id="load" type="checkbox" v-model="loading"/>
+          <input id="load" type="checkbox" v-model="loading" />
         </label>
         <label for="nodata">
           No DATA
-          <input id="nodata" type="checkbox" v-model="noData"/>
+          <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
       <vue-ellipse-progress :progress="parseFloat(progress)"
@@ -69,7 +69,7 @@
                             :animation="{type: 'loop', duration: 1000}"
                             font_size="4rem">
         <span slot="legend_value">/200</span>
-        <p slot="legend-caption">GOOD JOB</p>
+        <p slot="legend_capture">GOOD JOB</p>
       </vue-ellipse-progress>
       <vue-ellipse-progress :progress="parseFloat(tasksDonePercent)"
                             :color="color"
@@ -85,7 +85,7 @@
                             :animation="{type: 'bounce', duration: 1000}"
                             font_size="2rem">
         <span slot="legend_value">/200</span>
-        <p style="margin-bottom: 0" slot="legend-caption">GOOD JOB</p>
+        <p style="margin-bottom: 0" slot="legend_caption">GOOD JOB</p>
       </vue-ellipse-progress>
     </div>-->
     <div class="ep-test-card" style="background-color: white; padding: 10%" :style="{maxHeight: size + 2000 + 'px'}">
@@ -121,7 +121,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   components: {},
   data: () => ({
     loading: false,

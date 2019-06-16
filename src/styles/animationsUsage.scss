@@ -1,0 +1,68 @@
+.ep-circle--progress {
+  &.animation__default {
+    animation-timing-function: ease-in-out;
+    animation-name: ep-progress--init__default;
+  }
+  &.animation__rs {
+    animation-timing-function: ease-out;
+    animation-name: ep-progress--init__rs;
+  }
+  &.animation__bounce {
+    animation-timing-function: ease-out;
+    animation-name: ep-progress--init__bounce;
+  }
+  &.animation__reverse {
+    animation-timing-function: ease-out;
+    animation-name: ep-progress--init__reverse;
+  }
+  &.animation__loop {
+    animation-timing-function: ease-out;
+    animation-name: ep-progress--init__loop;
+  }
+}
+
+.ep-circle--progress {
+  &.animation__loading {
+    animation-name: ep-progress--loading, ep-progress--loading__rotation;
+    animation-iteration-count: infinite !important;
+    animation-duration: 2s, 1s !important;
+    animation-timing-function: ease-in-out, linear;
+  }
+}
+
+.ep-half-circle {
+  &.animation__loading {
+    animation-name: ep-half-progress--loading;
+    animation-iteration-count: infinite !important;
+    animation-duration: 2s !important;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+.ep-circle--empty {
+  &.ep_circle--nodata {
+    opacity: 0.5;
+  }
+}
+@include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
+@include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
+@include ep-progress--init__bounce(
+                var(--ep-stroke-offset),
+                var(--ep-bounce-in-stroke-offset),
+                var(--ep-bounce-out-stroke-offset),
+                var(--ep-circumference)
+);
+@include ep-progress--init__reverse(
+                var(--ep-reverse-stroke-offset),
+                var(--ep-circumference),
+                var(--ep-double-circumference)
+);
+@include ep-progress--init__loop(
+                var(--ep-loop-stroke-offset),
+                var(--ep-circumference),
+                var(--ep-negative-circumference)
+);
+@include ep-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference));
+@include ep-half-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference),
+                var(--ep-negative-circumference));
+@include ep-progress--loading__rotation();
