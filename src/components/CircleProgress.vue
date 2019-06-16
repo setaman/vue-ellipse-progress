@@ -44,7 +44,7 @@ export default {
   name: "CircleProgress",
   data() {
     return {
-      is_initialized: false,
+      isInitialized: false,
       delay: this.options.animation.delay || 400,
       loading: this.options.loading,
       circle: null
@@ -71,7 +71,7 @@ export default {
       if (offset <= 0) {
         return 0;
       }
-      return offset < circumference ? offset : circumference + 0.5;
+      return offset < circumference ? offset : circumference - 0.5;
     },
     animationDuration() {
       return `${this.options.animation.duration || 1000}ms`;
@@ -174,12 +174,16 @@ export default {
     }
   },
   methods: {
+    // the radius of the progress circle without taking into account the lineMode, baseline for advanced radius
+    // calculations depending on lineMode
     getBaseRadius() {
       return this.getSize() / 2 - this.getThickness() / 2;
     },
     getEmptyBaseRadius() {
       return this.getSize() / 2 - this.getEmptyThickness() / 2;
     },
+    // with lineMode.type = normal need to calculate which of the circles is bigger so the radius does not exceeds the
+    // size property
     getNormalRadius() {
       if (this.getThickness() < this.getEmptyThickness()) {
         return this.getEmptyBaseRadius();
@@ -279,60 +283,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~@/animations.scss";
-
-.ep-circle--progress {
-  //transform-origin: 50% 50%;
-  &.animation__default {
-    animation-timing-function: ease-in-out;
-    animation-name: ep-progress--init__default;
-  }
-  &.animation__rs {
-    animation-timing-function: ease-out;
-    animation-name: ep-progress--init__rs;
-  }
-  &.animation__bounce {
-    animation-timing-function: ease-out;
-    animation-name: ep-progress--init__bounce;
-  }
-  &.animation__reverse {
-    animation-timing-function: ease-out;
-    animation-name: ep-progress--init__reverse;
-  }
-  &.animation__loop {
-    animation-timing-function: ease-out;
-    animation-name: ep-progress--init__loop;
-  }
-  &.animation__loading {
-    animation-name: ep-progress--loading, ep-progress--loading__rotation;
-    animation-iteration-count: infinite !important;
-    animation-duration: 2s, 1s !important;
-    animation-timing-function: ease-in-out, linear;
-  }
-}
-.ep-circle--empty {
-  &.ep_circle--nodata {
-    opacity: 0.5;
-  }
-}
-@include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
-@include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
-@include ep-progress--init__bounce(
-  var(--ep-stroke-offset),
-  var(--ep-bounce-in-stroke-offset),
-  var(--ep-bounce-out-stroke-offset),
-  var(--ep-circumference)
-);
-@include ep-progress--init__reverse(
-  var(--ep-reverse-stroke-offset),
-  var(--ep-circumference),
-  var(--ep-double-circumference)
-);
-@include ep-progress--init__loop(
-  var(--ep-loop-stroke-offset),
-  var(--ep-circumference),
-  var(--ep-negative-circumference)
-);
-@include ep-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference));
-@include ep-progress--loading__rotation();
+@import "~@/styles/animations.scss";
+@import "~@/styles/animationsUsage.scss";
 </style>

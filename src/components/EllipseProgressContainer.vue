@@ -31,7 +31,8 @@
             :id="_uid"
           />
         </defs>
-        <circle-progress :options="options" />
+        <half-circle-progress v-if="half" :options="options" />
+        <circle-progress v-else :options="options" />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
@@ -59,10 +60,11 @@
 import CircleProgress from "@/components/CircleProgress.vue";
 import Gradient from "@/components/Gradient.vue";
 import CountUp from "vue-countup-v2";
+import HalfCircleProgress from "@/components/HalfCircleProgress.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { Gradient, CircleProgress, CountUp },
+  components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
   data: () => ({
     animated_legend_value: 0,
     raf_id: null,
@@ -188,6 +190,11 @@ export default {
         }
         return false;
       }
+    },
+    half: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
