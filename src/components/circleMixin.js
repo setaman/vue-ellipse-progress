@@ -128,7 +128,7 @@ export default {
       return this.options.empty_color_fill || "transparent";
     },
     size() {
-      return this.options.size.width;
+      return this.options.size;
     },
     thickness() {
       return this.calculateThickness(this.options.thickness.toString());

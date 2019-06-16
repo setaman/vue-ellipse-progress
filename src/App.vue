@@ -10,7 +10,7 @@
         <label for="size">
           Size
         </label>
-        <input v-model="size.width" type="number" id="size" />
+        <input v-model="size" type="number" id="size" />
         <label for="load">
           LOADING
           <input id="load" type="checkbox" v-model="loading" />
@@ -20,27 +20,22 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <div style="display: inline-block; padding: 25px">
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :color="color"
-          :loading="loading"
-          :empty_color="empty_color"
-          :size="{
-            width: 400,
-            height: 400
-          }"
-          :empty_thickness="5"
-          :line_mode="{ mode: 'in', offset: 10 }"
-          :legend="false"
-          :animation="{ type: 'rs', duration: 700 }"
-          dash="10 10"
-          font_size="5rem"
-        >
-          <img slot="legend_capture" src="@/assets/icon.svg" />
-        </vue-ellipse-progress>
-      </div>
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
+        :progress="parseFloat(progress)"
+        :color="color"
+        :loading="loading"
+        :empty_color="empty_color"
+        :size="size"
+        :empty_thickness="5"
+        :line_mode="{ mode: 'in', offset: 10 }"
+        :legend="false"
+        :animation="{ type: 'rs', duration: 700 }"
+        dash="10 10"
+        font_size="5rem"
+      >
+        <img slot="legend_capture" src="@/assets/icon.svg" />
+      </vue-ellipse-progress>
+      <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
@@ -62,7 +57,7 @@
         font_color="white"
       >
         <span slot="legend_value">sec</span>
-      </vue-ellipse-progress>-->
+      </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
@@ -72,11 +67,8 @@
         empty_color_fill=""
         thickness="10"
         empty_thickness="10"
-        :size="{
-          width: 300,
-          height: 100
-        }"
-        line="square"
+        :size="size"
+        line="round"
         :line_mode="{ mode: 'in', offset: 10 }"
         :legend="true"
         :legend_value="sec"
@@ -149,10 +141,7 @@ export default {
     timerProgress: 0,
     sec: 0,
     tasks_done: 125,
-    size: {
-      width: 400,
-      height: 400
-    },
+    size: 300,
     color: {
       gradient: {
         radial: true,

@@ -2,18 +2,18 @@
   <div
     class="ep-container"
     :style="{
-      maxWidth: `${size.width}px`,
-      maxHeight: `${size.height}px`,
-      transition: `width ${animation.duration}ms ease-in-out`,
+      maxWidth: `${size}px`,
+      maxHeight: `${size}px`,
+      transition: `${animation.duration}ms ease-in-out`
     }"
   >
     <div class="ep-content">
       <svg
         class="ep-svg-container"
-        :height="size.height"
-        :width="size.width"
+        :height="size"
+        :width="size"
         xmlns="http://www.w3.org/2000/svg"
-        :style="{ transform: `rotate(${startAngle}deg)`, background: 'red ' }"
+        :style="{ transform: `rotate(${startAngle}deg)` }"
       >
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
@@ -35,7 +35,7 @@
         <circle-progress v-else :options="options" />
       </svg>
 
-      <div class="ep-legend--container" :style="{ maxWidth: `${size.width}px` }">
+      <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <span
           v-if="legend"
           class="ep-legend--value"
@@ -77,10 +77,10 @@ export default {
       validator: val => val > -1 && val < 101
     },
     size: {
-      type: Object,
+      type: Number,
       required: false,
-      default: () => ({ width: 200, height: 200 }),
-      validator: value => value.width >= 0 && value.height >= 0
+      default: 200,
+      validator: value => value >= 0
     },
     thickness: {
       type: [Number, String],

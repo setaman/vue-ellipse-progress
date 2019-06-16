@@ -1,19 +1,17 @@
 <template>
   <g class="ep-half-circle--container">
     <path
-      style="stroke-linecap: round"
       :stroke-width="emptyThickness"
       :fill="emptyColorFill"
       :stroke="emptyColor"
       class="ep-circle--empty"
       :d="emptyPath"
       :stroke-dasharray="emptyDasharray"
-      :style="{ transition: animationDuration }"
+      :style="{ transition: animationDuration, 'stroke-linecap': options.line }"
       :class="{ 'ep-circle--nodata': options.noData }"
     >
     </path>
     <path
-      style="stroke-linecap: round"
       :stroke-width="thickness"
       class="ep-half-circle ep-circle--progress"
       :class="animationClass"
@@ -26,7 +24,8 @@
           dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
         transition: animationDuration,
         'animation-delay': `${delay}ms`,
-        'transform-origin': transformOrigin
+        'transform-origin': transformOrigin,
+        'stroke-linecap': options.line
       }"
     >
     </path>
