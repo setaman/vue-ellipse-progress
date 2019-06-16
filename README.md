@@ -43,6 +43,7 @@ Now use the component
   :dash="{count: 60, spacing: 0.9}"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
   fontColor="white"
+  :half="false"                      
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
@@ -84,6 +85,7 @@ using this properties please read below the table.
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String \| Object | see details |  |
+| **[`half`](#halfe)** | Boolean |  | false |
 
 <br>
 
@@ -334,6 +336,14 @@ is string or object. Internaly is used the value `stroke-dasharray` so if you de
   spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
 }
 ```
+
+<br>
+
+- ### `half` 
+
+boolean value that specifies the type of the circle. If set to true only the half of the circle is drawn like a gague chart  
+
+###### Example: :scroll:
 
 <br>
 
