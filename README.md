@@ -31,17 +31,20 @@ Now use the component
   :progress="progress"
   :angle="-90"
   :color="color"
-  :loading="loading"
-  :emptyColor="empty_color"
+  :colorFill="colorFill"
+  :loading="false"
+  :emptyColor="emptyColor"
+  :emptyColorFill="emptyColorFill"                      
   :size="size"
   :thickness="10"
   emptyThickness="10%"
   :lineMode="{mode: 'in', offset: 10}"
   :legend="true"
-  :legendValue="tasks_done"
-  :noData="noData"
+  :legendValue="tasksDone"
+  legendClass="legend-custom-style"
   :dash="{count: 60, spacing: 0.9}"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
+  :noData="false"
   fontColor="white"
   :half="false"                      
   fontSize="5rem">
@@ -306,13 +309,13 @@ is any Number. Defines the starting point of the progress circle line
 
 - ### `fontSize`
 
-is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend
+is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
 - ### `fontColor`
 
-is any valid css color. Defines the color of the circles legend
+is any valid css color. Defines the color of the circles legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
@@ -329,12 +332,12 @@ adds class to the circles legend to give you the possibility to style it
 is string or object. Internaly is used the value `stroke-dasharray` so if you defin the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
 
 ###### Example: :scroll:
-`"10 10"` - as String with 10px big dashes and 10px spacing. Or just `"10"`
+`dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
 ```js
-{
-  count: 60 // Number of dashes
-  spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
-}
+:dash="{
+    count: 60 // Number of dashes
+    spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
+  }"
 ```
 
 <br>
