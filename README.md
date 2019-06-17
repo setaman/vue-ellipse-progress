@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center;">
-  <img width="300" height="300" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v2.svg">  
+  <img width="300" height="300" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v3.svg">  
 </div>
 
 # vue-ellipse-progress
@@ -85,7 +85,7 @@ using this properties please read below the table.
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String \| Object | see details |  |
-| **[`half`](#halfe)** | Boolean |  | false |
+| **[`half`](#half)** | Boolean |  | false |
 
 <br>
 
@@ -104,7 +104,7 @@ this.progress = 55.5;
 this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: the `progress` is always used to fill the progress circle line. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed as circle legend.
 
 <br>
