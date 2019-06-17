@@ -18,15 +18,15 @@
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
           <gradient
-            v-if="color_fill.gradient"
-            :color="color_fill"
+            v-if="colorFill.gradient"
+            :color="colorFill"
             type="progress-fill"
             :id="_uid"
           />
-          <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid" />
+          <gradient v-if="emptyColor.gradient" :color="emptyColor" type="empty" :id="_uid" />
           <gradient
-            v-if="empty_color_fill.gradient"
-            :color="empty_color_fill"
+            v-if="emptyColorFill.gradient"
+            :color="emptyColorFill"
             type="empty-fill"
             :id="_uid"
           />
@@ -40,17 +40,17 @@
           v-if="legend"
           class="ep-legend--value"
           :class="{ hidden: shouldHideLegendValue }"
-          :style="{ fontSize: font_size, color: font_color }"
+          :style="{ fontSize: fontSize, color: fontColor }"
         >
           <CountUp
             ref="count"
-            :endVal="legendValue"
+            :endVal="legendVal"
             :delay="animation.delay"
-            :options="countOptions"
+            :options="counterOptions"
           ></CountUp>
-          <slot name="legend_value"></slot>
+          <slot name="legend-value"></slot>
         </span>
-        <slot name="legend_capture"></slot>
+        <slot name="legend-capture"></slot>
       </div>
     </div>
   </div>
@@ -88,7 +88,7 @@ export default {
       default: "5%",
       validator: value => parseFloat(value) > -1
     },
-    empty_thickness: {
+    emptyThickness: {
       type: [Number, String],
       required: false,
       default: "5%",
@@ -100,7 +100,7 @@ export default {
       default: "round",
       validator: value => ["round", "butt", "square"].includes(value)
     },
-    line_mode: {
+    lineMode: {
       type: [Object],
       required: false,
       default: () => ({
@@ -115,27 +115,27 @@ export default {
       required: false,
       default: "#3f79ff"
     },
-    empty_color: {
+    emptyColor: {
       type: [String, Object],
       required: false,
       default: "#e6e9f0"
     },
-    color_fill: {
+    colorFill: {
       type: [String, Object],
       required: false,
       default: "transparent"
     },
-    empty_color_fill: {
+    emptyColorFill: {
       type: [String, Object],
       required: false,
       default: "transparent"
     },
-    font_size: {
+    fontSize: {
       type: String,
       required: false,
       default: "relative"
     },
-    font_color: {
+    fontColor: {
       type: String,
       required: false,
       default: "gray"
@@ -154,7 +154,7 @@ export default {
       required: false,
       default: true
     },
-    legend_value: {
+    legendValue: {
       type: Number,
       required: false
     },
@@ -178,15 +178,12 @@ export default {
       required: false,
       default: "",
       validator: value => {
-        /* if (typeof value === 'string') {
-          return RegExp(/^[1-9]\d*$/g).test(value);
-        } */
         if (!value || typeof value === "string") {
           return true;
         }
 
         if (typeof value === "object") {
-          return value.count > -1 && value.spacing > -1;
+          return value.count >= 0 && value.spacing >= 0;
         }
         return false;
       }
@@ -204,23 +201,23 @@ export default {
     startAngle() {
       return this.loading ? "" : this.angle || -90;
     },
-    legendValue() {
+    legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return !Number.isNaN(this.legend_value) ? this.legend_value : this.progress;
+      return this.legendValue && !Number.isNaN(this.legendValue) ? this.legendValue : this.progress;
     },
     shouldHideLegendValue() {
       return !this.dataIsAvailable || this.loading || this.noData;
     },
     dataIsAvailable() {
-      return this.noData ? false : !Number.isNaN(parseFloat(this.progress));
+      return this.noData || !Number.isNaN(parseFloat(this.progress));
     },
     countDecimals() {
       if (this.legendValue % 1 === 0) return 0;
-      return this.legendValue.toString().split(".")[1].length;
+      return this.legendVal.toString().split(".")[1].length;
     },
-    countOptions() {
+    counterOptions() {
       return {
         duration: this.animation.duration / 1000,
         target: "span",
