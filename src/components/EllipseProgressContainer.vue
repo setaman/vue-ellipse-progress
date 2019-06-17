@@ -156,7 +156,7 @@ export default {
     },
     legendClass: {
       type: String,
-      required: false,
+      required: false
     },
     angle: {
       type: [String, Number],
