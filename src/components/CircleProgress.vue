@@ -26,7 +26,7 @@
       :stroke-dasharray="circumference"
       :style="{
         strokeDashoffset:
-          dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
+          dataIsAvailable && isInitialized && !isLoading ? progressOffset : circumference,
         transition: animationDuration,
         'animation-delay': `${delay}ms`,
         'transform-origin': transformOrigin

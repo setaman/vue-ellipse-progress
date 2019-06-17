@@ -89,11 +89,11 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable
+          !this.isLoading && this.dataIsAvailable
             ? this.options.animation.type || "default"
             : "none"
         }`,
-        `${this.options.loading ? "animation__loading" : ""}`
+        `${this.isLoading ? "animation__loading" : ""}`
       ];
     },
     /* Colors */
@@ -148,6 +148,9 @@ export default {
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
+    },
+    isLoading() {
+      return this.options.loading;
     }
   },
   methods: {
