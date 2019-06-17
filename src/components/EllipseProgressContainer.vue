@@ -17,12 +17,7 @@
       >
         <defs>
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
-          <gradient
-            v-if="colorFill.gradient"
-            :color="colorFill"
-            type="progress-fill"
-            :id="_uid"
-          />
+          <gradient v-if="colorFill.gradient" :color="colorFill" type="progress-fill" :id="_uid" />
           <gradient v-if="emptyColor.gradient" :color="emptyColor" type="empty" :id="_uid" />
           <gradient
             v-if="emptyColorFill.gradient"
@@ -39,10 +34,11 @@
         <span
           v-if="legend"
           class="ep-legend--value"
-          :class="{ hidden: shouldHideLegendValue }"
+          :class="{ 'ep-hidden': shouldHideLegendValue }"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
           <CountUp
+            :class="[legendClass]"
             ref="count"
             :endVal="legendVal"
             :delay="animation.delay"
@@ -74,7 +70,7 @@ export default {
     progress: {
       type: Number,
       required: true,
-      validator: val => val > -1 && val < 101
+      validator: val => val >= 0 && val <= 100
     },
     size: {
       type: Number,
@@ -86,13 +82,13 @@ export default {
       type: [Number, String],
       required: false,
       default: "5%",
-      validator: value => parseFloat(value) > -1
+      validator: value => parseFloat(value) >= 0
     },
     emptyThickness: {
       type: [Number, String],
       required: false,
       default: "5%",
-      validator: value => parseFloat(value) > -1
+      validator: value => parseFloat(value) >= 0
     },
     line: {
       type: String,
@@ -157,6 +153,10 @@ export default {
     legendValue: {
       type: Number,
       required: false
+    },
+    legendClass: {
+      type: String,
+      required: false,
     },
     angle: {
       type: [String, Number],
@@ -257,7 +257,7 @@ export default {
   color: black;
   opacity: 1;
 }
-.hidden {
+.ep-hidden {
   opacity: 0;
 }
 svg.ep-svg-container {

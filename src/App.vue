@@ -53,10 +53,7 @@
         legendClass="legend-custom-style"
         :noData="noData"
         :animation="{ type: 'loop', duration: 700, delay: 300 }"
-        fontSize="4rem"
-        fontColor="white"
       >
-        <span slot="legend-value">sec</span>
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
@@ -341,5 +338,9 @@ body {
     color: white;
     width: 200px;
   }
+}
+.legend-custom-style {
+  font-size: 3rem;
+  color: #009eff;
 }
 </style>

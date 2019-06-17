@@ -2,6 +2,12 @@ const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms
 
 export default {
   name: "CircleMixin",
+  props: {
+    options: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       isInitialized: false,
@@ -104,10 +110,7 @@ export default {
       return this.options.color;
     },
     emptyColor() {
-      if (
-        this.options.emptyColor.gradient &&
-        this.options.emptyColor.gradient.colors.length > 0
-      ) {
+      if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
         return `url(#ep-empty-gradient-${this.options.id})`;
       }
       return this.options.emptyColor;
