@@ -292,7 +292,7 @@ forces loading state. The component provide an indeterminate state for the case 
 
 - ### `noData`
 
-forces no data state. The component provide an no data state for the case that you data is not available. The circle progress still empty.
+forces no data state. The component provides an no data state for the case that you data is not available. The circle progress still empty.
 
 >:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
 
