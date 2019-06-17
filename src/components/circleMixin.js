@@ -2,6 +2,12 @@ const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms
 
 export default {
   name: "CircleMixin",
+  props: {
+    options: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       isInitialized: false,
@@ -24,9 +30,9 @@ export default {
     },
     /* Radius Calculation */
     radius() {
-      const offset = Number(this.options.line_mode.offset || 0);
+      const offset = Number(this.options.lineMode.offset || 0);
 
-      switch (this.options.line_mode.mode) {
+      switch (this.options.lineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
@@ -43,9 +49,9 @@ export default {
     },
 
     emptyRadius() {
-      const offset = Number(this.options.line_mode.offset || 0);
+      const offset = Number(this.options.lineMode.offset || 0);
 
-      switch (this.options.line_mode.mode) {
+      switch (this.options.lineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
@@ -104,28 +110,25 @@ export default {
       return this.options.color;
     },
     emptyColor() {
-      if (
-        this.options.empty_color.gradient &&
-        this.options.empty_color.gradient.colors.length > 0
-      ) {
+      if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
         return `url(#ep-empty-gradient-${this.options.id})`;
       }
-      return this.options.empty_color;
+      return this.options.emptyColor;
     },
     colorFill() {
-      if (this.options.color_fill.gradient && this.options.color_fill.gradient.colors.length > 0) {
+      if (this.options.colorFill.gradient && this.options.colorFill.gradient.colors.length > 0) {
         return `url(#ep-progress-fill-gradient-${this.options.id})`;
       }
-      return this.options.color_fill || "transparent";
+      return this.options.colorFill || "transparent";
     },
     emptyColorFill() {
       if (
-        this.options.empty_color_fill.gradient &&
-        this.options.empty_color_fill.gradient.colors.length > 0
+        this.options.emptyColorFill.gradient &&
+        this.options.emptyColorFill.gradient.colors.length > 0
       ) {
         return `url(#ep-empty-fill-gradient-${this.options.id})`;
       }
-      return this.options.empty_color_fill || "transparent";
+      return this.options.emptyColorFill || "transparent";
     },
     size() {
       return this.options.size;
@@ -134,7 +137,7 @@ export default {
       return this.calculateThickness(this.options.thickness.toString());
     },
     emptyThickness() {
-      return this.calculateThickness(this.options.empty_thickness.toString());
+      return this.calculateThickness(this.options.emptyThickness.toString());
     },
     animationDuration() {
       return `${this.options.animation.duration || 1000}ms`;

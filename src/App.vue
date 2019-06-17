@@ -24,63 +24,60 @@
         :progress="parseFloat(progress)"
         :color="color"
         :loading="loading"
-        :empty_color="empty_color"
+        :emptyColor="emptyColor"
         :size="size"
-        :empty_thickness="5"
-        :line_mode="{ mode: 'in', offset: 10 }"
+        :emptyThickness="5"
+        :lineMode="{ mode: 'in', offset: 10 }"
         :legend="false"
         :animation="{ type: 'rs', duration: 700 }"
         dash="10 10"
-        font_size="5rem"
+        fontSize="5rem"
       >
-        <img slot="legend_capture" src="@/assets/icon.svg" />
+        <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
-        :empty_color="empty_color"
-        :empty_color_fill="empty_color_fill"
+        :emptyColor="emptyColor"
+        :emptyColorFill="emptyColorFill"
         thickness="2%"
-        empty_thickness="5%"
+        emptyThickness="5%"
         :size="size"
         line="round"
         :dash="{ count: 60, spacing: 0.95 }"
-        :line_mode="{ mode: 'in-overlap', offset: 10 }"
+        :lineMode="{ mode: 'in-overlap', offset: 10 }"
         :legend="true"
-        :legend_value="sec"
+        :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
         :animation="{ type: 'loop', duration: 700, delay: 300 }"
-        font_size="4rem"
-        font_color="white"
       >
-        <span slot="legend_value">sec</span>
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
-        :empty_color="empty_color"
-        empty_color_fill=""
+        :emptyColor="emptyColor"
+        emptyColorFill=""
         thickness="10"
-        empty_thickness="10"
+        emptyThickness="10"
         :size="size"
         line="round"
-        :line_mode="{ mode: 'in', offset: 10 }"
+        :lineMode="{ mode: 'in', offset: 10 }"
         :legend="true"
-        :legend_value="sec"
+        :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
         :animation="{ type: 'reverse', duration: 700, delay: 300 }"
-        font_size="4rem"
-        font_color="white"
+        fontSize="4rem"
+        fontColor="white"
         angle="-90"
         half
       >
-        <span slot="legend_value"></span>
+        <span slot="legend-value"></span>
       </vue-ellipse-progress>
       <div>
         <label for="tasks">
@@ -92,39 +89,39 @@
       <vue-ellipse-progress
         :progress="parseFloat(tasksDonePercent)"
         :color="color"
-        :empty_color="empty_color"
+        :emptyColor="emptyColor"
         :size="size"
         :thickness="21"
         angle=""
         :loading="false"
-        :empty_thickness="20"
-        :line_mode="{ mode: 'normal', offset: 10 }"
-        :legend_value="tasks_done"
-        font_color="white"
+        :emptyThickness="20"
+        :lineMode="{ mode: 'normal', offset: 10 }"
+        :legendValue="tasks_done"
+        fontColor="white"
         :animation="{ type: 'loop', duration: 1000 }"
-        font_size="4rem"
+        fontSize="4rem"
         :noData="noData"
       >
-        <span slot="legend_value">/200</span>
-        <p slot="legend_capture">GOOD JOB</p>
+        <span slot="legend-value">/200</span>
+        <p slot="legend-capture">GOOD JOB</p>
       </vue-ellipse-progress>
       <vue-ellipse-progress
         :progress="parseFloat(tasksDonePercent)"
         :color="color"
-        :empty_color="empty_color"
+        :emptyColor="emptyColor"
         :size="size"
         :thickness="21"
         angle=""
         :loading="loading"
-        :empty_thickness="20"
-        :line_mode="{ mode: 'normal', offset: 10 }"
-        :legend_value="tasks_done"
-        font_color="white"
+        :emptyThickness="20"
+        :lineMode="{ mode: 'normal', offset: 10 }"
+        :legendValue="tasks_done"
+        fontColor="white"
         :animation="{ type: 'bounce', duration: 1000 }"
-        font_size="2rem"
+        fontSize="2rem"
       >
-        <span slot="legend_value">/200</span>
-        <p style="margin-bottom: 0" slot="legend_capture">GOOD JOB</p>
+        <span slot="legend-value">/200</span>
+        <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
       </vue-ellipse-progress>
     </div>
   </div>
@@ -160,7 +157,7 @@ export default {
         ]
       }
     },
-    color_fill: {
+    colorFill: {
       gradient: {
         radial: true,
         direction: "",
@@ -188,7 +185,7 @@ export default {
         ]
       }
     },
-    empty_color: {
+    emptyColor: {
       gradient: {
         radial: false,
         direction: "",
@@ -206,7 +203,7 @@ export default {
         ]
       }
     },
-    empty_color_fill: {
+    emptyColorFill: {
       gradient: {
         radial: true,
         direction: "",
@@ -341,5 +338,9 @@ body {
     color: white;
     width: 200px;
   }
+}
+.legend-custom-style {
+  font-size: 3rem;
+  color: #009eff;
 }
 </style>
