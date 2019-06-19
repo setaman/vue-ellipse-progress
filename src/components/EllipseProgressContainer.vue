@@ -214,7 +214,7 @@ export default {
       return this.noData || !Number.isNaN(parseFloat(this.progress));
     },
     countDecimals() {
-      if (this.legendValue % 1 === 0) return 0;
+      if (this.legendVal % 1 === 0) return 0;
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {
