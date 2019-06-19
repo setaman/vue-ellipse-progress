@@ -1,9 +1,8 @@
-/*
 module.exports = {
   css: {
     extract: false
-  },
-  configureWebpack: () => {
+  }
+  /* configureWebpack: () => {
     let config = {};
     if (process.env.NODE_ENV === "production") {
       config = {
@@ -19,6 +18,5 @@ module.exports = {
       filename: () => "vue-ellipse-progress.js"
     };
     return config;
-  }
+  } */
 };
-*/

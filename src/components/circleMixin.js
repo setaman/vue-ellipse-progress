@@ -37,7 +37,7 @@ export default {
           return this.normalLineModeRadius;
         case "in":
           return this.baseRadius - (this.emptyThickness + offset);
-        case "in-overlap":
+        case "in-over":
           return this.baseRadius;
         case "bottom":
           return this.emptyRadius - this.emptyThickness / 2;
@@ -56,7 +56,7 @@ export default {
           return this.normalLineModeRadius;
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
-        case "out-overlap":
+        case "out-over":
           return this.baseRadius - (this.thickness / 2 - this.emptyThickness / 2);
         case "bottom":
           if (this.emptyThickness < this.thickness / 2) {

@@ -2,76 +2,151 @@
   <v-container>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
-        <v-img :src="require('../assets/logo.svg')" class="my-3" contain height="200"></v-img>
       </v-flex>
 
       <v-flex xs12>
-        <vue-ellipse-progress :progress="45"></vue-ellipse-progress>
+        <vue-ellipse-progress
+          :progress="parseFloat(progress)"
+          :color="color"
+          :loading="loading"
+          :emptyColor="emptyColor"
+          :size="size"
+          :emptyThickness="5"
+          :lineMode="{ mode: 'in', offset: 10 }"
+          :legend="false"
+          :animation="{ type: 'rs', duration: 700 }"
+          fontSize="5rem"
+        >
+          <p slot="legend-capture">hui</p>
+        </vue-ellipse-progress>
       </v-flex>
-      <my-plugin/>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  import MyPlugin from "serga-test/src/components/MyPlugin";
-  console.log(MyPlugin);
-
   export default {
-  data: () => ({
-    components: { MyPlugin },
-    ecosystem: [
-      {
-        text: "vuetify-loader",
-        href: "https://github.com/vuetifyjs/vuetify-loader"
+    data: () => ({
+      loading: false,
+      noData: false,
+      progress: 45.5,
+      timerProgress: 0,
+      sec: 0,
+      tasks_done: 125,
+      size: 300,
+      color: {
+        gradient: {
+          radial: true,
+          direction: "",
+          colors: [
+            {
+              color: "#3260FC",
+              offset: "0",
+              opacity: "0"
+            },
+            {
+              color: "#3260FC",
+              offset: "100",
+              opacity: "1"
+            }
+          ]
+        }
       },
-      {
-        text: "github",
-        href: "https://github.com/vuetifyjs/vuetify"
+      colorFill: {
+        gradient: {
+          radial: true,
+          direction: "",
+          colors: [
+            {
+              color: "#3260FC",
+              offset: "40",
+              opacity: "1"
+            },
+            {
+              color: "transparent",
+              offset: "80",
+              opacity: "0.1"
+            },
+            {
+              color: "transparent",
+              offset: "95",
+              opacity: "0.1"
+            },
+            {
+              color: "#3260FC",
+              offset: "95",
+              opacity: "0.1"
+            }
+          ]
+        }
       },
-      {
-        text: "awesome-vuetify",
-        href: "https://github.com/vuetifyjs/awesome-vuetify"
+      emptyColor: {
+        gradient: {
+          radial: false,
+          direction: "",
+          colors: [
+            {
+              color: "#050a27",
+              offset: "0",
+              opacity: "0.3"
+            },
+            {
+              color: "#050a27",
+              offset: "100",
+              opacity: "0.3"
+            }
+          ]
+        }
+      },
+      emptyColorFill: {
+        gradient: {
+          radial: true,
+          direction: "",
+          colors: [
+            {
+              color: "#3260FC",
+              offset: "50",
+              opacity: "0.2"
+            },
+            {
+              color: "#3260FC",
+              offset: "50",
+              opacity: "0.15"
+            },
+            {
+              color: "#3260FC",
+              offset: "70",
+              opacity: "0.15"
+            },
+            {
+              color: "#3260FC",
+              offset: "70",
+              opacity: "0.1"
+            },
+            {
+              color: "#3260FC",
+              offset: "90",
+              opacity: "0.1"
+            },
+            {
+              color: "transparent",
+              offset: "90",
+              opacity: "0.1"
+            },
+            {
+              color: "transparent",
+              offset: "95",
+              opacity: "0.1"
+            },
+            {
+              color: "transparent",
+              offset: "95",
+              opacity: "0.1"
+            }
+          ]
+        }
       }
-    ],
-    importantLinks: [
-      {
-        text: "Documentation",
-        href: "https://vuetifyjs.com"
-      },
-      {
-        text: "Chat",
-        href: "https://community.vuetifyjs.com"
-      },
-      {
-        text: "Made with Vuetify",
-        href: "https://madewithvuetifyjs.com"
-      },
-      {
-        text: "Twitter",
-        href: "https://twitter.com/vuetifyjs"
-      },
-      {
-        text: "Articles",
-        href: "https://medium.com/vuetify"
-      }
-    ],
-    whatsNext: [
-      {
-        text: "Explore components",
-        href: "https://vuetifyjs.com/components/api-explorer"
-      },
-      {
-        text: "Select a layout",
-        href: "https://vuetifyjs.com/layout/pre-defined"
-      },
-      {
-        text: "Frequently Asked Questions",
-        href: "https://vuetifyjs.com/getting-started/frequently-asked-questions"
-      }
-    ]
-  })
+    }),
 };
 </script>
-
 <style></style>
