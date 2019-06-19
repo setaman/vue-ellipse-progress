@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "serga-test": "0.0.4",
     "vue": "^2.6.10",
+    "vue-ellipse-progress": "file:../vue-ellipse-progress-0.18.5.tgz",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"

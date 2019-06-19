@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import CircleProgress from "@/components/CircleProgress.vue";
-import Gradient from "@/components/Gradient.vue";
 import CountUp from "vue-countup-v2";
-import HalfCircleProgress from "@/components/HalfCircleProgress.vue";
+import CircleProgress from "./CircleProgress.vue";
+import Gradient from "./Gradient.vue";
+import HalfCircleProgress from "./HalfCircleProgress.vue";
 
 export default {
   name: "EllipseProgressContainer",

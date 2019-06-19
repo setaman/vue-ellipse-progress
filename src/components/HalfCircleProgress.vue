@@ -32,7 +32,7 @@
   </g>
 </template>
 <script>
-import CircleMixin from "@/components/circleMixin";
+import CircleMixin from "./circleMixin";
 
 export default {
   name: "HalfCircleProgress",

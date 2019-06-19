@@ -35,6 +35,7 @@
       >
         <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="56"/>
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
