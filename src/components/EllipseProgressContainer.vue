@@ -129,7 +129,7 @@ export default {
     fontSize: {
       type: String,
       required: false,
-      default: "relative"
+      default: "1rem"
     },
     fontColor: {
       type: String,

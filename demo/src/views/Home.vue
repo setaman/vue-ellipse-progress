@@ -1,190 +1,194 @@
 <template>
   <v-container fluid grid-list-xl>
-    <!--<v-checkbox v-model="loading" label="loading"></v-checkbox>
-    <v-checkbox v-model="noData" label="no data"></v-checkbox>-->
-    <v-layout text-xs-center wrap>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :color="color"
-          :no-data="noData"
-          :loading="loading"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="6"
-          :lineMode="{ mode: 'out', offset: 5 }"
-          :legend="true"
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-        >
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :no-data="noData"
-          :color="color"
-          :loading="loading"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="6"
-          :lineMode="{ mode: 'normal' }"
-          :legend="true"
-          :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-        >
-          <span slot="legend-capture"> {{loading ? 'LOADING...' : 'AMAZING PROGRESS'}} </span>
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(tasksDonePercent)"
-          :color="color"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="6"
-          :lineMode="{ mode: 'in', offset: 10 }"
-          :legend="true"
-          :legend-value="tasksDone"
-          :animation="{ type: 'loop', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-          dash="5"
-        >
-          <span slot="legend-value">/200</span>
-          <span slot="legend-capture">{{loading ? 'LOADING...' : 'TASKS DONE'}}</span>
-        </vue-ellipse-progress>
-      </v-flex>
-    </v-layout>
-    <v-layout text-xs-center wrap>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :color="color"
-          :colorFill="colorFill"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="6"
-          :lineMode="{ mode: 'out', offset: 5 }"
-          :legend="false"
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-          half
-        >
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          id="timer-example"
-          :progress="parseFloat(timerProgress)"
-          :color="color"
-          :loading="loading"
-          :emptyColor="emptyColorTimer"
-          :emptyColorFill="emptyColorFillWave"
-          thickness="2%"
-          emptyThickness="5%"
-          :size="size"
-          line="round"
-          :dash="{ count: 60, spacing: 0.8 }"
-          :lineMode="{ mode: 'in-overlap', offset: 10 }"
-          :legend="true"
-          :legendValue="sec"
-          legendClass="legend-custom-style"
-          :noData="noData"
-          font-size="3rem"
-          :animation="{ type: 'loop', duration: 700, delay: 1000 }"
-        >
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :angle="90"
-          :progress="parseFloat(progress)"
-          :color="color"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          emptyThickness="2%"
-          :lineMode="{ mode: 'in', offset: 10 }"
-          :legend="false"
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-          :dash="{ count: 60, spacing: 0.999 }"
-          half
-        >
-        </vue-ellipse-progress>
-      </v-flex>
-    </v-layout>
-    <v-layout text-xs-center wrap>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :color="color"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :emptyColorFill="emptyColorFill"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="0"
-          :lineMode="{ mode: 'out', offset: 5 }"
-          :legend="false"
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-        >
-          <img slot="legend-capture" height="80px" src="@/assets/icon.svg" />
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(progress)"
-          :color="color"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="dynamicLineConfig.thickness"
-          :emptyThickness="dynamicLineConfig.emptyThickness"
-          :lineMode="{ mode: dynamicLineConfig.linemode, offset: dynamicLineConfig.offset }"
-          :legend="true"
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          fontSize="3rem"
-        >
-        </vue-ellipse-progress>
-      </v-flex>
-      <v-flex xs12 sm6 md4 >
-        <vue-ellipse-progress
-          :progress="parseFloat(ratingProgress)"
-          :color="color"
-          :loading="loading"
-          :no-data="noData"
-          :emptyColor="emptyColor"
-          :size="size"
-          :thickness="5"
-          :emptyThickness="6"
-          :lineMode="{ mode: 'out', offset: 5 }"
-          legend
-          :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-          :legendValue="rating"
-          fontSize="3rem"
-        >
+    <v-checkbox v-model="loading" label="loading"></v-checkbox>
+    <v-checkbox v-model="noData" label="no data"></v-checkbox>
+    <v-layout wrap row style="margin-top: 0px">
+      <v-flex xs12>
+        <v-layout text-xs-center wrap>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(progress)"
+              :color="color"
+              :no-data="noData"
+              :loading="loading"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="6"
+              :lineMode="{ mode: 'out', offset: 5 }"
+              :legend="true"
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+            >
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(progress)"
+              :no-data="noData"
+              :color="color"
+              :loading="loading"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="6"
+              :lineMode="{ mode: 'normal' }"
+              :legend="true"
+              :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+            >
+              <span slot="legend-capture"> {{loading ? 'LOADING...' : 'AMAZING PROGRESS'}} </span>
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(tasksDonePercent)"
+              :color="color"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="6"
+              :lineMode="{ mode: 'in', offset: 10 }"
+              :legend="true"
+              :legend-value="tasksDone"
+              :animation="{ type: 'loop', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+              dash="5"
+            >
+              <span slot="legend-value">/200</span>
+              <span slot="legend-capture">{{loading ? 'LOADING...' : 'TASKS DONE'}}</span>
+            </vue-ellipse-progress>
+          </v-flex>
+        </v-layout>
+        <v-layout text-xs-center wrap>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(progress)"
+              :color="color"
+              :colorFill="colorFill"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="6"
+              :lineMode="{ mode: 'out', offset: 5 }"
+              :legend="false"
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+              half
+            >
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              id="timer-example"
+              :progress="parseFloat(timerProgress)"
+              :color="color"
+              :loading="loading"
+              :emptyColor="emptyColorTimer"
+              :emptyColorFill="emptyColorFillWave"
+              thickness="2%"
+              emptyThickness="5%"
+              :size="size"
+              line="round"
+              :dash="{ count: 60, spacing: 0.8 }"
+              :lineMode="{ mode: 'in-overlap', offset: 10 }"
+              :legend="true"
+              :legendValue="sec"
+              legendClass="legend-custom-style"
+              :noData="noData"
+              font-size="3rem"
+              :animation="{ type: 'loop', duration: 700, delay: 1000 }"
+            >
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :angle="90"
+              :progress="parseFloat(progress)"
+              :color="color"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              emptyThickness="2%"
+              :lineMode="{ mode: 'in', offset: 10 }"
+              :legend="false"
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+              :dash="{ count: 60, spacing: 0.999 }"
+              half
+            >
+            </vue-ellipse-progress>
+          </v-flex>
+        </v-layout>
+        <v-layout text-xs-center wrap>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(progress)"
+              :color="color"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :emptyColorFill="emptyColorFill"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="0"
+              :lineMode="{ mode: 'out', offset: 5 }"
+              :legend="false"
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+            >
+              <img slot="legend-capture" height="80px" src="@/assets/icon.svg" />
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(progress)"
+              :color="color"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="dynamicLineConfig.thickness"
+              :emptyThickness="dynamicLineConfig.emptyThickness"
+              :lineMode="{ mode: dynamicLineConfig.linemode, offset: dynamicLineConfig.offset }"
+              :legend="true"
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              fontSize="3rem"
+            >
+            </vue-ellipse-progress>
+          </v-flex>
+          <v-flex xs12 sm6 md4 >
+            <vue-ellipse-progress
+              :progress="parseFloat(ratingProgress)"
+              :color="color"
+              :loading="loading"
+              :no-data="noData"
+              :emptyColor="emptyColor"
+              :size="size"
+              :thickness="5"
+              :emptyThickness="6"
+              :lineMode="{ mode: 'out', offset: 5 }"
+              legend
+              :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+              :legendValue="rating"
+              fontSize="3rem"
+            >
           <span slot="legend-value">
             /5
           </span>
-          <div slot="legend-capture">
-            <p class="mb-0">24 REVIEWS</p>
-            <v-rating small v-model="rating"></v-rating>
-          </div>
-        </vue-ellipse-progress>
+              <div slot="legend-capture">
+                <p class="mb-0">24 REVIEWS</p>
+                <v-rating small v-model="rating"></v-rating>
+              </div>
+            </vue-ellipse-progress>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
