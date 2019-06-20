@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import CircleProgress from "@/components/CircleProgress.vue";
-import Gradient from "@/components/Gradient.vue";
 import CountUp from "vue-countup-v2";
-import HalfCircleProgress from "@/components/HalfCircleProgress.vue";
+import CircleProgress from "./CircleProgress.vue";
+import Gradient from "./Gradient.vue";
+import HalfCircleProgress from "./HalfCircleProgress.vue";
 
 export default {
   name: "EllipseProgressContainer",
@@ -104,7 +104,7 @@ export default {
         offset: 0
       }),
       validator: value =>
-        ["normal", "out", "out-overlap", "in", "in-overlap", "top", "bottom"].includes(value.mode)
+        ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
     },
     color: {
       type: [String, Object],
@@ -129,7 +129,7 @@ export default {
     fontSize: {
       type: String,
       required: false,
-      default: "relative"
+      default: "1rem"
     },
     fontColor: {
       type: String,
@@ -199,7 +199,7 @@ export default {
       return { ...this.$props, id: this._uid };
     },
     startAngle() {
-      return this.loading ? "" : this.angle || -90;
+      return /*this.loading ? "" : */this.angle || -90;
     },
     legendVal() {
       if (this.loading || this.noData) {
