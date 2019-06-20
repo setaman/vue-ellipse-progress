@@ -1,11 +1,8 @@
 <div align="center" style="text-align: center;">
-  <img width="300" height="300" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v3.svg">  
+  <img width="250" height="250" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v3.svg">  
 </div>
 
 # vue-ellipse-progress
-A Vue.js component to create beautiful animated circular progress bars
-
-<br/>
 
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -14,6 +11,13 @@ A Vue.js component to create beautiful animated circular progress bars
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
+
+A Vue.js component to create beautiful animated circular progress bars
+
+<div align="center" style="text-align: center;">
+  <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">  
+</div>
+
 ## How to use
 install the library via npm
 ```
