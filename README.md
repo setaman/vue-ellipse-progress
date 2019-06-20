@@ -34,21 +34,21 @@ Now use the component
 <vue-ellipse-progress 
   :progress="progress"
   :angle="-90"
-  :color="color"
-  :colorFill="colorFill"
-  :loading="false"
-  :emptyColor="emptyColor"
-  :emptyColorFill="emptyColorFill"                      
-  :size="size"
+  color="blue"
+  :colorFill="colorFillGradient"
+  emptyColor="#8ec5fc"
+  :emptyColorFill="emptyColorFillGradient"                      
+  :size="300"
   :thickness="10"
   emptyThickness="10%"
   :lineMode="{mode: 'in', offset: 10}"
   :legend="true"
-  :legendValue="tasksDone"
+  :legendValue="180"
   legendClass="legend-custom-style"
   :dash="{count: 60, spacing: 0.9}"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
   :noData="false"
+  :loading="false"                      
   fontColor="white"
   :half="false"                      
   fontSize="5rem">
@@ -77,18 +77,18 @@ using this properties please read below the table.
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  5% |      
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out-over \| in \| in-over \| top \| bottom` <br> `offset: any number `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
-| **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 as Number or percent value as String |  5% |     
+| **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`legend`](#legend)** | Boolean | your know this |  true |
-| **[`legendValue`](#legendvalue)** | Number |  |   |
+| **[`legendValue`](#legendvalue)** | Number | any |   |
 | **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> `}`|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any number |-90|
-| **[`fontSize`](#fontsize)** | String | any valid css value | relative |
+| **[`fontSize`](#fontsize)** | String | any valid css value | 1rem |
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String \| Object | see details |  |
@@ -102,7 +102,7 @@ using this properties please read below the table.
 
 is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and count up or down on any value changes with duration defined in 
-**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** of the circle.
+**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** in the middle of the circle.
 
 ###### Example: :scroll:
 
@@ -120,7 +120,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
+is any Number from >=0. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
 >:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
@@ -136,7 +136,7 @@ is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent thicknees will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
+is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent the thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
 
 <br>
 
@@ -313,13 +313,13 @@ is any Number. Defines the starting point of the progress circle line
 
 - ### `fontSize`
 
-is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
+is any valid css size property. Defines the font size of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
 - ### `fontColor`
 
-is any valid css color. Defines the color of the circles legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
+is any valid css color. Defines the color of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
@@ -333,7 +333,7 @@ adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-is string or object. Internaly is used the value `stroke-dasharray` so if you defin the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
+is string or object. Internaly is used the value `stroke-dasharray` so if you define the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
 
 ###### Example: :scroll:
 `dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
