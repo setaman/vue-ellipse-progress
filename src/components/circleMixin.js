@@ -95,9 +95,7 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable
-            ? this.options.animation.type || "default"
-            : "none"
+          !this.options.loading && this.dataIsAvailable ? this.options.animation.type || "default" : "none"
         }`,
         `${this.options.loading ? "animation__loading" : ""}`
       ];
@@ -122,10 +120,7 @@ export default {
       return this.options.colorFill || "transparent";
     },
     emptyColorFill() {
-      if (
-        this.options.emptyColorFill.gradient &&
-        this.options.emptyColorFill.gradient.colors.length > 0
-      ) {
+      if (this.options.emptyColorFill.gradient && this.options.emptyColorFill.gradient.colors.length > 0) {
         return `url(#ep-empty-fill-gradient-${this.options.id})`;
       }
       return this.options.emptyColorFill || "transparent";
@@ -188,9 +183,7 @@ export default {
       return this.progressOffset < 100 ? 0 : this.progressOffset - 100;
     },
     getBounceInOffset() {
-      return this.circumference - this.progressOffset < 100
-        ? this.progressOffset
-        : this.progressOffset + 100;
+      return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
     },
     async setAnimationDelay() {
       if (this.loading) {

@@ -19,12 +19,7 @@
           <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
           <gradient v-if="colorFill.gradient" :color="colorFill" type="progress-fill" :id="_uid" />
           <gradient v-if="emptyColor.gradient" :color="emptyColor" type="empty" :id="_uid" />
-          <gradient
-            v-if="emptyColorFill.gradient"
-            :color="emptyColorFill"
-            type="empty-fill"
-            :id="_uid"
-          />
+          <gradient v-if="emptyColorFill.gradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
         </defs>
         <half-circle-progress v-if="half" :options="options" />
         <circle-progress v-else :options="options" />
@@ -103,8 +98,7 @@ export default {
         mode: "normal",
         offset: 0
       }),
-      validator: value =>
-        ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
+      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
     },
     color: {
       type: [String, Object],
@@ -199,7 +193,7 @@ export default {
       return { ...this.$props, id: this._uid };
     },
     startAngle() {
-      return /*this.loading ? "" : */this.angle || -90;
+      return /* this.loading ? "" : */ this.angle || -90;
     },
     legendVal() {
       if (this.loading || this.noData) {
