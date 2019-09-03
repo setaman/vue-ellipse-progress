@@ -5,7 +5,7 @@
     <v-layout wrap row style="margin-top: 0px">
       <v-flex xs12>
         <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -22,7 +22,7 @@
             >
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :no-data="noData"
@@ -37,10 +37,10 @@
               :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
               fontSize="3rem"
             >
-              <span slot="legend-capture"> {{loading ? 'LOADING...' : 'AMAZING PROGRESS'}} </span>
+              <span slot="legend-capture"> {{ loading ? "LOADING..." : "AMAZING PROGRESS" }} </span>
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(tasksDonePercent)"
               :color="color"
@@ -58,12 +58,12 @@
               dash="5"
             >
               <span slot="legend-value">/200</span>
-              <span slot="legend-capture">{{loading ? 'LOADING...' : 'TASKS DONE'}}</span>
+              <span slot="legend-capture">{{ loading ? "LOADING..." : "TASKS DONE" }}</span>
             </vue-ellipse-progress>
           </v-flex>
         </v-layout>
         <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -82,7 +82,7 @@
             >
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               id="timer-example"
               :progress="parseFloat(timerProgress)"
@@ -105,7 +105,7 @@
             >
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :angle="90"
               :progress="parseFloat(progress)"
@@ -127,7 +127,7 @@
           </v-flex>
         </v-layout>
         <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -146,7 +146,7 @@
               <img slot="legend-capture" height="80px" src="@/assets/icon.svg" />
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -163,7 +163,7 @@
             >
             </vue-ellipse-progress>
           </v-flex>
-          <v-flex xs12 sm6 md4 >
+          <v-flex xs12 sm6 md4>
             <vue-ellipse-progress
               :progress="parseFloat(ratingProgress)"
               :color="color"
@@ -179,9 +179,9 @@
               :legendValue="rating"
               fontSize="3rem"
             >
-          <span slot="legend-value">
-            /5
-          </span>
+              <span slot="legend-value">
+                /5
+              </span>
               <div slot="legend-capture">
                 <p class="mb-0">24 REVIEWS</p>
                 <v-rating small v-model="rating"></v-rating>
@@ -195,23 +195,23 @@
 </template>
 
 <script>
-  const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
-  export default {
+export default {
   components: {},
   name: "Home",
   data: () => ({
     rating: 3,
-    lineModes: ['normal', 'in', 'in-over', 'out', 'out-over', 'top', 'bottom'],
+    lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
     loading: true,
     noData: false,
     progress: 95,
     dynamicLineConfig: {
-      linemode: 'normal',
+      linemode: "normal",
       offset: 0,
       thickness: 5,
       emptyThickness: 5,
-      dashCount: 0,
+      dashCount: 0
     },
     timerProgress: 0,
     sec: 0,
@@ -249,7 +249,7 @@
             color: "#fad0c4",
             offset: "50",
             opacity: "0"
-          },
+          }
         ]
       }
     },
@@ -358,7 +358,7 @@
   }),
   computed: {
     ratingProgress() {
-      return this.rating * 100 / 5;
+      return (this.rating * 100) / 5;
     },
     tasksDonePercent() {
       return (this.tasksDone * 100) / 200;
@@ -385,11 +385,13 @@
           linemode: this.lineModes[this.randomNumberInRange(0, 6)],
           offset: this.randomNumberInRange(0, 20),
           thickness: this.randomNumberInRange(2, 20),
-          dashCount: this.randomNumberInRange(0, 100),
+          dashCount: this.randomNumberInRange(0, 100)
         };
-        this.dynamicLineConfig.emptyThickness = this.randomNumberInRange(0, this.dynamicLineConfig.linemode.includes('out')
-            ? this.dynamicLineConfig.thickness : 20);
-      }, 1000)
+        this.dynamicLineConfig.emptyThickness = this.randomNumberInRange(
+          0,
+          this.dynamicLineConfig.linemode.includes("out") ? this.dynamicLineConfig.thickness : 20
+        );
+      }, 1000);
     },
     randomNumberInRange(min = 0, max = 100) {
       return Math.floor(Math.random() * (max - min + 1)) + min;

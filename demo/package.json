@@ -9,11 +9,12 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "sass": "^1.22.10",
     "serga-test": "0.0.4",
     "vue": "^2.6.10",
-    "vue-ellipse-progress": "file:../vue-ellipse-progress-0.18.6.tgz",
+    "vue-ellipse-progress": "^0.18.8",
     "vue-router": "^3.0.3",
-    "vuetify": "^1.5.5",
+    "vuetify": "^2.0.11",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

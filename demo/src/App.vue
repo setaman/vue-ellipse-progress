@@ -8,12 +8,11 @@
 
 <script>
 export default {
-  name: "App",
+  name: "App"
 };
 </script>
-<style lang="css">
-  #app {
-    background: white;
-  }
-
+<style lang="scss">
+#app {
+  background: white;
+}
 </style>
