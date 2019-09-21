@@ -8,12 +8,13 @@
 
 <script>
 export default {
-  name: "App",
+  name: "App"
 };
 </script>
 <style lang="css">
-  #app {
-    background: white;
-  }
-
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,700&display=swap');
+#app {
+  background: white;
+  font-family: 'Quicksand', sans-serif;
+}
 </style>
