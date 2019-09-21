@@ -8,6 +8,9 @@
         <vue-ellipse-progress
           :progress="parseFloat(options.progress)"
           :color="options.color"
+          :color-fill="options.colorFill"
+          :empty-color-fill="options.emptyColorFill"
+          :empty-color="options.emptyColor"
           :no-data="options.noData"
           :loading="options.loading"
           :emptyColor="options.emptyColor"
@@ -21,7 +24,9 @@
           :dash="options.dash"
           :animation="options.animation"
           :fontSize="options.fontSize"
+          :fontColor="options.fontColor"
           :legendValue="options.legendValue"
+          :half="options.half"
         >
         </vue-ellipse-progress>
       </v-col>
@@ -46,13 +51,15 @@ export default {
       rating: 3,
       legendValue: 0,
       fontSize: "2rem",
+      fontColor: "rgba(25,141,234,0.5)",
       lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
       loading: false,
       legend: true,
       noData: false,
       line: "round",
-        dash: "",
-      progress: 95,
+      dash: "",
+      half: false,
+      progress: 55,
       thickness: 5,
       angle: -90,
       emptyThickness: 5,
