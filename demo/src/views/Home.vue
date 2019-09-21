@@ -1,11 +1,16 @@
 <template>
-  <v-container fluid grid-list-xl>
-    <v-checkbox v-model="loading" label="loading"></v-checkbox>
-    <v-checkbox v-model="noData" label="no data"></v-checkbox>
-    <v-layout wrap row style="margin-top: 0px">
-      <v-flex xs12>
-        <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4>
+  <v-container fluid class="fill-height">
+    <v-row dense>
+      <v-col cols="12">
+        <router-link to="/builder">
+          builder
+        </router-link>
+      </v-col>
+    </v-row>
+    <v-row dense>
+      <v-col cols="12">
+        <v-row dense class="text-center">
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -18,11 +23,11 @@
               :lineMode="{ mode: 'out', offset: 5 }"
               :legend="true"
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
             >
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :no-data="noData"
@@ -35,12 +40,12 @@
               :lineMode="{ mode: 'normal' }"
               :legend="true"
               :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
             >
               <span slot="legend-capture"> {{ loading ? "LOADING..." : "AMAZING PROGRESS" }} </span>
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(tasksDonePercent)"
               :color="color"
@@ -54,16 +59,16 @@
               :legend="true"
               :legend-value="tasksDone"
               :animation="{ type: 'loop', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
               dash="5"
             >
               <span slot="legend-value">/200</span>
               <span slot="legend-capture">{{ loading ? "LOADING..." : "TASKS DONE" }}</span>
             </vue-ellipse-progress>
-          </v-flex>
-        </v-layout>
-        <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+        </v-row>
+        <v-row class="text-center">
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -77,12 +82,12 @@
               :lineMode="{ mode: 'out', offset: 5 }"
               :legend="false"
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
               half
             >
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               id="timer-example"
               :progress="parseFloat(timerProgress)"
@@ -95,17 +100,17 @@
               :size="size"
               line="round"
               :dash="{ count: 60, spacing: 0.8 }"
-              :lineMode="{ mode: 'in-overlap', offset: 10 }"
+              :lineMode="{ mode: 'in-over', offset: 10 }"
               :legend="true"
               :legendValue="sec"
               legendClass="legend-custom-style"
               :noData="noData"
-              font-size="3rem"
+              :fontSize="fontSize"
               :animation="{ type: 'loop', duration: 700, delay: 1000 }"
             >
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :angle="90"
               :progress="parseFloat(progress)"
@@ -119,15 +124,15 @@
               :lineMode="{ mode: 'in', offset: 10 }"
               :legend="false"
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
               :dash="{ count: 60, spacing: 0.999 }"
               half
             >
             </vue-ellipse-progress>
-          </v-flex>
-        </v-layout>
-        <v-layout text-xs-center wrap>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+        </v-row>
+        <v-row class="text-center">
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -141,12 +146,12 @@
               :lineMode="{ mode: 'out', offset: 5 }"
               :legend="false"
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
             >
               <img slot="legend-capture" height="80px" src="@/assets/icon.svg" />
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(progress)"
               :color="color"
@@ -159,11 +164,11 @@
               :lineMode="{ mode: dynamicLineConfig.linemode, offset: dynamicLineConfig.offset }"
               :legend="true"
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-              fontSize="3rem"
+              :fontSize="fontSize"
             >
             </vue-ellipse-progress>
-          </v-flex>
-          <v-flex xs12 sm6 md4>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
             <vue-ellipse-progress
               :progress="parseFloat(ratingProgress)"
               :color="color"
@@ -177,7 +182,7 @@
               legend
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
               :legendValue="rating"
-              fontSize="3rem"
+              :fontSize="fontSize"
             >
               <span slot="legend-value">
                 /5
@@ -187,10 +192,10 @@
                 <v-rating small v-model="rating"></v-rating>
               </div>
             </vue-ellipse-progress>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -202,6 +207,7 @@ export default {
   name: "Home",
   data: () => ({
     rating: 3,
+    fontSize: "2rem",
     lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
     loading: true,
     noData: false,
@@ -216,7 +222,7 @@ export default {
     timerProgress: 0,
     sec: 0,
     tasksDone: 125,
-    size: 250,
+    size: 200,
     color: {
       gradient: {
         radial: false,

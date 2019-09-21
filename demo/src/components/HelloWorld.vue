@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-layout text-xs-center wrap>
-      <v-flex xs12> </v-flex>
+    <v-row class="text-center">
+      <v-col cols="12"> </v-col>
 
-      <v-flex xs12>
+      <v-col cols="12">
         <vue-ellipse-progress
           :progress="parseFloat(progress)"
           :color="color"
@@ -18,8 +18,8 @@
         >
           <p slot="legend-capture">hui</p>
         </vue-ellipse-progress>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
