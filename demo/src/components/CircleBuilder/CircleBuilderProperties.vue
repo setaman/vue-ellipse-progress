@@ -163,7 +163,7 @@
         </v-row>
       </v-expansion-panel-content>
     </v-expansion-panel>
-    <circle-colors-edit :properties="properties"/>
+    <circle-colors-edit :properties="properties" />
     <circle-states-edit :properties="properties" />
     <circle-animation-edit :properties="properties" />
     <circle-legend-font-edit :properties="properties" />
@@ -177,7 +177,7 @@ import CircleLegendFontEdit from "./CircleLegendFontEdit";
 import CircleColorsEdit from "./CircleColorsEdit";
 export default {
   name: "CircleBuilderProperties",
-  components: {CircleColorsEdit, CircleLegendFontEdit, CircleAnimationEdit, CircleStatesEdit },
+  components: { CircleColorsEdit, CircleLegendFontEdit, CircleAnimationEdit, CircleStatesEdit },
   props: {
     properties: {
       type: Object,
@@ -191,7 +191,7 @@ export default {
     colorAsObject: true,
     emptyColorAsObject: true,
     colorFillAsObject: true,
-    emptyColorFillAsObject: true,
+    emptyColorFillAsObject: true
   }),
   methods: {
     toggleDashAsObject() {
@@ -203,109 +203,6 @@ export default {
       } else {
         this.properties.dash = "";
       }
-    },
-    toggleColorAsObject() {
-      if (this.colorAsObject) {
-        this.properties.color = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
-          }
-        };
-      } else {
-        this.properties.color = "#5800b0";
-      }
-    },
-    toggleEmptyColorAsObject() {
-      if (this.emptyColorAsObject) {
-        this.properties.emptyColor = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
-          }
-        };
-      } else {
-        this.properties.emptyColor = "#5800b0";
-      }
-    },
-    toggleColorFillAsObject() {
-      if (this.colorFillAsObject) {
-        this.properties.colorFill = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
-          }
-        };
-      } else {
-        this.properties.colorFill = "rgba(77,146,255,0.2)";
-      }
-    },
-    toggleEmptyColorFillAsObject() {
-      if (this.emptyColorFillAsObject) {
-        this.properties.emptyColorFill = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
-          }
-        };
-      } else {
-        this.properties.emptyColorFill = "#5800b0";
-      }
-    },
-    addColor(colors) {
-      colors.push({
-        color: "#1871ff",
-        offset: 50,
-        opacity: 1
-      });
     }
   }
 };

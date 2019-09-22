@@ -45,7 +45,12 @@
               </div>
             </v-col>
             <v-col cols="8">
-              <v-row class="color-container" dense v-for="(colorObject, i) in properties.color.gradient.colors" :key="i">
+              <v-row
+                class="color-container"
+                dense
+                v-for="(colorObject, i) in properties.color.gradient.colors"
+                :key="i"
+              >
                 <div class="remove-btn">
                   <v-btn
                     icon
@@ -151,7 +156,12 @@
               </div>
             </v-col>
             <v-col cols="8">
-              <v-row class="color-container" dense v-for="(colorObject, i) in properties.colorFill.gradient.colors" :key="i">
+              <v-row
+                class="color-container"
+                dense
+                v-for="(colorObject, i) in properties.colorFill.gradient.colors"
+                :key="i"
+              >
                 <div class="remove-btn">
                   <v-btn
                     icon
@@ -469,103 +479,104 @@ export default {
         this.properties.dash = "";
       }
     },
-    toggleColorAsObject() {
-      if (this.colorAsObject) {
-        this.properties.color = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
+      toggleColorAsObject() {
+          if (this.colorAsObject) {
+              this.properties.color = {
+                  gradient: {
+                      radial: false,
+                      direction: "",
+                      colors: [
+                          {
+                              color: "#4481eb",
+                              offset: "0",
+                              opacity: "1"
+                          },
+                          {
+                              color: "#04befe",
+                              offset: "100",
+                              opacity: "1"
+                          }
+                      ]
+                  }
+              };
+          } else {
+              this.properties.color = "#1871ff";
           }
-        };
-      } else {
-        this.properties.color = "#5800b0";
-      }
-    },
-    toggleEmptyColorAsObject() {
-      if (this.emptyColorAsObject) {
-        this.properties.emptyColor = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
+      },
+      toggleEmptyColorAsObject() {
+          if (this.emptyColorAsObject) {
+              this.properties.emptyColor = {
+                  gradient: {
+                      radial: false,
+                      direction: "",
+                      colors: [
+                          {
+                              color: "#f5f7fa",
+                              offset: "0",
+                              opacity: "1"
+                          },
+                          {
+                              color: "#c3cfe2",
+                              offset: "100",
+                              opacity: "1"
+                          }
+                      ]
+                  }
+              };
+          } else {
+              this.properties.emptyColor = "lightgray";
           }
-        };
-      } else {
-        this.properties.emptyColor = "#5800b0";
-      }
-    },
-    toggleColorFillAsObject() {
-      if (this.colorFillAsObject) {
-        this.properties.colorFill = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
+      },
+      toggleColorFillAsObject() {
+          if (this.colorFillAsObject) {
+              this.properties.colorFill = {
+                  gradient: {
+                      radial: false,
+                      direction: "",
+                      colors: [
+                          {
+                              color: "#ffd1ff",
+                              offset: "0",
+                              opacity: "0.0"
+                          },
+                          {
+                              color: "#fad0c4",
+                              offset: "50",
+                              opacity: "0"
+                          }
+                      ]
+                  }
+              };
+          } else {
+              this.properties.colorFill = "rgba(77,146,255,0.2)";
           }
-        };
-      } else {
-        this.properties.colorFill = "rgba(77,146,255,0.2)";
-      }
-    },
-    toggleEmptyColorFillAsObject() {
-      if (this.emptyColorFillAsObject) {
-        this.properties.emptyColorFill = {
-          gradient: {
-            radial: false,
-            direction: "",
-            colors: [
-              {
-                color: "#198dea",
-                offset: "0",
-                opacity: "1"
-              },
-              {
-                color: "#8A19EA",
-                offset: "100",
-                opacity: "1"
-              }
-            ]
+      },
+      toggleEmptyColorFillAsObject() {
+          if (this.emptyColorFillAsObject) {
+              this.properties.emptyColorFill = {
+                  gradient: {
+                      radial: false,
+                      direction: "",
+                      colors: [
+                          {
+                              color: "#8ec5fc",
+                              offset: "0",
+                              opacity: "0.1"
+                          },
+                          {
+                              color: "#e0c3fc",
+                              offset: "100",
+                              opacity: "0.1"
+                          }
+                      ]
+                  }
+              };
+          } else {
+              this.properties.emptyColorFill = "transparent";
           }
-        };
-      } else {
-        this.properties.emptyColorFill = "#5800b0";
-      }
-    },
-    addColor(colors) {
+      },
+
+      addColor(colors) {
       colors.push({
         color: "#1871ff",
         offset: 50,
