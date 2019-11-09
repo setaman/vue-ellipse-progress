@@ -20,7 +20,9 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <vue-ellipse-progress :progress="56" :legend-value="1445" />
+      <vue-ellipse-progress legend-class="legend-custom-style" :progress="56" :legend-value="1445">
+        <span slot="legend-value">slot</span>
+      </vue-ellipse-progress>
       <vue-ellipse-progress
         :progress="parseFloat(progress)"
         :color="color"
