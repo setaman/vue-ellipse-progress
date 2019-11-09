@@ -71,11 +71,12 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       duration: 1,
       delay: 1
     };
-    /* it("renders the progress correctly", () => {
+    /* it("renders the progress correctly", async () => {
       let progress = 40;
       const wrapper = mount(Container, {
         propsData: { animation, progress }
       });
+      await wait(2000);
       const spanWrapper = wrapper.find(".ep-legend--value > span");
       console.log("Text:", spanWrapper.text());
       expect(spanWrapper.text()).to.equal(`${progress}`);
@@ -112,6 +113,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.vm.legendVal).to.equal(legendValue);
       expect(wrapper.vm.progress).to.equal(progress);
     });
+    // Produces error, see corresponding issue
     /* it("forces noData state, if invalid", () => {
       const progress = "s3ome";
       const wrapper = shallowMount(Container, {
@@ -166,6 +168,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.element.style.color).to.equal("lime");
+    });
+  });
+  describe("#legendClass", () => {
+    it("applies class to circle legend", () => {
+      const wrapper = shallowMount(Container, {
+        propsData: { progress: 50, legendClass: "applied-class" }
+      });
+      const spanWrapper = wrapper.find(".ep-legend--value");
+      expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
 });
