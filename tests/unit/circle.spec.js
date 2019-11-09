@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
-import CountUp from "countup.js";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 import Circle from "../../src/components/CircleProgress.vue";
 
@@ -14,8 +13,6 @@ const factory = propsData => {
     }
   });
 };
-
-// const wait = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe("[ CircleProgress.vue ]", () => {
   describe("#progress", () => {
@@ -145,6 +142,28 @@ describe("[ CircleProgress.vue ]", () => {
       });
       const circleWrapper = wrapper.find(Circle);
       expect(circleWrapper.vm.circumference).to.equal(circumference);
+    });
+  });
+  describe("#line", () => {
+    it("renders line type correctly", () => {
+      const progress = 60;
+      let line = "round";
+
+      const wrapper = factory({
+        progress,
+        line
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
+
+      line = "square";
+      wrapper.setProps({ line });
+      expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
+
+      line = "butt";
+      wrapper.setProps({ line });
+      expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
     });
   });
 });
