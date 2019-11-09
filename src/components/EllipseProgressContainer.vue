@@ -29,16 +29,10 @@
         <span
           v-if="legend"
           class="ep-legend--value"
-          :class="{ 'ep-hidden': shouldHideLegendValue }"
+          :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp
-            :class="[legendClass]"
-            ref="count"
-            :endVal="legendVal"
-            :delay="animation.delay"
-            :options="counterOptions"
-          ></CountUp>
+          <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
         <slot name="legend-capture"></slot>
@@ -118,13 +112,11 @@ export default {
     },
     fontSize: {
       type: String,
-      required: false,
-      default: "1rem"
+      required: false
     },
     fontColor: {
       type: String,
-      required: false,
-      default: "gray"
+      required: false
     },
     animation: {
       type: Object,
@@ -244,7 +236,6 @@ export default {
   transition: 0.3s;
   text-align: center;
   display: block;
-  color: black;
   opacity: 1;
 }
 .ep-hidden {

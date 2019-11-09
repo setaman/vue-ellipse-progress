@@ -20,16 +20,8 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <vue-ellipse-progress
-        legend-class="applied-class"
-        :progress="60"
-        :size="200"
-        thickness="5%"
-        :emptyThickness="2"
-      >
-        <span slot="legend-value">
-          slot
-        </span>
+      <vue-ellipse-progress legend-class="legend-custom-style" :progress="56" :legend-value="1445">
+        <span slot="legend-value">slot</span>
       </vue-ellipse-progress>
       <vue-ellipse-progress
         :progress="parseFloat(progress)"
@@ -46,10 +38,10 @@
       >
         <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="56" no-data />
+      <vue-ellipse-progress :progress="56" />
       <vue-ellipse-progress
         id="timer-example"
-        :progress="45"
+        :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
         :emptyColor="emptyColor"
@@ -129,7 +121,7 @@
         :lineMode="{ mode: 'normal', offset: 10 }"
         :legendValue="tasks_done"
         fontColor="white"
-        :animation="{ type: 'bounce', duration: 2000, delay: 3000 }"
+        :animation="{ type: 'bounce', duration: 1000 }"
         fontSize="2rem"
       >
         <span slot="legend-value">/200</span>
@@ -350,9 +342,6 @@ body {
     color: white;
     width: 200px;
   }
-}
-.applied-class {
-  color: red;
 }
 .legend-custom-style {
   font-size: 3rem;
