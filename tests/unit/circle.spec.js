@@ -291,7 +291,7 @@ describe("[ CircleProgress.vue ]", () => {
       describe("#lineMode.mode.in-over", () => {
         const offset = 10; // must be ignored in this mode
         const thickness = 20;
-        const emptyThickness = 40;
+        const emptyThickness = 10;
         const wrapper = factory({
           progress,
           thickness,
@@ -346,14 +346,14 @@ describe("[ CircleProgress.vue ]", () => {
       });
       describe("#lineMode.mode.out-over", () => {
         const offset = 10; // must be ignored in this mode
-        const thickness = 10;
-        const emptyThickness = 10;
+        let thickness = 20;
+        let emptyThickness = 10;
         const wrapper = factory({
           progress,
           thickness,
           emptyThickness,
           lineMode: {
-            mode: "out",
+            mode: "out-over",
             offset
           },
           size
@@ -363,13 +363,39 @@ describe("[ CircleProgress.vue ]", () => {
         const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
         const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
-        it("circles does not exceed the size and aligns properly in relation to each other", () => {
-          const expectedProgressCircleRadius = baseRadius - emptyThickness / 2;
-          const expectedEmptyCircleRadius = expectedProgressCircleRadius - emptyThickness / 2 - thickness / 2 - offset;
-          const progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
-          const emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
-          expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
-          expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+        describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
+          it("in case #thickness >= #emptyThickness", () => {
+            let expectedProgressCircleRadius = baseRadius - thickness / 2;
+            let expectedEmptyCircleRadius = expectedProgressCircleRadius - thickness / 2 + emptyThickness / 2;
+            let progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
+            let emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
+            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
+            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+
+            thickness = emptyThickness = 10;
+
+            wrapper.setProps({ thickness, emptyThickness });
+
+            expectedProgressCircleRadius = baseRadius - thickness / 2;
+            expectedEmptyCircleRadius = expectedProgressCircleRadius;
+            progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
+            emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
+            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
+            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+          });
+          it("in case #thickness < #emptyThickness", () => {
+            thickness = 10;
+            emptyThickness = 20;
+
+            wrapper.setProps({ thickness, emptyThickness });
+
+            const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
+            const expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2 + thickness / 2;
+            const progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
+            const emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
+            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
+            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+          });
         });
       });
     });
