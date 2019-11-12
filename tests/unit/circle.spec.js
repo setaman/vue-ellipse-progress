@@ -428,7 +428,7 @@ describe("[ CircleProgress.vue ]", () => {
       });
       describe("#lineMode.mode.bottom", () => {
         const offset = 10; // must be ignored in this mode
-        let thickness = 20;
+        let thickness = 40;
         let emptyThickness = 10;
         const wrapper = factory({
           progress,
@@ -446,41 +446,41 @@ describe("[ CircleProgress.vue ]", () => {
         const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
-          it("in case #thickness >= #emptyThickness", () => {
-            let expectedProgressCircleRadius = baseRadius - thickness / 2;
-            let expectedEmptyCircleRadius = expectedProgressCircleRadius - thickness / 2 + emptyThickness / 2;
-            let progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
-            let emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
-            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
-            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
-
-            thickness = emptyThickness = 10;
-
-            wrapper.setProps({ thickness, emptyThickness });
-
-            expectedProgressCircleRadius = baseRadius - thickness / 2;
-            expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
-            emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
-            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
-            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
-          });
-          it("in case #thickness < #emptyThickness", () => {
-            thickness = 10;
-            emptyThickness = 20;
-
-            wrapper.setProps({ thickness, emptyThickness });
-
-            const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
-            const expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2 + thickness / 2;
+          it("in case #thickness * 2 > #emptyThickness", () => {
+            const expectedProgressCircleRadius = baseRadius - thickness / 2;
+            const expectedEmptyCircleRadius = expectedProgressCircleRadius + emptyThickness / 2;
             const progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
             const emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
             expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
             expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
           });
+          it("in case #thickness * 2 <= #emptyThickness", () => {
+
+            thickness = 10;
+            emptyThickness = 20;
+
+            wrapper.setProps({ thickness, emptyThickness });
+
+            let expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
+            let expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
+            let progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
+            let emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
+            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
+            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+
+            thickness = emptyThickness = 20;
+
+            wrapper.setProps({ thickness, emptyThickness });
+
+            expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
+            expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
+            progressCircleRadius = circleProgressWrapper.element.getAttribute("r");
+            emptyCircleRadius = circleEmptyWrapper.element.getAttribute("r");
+            expect(progressCircleRadius).to.equal(`${expectedProgressCircleRadius}`);
+            expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
+          });
         });
       });
-
     });
   });
 });
