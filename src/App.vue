@@ -23,6 +23,7 @@
       <vue-ellipse-progress
         :thickness="10"
         :empty-thickness="20"
+        color-fill="red"
         legend-class="legend-custom-style"
         :line-mode="{ mode: 'bottom', offset: 10 }"
         :progress="56"
