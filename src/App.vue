@@ -22,9 +22,9 @@
       </div>
       <vue-ellipse-progress
         :thickness="20"
-        :empty-thickness="10"
+        :empty-thickness="20"
         legend-class="legend-custom-style"
-        :line-mode="{ mode: 'out-over', offset: 10 }"
+        :line-mode="{ mode: 'bottom', offset: 10 }"
         :progress="56"
         :legend="false"
       >
