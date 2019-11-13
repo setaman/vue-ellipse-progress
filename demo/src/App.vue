@@ -8,13 +8,23 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+
+  components: {},
+
+  data: () => ({
+    //
+  })
 };
 </script>
-<style lang="css">
-@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,700&display=swap');
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Quicksand:300,400,700&display=swap");
 #app {
-  background: white;
-  font-family: 'Quicksand', sans-serif;
+  //background-image: linear-gradient(to bottom, #2d3a67, #352958);
+  background-color: #2d3a67;
+  font-family: "Quicksand", sans-serif;
+}
+.fill-width {
+  width: 100%;
 }
 </style>
