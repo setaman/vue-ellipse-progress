@@ -23,6 +23,7 @@ export default {
   //background-image: linear-gradient(to bottom, #2d3a67, #352958);
   background-color: #2d3a67;
   font-family: "Quicksand", sans-serif;
+  color: white;
 }
 .fill-width {
   width: 100%;

@@ -6,7 +6,7 @@
           <v-row>
             <v-col cols="12">
               <div>
-                <h1>Create beautiful animated circle progress bars</h1>
+                <h1>Vue.js component for creating beautiful animated circle progress bars</h1>
                 <div class="my-8">
                   <v-chip link color="primary" @click="copyNmpCommand">
                     {{ npm }}

@@ -204,7 +204,7 @@ const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms
 
 export default {
   components: {},
-  name: "Examples",
+  name: "Examples2",
   data: () => ({
     rating: 3,
     fontSize: "2rem",
