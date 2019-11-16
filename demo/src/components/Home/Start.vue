@@ -21,17 +21,16 @@
               <v-row class="px-10">
                 <v-col>
                   <btn
-                    :props="{
-                      size: 'medium',
-                      link: 'https://github.com/setaman/vue-ellipse-progress',
-                      icon: { name: 'mdi-github-circle' }
-                    }"
+                    href="https://github.com/setaman/vue-ellipse-progress"
+                    block
+                    size="medium"
+                    :buttonIcon="{ name: 'mdi-github-circle' }"
                   >
                     See docs on github
                   </btn>
                 </v-col>
                 <v-col>
-                  <btn :props="{ size: 'medium', icon: { name: 'mdi-tune' } }">
+                  <btn block :buttonIcon="{ name: 'mdi-tune' }">
                     build your own circle
                   </btn>
                 </v-col>
@@ -58,7 +57,7 @@
                     <input id="team-input" type="text" placeholder="APL team name" v-model="teamName" />
                   </div>
                   <div>
-                    <btn :props="{ depressed: true, type: 'submit', loading }">
+                    <btn block large>
                       load data
                     </btn>
                   </div>

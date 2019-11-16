@@ -1,49 +1,26 @@
 <template>
   <div class="custom-btn">
-    <v-btn
-      class="custom-v-btn"
-      :type="options.type"
-      :depressed="options.depressed"
-      :block="options.block"
-      @click="emitClickEvent"
-      :color="options.color"
-      :loading="options.loading"
-      :x-large="options.size === 'x-large'"
-      :large="options.size === 'large'"
-      :x-small="options.size === 'x-small'"
-      :small="options.size === 'small'"
-      :medium="options.size === 'medium'"
-      :href="options.link && options.link"
-      :target="options.link ? '_blank' : ''"
-      :to="options.route && options.route"
-    >
-      <v-icon v-if="options.icon" color="rgb(255, 93, 175)" class="mr-3">
-        {{ options.icon.name }}
+    <v-btn class="custom-v-btn" @click="emitClickEvent" v-bind="$props" target="_blank">
+      <v-icon v-if="buttonIcon" color="rgb(255, 93, 175)" class="mr-3">
+        {{ buttonIcon.name }}
       </v-icon>
       <slot> </slot>
     </v-btn>
   </div>
 </template>
-
 <script>
+import { VBtn, VIcon } from "vuetify/lib";
 export default {
   name: "Btn",
+  components: {
+    VBtn,
+    VIcon
+  },
   props: {
-    props: {
+    ...VBtn.options.props,
+    buttonIcon: {
       type: Object,
       required: false
-    }
-  },
-  computed: {
-    options() {
-      return {
-        depressed: false,
-        block: true,
-        color: "primary",
-        type: "button",
-        size: "x-large",
-        ...this.props
-      };
     }
   },
   methods: {
@@ -81,6 +58,7 @@ export default {
   background-image: linear-gradient(to top right, #5a3fb3 0%, #764ba2 100%);
   border-radius: unset;
   font-weight: bold;
+  color: white !important;
   clip-path: polygon(7% 0%, 100% 0%, 92% 100%, 0% 100%);
 }
 </style>
