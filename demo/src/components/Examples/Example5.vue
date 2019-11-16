@@ -1,5 +1,5 @@
 <template>
-  <example-card>
+  <example-card link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example5.vue">
     <vue-ellipse-progress
       id="timer-example"
       :progress="parseFloat(timerProgress)"

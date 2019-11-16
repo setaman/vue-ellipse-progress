@@ -1,5 +1,7 @@
 <template>
-  <example-card>
+  <example-card
+    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example1.vue"
+  >
     <vue-ellipse-progress
       :progress="67"
       color="#7579ff"
