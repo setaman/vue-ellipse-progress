@@ -1,7 +1,7 @@
 <template>
   <div class="custom-btn">
     <v-btn class="custom-v-btn" @click="emitClickEvent" v-bind="$props" target="_blank">
-      <v-icon v-if="buttonIcon" color="rgb(255, 93, 175)" class="mr-3">
+      <v-icon v-if="buttonIcon" color="rgb(255, 93, 175)" class="mr-3" :small="buttonIcon.size === 'small'">
         {{ buttonIcon.name }}
       </v-icon>
       <slot> </slot>

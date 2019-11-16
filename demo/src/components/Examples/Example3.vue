@@ -1,7 +1,9 @@
 <template>
-  <example-card link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example3.vue">
+  <example-card
+    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example3.vue"
+  >
     <vue-ellipse-progress
-      :progress="45"
+      :progress="tasksDonePercent"
       color="#7579ff"
       empty-color="#324c7e"
       :size="180"
@@ -22,17 +24,26 @@
 
 <script>
 import ExampleCard from "@/components/Examples/ExampleCard";
+import Interval from "@/utils/interval";
+import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example3",
   components: { ExampleCard },
   data: () => ({
-    rating: 3,
     tasksDone: 125
   }),
   computed: {
     tasksDonePercent() {
       return (this.tasksDone * 100) / 200;
     }
+  },
+  methods: {
+    randomizeOptions() {
+      this.tasksDone = randomNumberInRange(0, 200);
+    }
+  },
+  mounted() {
+    Interval.addTask(this.randomizeOptions);
   }
 };
 </script>

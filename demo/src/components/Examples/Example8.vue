@@ -1,5 +1,7 @@
 <template>
-  <example-card link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example8.vue">
+  <example-card
+    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example8.vue"
+  >
     <vue-ellipse-progress
       :progress="progress"
       color="#7579ff"
@@ -46,7 +48,6 @@ export default {
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-    Interval.run();
   }
 };
 </script>

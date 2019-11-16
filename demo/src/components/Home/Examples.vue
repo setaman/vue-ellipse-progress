@@ -1,5 +1,6 @@
 <template>
   <section id="examples">
+    <examples-controls />
     <v-container fluid class="fill-height">
       <v-row>
         <example1 />
@@ -25,7 +26,6 @@
 </template>
 
 <script>
-// import Btn from "@/components/Base/Btn";
 import Example1 from "@/components/Examples/Example1";
 import Example2 from "../Examples/Example2";
 import Example3 from "../Examples/Example3";
@@ -35,14 +35,16 @@ import Example6 from "../Examples/Example6";
 import Example7 from "../Examples/Example7";
 import Example8 from "../Examples/Example8";
 import Example9 from "../Examples/Example9";
+import ExamplesControls from "../Examples/ExamplesControls";
 export default {
   name: "Examples",
-  components: { Example9, Example8, Example7, Example6, Example5, Example4, Example3, Example2, Example1 }
+  components: {ExamplesControls, Example9, Example8, Example7, Example6, Example5, Example4, Example3, Example2, Example1 }
 };
 </script>
 
 <style scoped lang="scss">
 #examples {
+  position: relative;
   min-height: 100vh;
   padding: 200px 100px;
 }
