@@ -11,6 +11,7 @@
     "@vue/cli": "^4.0.5",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
+    "serve": "^11.2.0",
     "v-clipboard": "^2.2.2",
     "vue": "^2.6.10",
     "vue-ellipse-progress": "^0.18.8",

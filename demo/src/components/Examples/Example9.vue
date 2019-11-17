@@ -17,7 +17,12 @@
       font-color="white"
     >
       <span slot="legend-value">
-        /5
+        <span class="mr-1">
+          /
+        </span>
+        <span>
+          5
+        </span>
       </span>
       <div slot="legend-capture">
         <p class="mb-0">24 REVIEWS</p>

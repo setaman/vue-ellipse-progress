@@ -38,7 +38,18 @@ import Example9 from "../Examples/Example9";
 import ExamplesControls from "../Examples/ExamplesControls";
 export default {
   name: "Examples",
-  components: {ExamplesControls, Example9, Example8, Example7, Example6, Example5, Example4, Example3, Example2, Example1 }
+  components: {
+    ExamplesControls,
+    Example9,
+    Example8,
+    Example7,
+    Example6,
+    Example5,
+    Example4,
+    Example3,
+    Example2,
+    Example1
+  }
 };
 </script>
 
@@ -47,5 +58,11 @@ export default {
   position: relative;
   min-height: 100vh;
   padding: 200px 100px;
+}
+
+@media only screen and (max-width: 1263px) {
+  #examples {
+    padding: 100px 0px;
+  }
 }
 </style>

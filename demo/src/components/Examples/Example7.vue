@@ -15,7 +15,7 @@
       :animation="{ type: 'rs', duration: 700, delay: 1000 }"
       fontSize="1.5rem"
     >
-      <img slot="legend-capture" height="80px" src="@/assets/upload.svg" />
+      <img slot="legend-capture" height="80px" src="@/assets/upload.png" />
     </vue-ellipse-progress>
   </example-card>
 </template>

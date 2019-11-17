@@ -1,5 +1,7 @@
 <template>
-  <example-card link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example2.vue">
+  <example-card
+    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example2.vue"
+  >
     <vue-ellipse-progress
       :progress="progress"
       color="#7579ff"
@@ -23,17 +25,17 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example2",
   components: { ExampleCard },
-    data: () => ({
-        progress: 34
-    }),
-    methods: {
-        randomizeOptions() {
-            this.progress = randomNumberInRange(0, 100);
-        }
-    },
-    mounted() {
-        Interval.addTask(this.randomizeOptions);
+  data: () => ({
+    progress: 34
+  }),
+  methods: {
+    randomizeOptions() {
+      this.progress = randomNumberInRange(0, 100);
     }
+  },
+  mounted() {
+    Interval.addTask(this.randomizeOptions);
+  }
 };
 </script>
 

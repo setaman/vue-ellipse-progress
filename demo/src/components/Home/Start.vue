@@ -2,10 +2,10 @@
   <section id="start">
     <v-container fluid class="fill-height pa-0">
       <v-row class="fill-height">
-        <v-col sm="5" class="fill-height text-center d-flex align-center">
+        <v-col sm="12" md="5" style="min-height: 100vh" class="fill-height text-center d-flex align-center">
           <v-row>
             <v-col cols="12">
-              <div>
+              <div class="px-sm-3">
                 <h1>Vue.js component for creating beautiful animated circle progress bars</h1>
                 <div class="my-8">
                   <v-chip link color="primary" @click="copyNmpCommand">
@@ -30,7 +30,7 @@
                   </btn>
                 </v-col>
                 <v-col>
-                  <btn block :buttonIcon="{ name: 'mdi-tune' }">
+                  <btn block :buttonIcon="{ name: 'mdi-tune' }" disabled>
                     build your own circle
                   </btn>
                 </v-col>
@@ -38,17 +38,18 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col sm="7" class="clip fill-height d-flex align-center">
+        <v-col sm="12" md="7" style="min-height: 100vh" class="clip fill-height d-flex align-center">
           <div class="text-center fill-width">
             <vue-ellipse-progress
-              :progress="56"
+              :progress="100"
               color="#7579ff"
               thickness="4px"
               empty-thickness="0px"
-              :empty-color-fill="emptyColorFillWave"
+              :empty-color-fill="emptyColorFill"
+              :line-mode="{ mode: 'in', offset: 26 }"
               :size="300"
               font-size="2rem"
-              font-color="white"
+              font-color="#2d3a67"
             />
             <v-row>
               <v-col>
@@ -77,7 +78,7 @@
 <script>
 import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
-const waveColor = "#004aef";
+const waveColor = "#237cef";
 export default {
   name: "Start",
   components: { Btn },
@@ -89,35 +90,35 @@ export default {
     loading: true,
     error: false,
     progress: 0,
-    emptyColorFillWave: {
+    emptyColorFill: {
       gradient: {
         radial: true,
         direction: "",
         colors: [
           {
             color: waveColor,
-            offset: "60",
-            opacity: "0.3"
+            offset: "0",
+            opacity: "0"
           },
           {
             color: waveColor,
-            offset: "60",
+            offset: "79",
+            opacity: "0"
+          },
+          {
+            color: waveColor,
+            offset: "80",
             opacity: "0.2"
           },
           {
             color: waveColor,
-            offset: "80",
-            opacity: "0.1"
-          },
-          {
-            color: waveColor,
-            offset: "80",
-            opacity: "0.06"
+            offset: "90",
+            opacity: "0.02"
           },
           {
             color: waveColor,
             offset: "100",
-            opacity: "0.03"
+            opacity: "0.00"
           }
         ]
       }
@@ -131,7 +132,6 @@ export default {
         const response = await teamStats();
         this.teamStats = response.data;
       } catch (e) {
-        console.warn(e);
         this.error = true;
       } finally {
         this.loading = false;
@@ -150,7 +150,7 @@ export default {
 
 <style scoped lang="scss">
 #start {
-  height: 100vh;
+  min-height: 100vh;
   h1 {
     color: white;
     font-weight: normal;
@@ -180,5 +180,16 @@ export default {
   background-image: url("../../assets/overlay.svg");
   background-position: left;
   background-size: cover;
+}
+
+@media only screen and (max-width: 1263px) {
+  #start {
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+  #team-input-form {
+    padding: 0 5%;
+  }
 }
 </style>
