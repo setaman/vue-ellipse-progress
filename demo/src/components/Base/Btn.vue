@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-btn">
+  <div class="custom-btn" :class="{ disabled: disabled }">
     <v-btn class="custom-v-btn" @click="emitClickEvent" v-bind="$props" target="_blank">
       <v-icon v-if="buttonIcon" color="rgb(255, 93, 175)" class="mr-3" :small="buttonIcon.size === 'small'">
         {{ buttonIcon.name }}
@@ -50,6 +50,21 @@ export default {
   &:hover {
     &:before {
       top: 10px;
+    }
+  }
+  &.disabled {
+    .custom-v-btn.v-btn {
+      opacity: 0.5;
+    }
+    &:before {
+      opacity: 0.5;
+      top: 5px;
+      left: -10px;
+    }
+    &:hover {
+      &:before {
+        top: 5px;
+      }
     }
   }
 }

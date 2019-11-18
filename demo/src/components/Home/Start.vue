@@ -2,7 +2,7 @@
   <section id="start">
     <v-container fluid class="fill-height pa-0">
       <v-row class="fill-height">
-        <v-col sm="12" md="5" style="min-height: 100vh" class="fill-height text-center d-flex align-center">
+        <v-col sm="12" md="5" style="min-height: 100vh; position: relative" class="fill-height text-center d-flex align-center">
           <v-row>
             <v-col cols="12">
               <div class="px-sm-3">
@@ -37,11 +37,17 @@
               </v-row>
             </v-col>
           </v-row>
+          <div class="scroll-downs">
+            <div class="mousey">
+              <div class="scroller"></div>
+            </div>
+          </div>
         </v-col>
-        <v-col sm="12" md="7" style="min-height: 100vh" class="clip fill-height d-flex align-center">
+        <v-col sm="12" md="7" style="min-height: 100vh; position: relative" class="fill-height d-flex align-center">
+          <div id="overlay"></div>
           <div class="text-center fill-width">
             <vue-ellipse-progress
-              :progress="100"
+              :progress="43"
               color="#7579ff"
               thickness="4px"
               empty-thickness="0px"
@@ -49,7 +55,7 @@
               :line-mode="{ mode: 'in', offset: 26 }"
               :size="300"
               font-size="2rem"
-              font-color="#2d3a67"
+              font-color="#7579ff"
             />
             <v-row>
               <v-col>
@@ -162,6 +168,7 @@ export default {
   padding: 0 25%;
 }
 #team-input {
+  position: relative;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
@@ -176,10 +183,55 @@ export default {
   }
 }
 
-.clip {
-  background-image: url("../../assets/overlay.svg");
-  background-position: left;
-  background-size: cover;
+#overlay {
+  position: absolute;
+  top: -100px;
+  right: -180px;
+  background-color: white;
+  height: 100%;
+  width: 110%;
+  border-bottom-left-radius: 150px;
+  transform: rotate(15deg);
+}
+
+.scroll-downs {
+  position: absolute;
+  right: -25%;
+  bottom: 40px;
+  width: 20px;
+  height: 55px;
+}
+.mousey {
+  width: 3px;
+  padding: 10px 15px;
+  height: 35px;
+  border: 2px solid #764ba2;
+  border-radius: 25px;
+  opacity: 0.75;
+  box-sizing: content-box;
+}
+.scroller {
+  width: 3px;
+  height: 10px;
+  border-radius: 25%;
+  background-color: #1673ff;
+  animation-name: scroll;
+  animation-duration: 2.2s;
+  animation-timing-function: cubic-bezier(0.15, 0.41, 0.69, 0.94);
+  animation-iteration-count: infinite;
+}
+@keyframes scroll {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
 }
 
 @media only screen and (max-width: 1263px) {
@@ -190,6 +242,18 @@ export default {
   }
   #team-input-form {
     padding: 0 5%;
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  #overlay {
+    display: none;
+  }
+  .scroll-downs {
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: none;
   }
 }
 </style>
