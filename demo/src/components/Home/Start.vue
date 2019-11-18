@@ -17,7 +17,7 @@
                     {{ npm }}
                   </v-chip>
                   <v-chip class="ml-3" outlined color="primary">
-                    <span class="white--text">v 0.18.8</span>
+                    <span class="white--text">v {{ version }}</span>
                   </v-chip>
                 </div>
               </div>
@@ -89,6 +89,7 @@
 <script>
 import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
+import packageInfo from "../../../../package";
 const waveColor = "#237cef";
 export default {
   name: "Start",
@@ -97,6 +98,7 @@ export default {
     teamName: "Manchester United",
     snackbar: false,
     npm: "npm i vue-ellipse-progress",
+    version: packageInfo.version,
     teamStats: "",
     loading: true,
     error: false,
