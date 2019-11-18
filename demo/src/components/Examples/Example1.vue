@@ -13,6 +13,8 @@
       :animation="{ type: 'rs', duration: 700, delay: 1000 }"
       font-size="1.5rem"
       font-color="white"
+      :loading="loading"
+      :no-data="noData"
     >
     </vue-ellipse-progress>
   </example-card>
@@ -26,6 +28,7 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example1",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     progress: 34
   }),

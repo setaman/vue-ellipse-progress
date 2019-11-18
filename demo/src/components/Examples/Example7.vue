@@ -14,6 +14,8 @@
       :legend="false"
       :animation="{ type: 'rs', duration: 700, delay: 1000 }"
       fontSize="1.5rem"
+      :loading="loading"
+      :no-data="noData"
     >
       <img slot="legend-capture" height="80px" src="@/assets/upload.png" />
     </vue-ellipse-progress>
@@ -27,6 +29,7 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example7",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     progress: 34,
     emptyColorFill: {

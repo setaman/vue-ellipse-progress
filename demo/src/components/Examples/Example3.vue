@@ -15,6 +15,8 @@
       fontSize="1.5rem"
       font-color="white"
       dash="5"
+      :loading="loading"
+      :no-data="noData"
     >
       <span slot="legend-value">/200</span>
       <span slot="legend-capture">TASKS DONE</span>
@@ -29,6 +31,7 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example3",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     tasksDone: 125
   }),

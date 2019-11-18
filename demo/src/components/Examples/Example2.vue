@@ -12,6 +12,8 @@
       :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
       fontSize="1.5rem"
       font-color="white"
+      :loading="loading"
+      :no-data="noData"
     >
       <span slot="legend-capture"> PROGRESS </span>
     </vue-ellipse-progress>
@@ -25,6 +27,7 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example2",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     progress: 34
   }),

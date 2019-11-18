@@ -15,6 +15,8 @@
       :legendValue="rating"
       fontSize="1.5rem"
       font-color="white"
+      :loading="loading"
+      :no-data="noData"
     >
       <span slot="legend-value">
         <span class="mr-1">
@@ -39,6 +41,7 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 export default {
   name: "Example9",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     rating: 3
   }),

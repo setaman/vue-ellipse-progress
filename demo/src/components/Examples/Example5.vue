@@ -18,6 +18,8 @@
       fontSize="1.5rem"
       font-color="white"
       :animation="{ type: 'loop', duration: 1000, delay: 100 }"
+      :loading="loading"
+      :no-data="noData"
     >
       <span slot="legend-capture">
         <span>{{ minPrefix }}{{ min }}</span>
@@ -34,6 +36,7 @@ import Interval from "@/utils/interval";
 export default {
   name: "Example5",
   components: { ExampleCard },
+  props: ["loading", "noData"],
   data: () => ({
     progress: 0,
     sec: 0,

@@ -2,7 +2,12 @@
   <section id="start">
     <v-container fluid class="fill-height pa-0">
       <v-row class="fill-height">
-        <v-col sm="12" md="5" style="min-height: 100vh; position: relative" class="fill-height text-center d-flex align-center">
+        <v-col
+          sm="12"
+          md="5"
+          style="min-height: 100vh; position: relative"
+          class="fill-height text-center d-flex align-center"
+        >
           <v-row>
             <v-col cols="12">
               <div class="px-sm-3">

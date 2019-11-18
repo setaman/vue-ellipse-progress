@@ -1,25 +1,25 @@
 <template>
   <section id="examples">
-    <examples-controls />
+    <examples-controls @loadingChange="setLoadingState" @noDataChange="setNoDataState" />
     <v-container fluid class="fill-height">
       <v-row>
-        <example1 />
+        <example1 :loading="loading" :no-data="noData" />
 
-        <example2 />
+        <example2 :loading="loading" :no-data="noData" />
 
-        <example3 />
+        <example3 :loading="loading" :no-data="noData" />
 
-        <example4 />
+        <example4 :loading="loading" :no-data="noData" />
 
-        <example5 />
+        <example5 :loading="loading" :no-data="noData" />
 
-        <example6 />
+        <example6 :loading="loading" :no-data="noData" />
 
-        <example7 />
+        <example7 :loading="loading" :no-data="noData" />
 
-        <example8 />
+        <example8 :loading="loading" :no-data="noData" />
 
-        <example9 />
+        <example9 :loading="loading" :no-data="noData" />
       </v-row>
     </v-container>
   </section>
@@ -49,6 +49,18 @@ export default {
     Example3,
     Example2,
     Example1
+  },
+  data: () => ({
+    loading: false,
+    noData: false
+  }),
+  methods: {
+    setLoadingState(loadingState) {
+      this.loading = loadingState;
+    },
+    setNoDataState(noDataState) {
+      this.noData = noDataState;
+    }
   }
 };
 </script>
