@@ -1,7 +1,3 @@
-<div align="center" style="text-align: center;">
-  <img width="250" height="250" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v3.svg">  
-</div>
-
 # vue-ellipse-progress
 
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
@@ -14,6 +10,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
 A Vue.js component to create beautiful animated circular progress bars
+
+:grey_exclamation: :grey_exclamation: :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation: :grey_exclamation: :grey_exclamation:
 
 <div align="center" style="text-align: center;">
   <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">  
