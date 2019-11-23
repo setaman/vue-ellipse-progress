@@ -52,16 +52,29 @@
           <div id="overlay"></div>
           <div class="text-center fill-width">
             <vue-ellipse-progress
-              :progress="43"
+              :progress="calculatedProgress"
               color="#7579ff"
               thickness="4px"
               empty-thickness="0px"
               :empty-color-fill="emptyColorFill"
               :line-mode="{ mode: 'in', offset: 26 }"
               :size="300"
+              :animation="{ type: 'rs', duration: 700, delay: 300 }"
+              :legend-value="teamStats ? teamStats.won : 0"
+              :loading="loading"
+              :no-data="error || (!loading && !teamStats)"
               font-size="2rem"
               font-color="#7579ff"
-            />
+            >
+              <span slot="legend-value">
+                <span class="mx-2">/</span>
+                <span>{{teamStats ? teamStats.playedGames : ''}}</span>
+              </span>
+              <div slot="legend-capture" style="color: #7579ff">
+                <div v-if="teamStats"><b>WON</b> VS <b>PLAYED</b></div>
+                <span>{{teamStats ? teamStats.team.name : ''}}</span>
+              </div>
+            </vue-ellipse-progress>
             <v-row>
               <v-col>
                 <form id="team-input-form" @submit.prevent="loadTeamStats">
@@ -69,7 +82,7 @@
                     <input id="team-input" type="text" placeholder="APL team name" v-model="teamName" />
                   </div>
                   <div>
-                    <btn block large>
+                    <btn block large type="submit">
                       load data
                     </btn>
                   </div>
@@ -90,6 +103,7 @@
 import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
 import packageInfo from "../../../../package";
+const wait = () => new Promise(resolve => setTimeout(resolve, 2000));
 const waveColor = "#237cef";
 export default {
   name: "Start",
@@ -102,7 +116,6 @@ export default {
     teamStats: "",
     loading: true,
     error: false,
-    progress: 0,
     emptyColorFill: {
       gradient: {
         radial: true,
@@ -137,13 +150,21 @@ export default {
       }
     }
   }),
+  computed: {
+    calculatedProgress() {
+      return !this.teamStats ? 0 : (this.teamStats.won * 100) / this.teamStats.playedGames;
+    }
+  },
   methods: {
     async loadTeamStats() {
       try {
         this.loading = true;
         this.error = false;
         const response = await teamStats();
-        this.teamStats = response.data;
+        await wait();
+        this.teamStats = response.data.standings[0].table.filter(teamData =>
+          teamData.team.name.toLowerCase().includes(this.teamName.toLowerCase())
+        )[0];
       } catch (e) {
         this.error = true;
       } finally {
@@ -156,7 +177,7 @@ export default {
     }
   },
   mounted() {
-    // this.loadTeamStats();
+    this.loadTeamStats();
   }
 };
 </script>
@@ -210,9 +231,9 @@ export default {
 }
 .mousey {
   width: 3px;
-  padding: 10px 15px;
-  height: 35px;
-  border: 2px solid #764ba2;
+  padding: 10px 12px;
+  height: 25px;
+  border: 2px solid rgba(#764ba2, 0.7);
   border-radius: 25px;
   opacity: 0.75;
   box-sizing: content-box;
