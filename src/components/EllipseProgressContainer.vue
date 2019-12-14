@@ -50,11 +50,7 @@ import HalfCircleProgress from "./HalfCircleProgress.vue";
 export default {
   name: "EllipseProgressContainer",
   components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
-  data: () => ({
-    animated_legend_value: 0,
-    raf_id: null,
-    animation_step: 0
-  }),
+  data: () => ({}),
   props: {
     progress: {
       type: Number,
