@@ -46,20 +46,21 @@ import CountUp from "vue-countup-v2";
 import CircleProgress from "./CircleProgress.vue";
 import Gradient from "./Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
+import { getValueIfDefined, isValidNumber } from "../utils";
 
 export default {
   name: "EllipseProgressContainer",
   components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
-  data: () => ({
-    animated_legend_value: 0,
-    raf_id: null,
-    animation_step: 0
-  }),
+  data: () => ({}),
   props: {
     progress: {
       type: Number,
       required: true,
       validator: val => val >= 0 && val <= 100
+    },
+    legendValue: {
+      type: Number,
+      required: false
     },
     size: {
       type: Number,
@@ -136,10 +137,6 @@ export default {
       required: false,
       default: true
     },
-    legendValue: {
-      type: Number,
-      required: false
-    },
     legendClass: {
       type: String,
       required: false
@@ -185,22 +182,28 @@ export default {
       return { ...this.$props, id: this._uid };
     },
     startAngle() {
-      return /* this.loading ? "" : */ this.angle || -90;
+      return getValueIfDefined(this.angle) || -90;
     },
     legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return this.legendValue && !Number.isNaN(this.legendValue) ? this.legendValue : this.progress;
+      /*
+      we need to display a valid number here, assuming that @legendValue replaces the progress if defined, since 0 is
+      a falsy value we check explicit if the @legendValue is a valid number, otherwise return @progress
+       */
+      const legendValue = getValueIfDefined(parseFloat(this.legendValue));
+      const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
+      return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
       return !this.dataIsAvailable || this.loading || this.noData;
     },
     dataIsAvailable() {
-      return this.noData || !Number.isNaN(parseFloat(this.progress));
+      return isValidNumber(this.progress) && !this.noData;
     },
     countDecimals() {
-      if (this.legendVal % 1 === 0) return 0;
+      if (!this.dataIsAvailable || this.legendVal % 1 === 0) return 0;
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {

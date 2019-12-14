@@ -1,3 +1,5 @@
+import { getValueIfDefined, isValidNumber } from "../utils";
+
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
@@ -37,8 +39,11 @@ export default {
           return this.normalLineModeRadius;
         case "in":
           return this.baseRadius - (this.emptyThickness + offset);
-        case "in-over":
-          return this.baseRadius;
+        case "out-over":
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius;
+          }
+          return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
         case "bottom":
           return this.emptyRadius - this.emptyThickness / 2;
         case "top":
@@ -57,7 +62,10 @@ export default {
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
         case "out-over":
-          return this.baseRadius - (this.thickness / 2 - this.emptyThickness / 2);
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius - this.thickness / 2 + this.emptyThickness / 2;
+          }
+          return this.emptyBaseRadius;
         case "bottom":
           if (this.emptyThickness < this.thickness / 2) {
             return this.emptyBaseRadius - (this.thickness / 2 - this.emptyThickness);
@@ -88,9 +96,8 @@ export default {
       }
       return this.baseRadius;
     },
-
     dataIsAvailable() {
-      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+      return isValidNumber(this.options.progress) && !this.options.noData;
     },
     animationClass() {
       return [
