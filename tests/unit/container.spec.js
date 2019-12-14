@@ -105,15 +105,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.vm.countDecimals).to.equal(4);
     });
     // FIXME: Produces error, see corresponding issue
-    /* it("forces noData state, if invalid", () => {
+    it("forces noData state, if invalid", () => {
       const progress = "s3ome";
       const wrapper = shallowMount(Container, {
         propsData: { progress }
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
-      // expect(wrapper.vm.dataIsAvailable).to.equal(false);
-    }); */
+      expect(wrapper.vm.dataIsAvailable).to.equal(false);
+    });
   });
   describe("#legendValue", () => {
     const animation = {

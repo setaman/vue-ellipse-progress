@@ -9,7 +9,7 @@
       :stroke-dasharray="emptyDasharray"
       :fill="emptyColorFill"
       :style="{ transition: animationDuration }"
-      :class="{ 'ep_circle--nodata': options.noData }"
+      :class="{ 'ep_circle--nodata': !dataIsAvailable }"
       :stroke-width="emptyThickness"
     >
     </circle>

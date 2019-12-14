@@ -1,3 +1,5 @@
+import { getValueIfDefined, isValidNumber } from "../utils";
+
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
@@ -94,9 +96,8 @@ export default {
       }
       return this.baseRadius;
     },
-
     dataIsAvailable() {
-      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+      return isValidNumber(this.options.progress) && !this.options.noData;
     },
     animationClass() {
       return [
