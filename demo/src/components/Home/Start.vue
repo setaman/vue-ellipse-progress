@@ -68,21 +68,29 @@
             >
               <span slot="legend-value">
                 <span class="mx-2">/</span>
-                <span>{{teamStats ? teamStats.playedGames : ''}}</span>
+                <span>{{ teamStats ? teamStats.playedGames : "" }}</span>
               </span>
               <div slot="legend-capture" style="color: #7579ff">
                 <div v-if="teamStats"><b>WON</b> VS <b>PLAYED</b></div>
-                <span>{{teamStats ? teamStats.team.name : ''}}</span>
+                <span>{{ teamStats ? teamStats.team.name : "" }}</span>
               </div>
             </vue-ellipse-progress>
             <v-row>
               <v-col>
                 <form id="team-input-form" @submit.prevent="loadTeamStats">
                   <div class="mb-3">
-                    <input id="team-input" type="text" placeholder="APL team name" v-model="teamName" />
+                    <v-autocomplete
+                      v-model="teamName"
+                      label="Select an APL team"
+                      :items="teams"
+                      hide-details
+                      outlined
+                      :loading="loading"
+                      :dark="$vuetify.breakpoint.smAndDown"
+                    ></v-autocomplete>
                   </div>
                   <div>
-                    <btn block large type="submit">
+                    <btn block large :loading="loading" type="submit">
                       load data
                     </btn>
                   </div>
@@ -111,6 +119,7 @@ export default {
   data: () => ({
     teamName: "Manchester United",
     snackbar: false,
+    teams: ["Manchester United", "Manchester City", "Chelsea", "Liverpool", "Arsenal"],
     npm: "npm i vue-ellipse-progress",
     version: packageInfo.version,
     teamStats: "",
@@ -194,21 +203,6 @@ export default {
 }
 #team-input-form {
   padding: 0 25%;
-}
-#team-input {
-  position: relative;
-  border-radius: 8px;
-  padding: 10px;
-  width: 100%;
-  background-color: #f5f5f5;
-  border-bottom: 3px solid transparent;
-  transition: 0.3s;
-  outline: none;
-  font-weight: bold;
-  color: #5a3fb3;
-  &:focus {
-    border-bottom: 3px solid #5a3fb3;
-  }
 }
 
 #overlay {
