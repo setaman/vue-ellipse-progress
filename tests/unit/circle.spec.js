@@ -4,6 +4,8 @@ import Container from "../../src/components/EllipseProgressContainer.vue";
 import Circle from "../../src/components/CircleProgress.vue";
 import Gradient from "../../src/components/Gradient.vue";
 
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+
 const factory = propsData => {
   return mount(Container, {
     propsData: {
@@ -760,6 +762,20 @@ describe("[ CircleProgress.vue ]", () => {
         });
         const circleWrapper = wrapper.find(Circle);
         const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
+      });
+      it("resets animation-delay value to 0 after animation played", async () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 1000,
+            delay: 500
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        await wait(1500);
         expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
       });
     });
