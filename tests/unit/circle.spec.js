@@ -727,5 +727,41 @@ describe("[ CircleProgress.vue ]", () => {
         expect(circleProgressWrapper.element.style.transition).to.equal("0ms");
       });
     });
+    describe("#animation.delay", () => {
+      it("applies default @400 delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("400ms");
+      });
+      it("applies provided delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 1000,
+            delay: 1000
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("1000ms");
+      });
+      it("applies @0 delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 1000,
+            delay: 0
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
+      });
+    });
   });
 });

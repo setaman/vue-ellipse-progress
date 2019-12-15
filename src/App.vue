@@ -22,7 +22,7 @@
       </div>
       <vue-ellipse-progress
         :progress="progress"
-        :animation="{ type: 'rs', duration: 1000, delay: 1 }"
+        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"

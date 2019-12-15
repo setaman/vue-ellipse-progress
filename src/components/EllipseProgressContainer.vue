@@ -129,7 +129,7 @@ export default {
       default: () => ({
         type: "default",
         duration: 1000,
-        delay: 300
+        delay: 400
       })
     },
     legend: {

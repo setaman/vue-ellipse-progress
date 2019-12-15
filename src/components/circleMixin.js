@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       isInitialized: false,
-      delay: this.options.animation.delay || 400,
+      delay: this.options.animation.delay,
       loading: this.options.loading,
       circle: null
     };
@@ -197,7 +197,7 @@ export default {
         this.delay = 0;
         return;
       }
-      await wait(this.delay + (this.options.animation.duration || 1000));
+      await wait(this.delay + this.options.animation.duration);
       this.delay = 0;
     },
     setProperties() {
@@ -220,7 +220,7 @@ export default {
     } else {
       setTimeout(() => {
         this.isInitialized = true;
-      }, this.options.animation.delay + 100 || 400);
+      }, this.options.animation.delay);
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();
