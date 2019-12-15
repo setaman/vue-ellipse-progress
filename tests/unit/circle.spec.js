@@ -39,7 +39,6 @@ describe("[ CircleProgress.vue ]", () => {
       const expectedOffset = circumference - (progress / 100) * circumference;
 
       const circleWrapper = wrapper.find(Circle);
-      // const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
 
       expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
     });
@@ -645,6 +644,88 @@ describe("[ CircleProgress.vue ]", () => {
       expect(gradientWrapper.contains("radialGradient")).to.be.true;
       const radialGradientWrapper = gradientWrapper.find("radialGradient");
       expect(radialGradientWrapper.findAll("stop").length).to.equal(emptyGradientColorFill.gradient.colors.length);
+    });
+  });
+  describe("#animation", () => {
+    describe("#animation.type", () => {
+      const wrapper = factory({
+        progress: 50
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      it("applies @default animation class by default", () => {
+        expect(circleProgressWrapper.classes()).to.include("animation__default");
+      });
+      it("applies @rs animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__rs");
+      });
+      it("applies @loop animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "loop",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__loop");
+      });
+      it("applies @bounce animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "bounce",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__bounce");
+      });
+      it("applies @reverse animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "reverse",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__reverse");
+      });
+    });
+    describe("#animation.duration", () => {
+      const wrapper = factory({
+        progress: 50
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      it("applies default @1000 duration value as transition", () => {
+        expect(circleProgressWrapper.element.style.transition).to.equal("1000ms");
+      });
+      it("applies provided duration value as transition", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 500,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.element.style.transition).to.equal("500ms");
+      });
+      it("applies @0 duration value as transition", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 0,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.element.style.transition).to.equal("0ms");
+      });
     });
   });
 });

@@ -142,7 +142,7 @@ export default {
       return this.calculateThickness(this.options.emptyThickness.toString());
     },
     animationDuration() {
-      return `${this.options.animation.duration || 1000}ms`;
+      return `${isValidNumber(this.options.animation.duration) ? this.options.animation.duration : 1000}ms`;
     },
     transformOrigin() {
       return "50% 50%";

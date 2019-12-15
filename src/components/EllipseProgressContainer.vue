@@ -188,10 +188,6 @@ export default {
       if (this.loading || this.noData) {
         return 0;
       }
-      /*
-      we need to display a valid number here, assuming that @legendValue replaces the progress if defined, since 0 is
-      a falsy value we check explicit if the @legendValue is a valid number, otherwise return @progress
-       */
       const legendValue = getValueIfDefined(parseFloat(this.legendValue));
       const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
       return isValidNumber(legendValue) ? legendValue : progressValue;

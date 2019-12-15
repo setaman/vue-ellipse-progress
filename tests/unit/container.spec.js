@@ -3,7 +3,7 @@ import { shallowMount, mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
-  describe("Rendering", () => {
+  describe("rendering", () => {
     it("renders the progress and empty circles", () => {
       const wrapper = mount(Container, {
         propsData: { progress: 50 }
