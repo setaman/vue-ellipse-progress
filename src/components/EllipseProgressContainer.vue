@@ -35,7 +35,7 @@
           <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
-        <slot name="legend-capture"></slot>
+        <slot name="legend-caption"></slot>
       </div>
     </div>
   </div>
@@ -129,7 +129,7 @@ export default {
       default: () => ({
         type: "default",
         duration: 1000,
-        delay: 300
+        delay: 400
       })
     },
     legend: {
@@ -188,10 +188,6 @@ export default {
       if (this.loading || this.noData) {
         return 0;
       }
-      /*
-      we need to display a valid number here, assuming that @legendValue replaces the progress if defined, since 0 is
-      a falsy value we check explicit if the @legendValue is a valid number, otherwise return @progress
-       */
       const legendValue = getValueIfDefined(parseFloat(this.legendValue));
       const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
       return isValidNumber(legendValue) ? legendValue : progressValue;

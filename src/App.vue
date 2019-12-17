@@ -20,7 +20,17 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <vue-ellipse-progress :progress="progress" :legend-value="10.45" :no-data="noData"/>
+      <vue-ellipse-progress
+        :dash="{count: 20, spacing: 0.99}"
+        :progress="progress"
+        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
+        :legend-value="10.45"
+        :loading="loading"
+        :no-data="noData"
+      >
+        <span slot="legend-value">/hui</span>
+        <p slot="legend-caption">hui</p>
+      </vue-ellipse-progress>
 
       <!--<vue-ellipse-progress
         :thickness="10"

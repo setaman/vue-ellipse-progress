@@ -3,7 +3,7 @@ import { shallowMount, mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
-  describe("Rendering", () => {
+  describe("rendering", () => {
     it("renders the progress and empty circles", () => {
       const wrapper = mount(Container, {
         propsData: { progress: 50 }
@@ -208,6 +208,30 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("applied-class");
+    });
+  });
+  describe("#slots", () => {
+    describe("#legend-value", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-value": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
+    });
+    describe("#legend-caption", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-caption": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
     });
   });
 });

@@ -2,7 +2,10 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 import Circle from "../../src/components/CircleProgress.vue";
+import HalfCircle from "../../src/components/HalfCircleProgress.vue";
 import Gradient from "../../src/components/Gradient.vue";
+
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 const factory = propsData => {
   return mount(Container, {
@@ -39,7 +42,6 @@ describe("[ CircleProgress.vue ]", () => {
       const expectedOffset = circumference - (progress / 100) * circumference;
 
       const circleWrapper = wrapper.find(Circle);
-      // const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
 
       expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
     });
@@ -645,6 +647,192 @@ describe("[ CircleProgress.vue ]", () => {
       expect(gradientWrapper.contains("radialGradient")).to.be.true;
       const radialGradientWrapper = gradientWrapper.find("radialGradient");
       expect(radialGradientWrapper.findAll("stop").length).to.equal(emptyGradientColorFill.gradient.colors.length);
+    });
+  });
+  describe("#animation", () => {
+    describe("#animation.type", () => {
+      const wrapper = factory({
+        progress: 50
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      it("applies @default animation class by default", () => {
+        expect(circleProgressWrapper.classes()).to.include("animation__default");
+      });
+      it("applies @rs animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__rs");
+      });
+      it("applies @loop animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "loop",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__loop");
+      });
+      it("applies @bounce animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "bounce",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__bounce");
+      });
+      it("applies @reverse animation class correctly", () => {
+        wrapper.setProps({
+          animation: {
+            type: "reverse",
+            duration: 100,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.classes()).to.include("animation__reverse");
+      });
+    });
+    describe("#animation.duration", () => {
+      const wrapper = factory({
+        progress: 50
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      it("applies default @1000 duration value as transition", () => {
+        expect(circleProgressWrapper.element.style.transition).to.equal("1000ms");
+      });
+      it("applies provided duration value as transition", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 500,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.element.style.transition).to.equal("500ms");
+      });
+      it("applies @0 duration value as transition", () => {
+        wrapper.setProps({
+          animation: {
+            type: "rs",
+            duration: 0,
+            delay: 100
+          }
+        });
+        expect(circleProgressWrapper.element.style.transition).to.equal("0ms");
+      });
+    });
+    describe("#animation.delay", () => {
+      it("applies default @400 delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("400ms");
+      });
+      it("applies provided delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 1000,
+            delay: 1000
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("1000ms");
+      });
+      it("applies @0 delay value as animation-delay", () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 1000,
+            delay: 0
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
+      });
+      it("resets animation-delay value to 0 after animation played", async () => {
+        const wrapper = factory({
+          progress: 50,
+          animation: {
+            type: "rs",
+            duration: 200,
+            delay: 100
+          }
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+        await wait(300);
+        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
+      });
+    });
+  });
+  describe("#half", () => {
+    const progress = 60;
+    const size = 200;
+    const thickness = 10;
+
+    const wrapper = factory({
+      progress,
+      thickness,
+      size,
+      half: true,
+      animation: {
+        type: "none",
+        duration: 0,
+        delay: 0
+      }
+    });
+
+    const radius = size / 2 - thickness / 2;
+    const position = size / 2 - radius;
+    const expectedPath = ` M ${position}, ${size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
+
+    const circleWrapper = wrapper.find(HalfCircle);
+    const circleProgressWrapper = circleWrapper.find(".ep-circle--progress");
+    const circleEmptyWrapper = circleWrapper.find(".ep-circle--empty");
+
+    it("calculates and sets the position of the half circles correctly", () => {
+      expect(circleWrapper.vm.position).to.equal(position);
+      expect(circleWrapper.vm.path).to.equal(expectedPath);
+
+      expect(circleProgressWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
+      expect(circleEmptyWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
+    });
+    it("calculates the progress circle stroke offset correctly", async () => {
+      const circumference = (radius * 2 * Math.PI) / 2;
+      const expectedOffset = circumference - (progress / 100) * circumference;
+      expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
+      expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
+    });
+  });
+  describe("#dash", () => {
+    const dash = "10 10";
+
+    const wrapper = factory({
+      progress: 50,
+      dash
+    });
+
+    const circleWrapper = wrapper.find(Circle);
+    const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
+
+    it("applies the #dash value as string correctly", () => {
+      expect(circleEmptyWrapper.element.getAttribute("stroke-dasharray")).to.equal(`${dash}`);
     });
   });
 });
