@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 import Circle from "../../src/components/CircleProgress.vue";
+import HalfCircle from "../../src/components/HalfCircleProgress.vue";
 import Gradient from "../../src/components/Gradient.vue";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
@@ -769,15 +770,54 @@ describe("[ CircleProgress.vue ]", () => {
           progress: 50,
           animation: {
             type: "rs",
-            duration: 1000,
-            delay: 500
+            duration: 200,
+            delay: 100
           }
         });
         const circleWrapper = wrapper.find(Circle);
         const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        await wait(1500);
+        await wait(300);
         expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
       });
+    });
+  });
+  describe("#half", () => {
+    const progress = 60;
+    const size = 200;
+    const thickness = 10;
+
+    const wrapper = factory({
+      progress,
+      thickness,
+      size,
+      half: true,
+      animation: {
+        type: "none",
+        duration: 0,
+        delay: 0
+      }
+    });
+
+    const radius = size / 2 - thickness / 2;
+    const position = size / 2 - radius;
+    const expectedPath = ` M ${position}, ${size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
+
+    const circleWrapper = wrapper.find(HalfCircle);
+    const circleProgressWrapper = circleWrapper.find(".ep-circle--progress");
+    const circleEmptyWrapper = circleWrapper.find(".ep-circle--empty");
+
+    it("calculates and sets the position of the half circles correctly", () => {
+      expect(circleWrapper.vm.position).to.equal(position);
+      expect(circleWrapper.vm.path).to.equal(expectedPath);
+
+      expect(circleProgressWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
+      expect(circleEmptyWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
+    });
+    it("calculates the progress circle stroke offset correctly", async () => {
+      const circumference = (radius * 2 * Math.PI) / 2;
+      const expectedOffset = circumference - (progress / 100) * circumference;
+      expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
+      expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });
   });
 });

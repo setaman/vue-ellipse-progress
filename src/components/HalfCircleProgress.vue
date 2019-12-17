@@ -37,7 +37,6 @@ export default {
   name: "HalfCircleProgress",
   mixins: [CircleMixin],
   computed: {
-    // only component specific props here, another props comes from the circleMixin
     progressOffset() {
       const offset = this.circumference - (this.progress / 100) * this.circumference;
       if (offset <= 0) {

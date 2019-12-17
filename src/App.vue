@@ -21,6 +21,7 @@
         </label>
       </div>
       <vue-ellipse-progress
+        half
         :progress="progress"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
