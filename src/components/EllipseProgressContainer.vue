@@ -35,7 +35,7 @@
           <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
-        <slot name="legend-capture"></slot>
+        <slot name="legend-caption"></slot>
       </div>
     </div>
   </div>
