@@ -380,32 +380,19 @@ This code ...
 
 <br>
 
-## Run project local
+## Development
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
+## Build for publishing
 ```
 npm run lint
-```
-
-### Run your unit tests
-```
 npm run test:unit
+npm run build
 ```
