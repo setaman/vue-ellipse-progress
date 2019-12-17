@@ -51,7 +51,7 @@ Now use the component
   fontSize="5rem">
 
   <span slot="legend-value">/200</span>
-  <p slot="legend-capture">GOOD JOB</p>
+  <p slot="legend-caption">GOOD JOB</p>
 
 </vue-ellipse-progress>
 ```
