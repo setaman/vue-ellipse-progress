@@ -210,4 +210,28 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
+  describe("#slots", () => {
+    describe("#legend-value", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-value": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
+    });
+    describe("#legend-caption", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-caption": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
+    });
+  });
 });

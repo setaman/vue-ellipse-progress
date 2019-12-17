@@ -21,14 +21,16 @@
         </label>
       </div>
       <vue-ellipse-progress
-        half
         :dash="{count: 20, spacing: 0.99}"
         :progress="progress"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
-      />
+      >
+        <span slot="legend-value">/hui</span>
+        <p slot="legend-caption">hui</p>
+      </vue-ellipse-progress>
 
       <!--<vue-ellipse-progress
         :thickness="10"
