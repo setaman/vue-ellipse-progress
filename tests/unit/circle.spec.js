@@ -820,4 +820,19 @@ describe("[ CircleProgress.vue ]", () => {
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });
   });
+  describe("#dash", () => {
+    const dash = "10 10";
+
+    const wrapper = factory({
+      progress: 50,
+      dash
+    });
+
+    const circleWrapper = wrapper.find(Circle);
+    const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
+
+    it("applies the #dash value as string correctly", () => {
+      expect(circleEmptyWrapper.element.getAttribute("stroke-dasharray")).to.equal(`${dash}`);
+    });
+  });
 });
