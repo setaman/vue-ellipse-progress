@@ -278,7 +278,7 @@ Now you can display custom progress value that still animated and circle progres
 defines the initial animation of progress circle line filling. You can choose one from predefined animations and set a specific duration and delay. 
 
 - `type:`
-  - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
+  - `default | rs | reverse | bounce| loop` try this animations in the demo!
 - `duration` Number in milliseconds, default `1000`
 - `delay` Number in milliseconds, default `400`
 
@@ -379,6 +379,13 @@ This code ...
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
 
 <br>
+
+## Compatibility
+The plugin was tested in all major modern browsers. Should also work properly in older browsers. In old browsers issues can be caused by animations since they are implemented using css custom properties. Basic svg renders even in IE 11. 
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
+| --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:
 
 ## Development
 ```
