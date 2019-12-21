@@ -110,7 +110,7 @@
 <script>
 import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
-import packageInfo from "../../../../package";
+import packageInfo from "../../../package";
 const wait = () => new Promise(resolve => setTimeout(resolve, 2000));
 const waveColor = "#237cef";
 export default {
@@ -121,7 +121,7 @@ export default {
     snackbar: false,
     teams: ["Manchester United", "Manchester City", "Chelsea", "Liverpool", "Arsenal"],
     npm: "npm i vue-ellipse-progress",
-    version: packageInfo.version,
+    version: packageInfo.dependencies["vue-ellipse-progress"].replace("^", ""),
     teamStats: "",
     loading: true,
     error: false,
