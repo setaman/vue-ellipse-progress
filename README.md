@@ -3,7 +3,6 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![HitCount](http://hits.dwyl.io/setaman/vue-ellipse-progress.svg)](http://hits.dwyl.io/setaman/vue-ellipse-progress)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
@@ -206,10 +205,10 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
 Now you are ready for an bad example.
 
 ```js
-color: {
-      gradient: {
-        radial: false,
-        colors: [
+{
+      {
+        false,
+        colors;: [
           {
             color: '#6546f7',
             offset: '0',
@@ -337,9 +336,9 @@ is string or object. Internaly is used the value `stroke-dasharray` so if you de
 ###### Example: :scroll:
 `dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
 ```js
-:dash="{
-    count: 60 // Number of dashes
-    spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
+:dash="{;
+    60; // Number of dashes
+    0.99; // spacing between dashes, any value >= 0 and < 1
   }"
 ```
 
