@@ -1,10 +1,5 @@
 # demo
 
-Landing for the `vue-ellipse-progress` library.
-Add `.env` in the root with the token for [https://www.football-data.org/](https://www.football-data.org/):
-
-`VUE_APP_API_TOKEN=your_token`
-
 ## Project setup
 ```
 npm install
@@ -15,7 +10,15 @@ npm install
 npm run serve
 ```
 
+### Compiles and minifies for production
+```
+npm run build
+```
+
 ### Lints and fixes files
 ```
 npm run lint
 ```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
