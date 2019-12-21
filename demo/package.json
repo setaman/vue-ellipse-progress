@@ -10,26 +10,26 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "serga-test": "0.0.4",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-ellipse-progress": "file:../vue-ellipse-progress-0.18.6.tgz",
-    "vue-router": "^3.0.3",
-    "vuetify": "^2.0.18",
-    "vuex": "^3.0.1"
+    "vue-router": "^3.1.3",
+    "vuetify": "^2.1.15",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@mdi/font": "^4.4.95",
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
+    "@mdi/font": "^4.7.95",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
     "@vue/eslint-config-prettier": "^4.0.1",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "eslint-plugin-vuetify": "^1.0.0-beta.3",
-    "node-sass": "^4.9.0",
-    "sass": "^1.22.12",
+    "eslint-plugin-vue": "^5.2.3",
+    "eslint-plugin-vuetify": "^1.0.0-beta.5",
+    "node-sass": "^4.13.0",
+    "sass": "^1.24.0",
     "sass-loader": "^7.3.1",
     "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   }
 }
