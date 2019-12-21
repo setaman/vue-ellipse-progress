@@ -3,7 +3,7 @@ import { shallowMount, mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
-  describe("Rendering", () => {
+  describe("rendering", () => {
     it("renders the progress and empty circles", () => {
       const wrapper = mount(Container, {
         propsData: { progress: 50 }
@@ -71,11 +71,12 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       duration: 1,
       delay: 1
     };
-    /* it("renders the progress correctly", () => {
+    /* it("renders the progress correctly", async () => {
       let progress = 40;
       const wrapper = mount(Container, {
         propsData: { animation, progress }
       });
+      await wait(2000);
       const spanWrapper = wrapper.find(".ep-legend--value > span");
       console.log("Text:", spanWrapper.text());
       expect(spanWrapper.text()).to.equal(`${progress}`);
@@ -103,15 +104,47 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       wrapper.setProps({ progress });
       expect(wrapper.vm.countDecimals).to.equal(4);
     });
+    // FIXME: Produces error, see corresponding issue
+    it("forces noData state, if invalid", () => {
+      const progress = "s3ome";
+      const wrapper = shallowMount(Container, {
+        propsData: { progress }
+      });
+      const spanWrapper = wrapper.find(".ep-legend--value");
+      expect(spanWrapper.classes()).to.include("ep-hidden");
+      expect(wrapper.vm.dataIsAvailable).to.equal(false);
+    });
+  });
+  describe("#legendValue", () => {
+    const animation = {
+      type: "default",
+      duration: 1,
+      delay: 1
+    };
+    const progress = 40;
+    it("counts the decimals correctly", () => {
+      const wrapper = shallowMount(Container, {
+        propsData: { animation, progress }
+      });
+      expect(wrapper.vm.countDecimals).to.equal(0);
+
+      let legendValue = 124.34;
+      wrapper.setProps({ progress, legendValue });
+      expect(wrapper.vm.countDecimals).to.equal(2);
+
+      legendValue = -435.2456;
+      wrapper.setProps({ progress, legendValue });
+      expect(wrapper.vm.countDecimals).to.equal(4);
+    });
     it("replaces the progress by legendValue as the legend of the circle", () => {
       const legendValue = 324;
-      const progress = 50;
       const wrapper = shallowMount(Container, {
         propsData: { progress, legendValue }
       });
       expect(wrapper.vm.legendVal).to.equal(legendValue);
       expect(wrapper.vm.progress).to.equal(progress);
     });
+    // FIXME: Produces error, see corresponding issue
     /* it("forces noData state, if invalid", () => {
       const progress = "s3ome";
       const wrapper = shallowMount(Container, {
@@ -166,6 +199,39 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.element.style.color).to.equal("lime");
+    });
+  });
+  describe("#legendClass", () => {
+    it("applies class to circle legend", () => {
+      const wrapper = shallowMount(Container, {
+        propsData: { progress: 50, legendClass: "applied-class" }
+      });
+      const spanWrapper = wrapper.find(".ep-legend--value");
+      expect(spanWrapper.classes()).to.include("applied-class");
+    });
+  });
+  describe("#slots", () => {
+    describe("#legend-value", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-value": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
+    });
+    describe("#legend-caption", () => {
+      it("renders provided slot content", () => {
+        const wrapper = shallowMount(Container, {
+          propsData: { progress: 50 },
+          slots: {
+            "legend-caption": '<span id="my-slot">Hello Circle</span>'
+          }
+        });
+        expect(wrapper.contains("#my-slot")).to.be.true;
+      });
     });
   });
 });

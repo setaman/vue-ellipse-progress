@@ -29,19 +29,13 @@
         <span
           v-if="legend"
           class="ep-legend--value"
-          :class="{ 'ep-hidden': shouldHideLegendValue }"
+          :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp
-            :class="[legendClass]"
-            ref="count"
-            :endVal="legendVal"
-            :delay="animation.delay"
-            :options="counterOptions"
-          ></CountUp>
+          <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
-        <slot name="legend-capture"></slot>
+        <slot name="legend-caption"></slot>
       </div>
     </div>
   </div>
@@ -52,6 +46,7 @@ import CountUp from "vue-countup-v2";
 import CircleProgress from "./CircleProgress.vue";
 import Gradient from "./Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
+import { getValueIfDefined, isValidNumber } from "../utils";
 
 export default {
   name: "EllipseProgressContainer",
@@ -62,6 +57,10 @@ export default {
       type: Number,
       required: true,
       validator: val => val >= 0 && val <= 100
+    },
+    legendValue: {
+      type: Number,
+      required: false
     },
     size: {
       type: Number,
@@ -118,13 +117,11 @@ export default {
     },
     fontSize: {
       type: String,
-      required: false,
-      default: "1rem"
+      required: false
     },
     fontColor: {
       type: String,
-      required: false,
-      default: "gray"
+      required: false
     },
     animation: {
       type: Object,
@@ -132,17 +129,13 @@ export default {
       default: () => ({
         type: "default",
         duration: 1000,
-        delay: 300
+        delay: 400
       })
     },
     legend: {
       type: Boolean,
       required: false,
       default: true
-    },
-    legendValue: {
-      type: Number,
-      required: false
     },
     legendClass: {
       type: String,
@@ -189,22 +182,24 @@ export default {
       return { ...this.$props, id: this._uid };
     },
     startAngle() {
-      return /* this.loading ? "" : */ this.angle || -90;
+      return getValueIfDefined(this.angle) || -90;
     },
     legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return this.legendValue && !Number.isNaN(this.legendValue) ? this.legendValue : this.progress;
+      const legendValue = getValueIfDefined(parseFloat(this.legendValue));
+      const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
+      return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
       return !this.dataIsAvailable || this.loading || this.noData;
     },
     dataIsAvailable() {
-      return this.noData || !Number.isNaN(parseFloat(this.progress));
+      return isValidNumber(this.progress) && !this.noData;
     },
     countDecimals() {
-      if (this.legendVal % 1 === 0) return 0;
+      if (!this.dataIsAvailable || this.legendVal % 1 === 0) return 0;
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {
@@ -244,7 +239,6 @@ export default {
   transition: 0.3s;
   text-align: center;
   display: block;
-  color: black;
   opacity: 1;
 }
 .ep-hidden {

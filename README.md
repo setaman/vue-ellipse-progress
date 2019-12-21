@@ -1,19 +1,16 @@
-<div align="center" style="text-align: center;">
-  <img width="250" height="250" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v3.svg">  
-</div>
-
 # vue-ellipse-progress
 
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![HitCount](http://hits.dwyl.io/setaman/vue-ellipse-progress.svg)](http://hits.dwyl.io/setaman/vue-ellipse-progress)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
 A Vue.js component to create beautiful animated circular progress bars
+
+:grey_exclamation: :grey_exclamation: :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation: :grey_exclamation: :grey_exclamation:
 
 <div align="center" style="text-align: center;">
   <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">  
@@ -55,7 +52,7 @@ Now use the component
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
-  <p slot="legend-capture">GOOD JOB</p>
+  <p slot="legend-caption">GOOD JOB</p>
   
 </vue-ellipse-progress>
 ``` 
@@ -208,10 +205,10 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
 Now you are ready for an bad example.
 
 ```js
-color: {
-      gradient: {
-        radial: false,
-        colors: [
+{
+      {
+        false,
+        colors;: [
           {
             color: '#6546f7',
             offset: '0',
@@ -280,7 +277,7 @@ Now you can display custom progress value that still animated and circle progres
 defines the initial animation of progress circle line filling. You can choose one from predefined animations and set a specific duration and delay. 
 
 - `type:`
-  - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
+  - `default | rs | reverse | bounce| loop` try this animations in the demo!
 - `duration` Number in milliseconds, default `1000`
 - `delay` Number in milliseconds, default `400`
 
@@ -339,9 +336,9 @@ is string or object. Internaly is used the value `stroke-dasharray` so if you de
 ###### Example: :scroll:
 `dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
 ```js
-:dash="{
-    count: 60 // Number of dashes
-    spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
+:dash="{;
+    60; // Number of dashes
+    0.99; // spacing between dashes, any value >= 0 and < 1
   }"
 ```
 
@@ -382,32 +379,26 @@ This code ...
 
 <br>
 
-## Run project local
+## Compatibility
+The plugin was tested in all major modern browsers. Should also work properly in older browsers. In old browsers issues can be caused by animations since they are implemented using css custom properties. Basic svg renders even in IE 11. 
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
+| --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:
+
+## Development
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
+## Build for publishing
 ```
 npm run lint
-```
-
-### Run your unit tests
-```
 npm run test:unit
+npm run build
 ```

@@ -1,3 +1,5 @@
+import { isValidNumber } from "../utils";
+
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
@@ -11,7 +13,7 @@ export default {
   data() {
     return {
       isInitialized: false,
-      delay: this.options.animation.delay || 400,
+      delay: this.options.animation.delay,
       loading: this.options.loading,
       circle: null
     };
@@ -37,8 +39,11 @@ export default {
           return this.normalLineModeRadius;
         case "in":
           return this.baseRadius - (this.emptyThickness + offset);
-        case "in-over":
-          return this.baseRadius;
+        case "out-over":
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius;
+          }
+          return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
         case "bottom":
           return this.emptyRadius - this.emptyThickness / 2;
         case "top":
@@ -57,7 +62,10 @@ export default {
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
         case "out-over":
-          return this.baseRadius - (this.thickness / 2 - this.emptyThickness / 2);
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius - this.thickness / 2 + this.emptyThickness / 2;
+          }
+          return this.emptyBaseRadius;
         case "bottom":
           if (this.emptyThickness < this.thickness / 2) {
             return this.emptyBaseRadius - (this.thickness / 2 - this.emptyThickness);
@@ -88,9 +96,8 @@ export default {
       }
       return this.baseRadius;
     },
-
     dataIsAvailable() {
-      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+      return isValidNumber(this.options.progress) && !this.options.noData;
     },
     animationClass() {
       return [
@@ -135,7 +142,7 @@ export default {
       return this.calculateThickness(this.options.emptyThickness.toString());
     },
     animationDuration() {
-      return `${this.options.animation.duration || 1000}ms`;
+      return `${isValidNumber(this.options.animation.duration) ? this.options.animation.duration : 1000}ms`;
     },
     transformOrigin() {
       return "50% 50%";
@@ -190,7 +197,7 @@ export default {
         this.delay = 0;
         return;
       }
-      await wait(this.delay + (this.options.animation.duration || 1000));
+      await wait(this.delay + this.options.animation.duration);
       this.delay = 0;
     },
     setProperties() {
@@ -213,7 +220,7 @@ export default {
     } else {
       setTimeout(() => {
         this.isInitialized = true;
-      }, this.options.animation.delay + 100 || 400);
+      }, this.options.animation.delay);
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();

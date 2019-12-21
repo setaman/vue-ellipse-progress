@@ -20,7 +20,28 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
-      <vue-ellipse-progress :progress="60" :size="200" thickness="5%" :emptyThickness="2"/>
+      <vue-ellipse-progress
+        :dash="{ count: 20, spacing: 0.99 }"
+        :progress="progress"
+        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
+        :legend-value="10.45"
+        :loading="loading"
+        :no-data="noData"
+      >
+        <span slot="legend-value">/hui</span>
+        <p slot="legend-caption">hui</p>
+      </vue-ellipse-progress>
+
+      <!--<vue-ellipse-progress
+        :thickness="10"
+        :no-data="noData"
+        :empty-thickness="20"
+        legend-class="legend-custom-style"
+        :legend-value="23"
+        :line-mode="{ mode: 'bottom', offset: 10 }"
+        :legend="true"
+      >
+      </vue-ellipse-progress>
       <vue-ellipse-progress
         :progress="parseFloat(progress)"
         :color="color"
@@ -36,10 +57,9 @@
       >
         <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="56" no-data/>
       <vue-ellipse-progress
         id="timer-example"
-        :progress="45"
+        :progress="parseFloat(timerProgress)"
         :color="color"
         :loading="loading"
         :emptyColor="emptyColor"
@@ -119,12 +139,12 @@
         :lineMode="{ mode: 'normal', offset: 10 }"
         :legendValue="tasks_done"
         fontColor="white"
-        :animation="{ type: 'bounce', duration: 2000, delay: 3000 }"
+        :animation="{ type: 'bounce', duration: 1000 }"
         fontSize="2rem"
       >
         <span slot="legend-value">/200</span>
         <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>
+      </vue-ellipse-progress>-->
     </div>
   </div>
 </template>
