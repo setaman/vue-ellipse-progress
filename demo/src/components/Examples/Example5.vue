@@ -114,7 +114,7 @@ export default {
       return (this.tasksDone * 100) / 200;
     },
     minPrefix() {
-      return this.min < 1 ? "0" : "";
+      return this.min < 10 ? "0" : "";
     },
     secPrefix() {
       return this.sec < 10 ? "0" : "";
