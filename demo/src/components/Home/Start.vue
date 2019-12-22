@@ -70,7 +70,7 @@
                 <span class="mx-2">/</span>
                 <span>{{ teamStats ? teamStats.playedGames : "" }}</span>
               </span>
-              <div slot="legend-capture" style="color: #7579ff">
+              <div slot="legend-caption" style="color: #7579ff">
                 <div v-if="teamStats"><b>WON</b> VS <b>PLAYED</b></div>
                 <span>{{ teamStats ? teamStats.team.name : "" }}</span>
               </div>

@@ -19,7 +19,7 @@
       :no-data="noData"
     >
       <span slot="legend-value">/200</span>
-      <span slot="legend-capture">TASKS DONE</span>
+      <span slot="legend-caption">TASKS DONE</span>
     </vue-ellipse-progress>
   </example-card>
 </template>

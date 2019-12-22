@@ -17,7 +17,7 @@
       :loading="loading"
       :no-data="noData"
     >
-      <img slot="legend-capture" height="80px" src="@/assets/upload.png" />
+      <img slot="legend-caption" height="80px" src="@/assets/upload.png" />
     </vue-ellipse-progress>
   </example-card>
 </template>

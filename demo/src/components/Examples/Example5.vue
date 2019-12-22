@@ -21,7 +21,7 @@
       :loading="loading"
       :no-data="noData"
     >
-      <span slot="legend-capture">
+      <span slot="legend-caption">
         <span>{{ minPrefix }}{{ min }}</span>
         <span class="mx-2">:</span>
         <span>{{ secPrefix }}{{ sec }}</span>

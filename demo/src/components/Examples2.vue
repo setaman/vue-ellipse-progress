@@ -42,7 +42,7 @@
               :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
               :fontSize="fontSize"
             >
-              <span slot="legend-capture"> {{ loading ? "LOADING..." : "AMAZING PROGRESS" }} </span>
+              <span slot="legend-caption"> {{ loading ? "LOADING..." : "AMAZING PROGRESS" }} </span>
             </vue-ellipse-progress>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -63,7 +63,7 @@
               dash="5"
             >
               <span slot="legend-value">/200</span>
-              <span slot="legend-capture">{{ loading ? "LOADING..." : "TASKS DONE" }}</span>
+              <span slot="legend-caption">{{ loading ? "LOADING..." : "TASKS DONE" }}</span>
             </vue-ellipse-progress>
           </v-col>
         </v-row>
@@ -148,7 +148,7 @@
               :animation="{ type: 'rs', duration: 700, delay: 1000 }"
               :fontSize="fontSize"
             >
-              <img slot="legend-capture" height="80px" src="@/assets/icon.svg" />
+              <img slot="legend-caption" height="80px" src="@/assets/icon.svg" />
             </vue-ellipse-progress>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -187,7 +187,7 @@
               <span slot="legend-value">
                 /5
               </span>
-              <div slot="legend-capture">
+              <div slot="legend-caption">
                 <p class="mb-0">24 REVIEWS</p>
                 <v-rating small v-model="rating"></v-rating>
               </div>

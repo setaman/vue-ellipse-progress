@@ -15,7 +15,7 @@
       :loading="loading"
       :no-data="noData"
     >
-      <span slot="legend-capture"> PROGRESS </span>
+      <span slot="legend-caption"> PROGRESS </span>
     </vue-ellipse-progress>
   </example-card>
 </template>

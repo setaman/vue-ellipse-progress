@@ -26,7 +26,7 @@
           5
         </span>
       </span>
-      <div slot="legend-capture">
+      <div slot="legend-caption">
         <p class="mb-0">24 REVIEWS</p>
         <v-rating dense small v-model="rating"></v-rating>
       </div>
