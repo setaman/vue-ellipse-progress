@@ -171,6 +171,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    gap: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   computed: {

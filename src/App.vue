@@ -21,15 +21,18 @@
         </label>
       </div>
       <vue-ellipse-progress
+        :gap="20"
+        angle="135"
         :data="circles"
-        :size="400"
+        :size="800"
         :thickness="40"
         :progress="progress"
-        empty-color="transparent"
+        empty-color="rgba(17,34,51,0.66)"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
+        half
       >
         <span slot="legend-value">/hui</span>
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
@@ -151,26 +154,36 @@
     </div>
   </div>
 </template>
-
 <script>
+  const c = "rgba(17,34,51,0.66)";
 export default {
   name: "app",
   components: {},
   data: () => ({
     circles: [
       {
-        progress: 35,
-        thickness: 10
+        progress: 75,
+        thickness: 40,
+        animation: { type: "rs", duration: 2000, delay: 200 }
       },
       {
         progress: 55,
-        thickness: 20,
-        color: "blue"
+        thickness: 40,
+        color: "blue",
+        angle: "145",
+        animation: { type: "rs", duration: 2000, delay: 400 }
       },
       {
-        progress: 75,
-        thickness: 30,
-        color: "red"
+        progress: 35,
+        thickness: 40,
+        color: "red",
+        animation: { type: "rs", duration: 2000, delay: 600 }
+      },
+      {
+        progress: 15,
+        thickness: 40,
+        color: "yellow",
+        animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],
     loading: false,

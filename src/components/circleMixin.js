@@ -48,9 +48,7 @@ export default {
       const offset = Number(this.options.lineMode.offset || 0);
 
       if (this.multiple) {
-        const previousCirclesThickness = this.getPreviousCirclesThickness();
-        const gap = previousCirclesThickness + this.gap;
-        return this.normalLineModeRadius - gap;
+        return this.normalLineModeRadius - this.previousCirclesThickness;
       }
 
       switch (this.options.lineMode.mode) {
@@ -76,9 +74,7 @@ export default {
       const offset = Number(this.options.lineMode.offset || 0);
 
       if (this.multiple) {
-        const previousCirclesThickness = this.getPreviousCirclesThickness();
-        const gap = previousCirclesThickness + this.gap;
-        return this.normalLineModeRadius - gap;
+        return this.normalLineModeRadius - this.previousCirclesThickness;
       }
 
       switch (this.options.lineMode.mode) {
@@ -178,6 +174,13 @@ export default {
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
+    },
+    previousCirclesThickness() {
+      if (this.index === 0) return 0;
+      return this.options.data
+        .filter((data, i) => i < this.index)
+        .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
+        .reduce((acc, current) => acc + current);
     }
   },
   methods: {
@@ -191,13 +194,6 @@ export default {
         default:
           return percent;
       }
-    },
-    getPreviousCirclesThickness() {
-      if (this.index === 0) return 0;
-      return this.options.data
-        .filter((data, i) => i < this.index)
-        .map(data => data.thickness || this.thickness)
-        .reduce((acc, current) => acc + current);
     },
     getDashSpacingPercent() {
       return this.options.dash.spacing / this.options.dash.count;
