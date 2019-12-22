@@ -15,14 +15,7 @@
         xmlns="http://www.w3.org/2000/svg"
         :style="{ transform: `rotate(${startAngle}deg)` }"
       >
-        <defs>
-          <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
-          <gradient v-if="colorFill.gradient" :color="colorFill" type="progress-fill" :id="_uid" />
-          <gradient v-if="emptyColor.gradient" :color="emptyColor" type="empty" :id="_uid" />
-          <gradient v-if="emptyColorFill.gradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
-        </defs>
-        <half-circle-progress v-if="half" :options="options" />
-        <circle-progress v-else :options="options" />
+        <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
@@ -47,15 +40,21 @@ import CircleProgress from "./CircleProgress.vue";
 import Gradient from "./Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import { getValueIfDefined, isValidNumber } from "../utils";
+import EpCircle from "./Circle/EpCircle.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
+  components: { EpCircle, HalfCircleProgress, Gradient, CircleProgress, CountUp },
   data: () => ({}),
   props: {
+    data: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     progress: {
       type: Number,
-      required: true,
+      require: true,
       validator: val => val >= 0 && val <= 100
     },
     legendValue: {
@@ -209,6 +208,18 @@ export default {
         decimalPlaces: this.countDecimals,
         decimal: "."
       };
+    },
+    isMultiple() {
+      return this.data.length > 1;
+    },
+    circlesData() {
+      if (this.isMultiple) {
+        return this.data.map(data => ({
+          ...this.$props,
+          ...data
+        }));
+      }
+      return [this.$props];
     }
   },
   methods: {}

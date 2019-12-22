@@ -21,6 +21,7 @@
         </label>
       </div>
       <vue-ellipse-progress
+        :data="[{ progress: 65, color: 'blue' }, { progress: 55 }, { progress: 10 , color: 'red'}]"
         :dash="{ count: 20, spacing: 0.99 }"
         :progress="progress"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
