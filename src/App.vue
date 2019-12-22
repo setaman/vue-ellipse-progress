@@ -21,16 +21,18 @@
         </label>
       </div>
       <vue-ellipse-progress
-        :data="[{ progress: 65, color: 'blue' }, { progress: 55 }, { progress: 10 , color: 'red'}]"
-        :dash="{ count: 20, spacing: 0.99 }"
+        :data="circles"
+        :size="400"
+        :thickness="40"
         :progress="progress"
+        empty-color="transparent"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
       >
         <span slot="legend-value">/hui</span>
-        <p slot="legend-caption">hui</p>
+        <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
       <!--<vue-ellipse-progress
@@ -155,6 +157,22 @@ export default {
   name: "app",
   components: {},
   data: () => ({
+    circles: [
+      {
+        progress: 35,
+        thickness: 10
+      },
+      {
+        progress: 55,
+        thickness: 20,
+        color: "blue"
+      },
+      {
+        progress: 75,
+        thickness: 30,
+        color: "red"
+      }
+    ],
     loading: false,
     noData: false,
     progress: 45.5,

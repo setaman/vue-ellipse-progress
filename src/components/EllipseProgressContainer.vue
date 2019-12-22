@@ -15,12 +15,12 @@
         xmlns="http://www.w3.org/2000/svg"
         :style="{ transform: `rotate(${startAngle}deg)` }"
       >
-        <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" />
+        <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" :multiple="isMultiple" :index="i" />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <span
-          v-if="legend"
+          v-if="legend && !isMultiple"
           class="ep-legend--value"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
@@ -36,15 +36,12 @@
 
 <script>
 import CountUp from "vue-countup-v2";
-import CircleProgress from "./CircleProgress.vue";
-import Gradient from "./Gradient.vue";
-import HalfCircleProgress from "./HalfCircleProgress.vue";
 import { getValueIfDefined, isValidNumber } from "../utils";
 import EpCircle from "./Circle/EpCircle.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { EpCircle, HalfCircleProgress, Gradient, CircleProgress, CountUp },
+  components: { EpCircle, CountUp },
   data: () => ({}),
   props: {
     data: {
@@ -216,7 +213,8 @@ export default {
       if (this.isMultiple) {
         return this.data.map(data => ({
           ...this.$props,
-          ...data
+          ...data,
+          emptyThickness: data.thickness || this.$props.thickness
         }));
       }
       return [this.$props];
