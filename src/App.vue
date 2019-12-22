@@ -32,7 +32,6 @@
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
-        half
       >
         <span slot="legend-value">/hui</span>
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
@@ -155,7 +154,6 @@
   </div>
 </template>
 <script>
-  const c = "rgba(17,34,51,0.66)";
 export default {
   name: "app",
   components: {},
@@ -177,12 +175,14 @@ export default {
         progress: 35,
         thickness: 40,
         color: "red",
+        angle: "155",
         animation: { type: "rs", duration: 2000, delay: 600 }
       },
       {
         progress: 15,
         thickness: 40,
         color: "yellow",
+        angle: "165",
         animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],
