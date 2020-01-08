@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Container from "../../src/components/EllipseProgressContainer.vue";
-import Circle from "../../src/components/CircleProgress.vue";
-import HalfCircle from "../../src/components/HalfCircleProgress.vue";
+import Circle from "../../src/components/Circle/CircleProgress.vue";
+import HalfCircle from "../../src/components/Circle/HalfCircleProgress.vue";
 import Gradient from "../../src/components/Gradient.vue";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));

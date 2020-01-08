@@ -20,16 +20,27 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
+      <div>
+        <input type="checkbox" v-model="circles[0].loading" />
+        <input type="checkbox" v-model="circles[1].loading" />
+        <input type="checkbox" v-model="circles[2].loading" />
+        <input type="checkbox" v-model="circles[3].loading" />
+      </div>
       <vue-ellipse-progress
-        :dash="{ count: 20, spacing: 0.99 }"
+        :gap="30"
+        color-fill="rgba(17,34,51,0.4)"
+        :data="circles"
+        :size="800"
+        :thickness="40"
         :progress="progress"
+        empty-color="rgba(17,34,51,0.66)"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
       >
         <span slot="legend-value">/hui</span>
-        <p slot="legend-caption">hui</p>
+        <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
       <!--<vue-ellipse-progress
@@ -148,12 +159,44 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "app",
   components: {},
   data: () => ({
+    circles: [
+      {
+        progress: 75,
+        thickness: 40,
+        animation: { type: "rs", duration: 2000, delay: 200 },
+        loading: false,
+        half: false
+      },
+      {
+        progress: 55,
+        thickness: 40,
+        color: "blue",
+        // angle: "-90",
+        loading: false,
+        animation: { type: "rs", duration: 2000, delay: 400 }
+      },
+      {
+        progress: 35,
+        thickness: 40,
+        color: "red",
+        // angle: "155",
+        loading: false,
+        animation: { type: "rs", duration: 2000, delay: 600 }
+      },
+      {
+        progress: 15,
+        thickness: 40,
+        color: "yellow",
+        // angle: "165",
+        loading: false,
+        animation: { type: "rs", duration: 2000, delay: 800 }
+      }
+    ],
     loading: false,
     noData: false,
     progress: 45.5,
