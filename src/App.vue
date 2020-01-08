@@ -20,9 +20,15 @@
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
       </div>
+      <div>
+        <input type="checkbox" v-model="circles[0].loading" />
+        <input type="checkbox" v-model="circles[1].loading" />
+        <input type="checkbox" v-model="circles[2].loading" />
+        <input type="checkbox" v-model="circles[3].loading" />
+      </div>
       <vue-ellipse-progress
-        :gap="20"
-        angle="135"
+        :gap="30"
+        color-fill="rgba(17,34,51,0.4)"
         :data="circles"
         :size="800"
         :thickness="40"
@@ -162,27 +168,32 @@ export default {
       {
         progress: 75,
         thickness: 40,
-        animation: { type: "rs", duration: 2000, delay: 200 }
+        animation: { type: "rs", duration: 2000, delay: 200 },
+        loading: false,
+        half: false
       },
       {
         progress: 55,
         thickness: 40,
         color: "blue",
-        angle: "145",
+        // angle: "-90",
+        loading: false,
         animation: { type: "rs", duration: 2000, delay: 400 }
       },
       {
         progress: 35,
         thickness: 40,
         color: "red",
-        angle: "155",
+        // angle: "155",
+        loading: false,
         animation: { type: "rs", duration: 2000, delay: 600 }
       },
       {
         progress: 15,
         thickness: 40,
         color: "yellow",
-        angle: "165",
+        // angle: "165",
+        loading: false,
         animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],

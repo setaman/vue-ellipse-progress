@@ -1,4 +1,4 @@
-import { isValidNumber } from "../utils";
+import { isValidNumber } from "../../utils";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 

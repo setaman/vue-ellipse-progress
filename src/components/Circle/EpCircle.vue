@@ -13,8 +13,8 @@
 
 <script>
 import Gradient from "../Gradient.vue";
-import HalfCircleProgress from "../HalfCircleProgress.vue";
-import CircleProgress from "../CircleProgress.vue";
+import HalfCircleProgress from "./HalfCircleProgress.vue";
+import CircleProgress from "./CircleProgress.vue";
 import { getValueIfDefined } from "../../utils";
 
 export default {
