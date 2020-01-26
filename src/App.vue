@@ -19,6 +19,10 @@
           No DATA
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
+        <label for="determinate">
+          Determinate
+          <input id="determinate" type="checkbox" v-model="determinate" />
+        </label>
       </div>
       <div>
         <input type="checkbox" v-model="circles[0].loading" />
@@ -27,12 +31,14 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>
       <vue-ellipse-progress
-        :gap="30"
-        color-fill="rgba(17,34,51,0.4)"
+        :gap="20"
+        color-fill="transparent"
+        :determinate="determinate"
         :data="circles"
         :size="800"
-        :thickness="40"
-        :progress="progress"
+        :thickness="10"
+        :empty-thickness="10"
+        :progress="timerProgress"
         empty-color="rgba(17,34,51,0.66)"
         :animation="{ type: 'rs', duration: 1000, delay: 0 }"
         :legend-value="10.45"
@@ -167,7 +173,7 @@ export default {
     circles: [
       {
         progress: 75,
-        thickness: 40,
+        thickness: 20,
         animation: { type: "rs", duration: 2000, delay: 200 },
         loading: false,
         half: false
@@ -197,6 +203,7 @@ export default {
         animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],
+    determinate: false,
     loading: false,
     noData: false,
     progress: 45.5,
