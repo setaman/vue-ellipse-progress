@@ -35,6 +35,7 @@ export default {
     options: {
       handler() {
         this.setProperties();
+        this.setDeterminateCircleProperties();
       },
       deep: true
     }
@@ -239,11 +240,24 @@ export default {
       this.circle.style.setProperty("--ep-reverse-stroke-offset", this.getReverseOffset());
       this.circle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
       this.circle.style.setProperty("animation-duration", this.animationDuration);
+    },
+    setDeterminateCircleProperties() {
+      if (this.options.determinate) {
+        const circleType = this.options.half ? "half-" : "";
+        const determinateCircle = this.$el.getElementsByClassName(`ep-${circleType}circle--determinate`)[0];
+        if (determinateCircle) {
+          determinateCircle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
+          determinateCircle.style.setProperty("animation-duration", this.animationDuration);
+          determinateCircle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
+          determinateCircle.style.setProperty("--ep-circumference", this.circumference);
+          determinateCircle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
+        }
+      }
     }
   },
   mounted() {
     this.setAnimationDelay();
-    if (this.loading) {
+    if (this.loading || this.options.determinate) {
       this.isInitialized = true;
     } else {
       setTimeout(() => {
@@ -252,5 +266,6 @@ export default {
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();
+    this.setDeterminateCircleProperties();
   }
 };

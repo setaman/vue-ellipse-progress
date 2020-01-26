@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
-import Container from "../../src/components/EllipseProgressContainer.vue";
+import Container from "../../src/components/VueEllipseProgress.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("rendering", () => {

@@ -1,5 +1,5 @@
 <template>
-  <transition mode="out-in" name="fade-in-out" appear>
+  <transition mode="out-in" name="fade" appear>
     <slot></slot>
   </transition>
 </template>
@@ -11,26 +11,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.fade-in-out-enter-active {
-  animation: enter 0.3s linear;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
-.fade-in-out-leave-active {
-  animation: leave 0.3s linear;
-}
-@keyframes enter {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes leave {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.fade-enter,
+.fade-leave-active {
+  transition: 0.3s;
+  opacity: 0;
 }
 </style>
