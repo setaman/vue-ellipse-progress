@@ -243,13 +243,14 @@ export default {
     },
     setDeterminateCircleProperties() {
       if (this.options.determinate) {
-        const determinateCircle = this.$el.getElementsByClassName("ep-circle--determinate")[0];
+        const circleType = this.options.half ? "half-" : "";
+        const determinateCircle = this.$el.getElementsByClassName(`ep-${circleType}circle--determinate`)[0];
         if (determinateCircle) {
-          determinateCircle.style.setProperty("--ep-determinate-stroke-color", this.options.color);
           determinateCircle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
           determinateCircle.style.setProperty("animation-duration", this.animationDuration);
           determinateCircle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
           determinateCircle.style.setProperty("--ep-circumference", this.circumference);
+          determinateCircle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
         }
       }
     }

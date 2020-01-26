@@ -121,14 +121,3 @@
     }
   }
 }
-
-@mixin colorize ($color) {
-  @keyframes colorize {
-    0% {
-      stroke: rgba($color, 0.2);
-    }
-    100% {
-      stroke: rgba($color, 0.2);
-    }
-  }
-}

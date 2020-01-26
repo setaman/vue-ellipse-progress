@@ -27,11 +27,11 @@
             :stroke-linecap="options.line"
             :stroke-dasharray="circumference"
             :style="{
-            strokeDashoffset: circumference,
-            transition: animationDuration,
-            'animation-delay': `${delay}ms`,
-            'transform-origin': transformOrigin
-          }"
+              strokeDashoffset: circumference,
+              transition: animationDuration,
+              'animation-delay': `${delay}ms`,
+              'transform-origin': transformOrigin
+            }"
           >
           </circle>
         </g>

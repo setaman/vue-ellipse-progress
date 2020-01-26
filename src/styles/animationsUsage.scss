@@ -30,7 +30,7 @@
   }
 }
 
-.ep-half-circle {
+.ep-half-circle, .ep-half-circle--determinate {
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;
@@ -43,10 +43,6 @@
   &.ep_circle--nodata {
     opacity: 0.5;
   }
-}
-
-.ep-circle--determinate{
-  //opacity: 0.1;
 }
 
 @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
@@ -71,5 +67,3 @@
 @include ep-half-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference),
                 var(--ep-negative-circumference));
 @include ep-progress--loading__rotation();
-
-@include colorize(var(--ep-determinate-stroke-color))
