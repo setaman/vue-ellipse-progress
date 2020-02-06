@@ -13,68 +13,49 @@
         :height="size"
         :width="size"
         xmlns="http://www.w3.org/2000/svg"
-        :style="{ transform: `rotate(${startAngle}deg)` }"
       >
-        <defs>
-          <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
-          <gradient
-            v-if="color_fill.gradient"
-            :color="color_fill"
-            type="progress-fill"
-            :id="_uid"
-          />
-          <gradient v-if="empty_color.gradient" :color="empty_color" type="empty" :id="_uid" />
-          <gradient
-            v-if="empty_color_fill.gradient"
-            :color="empty_color_fill"
-            type="empty-fill"
-            :id="_uid"
-          />
-        </defs>
-        <half-circle-progress v-if="half" :options="options" />
-        <circle-progress v-else :options="options" />
+        <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" :multiple="isMultiple" :index="i" />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <span
-          v-if="legend"
+          v-if="legend && !isMultiple"
           class="ep-legend--value"
-          :class="{ hidden: shouldHideLegendValue }"
-          :style="{ fontSize: font_size, color: font_color }"
+          :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
+          :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp
-            ref="count"
-            :endVal="legendValue"
-            :delay="animation.delay"
-            :options="countOptions"
-          ></CountUp>
-          <slot name="legend_value"></slot>
+          <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
+          <slot name="legend-value"></slot>
         </span>
-        <slot name="legend_capture"></slot>
+        <slot name="legend-caption"></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CircleProgress from "@/components/CircleProgress.vue";
-import Gradient from "@/components/Gradient.vue";
 import CountUp from "vue-countup-v2";
-import HalfCircleProgress from "@/components/HalfCircleProgress.vue";
+import { getValueIfDefined, isValidNumber } from "../utils";
+import EpCircle from "./Circle/EpCircle.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
-  data: () => ({
-    animated_legend_value: 0,
-    raf_id: null,
-    animation_step: 0
-  }),
+  components: { EpCircle, CountUp },
+  data: () => ({}),
   props: {
+    data: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     progress: {
       type: Number,
-      required: true,
-      validator: val => val > -1 && val < 101
+      require: true,
+      validator: val => val >= 0 && val <= 100
+    },
+    legendValue: {
+      type: Number,
+      required: false
     },
     size: {
       type: Number,
@@ -86,13 +67,13 @@ export default {
       type: [Number, String],
       required: false,
       default: "5%",
-      validator: value => parseFloat(value) > -1
+      validator: value => parseFloat(value) >= 0
     },
-    empty_thickness: {
+    emptyThickness: {
       type: [Number, String],
       required: false,
       default: "5%",
-      validator: value => parseFloat(value) > -1
+      validator: value => parseFloat(value) >= 0
     },
     line: {
       type: String,
@@ -100,45 +81,42 @@ export default {
       default: "round",
       validator: value => ["round", "butt", "square"].includes(value)
     },
-    line_mode: {
+    lineMode: {
       type: [Object],
       required: false,
       default: () => ({
         mode: "normal",
         offset: 0
       }),
-      validator: value =>
-        ["normal", "out", "out-overlap", "in", "in-overlap", "top", "bottom"].includes(value.mode)
+      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
     },
     color: {
       type: [String, Object],
       required: false,
       default: "#3f79ff"
     },
-    empty_color: {
+    emptyColor: {
       type: [String, Object],
       required: false,
       default: "#e6e9f0"
     },
-    color_fill: {
+    colorFill: {
       type: [String, Object],
       required: false,
       default: "transparent"
     },
-    empty_color_fill: {
+    emptyColorFill: {
       type: [String, Object],
       required: false,
       default: "transparent"
     },
-    font_size: {
+    fontSize: {
       type: String,
-      required: false,
-      default: "relative"
+      required: false
     },
-    font_color: {
+    fontColor: {
       type: String,
-      required: false,
-      default: "gray"
+      required: false
     },
     animation: {
       type: Object,
@@ -146,7 +124,7 @@ export default {
       default: () => ({
         type: "default",
         duration: 1000,
-        delay: 300
+        delay: 400
       })
     },
     legend: {
@@ -154,8 +132,8 @@ export default {
       required: false,
       default: true
     },
-    legend_value: {
-      type: Number,
+    legendClass: {
+      type: String,
       required: false
     },
     angle: {
@@ -178,15 +156,12 @@ export default {
       required: false,
       default: "",
       validator: value => {
-        /* if (typeof value === 'string') {
-          return RegExp(/^[1-9]\d*$/g).test(value);
-        } */
         if (!value || typeof value === "string") {
           return true;
         }
 
         if (typeof value === "object") {
-          return value.count > -1 && value.spacing > -1;
+          return value.count >= 0 && value.spacing >= 0;
         }
         return false;
       }
@@ -195,6 +170,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    gap: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   computed: {
@@ -202,31 +182,46 @@ export default {
       return { ...this.$props, id: this._uid };
     },
     startAngle() {
-      return this.loading ? "" : this.angle || -90;
+      return getValueIfDefined(this.angle) || -90;
     },
-    legendValue() {
+    legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return !Number.isNaN(this.legend_value) ? this.legend_value : this.progress;
+      const legendValue = getValueIfDefined(parseFloat(this.legendValue));
+      const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
+      return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
       return !this.dataIsAvailable || this.loading || this.noData;
     },
     dataIsAvailable() {
-      return this.noData ? false : !Number.isNaN(parseFloat(this.progress));
+      return isValidNumber(this.progress) && !this.noData;
     },
     countDecimals() {
-      if (this.legendValue % 1 === 0) return 0;
-      return this.legendValue.toString().split(".")[1].length;
+      if (!this.dataIsAvailable || this.legendVal % 1 === 0) return 0;
+      return this.legendVal.toString().split(".")[1].length;
     },
-    countOptions() {
+    counterOptions() {
       return {
         duration: this.animation.duration / 1000,
         target: "span",
         decimalPlaces: this.countDecimals,
         decimal: "."
       };
+    },
+    isMultiple() {
+      return this.data.length > 1;
+    },
+    circlesData() {
+      if (this.isMultiple) {
+        return this.data.map(data => ({
+          ...this.$props,
+          ...data,
+          emptyThickness: data.thickness || this.$props.thickness
+        }));
+      }
+      return [this.$props];
     }
   },
   methods: {}
@@ -257,10 +252,9 @@ export default {
   transition: 0.3s;
   text-align: center;
   display: block;
-  color: black;
   opacity: 1;
 }
-.hidden {
+.ep-hidden {
   opacity: 0;
 }
 svg.ep-svg-container {

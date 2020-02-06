@@ -1,13 +1,34 @@
+import { isValidNumber } from "../../utils";
+
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
+  props: {
+    options: {
+      type: Object,
+      required: true
+    },
+    multiple: {
+      type: Boolean,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: false
+    },
+    index: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       isInitialized: false,
-      delay: this.options.animation.delay || 400,
+      delay: this.options.animation.delay,
       loading: this.options.loading,
-      circle: null
+      circle: null,
+      gap: 0
     };
   },
   watch: {
@@ -24,15 +45,22 @@ export default {
     },
     /* Radius Calculation */
     radius() {
-      const offset = Number(this.options.line_mode.offset || 0);
+      const offset = Number(this.options.lineMode.offset || 0);
 
-      switch (this.options.line_mode.mode) {
+      if (this.multiple) {
+        return this.normalLineModeRadius - this.previousCirclesThickness;
+      }
+
+      switch (this.options.lineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
           return this.baseRadius - (this.emptyThickness + offset);
-        case "in-overlap":
-          return this.baseRadius;
+        case "out-over":
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius;
+          }
+          return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
         case "bottom":
           return this.emptyRadius - this.emptyThickness / 2;
         case "top":
@@ -43,15 +71,22 @@ export default {
     },
 
     emptyRadius() {
-      const offset = Number(this.options.line_mode.offset || 0);
+      const offset = Number(this.options.lineMode.offset || 0);
 
-      switch (this.options.line_mode.mode) {
+      if (this.multiple) {
+        return this.normalLineModeRadius - this.previousCirclesThickness;
+      }
+
+      switch (this.options.lineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
           return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
-        case "out-overlap":
-          return this.baseRadius - (this.thickness / 2 - this.emptyThickness / 2);
+        case "out-over":
+          if (this.emptyThickness <= this.thickness) {
+            return this.baseRadius - this.thickness / 2 + this.emptyThickness / 2;
+          }
+          return this.emptyBaseRadius;
         case "bottom":
           if (this.emptyThickness < this.thickness / 2) {
             return this.emptyBaseRadius - (this.thickness / 2 - this.emptyThickness);
@@ -82,50 +117,41 @@ export default {
       }
       return this.baseRadius;
     },
-
     dataIsAvailable() {
-      return this.options.noData ? false : !Number.isNaN(parseFloat(this.options.progress));
+      return isValidNumber(this.options.progress) && !this.options.noData;
     },
     animationClass() {
       return [
         `animation__${
-          !this.isLoading && this.dataIsAvailable
-            ? this.options.animation.type || "default"
-            : "none"
+          !this.options.loading && this.dataIsAvailable ? this.options.animation.type || "default" : "none"
         }`,
-        `${this.isLoading ? "animation__loading" : ""}`
+        `${this.options.loading ? "animation__loading" : ""}`
       ];
     },
     /* Colors */
     color() {
       if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
-        return `url(#ep-progress-gradient-${this.options.id})`;
+        return `url(#ep-progress-gradient-${this.id})`;
       }
       return this.options.color;
     },
     emptyColor() {
-      if (
-        this.options.empty_color.gradient &&
-        this.options.empty_color.gradient.colors.length > 0
-      ) {
-        return `url(#ep-empty-gradient-${this.options.id})`;
+      if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
+        return `url(#ep-empty-gradient-${this.id})`;
       }
-      return this.options.empty_color;
+      return this.options.emptyColor;
     },
     colorFill() {
-      if (this.options.color_fill.gradient && this.options.color_fill.gradient.colors.length > 0) {
-        return `url(#ep-progress-fill-gradient-${this.options.id})`;
+      if (this.options.colorFill.gradient && this.options.colorFill.gradient.colors.length > 0) {
+        return `url(#ep-progress-fill-gradient-${this.id})`;
       }
-      return this.options.color_fill || "transparent";
+      return this.options.colorFill || "transparent";
     },
     emptyColorFill() {
-      if (
-        this.options.empty_color_fill.gradient &&
-        this.options.empty_color_fill.gradient.colors.length > 0
-      ) {
-        return `url(#ep-empty-fill-gradient-${this.options.id})`;
+      if (this.options.emptyColorFill.gradient && this.options.emptyColorFill.gradient.colors.length > 0) {
+        return `url(#ep-empty-fill-gradient-${this.id})`;
       }
-      return this.options.empty_color_fill || "transparent";
+      return this.options.emptyColorFill || "transparent";
     },
     size() {
       return this.options.size;
@@ -134,10 +160,10 @@ export default {
       return this.calculateThickness(this.options.thickness.toString());
     },
     emptyThickness() {
-      return this.calculateThickness(this.options.empty_thickness.toString());
+      return this.calculateThickness(this.options.emptyThickness.toString());
     },
     animationDuration() {
-      return `${this.options.animation.duration || 1000}ms`;
+      return `${isValidNumber(this.options.animation.duration) ? this.options.animation.duration : 1000}ms`;
     },
     transformOrigin() {
       return "50% 50%";
@@ -149,8 +175,12 @@ export default {
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
-    isLoading() {
-      return this.options.loading;
+    previousCirclesThickness() {
+      if (this.index === 0) return 0;
+      return this.options.data
+        .filter((data, i) => i < this.index)
+        .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
+        .reduce((acc, current) => acc + current);
     }
   },
   methods: {
@@ -188,16 +218,14 @@ export default {
       return this.progressOffset < 100 ? 0 : this.progressOffset - 100;
     },
     getBounceInOffset() {
-      return this.circumference - this.progressOffset < 100
-        ? this.progressOffset
-        : this.progressOffset + 100;
+      return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
     },
     async setAnimationDelay() {
       if (this.loading) {
         this.delay = 0;
         return;
       }
-      await wait(this.delay + (this.options.animation.duration || 1000));
+      await wait(this.delay + this.options.animation.duration);
       this.delay = 0;
     },
     setProperties() {
@@ -220,7 +248,7 @@ export default {
     } else {
       setTimeout(() => {
         this.isInitialized = true;
-      }, this.options.animation.delay + 100 || 400);
+      }, this.options.animation.delay);
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();

@@ -9,7 +9,7 @@
       :stroke-dasharray="emptyDasharray"
       :fill="emptyColorFill"
       :style="{ transition: animationDuration }"
-      :class="{ 'ep_circle--nodata': options.noData }"
+      :class="{ 'ep_circle--nodata': !dataIsAvailable }"
       :stroke-width="emptyThickness"
     >
     </circle>
@@ -25,8 +25,7 @@
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="{
-        strokeDashoffset:
-          dataIsAvailable && isInitialized && !isLoading ? progressOffset : circumference,
+        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
         transition: animationDuration,
         'animation-delay': `${delay}ms`,
         'transform-origin': transformOrigin
@@ -37,18 +36,13 @@
 </template>
 
 <script>
-import CircleMixin from "@/components/circleMixin";
+import CircleMixin from "./circleMixin";
 
 export default {
   name: "CircleProgress",
   mixins: [CircleMixin],
-  props: {
-    options: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
+    // only component specific props here, another props comes from the circleMixin
     progressOffset() {
       const offset = this.circumference - (this.progress / 100) * this.circumference;
       if (offset <= 0) {

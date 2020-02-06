@@ -20,8 +20,7 @@
       :stroke="color"
       :stroke-dasharray="circumference"
       :style="{
-        strokeDashoffset:
-          dataIsAvailable && isInitialized && !isLoading ? progressOffset : circumference,
+        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
         transition: animationDuration,
         'animation-delay': `${delay}ms`,
         'transform-origin': transformOrigin,
@@ -32,17 +31,11 @@
   </g>
 </template>
 <script>
-import CircleMixin from "@/components/circleMixin";
+import CircleMixin from "./circleMixin";
 
 export default {
   name: "HalfCircleProgress",
   mixins: [CircleMixin],
-  props: {
-    options: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
     progressOffset() {
       const offset = this.circumference - (this.progress / 100) * this.circumference;
@@ -55,13 +48,11 @@ export default {
       return (this.radius * 2 * Math.PI) / 2;
     },
     path() {
-      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this
-        .radius * 2},0`;
+      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
     },
     emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${
-        this.emptyRadius
-      } 0 1,1 ${this.emptyRadius * 2},0`;
+      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${this
+        .emptyRadius * 2},0`;
     },
     position() {
       return this.size / 2 - this.radius;

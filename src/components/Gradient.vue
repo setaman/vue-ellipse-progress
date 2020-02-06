@@ -16,15 +16,7 @@
       :stop-opacity="`${col.opacity}`"
     />
   </linearGradient>
-  <radialGradient
-    v-else
-    :id="`ep-${type}-gradient-${id}`"
-    x1="0%"
-    y1="100%"
-    x2="0%"
-    y2="0%"
-    area-hidden="true"
-  >
+  <radialGradient v-else :id="`ep-${type}-gradient-${id}`" x1="0%" y1="100%" x2="0%" y2="0%" area-hidden="true">
     <stop
       v-for="(col, i) in color.gradient.colors"
       :key="i"
