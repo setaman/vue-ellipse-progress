@@ -8,12 +8,7 @@
     }"
   >
     <div class="ep-content">
-      <svg
-        class="ep-svg-container"
-        :height="size"
-        :width="size"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
         <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" :multiple="isMultiple" :index="i" />
       </svg>
 

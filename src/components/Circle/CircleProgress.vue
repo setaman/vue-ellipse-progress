@@ -25,9 +25,8 @@
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="{
-        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
+        strokeDashoffset: dataIsAvailable && !options.loading && isInitialized ? progressOffset : circumference,
         transition: animationDuration,
-        'animation-delay': `${delay}ms`,
         'transform-origin': transformOrigin
       }"
     >

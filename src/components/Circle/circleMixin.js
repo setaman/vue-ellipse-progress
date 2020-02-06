@@ -123,7 +123,9 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable ? this.options.animation.type || "default" : "none"
+          !this.options.loading && this.dataIsAvailable && this.isInitialized
+            ? this.options.animation.type || "default"
+            : "none"
         }`,
         `${this.options.loading ? "animation__loading" : ""}`
       ];
@@ -220,14 +222,6 @@ export default {
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
     },
-    async setAnimationDelay() {
-      if (this.loading) {
-        this.delay = 0;
-        return;
-      }
-      await wait(this.delay + this.options.animation.duration);
-      this.delay = 0;
-    },
     setProperties() {
       this.circle.style.setProperty("--ep-circumference", this.circumference);
       this.circle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
@@ -241,16 +235,13 @@ export default {
       this.circle.style.setProperty("animation-duration", this.animationDuration);
     }
   },
-  mounted() {
-    this.setAnimationDelay();
-    if (this.loading) {
-      this.isInitialized = true;
-    } else {
-      setTimeout(() => {
-        this.isInitialized = true;
-      }, this.options.animation.delay);
+  async mounted() {
+    if (!this.options.loading) {
+      // await initial delay before applying animations and other props
+      await wait(this.delay);
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();
+    this.isInitialized = true;
   }
 };

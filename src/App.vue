@@ -168,7 +168,7 @@ export default {
       {
         progress: 75,
         thickness: 40,
-        animation: { type: "rs", duration: 2000, delay: 200 },
+        animation: { type: "rs", duration: 2000, delay: 2000 },
         loading: false,
         half: false
       },
