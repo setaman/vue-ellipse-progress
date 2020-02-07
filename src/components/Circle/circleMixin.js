@@ -31,14 +31,6 @@ export default {
       gap: 0
     };
   },
-  watch: {
-    options: {
-      handler() {
-        this.setProperties();
-      },
-      deep: true
-    }
-  },
   computed: {
     progress() {
       return parseFloat(this.options.progress || 0);
@@ -188,6 +180,23 @@ export default {
         .filter((data, i) => i < this.index)
         .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
         .reduce((acc, current) => acc + current);
+    },
+    styles() {
+      return {
+        strokeDashoffset: this.strokeDashOffset,
+        transition: this.animationDuration,
+        transformOrigin: this.transformOrigin,
+        "--ep-circumference": this.circumference,
+        "--ep-negative-circumference": this.getNegativeCircumference(),
+        "--ep-double-circumference": this.getDoubleCircumference(),
+        "--ep-stroke-offset": this.progressOffset,
+        "--ep-loop-stroke-offset": this.getLoopOffset(),
+        "--ep-bounce-out-stroke-offset": this.getBounceOutOffset(),
+        "--ep-bounce-in-stroke-offset": this.getBounceInOffset(),
+        "--ep-reverse-stroke-offset": this.getReverseOffset(),
+        "--ep-loading-stroke-offset": this.circumference * 0.2,
+        "animation-duration": this.animationDuration
+      };
     }
   },
   methods: {
@@ -226,18 +235,6 @@ export default {
     },
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
-    },
-    setProperties() {
-      this.circle.style.setProperty("--ep-circumference", this.circumference);
-      this.circle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
-      this.circle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
-      this.circle.style.setProperty("--ep-stroke-offset", this.progressOffset);
-      this.circle.style.setProperty("--ep-loop-stroke-offset", this.getLoopOffset());
-      this.circle.style.setProperty("--ep-bounce-out-stroke-offset", this.getBounceOutOffset());
-      this.circle.style.setProperty("--ep-bounce-in-stroke-offset", this.getBounceInOffset());
-      this.circle.style.setProperty("--ep-reverse-stroke-offset", this.getReverseOffset());
-      this.circle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
-      this.circle.style.setProperty("animation-duration", this.animationDuration);
     }
   },
   async mounted() {
@@ -245,8 +242,6 @@ export default {
       // await initial delay before applying animations and other props
       await wait(this.delay);
     }
-    this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
-    this.setProperties();
     this.isInitialized = true;
   }
 };

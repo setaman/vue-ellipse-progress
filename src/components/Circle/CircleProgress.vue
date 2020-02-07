@@ -24,11 +24,7 @@
       :stroke-width="thickness"
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
-      :style="{
-        strokeDashoffset: strokeDashOffset,
-        transition: animationDuration,
-        'transform-origin': transformOrigin
-      }"
+      :style="styles"
     >
     </circle>
   </g>

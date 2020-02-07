@@ -44,7 +44,7 @@
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         :thickness="10"
         :no-data="noData"
         :empty-thickness="20"
@@ -156,7 +156,7 @@
       >
         <span slot="legend-value">/200</span>
         <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>-->
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>
