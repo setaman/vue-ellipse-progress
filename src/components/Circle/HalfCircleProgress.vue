@@ -8,7 +8,7 @@
       :d="emptyPath"
       :stroke-dasharray="emptyDasharray"
       :style="{ transition: animationDuration, 'stroke-linecap': options.line }"
-      :class="{ 'ep-circle--nodata': options.noData }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
     <path
@@ -20,9 +20,8 @@
       :stroke="color"
       :stroke-dasharray="circumference"
       :style="{
-        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
+        strokeDashoffset: strokeDashOffset,
         transition: animationDuration,
-        'animation-delay': `${delay}ms`,
         'transform-origin': transformOrigin,
         'stroke-linecap': options.line
       }"

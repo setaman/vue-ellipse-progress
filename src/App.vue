@@ -29,8 +29,9 @@
       <vue-ellipse-progress
         :gap="30"
         color-fill="rgba(17,34,51,0.4)"
+        half
         :data="circles"
-        :size="800"
+        :size="700"
         :thickness="40"
         :progress="progress"
         empty-color="rgba(17,34,51,0.66)"
@@ -170,7 +171,7 @@ export default {
         thickness: 40,
         animation: { type: "rs", duration: 2000, delay: 2000 },
         loading: false,
-        half: false
+        half: true
       },
       {
         progress: 55,

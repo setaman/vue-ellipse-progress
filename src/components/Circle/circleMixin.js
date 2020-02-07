@@ -177,6 +177,11 @@ export default {
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
+    strokeDashOffset() {
+      return this.dataIsAvailable && !this.options.loading && this.isInitialized
+        ? this.progressOffset
+        : this.circumference;
+    },
     previousCirclesThickness() {
       if (this.index === 0) return 0;
       return this.options.data
