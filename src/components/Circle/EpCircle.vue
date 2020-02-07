@@ -6,8 +6,8 @@
       <gradient v-if="options.emptyColor.gradient" :color="options.emptyColor" type="empty" :id="_uid" />
       <gradient v-if="options.emptyColorFill.gradient" :color="options.emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
-    <half-circle-progress v-if="options.half" :options="options" multiple="multiple" :id="_uid" :index="index" />
-    <circle-progress v-else :options="options" multiple="multiple" :id="_uid" :index="index" />
+    <half-circle-progress v-if="options.half" :options="options" :multiple="multiple" :id="_uid" :index="index" />
+    <circle-progress v-else :options="options" :multiple="multiple" :id="_uid" :index="index" />
   </g>
 </template>
 

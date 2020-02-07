@@ -28,7 +28,7 @@
       </div>
       <vue-ellipse-progress
         :gap="30"
-        color-fill="rgba(17,34,51,0.4)"
+        color-fill="rgba(17,34,51,0.0)"
         half
         :data="circles"
         :size="700"
