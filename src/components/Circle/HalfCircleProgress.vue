@@ -13,8 +13,8 @@
     >
     </path>
     <fade-in-transition>
-      <g v-if="options.determinate && !options.loading">
-        <g style="opacity: 0.7;">
+      <g v-if="showDeterminate">
+        <g style="opacity: 0.6;">
           <path
             :stroke-width="thickness"
             class="ep-half-circle--determinate animation__loading"
@@ -22,13 +22,8 @@
             :fill="colorFill"
             :stroke="color"
             :stroke-dasharray="circumference"
-            :style="{
-              strokeDashoffset: circumference,
-              transition: animationDuration,
-              'animation-delay': `${delay}ms`,
-              'transform-origin': transformOrigin,
-              'stroke-linecap': options.line
-            }"
+            :stroke-linecap="options.line"
+            :style="styles"
           >
           </path>
         </g>

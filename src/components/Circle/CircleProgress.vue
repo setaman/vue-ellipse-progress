@@ -14,7 +14,7 @@
     >
     </circle>
     <fade-in-transition>
-      <g v-if="options.determinate && !options.loading">
+      <g v-if="showDeterminate">
         <g style="opacity: 0.7;">
           <circle
             class="ep-circle--determinate animation__loading"
@@ -26,12 +26,7 @@
             :stroke-width="thickness"
             :stroke-linecap="options.line"
             :stroke-dasharray="circumference"
-            :style="{
-              strokeDashoffset: circumference,
-              transition: animationDuration,
-              'animation-delay': `${delay}ms`,
-              'transform-origin': transformOrigin
-            }"
+            :style="styles"
           >
           </circle>
         </g>

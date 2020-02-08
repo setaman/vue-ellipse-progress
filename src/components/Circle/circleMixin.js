@@ -31,15 +31,6 @@ export default {
       gap: 0
     };
   },
-  watch: {
-    options: {
-      handler() {
-        this.setProperties();
-        this.setDeterminateCircleProperties();
-      },
-      deep: true
-    }
-  },
   computed: {
     progress() {
       return parseFloat(this.options.progress || 0);
@@ -206,6 +197,9 @@ export default {
         "--ep-loading-stroke-offset": this.circumference * 0.2,
         "animation-duration": this.animationDuration
       };
+    },
+    showDeterminate() {
+      return this.options.determinate && !this.options.loading && this.dataIsAvailable;
     }
   },
   methods: {
