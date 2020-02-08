@@ -28,9 +28,10 @@
       </div>
       <vue-ellipse-progress
         :gap="30"
-        color-fill="rgba(17,34,51,0.4)"
+        color-fill="rgba(17,34,51,0.0)"
+        half
         :data="circles"
-        :size="800"
+        :size="700"
         :thickness="40"
         :progress="progress"
         empty-color="rgba(17,34,51,0.66)"
@@ -43,7 +44,7 @@
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         :thickness="10"
         :no-data="noData"
         :empty-thickness="20"
@@ -155,7 +156,7 @@
       >
         <span slot="legend-value">/200</span>
         <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>-->
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>
@@ -168,9 +169,9 @@ export default {
       {
         progress: 75,
         thickness: 40,
-        animation: { type: "rs", duration: 2000, delay: 200 },
+        animation: { type: "rs", duration: 2000, delay: 2000 },
         loading: false,
-        half: false
+        half: true
       },
       {
         progress: 55,

@@ -31,14 +31,6 @@ export default {
       gap: 0
     };
   },
-  watch: {
-    options: {
-      handler() {
-        this.setProperties();
-      },
-      deep: true
-    }
-  },
   computed: {
     progress() {
       return parseFloat(this.options.progress || 0);
@@ -123,7 +115,9 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable ? this.options.animation.type || "default" : "none"
+          !this.options.loading && this.dataIsAvailable && this.isInitialized
+            ? this.options.animation.type || "default"
+            : "none"
         }`,
         `${this.options.loading ? "animation__loading" : ""}`
       ];
@@ -175,12 +169,34 @@ export default {
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
+    strokeDashOffset() {
+      return this.dataIsAvailable && !this.options.loading && this.isInitialized
+        ? this.progressOffset
+        : this.circumference;
+    },
     previousCirclesThickness() {
       if (this.index === 0) return 0;
       return this.options.data
         .filter((data, i) => i < this.index)
         .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
         .reduce((acc, current) => acc + current);
+    },
+    styles() {
+      return {
+        strokeDashoffset: this.strokeDashOffset,
+        transition: this.animationDuration,
+        transformOrigin: this.transformOrigin,
+        "--ep-circumference": this.circumference,
+        "--ep-negative-circumference": this.getNegativeCircumference(),
+        "--ep-double-circumference": this.getDoubleCircumference(),
+        "--ep-stroke-offset": this.progressOffset,
+        "--ep-loop-stroke-offset": this.getLoopOffset(),
+        "--ep-bounce-out-stroke-offset": this.getBounceOutOffset(),
+        "--ep-bounce-in-stroke-offset": this.getBounceInOffset(),
+        "--ep-reverse-stroke-offset": this.getReverseOffset(),
+        "--ep-loading-stroke-offset": this.circumference * 0.2,
+        "animation-duration": this.animationDuration
+      };
     }
   },
   methods: {
@@ -219,38 +235,13 @@ export default {
     },
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
-    },
-    async setAnimationDelay() {
-      if (this.loading) {
-        this.delay = 0;
-        return;
-      }
-      await wait(this.delay + this.options.animation.duration);
-      this.delay = 0;
-    },
-    setProperties() {
-      this.circle.style.setProperty("--ep-circumference", this.circumference);
-      this.circle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
-      this.circle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
-      this.circle.style.setProperty("--ep-stroke-offset", this.progressOffset);
-      this.circle.style.setProperty("--ep-loop-stroke-offset", this.getLoopOffset());
-      this.circle.style.setProperty("--ep-bounce-out-stroke-offset", this.getBounceOutOffset());
-      this.circle.style.setProperty("--ep-bounce-in-stroke-offset", this.getBounceInOffset());
-      this.circle.style.setProperty("--ep-reverse-stroke-offset", this.getReverseOffset());
-      this.circle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
-      this.circle.style.setProperty("animation-duration", this.animationDuration);
     }
   },
-  mounted() {
-    this.setAnimationDelay();
-    if (this.loading) {
-      this.isInitialized = true;
-    } else {
-      setTimeout(() => {
-        this.isInitialized = true;
-      }, this.options.animation.delay);
+  async mounted() {
+    if (!this.options.loading) {
+      // await initial delay before applying animations and other props
+      await wait(this.delay);
     }
-    this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
-    this.setProperties();
+    this.isInitialized = true;
   }
 };

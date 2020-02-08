@@ -6,9 +6,10 @@
       :stroke="emptyColor"
       class="ep-circle--empty"
       :d="emptyPath"
+      :stroke-linecap="options.line"
       :stroke-dasharray="emptyDasharray"
-      :style="{ transition: animationDuration, 'stroke-linecap': options.line }"
-      :class="{ 'ep-circle--nodata': options.noData }"
+      :style="{ transition: animationDuration }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
     <path
@@ -19,13 +20,8 @@
       :fill="colorFill"
       :stroke="color"
       :stroke-dasharray="circumference"
-      :style="{
-        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
-        transition: animationDuration,
-        'animation-delay': `${delay}ms`,
-        'transform-origin': transformOrigin,
-        'stroke-linecap': options.line
-      }"
+      :stroke-linecap="options.line"
+      :style="styles"
     >
     </path>
   </g>
