@@ -9,7 +9,13 @@
   >
     <div class="ep-content">
       <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <ep-circle v-for="(options, i) in circlesData" :key="i" :options="options" :multiple="isMultiple" :index="i" />
+        <ep-circle-container
+          v-for="(options, i) in circlesData"
+          :key="i"
+          :options="options"
+          :multiple="isMultiple"
+          :index="i"
+        />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
@@ -31,11 +37,11 @@
 <script>
 import CountUp from "vue-countup-v2";
 import { getValueIfDefined, isValidNumber } from "../utils";
-import EpCircle from "./Circle/EpCircle.vue";
+import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { EpCircle, CountUp },
+  components: { EpCircleContainer, CountUp },
   data: () => ({}),
   props: {
     data: {
@@ -170,6 +176,11 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    determinate: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {

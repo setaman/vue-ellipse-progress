@@ -197,6 +197,9 @@ export default {
         "--ep-loading-stroke-offset": this.circumference * 0.2,
         "animation-duration": this.animationDuration
       };
+    },
+    showDeterminate() {
+      return this.options.determinate && !this.options.loading && this.dataIsAvailable;
     }
   },
   methods: {

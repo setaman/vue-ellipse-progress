@@ -13,6 +13,25 @@
       :stroke-width="emptyThickness"
     >
     </circle>
+    <fade-in-transition>
+      <g v-if="showDeterminate">
+        <g style="opacity: 0.7;">
+          <circle
+            class="ep-circle--determinate animation__loading"
+            :r="radius"
+            :cx="position"
+            :cy="position"
+            fill="transparent"
+            :stroke="color"
+            :stroke-width="thickness"
+            :stroke-linecap="options.line"
+            :stroke-dasharray="circumference"
+            :style="styles"
+          >
+          </circle>
+        </g>
+      </g>
+    </fade-in-transition>
     <circle
       class="ep-circle--progress"
       :class="animationClass"
@@ -32,9 +51,11 @@
 
 <script>
 import CircleMixin from "./circleMixin";
+import FadeInTransition from "../FadeInTransition.vue";
 
 export default {
   name: "CircleProgress",
+  components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
     // only component specific props here, another props comes from the circleMixin

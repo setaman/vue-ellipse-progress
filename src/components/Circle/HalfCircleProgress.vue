@@ -12,6 +12,24 @@
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
+    <fade-in-transition>
+      <g v-if="showDeterminate">
+        <g style="opacity: 0.6;">
+          <path
+            :stroke-width="thickness"
+            class="ep-half-circle--determinate animation__loading"
+            :d="path"
+            :fill="colorFill"
+            :stroke="color"
+            :stroke-dasharray="circumference"
+            :stroke-linecap="options.line"
+            :style="styles"
+          >
+          </path>
+        </g>
+      </g>
+    </fade-in-transition>
+
     <path
       :stroke-width="thickness"
       class="ep-half-circle ep-circle--progress"
@@ -28,9 +46,11 @@
 </template>
 <script>
 import CircleMixin from "./circleMixin";
+import FadeInTransition from "../FadeInTransition.vue";
 
 export default {
   name: "HalfCircleProgress",
+  components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
     progressOffset() {

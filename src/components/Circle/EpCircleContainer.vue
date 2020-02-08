@@ -18,7 +18,7 @@ import CircleProgress from "./CircleProgress.vue";
 import { getValueIfDefined } from "../../utils";
 
 export default {
-  name: "EpCircle",
+  name: "EpCircleContainer",
   components: { CircleProgress, HalfCircleProgress, Gradient },
   props: {
     ...CircleProgress.mixins[0].props

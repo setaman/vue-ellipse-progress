@@ -19,6 +19,11 @@
           No DATA
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
+        <label for="determinate">
+          Determinate
+          <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
+          <input id="determinate2" type="checkbox" v-model="determinate" />
+        </label>
       </div>
       <div>
         <input type="checkbox" v-model="circles[0].loading" />
@@ -47,6 +52,7 @@
       <vue-ellipse-progress
         :thickness="10"
         :no-data="noData"
+        :determinate="determinate"
         :empty-thickness="20"
         legend-class="legend-custom-style"
         :legend-value="23"
@@ -73,6 +79,7 @@
         id="timer-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
+        :determinate="determinate"
         :loading="loading"
         :emptyColor="emptyColor"
         :emptyColorFill="emptyColorFill"
@@ -167,7 +174,7 @@ export default {
   data: () => ({
     circles: [
       {
-        progress: 75,
+        progress: 0,
         thickness: 40,
         animation: { type: "rs", duration: 2000, delay: 2000 },
         loading: false,
@@ -198,6 +205,7 @@ export default {
         animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],
+    determinate: false,
     loading: false,
     noData: false,
     progress: 45.5,
@@ -335,10 +343,12 @@ export default {
         if (this.sec === 60) {
           this.sec = 0;
           this.timerProgress = (this.sec * 100) / 60;
+          this.circles[0].progress = this.timerProgress;
           return;
         }
         this.sec++;
         this.timerProgress = (this.sec * 100) / 60;
+        this.circles[0].progress = this.timerProgress;
       }, 1000);
     }
   },
