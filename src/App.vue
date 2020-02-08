@@ -19,6 +19,10 @@
           No DATA
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
+        <label for="determinate">
+          Determinate
+          <input id="determinate" type="checkbox" v-model="determinate" />
+        </label>
       </div>
       <div>
         <input type="checkbox" v-model="circles[0].loading" />
@@ -198,6 +202,7 @@ export default {
         animation: { type: "rs", duration: 2000, delay: 800 }
       }
     ],
+    determinate: false,
     loading: false,
     noData: false,
     progress: 45.5,

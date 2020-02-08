@@ -31,6 +31,15 @@ export default {
       gap: 0
     };
   },
+  watch: {
+    options: {
+      handler() {
+        this.setProperties();
+        this.setDeterminateCircleProperties();
+      },
+      deep: true
+    }
+  },
   computed: {
     progress() {
       return parseFloat(this.options.progress || 0);
