@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "countup.js": "^2.0.4",
-    "vue": "^2.6.6",
+    "vue": "^2.6.11",
     "vue-countup-v2": "^4.0.0"
   },
   "devDependencies": {
