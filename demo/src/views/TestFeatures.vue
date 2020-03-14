@@ -14,11 +14,7 @@
           </v-alert>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          <test-examples />
-        </v-col>
-      </v-row>
+      <test-examples />
     </v-container>
   </section>
 </template>
@@ -34,9 +30,6 @@ export default {
       const testPackage = packageInfo.dependencies["vue-ellipse-progress-test"];
       return testPackage.slice(testPackage.search("@") + 1).replace("^", "");
     }
-  },
-  mounted() {
-    console.log(this.$root);
   }
 };
 </script>

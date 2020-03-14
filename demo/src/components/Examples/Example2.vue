@@ -2,8 +2,10 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example2.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="progress"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :size="180"
@@ -16,7 +18,7 @@
       :no-data="noData"
     >
       <span slot="legend-caption"> PROGRESS </span>
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
@@ -24,13 +26,20 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example2",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     progress: 34
   }),
+  computed: {
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
+    }
+  },
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
