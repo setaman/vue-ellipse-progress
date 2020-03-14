@@ -3,7 +3,7 @@
   "version": "0.20.2-beta.0",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
-  "main": "./dist/vue-ellipse-progress.common.js",
+  "main": "./dist/vue-ellipse-progress.umd.min.js",
   "author": {
     "name": "Sergej Atamantschuk",
     "email": "sergejatam@gmail.com"
@@ -25,7 +25,7 @@
   "repository": "github:setaman/vue-ellipse-progress",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vue-ellipse-progress ./src/plugin.js",
+    "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit"
   },
