@@ -54,8 +54,8 @@ import Example12 from "@/components/Examples/Example12";
 export default {
   name: "TestExamples",
   components: {
-      Example12,
-      Example11,
+    Example12,
+    Example11,
     Example10,
     ExamplesControls,
     Example9,
