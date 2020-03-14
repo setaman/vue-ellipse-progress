@@ -1,6 +1,6 @@
 {
   "name": "vue-ellipse-progress",
-  "version": "0.18.13",
+  "version": "0.20.0",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
   "main": "./dist/vue-ellipse-progress.common.js",
@@ -51,5 +51,6 @@
     "prettier": "^1.19.1",
     "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "files": ["dist"]
 }

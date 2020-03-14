@@ -197,17 +197,16 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
 - `color:` (Object)
   - `gradient:` (Object) defines the gradient
     - `radial` default `false`. Defines whether the gradient is radial or linear
-    - `direction` not implemented yet
     - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0, opacity: 1}`
     
 ###### Example: :scroll:
 
-Now you are ready for an bad example.
+Now you are ready for a bad example.
 
 ```js
 {
       {
-        false,
+        radial: false,
         colors;: [
           {
             color: '#6546f7',
@@ -224,8 +223,6 @@ Now you are ready for an bad example.
     },
 ```
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
-    
-I also recommend you to play with this values in the demo to finde perfect colors for you!
 
 <br>
 

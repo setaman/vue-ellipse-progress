@@ -8,26 +8,19 @@
     }"
   >
     <div class="ep-content">
-      <svg
-        class="ep-svg-container"
-        :height="size"
-        :width="size"
-        xmlns="http://www.w3.org/2000/svg"
-        :style="{ transform: `rotate(${startAngle}deg)` }"
-      >
-        <defs>
-          <gradient v-if="color.gradient" :color="color" type="progress" :id="_uid" />
-          <gradient v-if="colorFill.gradient" :color="colorFill" type="progress-fill" :id="_uid" />
-          <gradient v-if="emptyColor.gradient" :color="emptyColor" type="empty" :id="_uid" />
-          <gradient v-if="emptyColorFill.gradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
-        </defs>
-        <half-circle-progress v-if="half" :options="options" />
-        <circle-progress v-else :options="options" />
+      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+        <ep-circle-container
+          v-for="(options, i) in circlesData"
+          :key="i"
+          :options="options"
+          :multiple="isMultiple"
+          :index="i"
+        />
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <span
-          v-if="legend"
+          v-if="legend && !isMultiple"
           class="ep-legend--value"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
@@ -43,19 +36,22 @@
 
 <script>
 import CountUp from "vue-countup-v2";
-import CircleProgress from "./CircleProgress.vue";
-import Gradient from "./Gradient.vue";
-import HalfCircleProgress from "./HalfCircleProgress.vue";
 import { getValueIfDefined, isValidNumber } from "../utils";
+import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
   name: "EllipseProgressContainer",
-  components: { HalfCircleProgress, Gradient, CircleProgress, CountUp },
+  components: { EpCircleContainer, CountUp },
   data: () => ({}),
   props: {
+    data: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     progress: {
       type: Number,
-      required: true,
+      require: true,
       validator: val => val >= 0 && val <= 100
     },
     legendValue: {
@@ -175,6 +171,16 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    gap: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    determinate: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
@@ -209,6 +215,19 @@ export default {
         decimalPlaces: this.countDecimals,
         decimal: "."
       };
+    },
+    isMultiple() {
+      return this.data.length > 1;
+    },
+    circlesData() {
+      if (this.isMultiple) {
+        return this.data.map(data => ({
+          ...this.$props,
+          ...data,
+          emptyThickness: data.thickness || this.$props.thickness
+        }));
+      }
+      return [this.$props];
     }
   },
   methods: {}
