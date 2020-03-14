@@ -1,4 +1,4 @@
-import { isValidNumber } from "../utils";
+import { isValidNumber } from "../../utils";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -8,6 +8,18 @@ export default {
     options: {
       type: Object,
       required: true
+    },
+    multiple: {
+      type: Boolean,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: false
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -15,13 +27,15 @@ export default {
       isInitialized: false,
       delay: this.options.animation.delay,
       loading: this.options.loading,
-      circle: null
+      circle: null,
+      gap: 0
     };
   },
   watch: {
     options: {
       handler() {
         this.setProperties();
+        this.setDeterminateCircleProperties();
       },
       deep: true
     }
@@ -33,6 +47,10 @@ export default {
     /* Radius Calculation */
     radius() {
       const offset = Number(this.options.lineMode.offset || 0);
+
+      if (this.multiple) {
+        return this.normalLineModeRadius - this.previousCirclesThickness;
+      }
 
       switch (this.options.lineMode.mode) {
         case "normal":
@@ -55,6 +73,10 @@ export default {
 
     emptyRadius() {
       const offset = Number(this.options.lineMode.offset || 0);
+
+      if (this.multiple) {
+        return this.normalLineModeRadius - this.previousCirclesThickness;
+      }
 
       switch (this.options.lineMode.mode) {
         case "normal":
@@ -110,25 +132,25 @@ export default {
     /* Colors */
     color() {
       if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
-        return `url(#ep-progress-gradient-${this.options.id})`;
+        return `url(#ep-progress-gradient-${this.id})`;
       }
       return this.options.color;
     },
     emptyColor() {
       if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
-        return `url(#ep-empty-gradient-${this.options.id})`;
+        return `url(#ep-empty-gradient-${this.id})`;
       }
       return this.options.emptyColor;
     },
     colorFill() {
       if (this.options.colorFill.gradient && this.options.colorFill.gradient.colors.length > 0) {
-        return `url(#ep-progress-fill-gradient-${this.options.id})`;
+        return `url(#ep-progress-fill-gradient-${this.id})`;
       }
       return this.options.colorFill || "transparent";
     },
     emptyColorFill() {
       if (this.options.emptyColorFill.gradient && this.options.emptyColorFill.gradient.colors.length > 0) {
-        return `url(#ep-empty-fill-gradient-${this.options.id})`;
+        return `url(#ep-empty-fill-gradient-${this.id})`;
       }
       return this.options.emptyColorFill || "transparent";
     },
@@ -153,6 +175,13 @@ export default {
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
+    },
+    previousCirclesThickness() {
+      if (this.index === 0) return 0;
+      return this.options.data
+        .filter((data, i) => i < this.index)
+        .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
+        .reduce((acc, current) => acc + current);
     }
   },
   methods: {
@@ -211,11 +240,24 @@ export default {
       this.circle.style.setProperty("--ep-reverse-stroke-offset", this.getReverseOffset());
       this.circle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
       this.circle.style.setProperty("animation-duration", this.animationDuration);
+    },
+    setDeterminateCircleProperties() {
+      if (this.options.determinate) {
+        const circleType = this.options.half ? "half-" : "";
+        const determinateCircle = this.$el.getElementsByClassName(`ep-${circleType}circle--determinate`)[0];
+        if (determinateCircle) {
+          determinateCircle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
+          determinateCircle.style.setProperty("animation-duration", this.animationDuration);
+          determinateCircle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
+          determinateCircle.style.setProperty("--ep-circumference", this.circumference);
+          determinateCircle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
+        }
+      }
     }
   },
   mounted() {
     this.setAnimationDelay();
-    if (this.loading) {
+    if (this.loading || this.options.determinate) {
       this.isInitialized = true;
     } else {
       setTimeout(() => {
@@ -224,5 +266,6 @@ export default {
     }
     this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
     this.setProperties();
+    this.setDeterminateCircleProperties();
   }
 };

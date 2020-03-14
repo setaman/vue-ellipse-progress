@@ -2,8 +2,10 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example3.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="tasksDonePercent"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :size="180"
@@ -20,7 +22,7 @@
     >
       <span slot="legend-value">/200</span>
       <span slot="legend-caption">TASKS DONE</span>
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
@@ -28,16 +30,21 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example3",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     tasksDone: 125
   }),
   computed: {
     tasksDonePercent() {
       return (this.tasksDone * 100) / 200;
+    },
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     }
   },
   methods: {

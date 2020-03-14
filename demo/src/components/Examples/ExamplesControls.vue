@@ -36,6 +36,17 @@
         label="No data"
         @change="emitNoDataChange"
       ></v-switch>
+      <v-switch
+        v-if="test"
+        color="primary"
+        class="ma-0 pr-5"
+        dense
+        hide-details
+        v-model="determinate"
+        dark
+        label="determine"
+        @change="emitDeterminateChange"
+      ></v-switch>
     </div>
   </div>
 </template>
@@ -43,10 +54,12 @@
 import Interval from "@/utils/interval";
 export default {
   name: "ExamplesControls",
+  props: ["test"],
   data: () => ({
     isRunning: true,
     loading: false,
-    noData: false
+    noData: false,
+    determinate: false
   }),
   methods: {
     run() {
@@ -66,6 +79,9 @@ export default {
     },
     emitNoDataChange() {
       this.$emit("noDataChange", this.noData);
+    },
+    emitDeterminateChange() {
+      this.$emit("determinateChange", this.determinate);
     }
   },
   mounted() {

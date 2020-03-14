@@ -2,9 +2,11 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example5.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       id="timer-example"
       :progress="progress"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :emptyColorFill="emptyColorFill"
@@ -26,17 +28,19 @@
         <span class="mx-2">:</span>
         <span>{{ secPrefix }}{{ sec }}</span>
       </span>
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
 <script>
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example5",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     progress: 0,
     sec: 0,
@@ -118,6 +122,9 @@ export default {
     },
     secPrefix() {
       return this.sec < 10 ? "0" : "";
+    },
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     }
   },
   methods: {
