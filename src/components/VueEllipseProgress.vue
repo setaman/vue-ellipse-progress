@@ -40,7 +40,7 @@ import { getValueIfDefined, isValidNumber } from "../utils";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
-  name: "EllipseProgressContainer",
+  name: "VueEllipseProgressContainer",
   components: { EpCircleContainer, CountUp },
   data: () => ({}),
   props: {
@@ -153,13 +153,17 @@ export default {
       required: false
     },
     animation: {
-      type: Object,
+      type: String,
       required: false,
-      default: () => ({
-        type: "default",
-        duration: 1000,
-        delay: 400
-      })
+      default: "default 1000 400",
+      validation: value => {
+        const config = value.split(" ");
+        const isValidType = ["default", "rs", "loop", "reverse", "bounce"].includes(config[0]);
+        const isValidDuration = config[0] ? parseFloat(config[1]) > 0 : true;
+        const isValidDelay = config[2] ? parseFloat(config[2]) > 0 : true;
+
+        return isValidType && isValidDuration && isValidDelay;
+      }
     },
     legend: {
       type: Boolean,
@@ -240,7 +244,7 @@ export default {
     },
     counterOptions() {
       return {
-        duration: this.animation.duration / 1000,
+        duration: (parseFloat(this.animation.split(" ")[1]) || 1000) / 1000,
         target: "span",
         decimalPlaces: this.countDecimals,
         decimal: "."

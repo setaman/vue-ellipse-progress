@@ -1,5 +1,5 @@
 import { isValidNumber } from "../../utils";
-import { lineModeParser } from "../optionsParser";
+import { animationParser, lineModeParser } from "../optionsParser";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -25,11 +25,7 @@ export default {
   },
   data() {
     return {
-      isInitialized: false,
-      delay: this.options.animation.delay,
-      loading: this.options.loading,
-      circle: null,
-      gap: 0
+      isInitialized: false
     };
   },
   computed: {
@@ -106,15 +102,16 @@ export default {
     parsedLineMode() {
       return lineModeParser(this.options.lineMode);
     },
+    parsedAnimation() {
+      return animationParser(this.options.animation);
+    },
     dataIsAvailable() {
       return isValidNumber(this.options.progress) && !this.options.noData;
     },
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable && this.isInitialized
-            ? this.options.animation.type || "default"
-            : "none"
+          !this.options.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
         `${this.options.loading ? "animation__loading" : ""}`
       ];
@@ -154,7 +151,7 @@ export default {
       return this.calculateThickness(this.options.emptyThickness.toString());
     },
     animationDuration() {
-      return `${isValidNumber(this.options.animation.duration) ? this.options.animation.duration : 1000}ms`;
+      return `${this.parsedAnimation.duration}ms`;
     },
     transformOrigin() {
       return "50% 50%";
@@ -240,7 +237,7 @@ export default {
   async mounted() {
     if (!this.options.loading) {
       // await initial delay before applying animations and other props
-      await wait(this.delay);
+      await wait(this.parsedAnimation.delay);
     }
     this.isInitialized = true;
   }

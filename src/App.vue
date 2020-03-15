@@ -40,7 +40,7 @@
         :thickness="40"
         :progress="progress"
         empty-color="rgba(17,34,51,0.66)"
-        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
+        animation="rs 1000 0"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
@@ -64,7 +64,7 @@
         :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
-        :animation="{ type: 'loop', duration: 700, delay: 300 }"
+        animation="loop 700 300"
       >
       </vue-ellipse-progress>
       <vue-ellipse-progress
@@ -152,7 +152,7 @@ export default {
       {
         progress: 0,
         thickness: 40,
-        animation: { type: "rs", duration: 2000, delay: 2000 },
+        animation: "rs 2000 2000",
         loading: false,
         half: true
       },
@@ -162,7 +162,7 @@ export default {
         color: "blue",
         // angle: "-90",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 400 }
+        animation: "bounce 2000 400"
       },
       {
         progress: 35,
@@ -170,7 +170,7 @@ export default {
         color: "red",
         // angle: "155",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 600 }
+        animation: "loop 2000 600"
       },
       {
         progress: 15,
@@ -178,7 +178,7 @@ export default {
         color: "yellow",
         // angle: "165",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 800 }
+        animation: "reverse 2000 800"
       }
     ],
     determinate: false,

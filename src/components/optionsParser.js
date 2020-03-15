@@ -33,4 +33,13 @@ const lineModeParser = lineMode => {
   };
 };
 
-export { lineModeParser };
+const animationParser = animation => {
+  const animationConfig = animation.trim().split(" ");
+  return {
+    type: animationConfig[0],
+    duration: getValueIfDefined(animationConfig[1]) || 1000,
+    delay: getValueIfDefined(animationConfig[2]) || 400
+  };
+};
+
+export { lineModeParser, animationParser };
