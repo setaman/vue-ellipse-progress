@@ -12,7 +12,7 @@
         <ep-circle-container
           v-for="(options, i) in circlesData"
           :key="i"
-          :options="options"
+          v-bind="options"
           :multiple="isMultiple"
           :index="i"
         />
@@ -255,6 +255,7 @@ export default {
         return this.data.map(data => ({
           ...this.$props,
           ...data,
+          // TODO: why?
           emptyThickness: data.thickness || this.$props.thickness
         }));
       }
