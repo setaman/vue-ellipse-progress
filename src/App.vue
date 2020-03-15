@@ -48,32 +48,6 @@
         <span slot="legend-value">/hui</span>
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
-
-      <vue-ellipse-progress
-        :thickness="10"
-        :no-data="noData"
-        :progress="50"
-        :determinate="determinate"
-        :empty-thickness="20"
-        legend-class="legend-custom-style"
-        :legend-value="23"
-        :line-mode="{ mode: 'bottom', offset: 10 }"
-        :legend="true"
-      >
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
-        :progress="parseFloat(progress)"
-        :loading="loading"
-        :size="size"
-        :emptyThickness="5"
-        :lineMode="{ mode: 'in', offset: 10 }"
-        :legend="false"
-        :animation="{ type: 'rs', duration: 700 }"
-        dash="10 10"
-        fontSize="5rem"
-      >
-        <img slot="legend-capture" src="@/assets/icon.svg" />
-      </vue-ellipse-progress>
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
@@ -85,7 +59,7 @@
         :size="size"
         line="round"
         :dash="{ count: 60, spacing: 0.95 }"
-        :lineMode="{ mode: 'in-overlap', offset: 10 }"
+        :lineMode="{ mode: 'in-over', offset: 10 }"
         :legend="true"
         :legendValue="sec"
         legendClass="legend-custom-style"

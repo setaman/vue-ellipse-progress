@@ -101,25 +101,52 @@ export default {
           return true;
         }
         if (typeof value === "object" && value.colors) {
-          return value.colors.filter(config => config.color && config.offset) > 0;
+          return value.colors.filter(config => config.color && config.offset).length > 0;
         }
         return false;
       }
     },
     emptyColor: {
-      type: [String, Array],
+      type: [String, Object],
       required: false,
-      default: "#e6e9f0"
+      default: "#e6e9f0",
+      validator: value => {
+        if (value && typeof value === "string") {
+          return true;
+        }
+        if (typeof value === "object" && value.colors) {
+          return value.colors.filter(config => config.color && config.offset).length > 0;
+        }
+        return false;
+      }
     },
     colorFill: {
-      type: [String, Array],
+      type: [String, Object],
       required: false,
-      default: "transparent"
+      default: "transparent",
+      validator: value => {
+        if (value && typeof value === "string") {
+          return true;
+        }
+        if (typeof value === "object" && value.colors) {
+          return value.colors.filter(config => config.color && config.offset).length > 0;
+        }
+        return false;
+      }
     },
     emptyColorFill: {
-      type: [String, Array],
+      type: [String, Object],
       required: false,
-      default: "transparent"
+      default: "transparent",
+      validator: value => {
+        if (value && typeof value === "string") {
+          return true;
+        }
+        if (typeof value === "object" && value.colors) {
+          return value.colors.filter(config => config.color && config.offset).length > 0;
+        }
+        return false;
+      }
     },
     fontSize: {
       type: String,
