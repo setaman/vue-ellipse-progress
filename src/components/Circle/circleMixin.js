@@ -1,5 +1,5 @@
 import { isValidNumber } from "../../utils";
-import { animationParser, lineModeParser } from "../optionsParser";
+import { animationParser, dashParser, lineModeParser } from "../optionsParser";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -105,6 +105,9 @@ export default {
     parsedAnimation() {
       return animationParser(this.options.animation);
     },
+    parsedDash() {
+      return dashParser(this.options.dash);
+    },
     dataIsAvailable() {
       return isValidNumber(this.options.progress) && !this.options.noData;
     },
@@ -157,8 +160,8 @@ export default {
       return "50% 50%";
     },
     emptyDasharray() {
-      if (!this.options.dash.count || !this.options.dash.spacing) {
-        return this.options.dash;
+      if (!this.parsedDash.count || !this.parsedDash.spacing) {
+        return this.parsedDash;
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
@@ -209,10 +212,10 @@ export default {
       }
     },
     getDashSpacingPercent() {
-      return this.options.dash.spacing / this.options.dash.count;
+      return this.parsedDash.spacing / this.parsedDash.count;
     },
     getDashPercent() {
-      return (1 - this.options.dash.spacing) / this.options.dash.count;
+      return (1 - this.parsedDash.spacing) / this.parsedDash.count;
     },
     /* Animations helper Methods */
     getNegativeCircumference() {

@@ -42,4 +42,16 @@ const animationParser = animation => {
   };
 };
 
-export { lineModeParser, animationParser };
+const dashParser = dash => {
+  const dashConfig = dash.trim().split(" ");
+  const isStrict = dashConfig[0] === "strict";
+  if (!isStrict) {
+    return dash;
+  }
+  return {
+    count: dashConfig[1],
+    spacing: dashConfig[2]
+  };
+};
+
+export { lineModeParser, animationParser, dashParser };

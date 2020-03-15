@@ -58,7 +58,7 @@
         emptyThickness="5%"
         :size="size"
         line="round"
-        :dash="{ count: 60, spacing: 0.95 }"
+        dash="strict 60 0.95"
         lineMode="top"
         :legend="true"
         :legendValue="sec"
@@ -67,11 +67,7 @@
         animation="loop 700 300"
       >
       </vue-ellipse-progress>
-      <vue-ellipse-progress
-        :progress="67"
-        line-mode="out 20"
-      >
-      </vue-ellipse-progress>
+      <vue-ellipse-progress :progress="67" line-mode="out 20" dash="strict 10 0.98"> </vue-ellipse-progress>
       <!--<vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
@@ -232,7 +228,7 @@ export default {
           opacity: "0.1"
         }
       ],
-      radial: true,
+      radial: true
     }
   }),
   computed: {

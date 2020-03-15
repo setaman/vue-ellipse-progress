@@ -190,18 +190,15 @@ export default {
       default: false
     },
     dash: {
-      type: [String, Object],
+      type: String,
       required: false,
       default: "",
       validator: value => {
-        if (!value || typeof value === "string") {
-          return true;
+        if (value.startsWith("strict")) {
+          const config = value.split(" ");
+          return parseFloat(config[1]) >= 0 && parseFloat(config[2]) >= 0;
         }
-
-        if (typeof value === "object") {
-          return value.count >= 0 && value.spacing >= 0;
-        }
-        return false;
+        return true;
       }
     },
     half: {
