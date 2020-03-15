@@ -1,10 +1,10 @@
+const isValidNumber = prop => prop !== undefined && prop !== "" && prop !== null && !Number.isNaN(parseFloat(prop));
+
 const getValueIfDefined = prop => {
-  if (prop !== undefined && prop !== null && !Number.isNaN(prop)) {
+  if (isValidNumber(prop)) {
     return prop;
   }
   return false;
 };
-
-const isValidNumber = prop => prop !== undefined && prop !== null && !Number.isNaN(parseFloat(prop));
 
 export { getValueIfDefined, isValidNumber };

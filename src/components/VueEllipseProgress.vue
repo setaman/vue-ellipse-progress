@@ -37,6 +37,7 @@
 <script>
 import CountUp from "vue-countup-v2";
 import { getValueIfDefined, isValidNumber } from "../utils";
+import optionsParser from "./optionsParser";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
@@ -92,7 +93,7 @@ export default {
       validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
     },
     color: {
-      type: [String, Object],
+      type: String,
       required: false,
       default: "#3f79ff"
     },
@@ -184,9 +185,6 @@ export default {
     }
   },
   computed: {
-    options() {
-      return { ...this.$props, id: this._uid };
-    },
     startAngle() {
       return getValueIfDefined(this.angle) || -90;
     },
@@ -224,10 +222,13 @@ export default {
         return this.data.map(data => ({
           ...this.$props,
           ...data,
-          emptyThickness: data.thickness || this.$props.thickness
+          emptyThickness: data.thickness || this.$props.thickness,
+          ...optionsParser({
+            ...this.$props
+          })
         }));
       }
-      return [this.$props];
+      return [{ ...this.$props, ...optionsParser(this.$props) }];
     }
   },
   methods: {}

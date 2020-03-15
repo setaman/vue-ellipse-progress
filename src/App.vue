@@ -52,6 +52,7 @@
       <vue-ellipse-progress
         :thickness="10"
         :no-data="noData"
+        :progress="50"
         :determinate="determinate"
         :empty-thickness="20"
         legend-class="legend-custom-style"
@@ -75,7 +76,7 @@
       >
         <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
@@ -163,7 +164,7 @@
       >
         <span slot="legend-value">/200</span>
         <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>
+      </vue-ellipse-progress>-->
     </div>
   </div>
 </template>
@@ -213,24 +214,7 @@ export default {
     sec: 0,
     tasks_done: 125,
     size: 300,
-    color: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "0",
-            opacity: "0"
-          },
-          {
-            color: "#3260FC",
-            offset: "100",
-            opacity: "1"
-          }
-        ]
-      }
-    },
+    color: "#3260FC 0, #3260FC 100",
     colorFill: {
       gradient: {
         radial: true,
@@ -259,24 +243,7 @@ export default {
         ]
       }
     },
-    emptyColor: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#050a27",
-            offset: "0",
-            opacity: "0.3"
-          },
-          {
-            color: "#050a27",
-            offset: "100",
-            opacity: "0.3"
-          }
-        ]
-      }
-    },
+    emptyColor: "#050a27 0 0.3, #050a27 100 0.3",
     emptyColorFill: {
       gradient: {
         radial: true,
