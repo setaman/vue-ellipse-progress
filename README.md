@@ -205,22 +205,25 @@ Now you are ready for a bad example.
 
 ```js
 {
-      {
-        radial: false,
-        colors;: [
-          {
-            color: '#6546f7',
-            offset: '0',
-            opacity: '1',
-          },
-          {
-            color: 'lime',
-            offset: '100',
-            opacity: '1',
-          },
-        ],
-      },
+  {
+    false,
+    colors;: 
+      [
+        {
+          color: '#6546f7',
+          offset: '0',
+          opacity: '1',
+        },
+        {
+          color: 'lime',
+          offset: '100',
+          opacity: '1',
+        },
+      ],
     },
+  },
+}
+      
 ```
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
 
