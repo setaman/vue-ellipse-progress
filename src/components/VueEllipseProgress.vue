@@ -12,7 +12,7 @@
         <ep-circle-container
           v-for="(options, i) in circlesData"
           :key="i"
-          :options="options"
+          v-bind="options"
           :multiple="isMultiple"
           :index="i"
         />
@@ -37,156 +37,15 @@
 <script>
 import CountUp from "vue-countup-v2";
 import { getValueIfDefined, isValidNumber } from "../utils";
+import props from "./interface";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
-  name: "EllipseProgressContainer",
+  name: "VueEllipseProgressContainer",
   components: { EpCircleContainer, CountUp },
   data: () => ({}),
-  props: {
-    data: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
-    progress: {
-      type: Number,
-      require: true,
-      validator: val => val >= 0 && val <= 100
-    },
-    legendValue: {
-      type: Number,
-      required: false
-    },
-    size: {
-      type: Number,
-      required: false,
-      default: 200,
-      validator: value => value >= 0
-    },
-    thickness: {
-      type: [Number, String],
-      required: false,
-      default: "5%",
-      validator: value => parseFloat(value) >= 0
-    },
-    emptyThickness: {
-      type: [Number, String],
-      required: false,
-      default: "5%",
-      validator: value => parseFloat(value) >= 0
-    },
-    line: {
-      type: String,
-      required: false,
-      default: "round",
-      validator: value => ["round", "butt", "square"].includes(value)
-    },
-    lineMode: {
-      type: [Object],
-      required: false,
-      default: () => ({
-        mode: "normal",
-        offset: 0
-      }),
-      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
-    },
-    color: {
-      type: [String, Object],
-      required: false,
-      default: "#3f79ff"
-    },
-    emptyColor: {
-      type: [String, Object],
-      required: false,
-      default: "#e6e9f0"
-    },
-    colorFill: {
-      type: [String, Object],
-      required: false,
-      default: "transparent"
-    },
-    emptyColorFill: {
-      type: [String, Object],
-      required: false,
-      default: "transparent"
-    },
-    fontSize: {
-      type: String,
-      required: false
-    },
-    fontColor: {
-      type: String,
-      required: false
-    },
-    animation: {
-      type: Object,
-      required: false,
-      default: () => ({
-        type: "default",
-        duration: 1000,
-        delay: 400
-      })
-    },
-    legend: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    legendClass: {
-      type: String,
-      required: false
-    },
-    angle: {
-      type: [String, Number],
-      required: false,
-      default: -90
-    },
-    loading: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    noData: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    dash: {
-      type: [String, Object],
-      required: false,
-      default: "",
-      validator: value => {
-        if (!value || typeof value === "string") {
-          return true;
-        }
-
-        if (typeof value === "object") {
-          return value.count >= 0 && value.spacing >= 0;
-        }
-        return false;
-      }
-    },
-    half: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    gap: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    determinate: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
+  props,
   computed: {
-    options() {
-      return { ...this.$props, id: this._uid };
-    },
     startAngle() {
       return getValueIfDefined(this.angle) || -90;
     },
@@ -210,7 +69,7 @@ export default {
     },
     counterOptions() {
       return {
-        duration: this.animation.duration / 1000,
+        duration: (parseFloat(this.animation.split(" ")[1]) || 1000) / 1000,
         target: "span",
         decimalPlaces: this.countDecimals,
         decimal: "."
@@ -224,6 +83,7 @@ export default {
         return this.data.map(data => ({
           ...this.$props,
           ...data,
+          // TODO: why?
           emptyThickness: data.thickness || this.$props.thickness
         }));
       }

@@ -1,12 +1,12 @@
 <template>
   <g class="ep-half-circle--container">
     <path
-      :stroke-width="emptyThickness"
-      :fill="emptyColorFill"
-      :stroke="emptyColor"
+      :stroke-width="computedEmptyThickness"
+      :fill="computedColorFill"
+      :stroke="computedEmptyColor"
       class="ep-circle--empty"
       :d="emptyPath"
-      :stroke-linecap="options.line"
+      :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
       :style="{ transition: animationDuration }"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
@@ -16,13 +16,13 @@
       <g v-if="showDeterminate">
         <g style="opacity: 0.6;">
           <path
-            :stroke-width="thickness"
+            :stroke-width="computedThickness"
             class="ep-half-circle--determinate animation__loading"
             :d="path"
-            :fill="colorFill"
-            :stroke="color"
+            :fill="computedColorFill"
+            :stroke="computedColor"
             :stroke-dasharray="circumference"
-            :stroke-linecap="options.line"
+            :stroke-linecap="line"
             :style="styles"
           >
           </path>
@@ -31,14 +31,14 @@
     </fade-in-transition>
 
     <path
-      :stroke-width="thickness"
+      :stroke-width="computedThickness"
       class="ep-half-circle ep-circle--progress"
       :class="animationClass"
       :d="path"
-      :fill="colorFill"
-      :stroke="color"
+      :fill="computedColorFill"
+      :stroke="computedColor"
       :stroke-dasharray="circumference"
-      :stroke-linecap="options.line"
+      :stroke-linecap="line"
       :style="styles"
     >
     </path>
@@ -54,7 +54,7 @@ export default {
   mixins: [CircleMixin],
   computed: {
     progressOffset() {
-      const offset = this.circumference - (this.progress / 100) * this.circumference;
+      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
         return 1;
       }
