@@ -205,9 +205,9 @@ Now you are ready for a bad example.
 
 ```js
 {
-  {
-    false,
-    colors;: 
+  gradient: {
+    radial: false,
+    colors: 
       [
         {
           color: '#6546f7',
@@ -284,7 +284,7 @@ defines the initial animation of progress circle line filling. You can choose on
 ###### Example: :scroll:
 
 ```js
-:animation="{type: 'rs', duration: 700, duration: 200}"
+:animation="{type: 'rs', duration: 700, delay: 200}"
 ```
 
 <br>
@@ -336,9 +336,9 @@ is string or object. Internaly is used the value `stroke-dasharray` so if you de
 ###### Example: :scroll:
 `dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
 ```js
-:dash="{;
-    60; // Number of dashes
-    0.99; // spacing between dashes, any value >= 0 and < 1
+:dash="{
+    count: 60; // Number of dashes
+    spacing: 0.99; // spacing between dashes, any value >= 0 and < 1
   }"
 ```
 
