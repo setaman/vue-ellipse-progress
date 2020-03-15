@@ -63,9 +63,7 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         :progress="parseFloat(progress)"
-        :color="color"
         :loading="loading"
-        :emptyColor="emptyColor"
         :size="size"
         :emptyThickness="5"
         :lineMode="{ mode: 'in', offset: 10 }"
@@ -76,13 +74,11 @@
       >
         <img slot="legend-capture" src="@/assets/icon.svg" />
       </vue-ellipse-progress>
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
-        :color="color"
         :determinate="determinate"
         :loading="loading"
-        :emptyColor="emptyColor"
         :emptyColorFill="emptyColorFill"
         thickness="2%"
         emptyThickness="5%"
@@ -97,7 +93,7 @@
         :animation="{ type: 'loop', duration: 700, delay: 300 }"
       >
       </vue-ellipse-progress>
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
@@ -214,83 +210,50 @@ export default {
     sec: 0,
     tasks_done: 125,
     size: 300,
-    color: "#3260FC 0, #3260FC 100",
-    colorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "40",
-            opacity: "1"
-          },
-          {
-            color: "transparent",
-            offset: "80",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
-    },
-    emptyColor: "#050a27 0 0.3, #050a27 100 0.3",
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.2"
-          },
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
+      colors: [
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.2"
+        },
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1"
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        }
+      ],
+      radial: true,
     }
   }),
   computed: {

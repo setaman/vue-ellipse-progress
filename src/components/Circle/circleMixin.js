@@ -124,25 +124,25 @@ export default {
     },
     /* Colors */
     color() {
-      if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
+      if (this.options.color.colors) {
         return `url(#ep-progress-gradient-${this.id})`;
       }
       return this.options.color;
     },
     emptyColor() {
-      if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
+      if (this.options.emptyColor.colors) {
         return `url(#ep-empty-gradient-${this.id})`;
       }
       return this.options.emptyColor;
     },
     colorFill() {
-      if (this.options.colorFill.gradient && this.options.colorFill.gradient.colors.length > 0) {
+      if (this.options.colorFill.colors) {
         return `url(#ep-progress-fill-gradient-${this.id})`;
       }
       return this.options.colorFill || "transparent";
     },
     emptyColorFill() {
-      if (this.options.emptyColorFill.gradient && this.options.emptyColorFill.gradient.colors.length > 0) {
+      if (this.options.emptyColorFill.colors) {
         return `url(#ep-empty-fill-gradient-${this.id})`;
       }
       return this.options.emptyColorFill || "transparent";

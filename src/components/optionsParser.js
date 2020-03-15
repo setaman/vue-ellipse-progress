@@ -26,5 +26,8 @@ const colorParser = color => {
 };
 
 export default options => ({
-  color: colorParser(options.color)
+  color: colorParser(options.color),
+  emptyColor: colorParser(options.emptyColor),
+  colorFill: colorParser(options.colorFill) || "transparent",
+  emptyColorFill: colorParser(options.emptyColorFill) || "transparent"
 });

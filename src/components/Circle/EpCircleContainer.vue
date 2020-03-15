@@ -1,13 +1,12 @@
 <template>
   <g class="ep-circle" :style="{ transform: `rotate(${startAngle}deg)` }">
     <defs>
-      <gradient v-if="options.color.gradient" :color="options.color" type="progress" :id="_uid" />
-      <gradient v-if="options.colorFill.gradient" :color="options.colorFill" type="progress-fill" :id="_uid" />
-      <gradient v-if="options.emptyColor.gradient" :color="options.emptyColor" type="empty" :id="_uid" />
-      <gradient v-if="options.emptyColorFill.gradient" :color="options.emptyColorFill" type="empty-fill" :id="_uid" />
+      <gradient v-if="isColorGradient" :color="options.color" type="progress" :id="_uid" />
+      <gradient v-if="isColorFillGradient" :color="options.colorFill" type="progress-fill" :id="_uid" />
+      <gradient v-if="isEmptyColorGradient" :color="options.emptyColor" type="empty" :id="_uid" />
+      <gradient v-if="isEmptyColorFillGradient" :color="options.emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
-    <half-circle-progress v-if="options.half" :options="options" :multiple="multiple" :id="_uid" :index="index" />
-    <circle-progress v-else :options="options" :multiple="multiple" :id="_uid" :index="index" />
+    <component :is="circleType" :options="options" :multiple="multiple" :id="_uid" :index="index" />
   </g>
 </template>
 
@@ -24,8 +23,23 @@ export default {
     ...CircleProgress.mixins[0].props
   },
   computed: {
+    circleType() {
+      return this.options.half ? "half-circle-progress" : "circle-progress";
+    },
     startAngle() {
       return getValueIfDefined(this.options.angle) || -90;
+    },
+    isColorGradient() {
+      return Array.isArray(this.options.color.colors);
+    },
+    isColorFillGradient() {
+      return Array.isArray(this.options.colorFill.colors);
+    },
+    isEmptyColorGradient() {
+      return Array.isArray(this.options.emptyColor.colors);
+    },
+    isEmptyColorFillGradient() {
+      return Array.isArray(this.options.emptyColorFill.colors);
     }
   }
 };

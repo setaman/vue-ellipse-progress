@@ -93,22 +93,31 @@ export default {
       validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
     },
     color: {
-      type: String,
+      type: [String, Object],
       required: false,
-      default: "#3f79ff"
+      default: "#3f79ff",
+      validator: value => {
+        if (value && typeof value === "string") {
+          return true;
+        }
+        if (typeof value === "object" && value.colors) {
+          return value.colors.filter(config => config.color && config.offset) > 0;
+        }
+        return false;
+      }
     },
     emptyColor: {
-      type: [String, Object],
+      type: [String, Array],
       required: false,
       default: "#e6e9f0"
     },
     colorFill: {
-      type: [String, Object],
+      type: [String, Array],
       required: false,
       default: "transparent"
     },
     emptyColorFill: {
-      type: [String, Object],
+      type: [String, Array],
       required: false,
       default: "transparent"
     },
@@ -222,13 +231,10 @@ export default {
         return this.data.map(data => ({
           ...this.$props,
           ...data,
-          emptyThickness: data.thickness || this.$props.thickness,
-          ...optionsParser({
-            ...this.$props
-          })
+          emptyThickness: data.thickness || this.$props.thickness
         }));
       }
-      return [{ ...this.$props, ...optionsParser(this.$props) }];
+      return [this.$props];
     }
   },
   methods: {}
