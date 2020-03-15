@@ -37,7 +37,6 @@
 <script>
 import CountUp from "vue-countup-v2";
 import { getValueIfDefined, isValidNumber } from "../utils";
-import optionsParser from "./optionsParser";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
@@ -84,13 +83,10 @@ export default {
       validator: value => ["round", "butt", "square"].includes(value)
     },
     lineMode: {
-      type: [Object],
+      type: String,
       required: false,
-      default: () => ({
-        mode: "normal",
-        offset: 0
-      }),
-      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
+      default: "normal",
+      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.split(" ")[0])
     },
     color: {
       type: [String, Object],

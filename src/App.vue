@@ -59,12 +59,17 @@
         :size="size"
         line="round"
         :dash="{ count: 60, spacing: 0.95 }"
-        :lineMode="{ mode: 'in-over', offset: 10 }"
+        lineMode="top"
         :legend="true"
         :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
         :animation="{ type: 'loop', duration: 700, delay: 300 }"
+      >
+      </vue-ellipse-progress>
+      <vue-ellipse-progress
+        :progress="67"
+        line-mode="out 20"
       >
       </vue-ellipse-progress>
       <!--<vue-ellipse-progress

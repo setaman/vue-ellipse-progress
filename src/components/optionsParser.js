@@ -1,6 +1,6 @@
 import { getValueIfDefined } from "../utils";
 
-const colorParser = color => {
+/* const colorParser = color => {
   const config = color.trim().split(",");
 
   if (config.length > 1) {
@@ -23,11 +23,14 @@ const colorParser = color => {
     };
   }
   return color;
+}; */
+
+const lineModeParser = lineMode => {
+  const lineModeConfig = lineMode.trim().split(" ");
+  return {
+    mode: lineModeConfig[0],
+    offset: getValueIfDefined(lineModeConfig[1]) || 0
+  };
 };
 
-export default options => ({
-  color: colorParser(options.color),
-  emptyColor: colorParser(options.emptyColor),
-  colorFill: colorParser(options.colorFill) || "transparent",
-  emptyColorFill: colorParser(options.emptyColorFill) || "transparent"
-});
+export { lineModeParser };

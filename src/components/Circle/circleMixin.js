@@ -1,4 +1,5 @@
 import { isValidNumber } from "../../utils";
+import { lineModeParser } from "../optionsParser";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -37,13 +38,13 @@ export default {
     },
     /* Radius Calculation */
     radius() {
-      const offset = Number(this.options.lineMode.offset || 0);
+      const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
         return this.normalLineModeRadius - this.previousCirclesThickness;
       }
 
-      switch (this.options.lineMode.mode) {
+      switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
@@ -63,13 +64,13 @@ export default {
     },
 
     emptyRadius() {
-      const offset = Number(this.options.lineMode.offset || 0);
+      const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
         return this.normalLineModeRadius - this.previousCirclesThickness;
       }
 
-      switch (this.options.lineMode.mode) {
+      switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
@@ -90,24 +91,20 @@ export default {
           return this.emptyBaseRadius;
       }
     },
-
-    // the radius of the progress circle without taking into account the lineMode, baseline for advanced radius
-    // calculations depending on lineMode
     baseRadius() {
       return this.size / 2 - this.thickness / 2;
     },
-
     emptyBaseRadius() {
       return this.size / 2 - this.emptyThickness / 2;
     },
-
-    // with lineMode.type = normal need to calculate which of the circles is bigger so the radius does not exceeds the
-    // size property
     normalLineModeRadius() {
       if (this.thickness < this.emptyThickness) {
         return this.emptyBaseRadius;
       }
       return this.baseRadius;
+    },
+    parsedLineMode() {
+      return lineModeParser(this.options.lineMode);
     },
     dataIsAvailable() {
       return isValidNumber(this.options.progress) && !this.options.noData;

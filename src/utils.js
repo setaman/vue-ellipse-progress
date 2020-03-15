@@ -2,7 +2,7 @@ const isValidNumber = prop => prop !== undefined && prop !== "" && prop !== null
 
 const getValueIfDefined = prop => {
   if (isValidNumber(prop)) {
-    return prop;
+    return parseFloat(prop);
   }
   return false;
 };
