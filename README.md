@@ -72,14 +72,14 @@ using this properties please read below the table.
 |----------|--------|---------|---------|
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
-| **[`line`](#line)** | String | round \| square \| butt |  "round"|   
+| **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ number ]" | `"normal 0"` |   
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ number ]" | "normal 0" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
-| **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
-| **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
-| **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
-| **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
+| **[`color`](#color)** | String \| Object | any color as string or object to specify gradient (see details) |  #3f79ff |   
+| **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  transparent |
+| **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  #e6e9f0 |
+| **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  transparent |
 | **[`legend`](#legend)** | Boolean | your know this |  true |
 | **[`legendValue`](#legendvalue)** | Number | any |   |
 | **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> `}`|
@@ -142,7 +142,7 @@ is any Number or percent value >=0. Defines the progress circle line thickness. 
 
 ###### Animated: :heavy_check_mark: 
 
-Descreptive String in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional is the `offset`. You can undestand the modes as the preset that helps you to easy align lines as you need. 
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional second is the `offset`. You can undestand the modes as the preset that helps you to easy align lines as you need. 
 
 - `mode`:
   - `normal`: this is the default value and both lines are aligned at the base line (centered).
@@ -195,32 +195,31 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
 - `color:` (String) '#3f79ff'
 
 - `color:` (Object)
-  - `gradient:` (Object) defines the gradient
-    - `radial` default `false`. Defines whether the gradient is radial or linear
-    - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0, opacity: 1}`
+  - `radial:` default `false`. Defines whether the gradient is radial or linear
+  - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0 [, opacity: 1] }`
     
 ###### Example: :scroll:
 
 Now you are ready for a bad example.
 
 ```js
-{
+color: {
+  {
+    radial: false,
+    colors;: [
       {
-        radial: false,
-        colors;: [
-          {
-            color: '#6546f7',
-            offset: '0',
-            opacity: '1',
-          },
-          {
-            color: 'lime',
-            offset: '100',
-            opacity: '1',
-          },
-        ],
+        color: '#6546f7',
+        offset: '0',
+        opacity: '1',
       },
-    },
+      {
+        color: 'lime',
+        offset: '100',
+        opacity: '1',
+      },
+    ]
+  }
+}
 ```
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
 
