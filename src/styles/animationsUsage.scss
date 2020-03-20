@@ -21,7 +21,7 @@
   }
 }
 
-.ep-circle--progress {
+.ep-circle--progress, .ep-circle--determinate {
   &.animation__loading {
     animation-name: ep-progress--loading, ep-progress--loading__rotation;
     animation-iteration-count: infinite !important;
@@ -30,7 +30,7 @@
   }
 }
 
-.ep-half-circle {
+.ep-half-circle, .ep-half-circle--determinate {
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;
@@ -44,6 +44,7 @@
     opacity: 0.5;
   }
 }
+
 @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
 @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
 @include ep-progress--init__bounce(

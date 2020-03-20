@@ -1,11 +1,4 @@
-<div align="center" style="text-align: center;">
-  <img width="300" height="300" src="https://github.com/setaman/Bilder/blob/master/vue_ellipse_logo_v2.svg">  
-</div>
-
 # vue-ellipse-progress
-A Vue.js component to create beautiful animated circular progress bars
-
-<br/>
 
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -14,6 +7,15 @@ A Vue.js component to create beautiful animated circular progress bars
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
+
+A Vue.js component to create beautiful animated circular progress bars
+
+:grey_exclamation: :grey_exclamation: :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation: :grey_exclamation: :grey_exclamation:
+
+<div align="center" style="text-align: center;">
+  <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">  
+</div>
+
 ## How to use
 install the library via npm
 ```
@@ -30,24 +32,27 @@ Now use the component
 <vue-ellipse-progress 
   :progress="progress"
   :angle="-90"
-  :color="color"
-  :loading="loading"
-  :emptyColor="empty_color"
-  :size="size"
+  color="blue"
+  :colorFill="colorFillGradient"
+  emptyColor="#8ec5fc"
+  :emptyColorFill="emptyColorFillGradient"                      
+  :size="300"
   :thickness="10"
   emptyThickness="10%"
   :lineMode="{mode: 'in', offset: 10}"
   :legend="true"
-  :legendValue="tasks_done"
-  :noData="noData"
+  :legendValue="180"
+  legendClass="legend-custom-style"
   :dash="{count: 60, spacing: 0.9}"
   :animation="{type: 'reverse', duration: 700, delay: 400}"
+  :noData="false"
+  :loading="false"                      
   fontColor="white"
   :half="false"                      
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
-  <p slot="legend-capture">GOOD JOB</p>
+  <p slot="legend-caption">GOOD JOB</p>
   
 </vue-ellipse-progress>
 ``` 
@@ -70,22 +75,22 @@ using this properties please read below the table.
 | **[`line`](#line)** | String | round \| square \| butt |  round|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  5% |      
 | **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out-over \| in \| in-over \| top \| bottom` <br> `offset: any number `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
-| **[`emptyThickness`](#emptythickness)** | Number\|String | \>=0 as Number or percent value as String |  5% |     
+| **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | any color as string or object (see details) |  #e6e9f0 |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | any color as string or object (see details) |  transparent |
 | **[`legend`](#legend)** | Boolean | your know this |  true |
-| **[`legendValue`](#legendvalue)** | Number |  |   |
+| **[`legendValue`](#legendvalue)** | Number | any |   |
 | **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> `}`|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any number |-90|
-| **[`fontSize`](#fontsize)** | String | any valid css value | relative |
+| **[`fontSize`](#fontsize)** | String | any valid css value | 1rem |
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String \| Object | see details |  |
-| **[`half`](#halfe)** | Boolean |  | false |
+| **[`half`](#half)** | Boolean |  | false |
 
 <br>
 
@@ -95,7 +100,7 @@ using this properties please read below the table.
 
 is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and count up or down on any value changes with duration defined in 
-**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** of the circle.
+**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** in the middle of the circle.
 
 ###### Example: :scroll:
 
@@ -104,7 +109,7 @@ this.progress = 55.5;
 this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: the progress is always used to fill the circle line progress. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: the `progress` is always used to fill the progress circle line. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 >if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed as circle legend.
 
 <br>
@@ -113,7 +118,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to infinity. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
+is any Number from >=0. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
 >:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
@@ -129,7 +134,7 @@ is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent thicknees will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
+is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent the thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
 
 <br>
 
@@ -192,18 +197,17 @@ Defines the color of progress circle **line**. Is any css color like `#123` or `
 - `color:` (Object)
   - `gradient:` (Object) defines the gradient
     - `radial` default `false`. Defines whether the gradient is radial or linear
-    - `direction` not implemented yet
     - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0, opacity: 1}`
     
 ###### Example: :scroll:
 
-Now you are ready for an bad example.
+Now you are ready for a bad example.
 
 ```js
-color: {
-      gradient: {
+{
+      {
         radial: false,
-        colors: [
+        colors;: [
           {
             color: '#6546f7',
             offset: '0',
@@ -219,8 +223,6 @@ color: {
     },
 ```
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
-    
-I also recommend you to play with this values in the demo to finde perfect colors for you!
 
 <br>
 
@@ -272,7 +274,7 @@ Now you can display custom progress value that still animated and circle progres
 defines the initial animation of progress circle line filling. You can choose one from predefined animations and set a specific duration and delay. 
 
 - `type:`
-  - `none | default | rs | reverse | bounce| loop` try this animations in the demo!
+  - `default | rs | reverse | bounce| loop` try this animations in the demo!
 - `duration` Number in milliseconds, default `1000`
 - `delay` Number in milliseconds, default `400`
 
@@ -292,7 +294,7 @@ forces loading state. The component provide an indeterminate state for the case 
 
 - ### `noData`
 
-forces no data state. The component provide an no data state for the case that you data is not available. The circle progress still empty.
+forces no data state. The component provides an no data state for the case that you data is not available. The circle progress still empty.
 
 >:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
 
@@ -306,13 +308,13 @@ is any Number. Defines the starting point of the progress circle line
 
 - ### `fontSize`
 
-is any valid css size property or `relative`(coming soon). Defines the font size of the circles legend
+is any valid css size property. Defines the font size of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
 - ### `fontColor`
 
-is any valid css color. Defines the color of the circles legend
+is any valid css color. Defines the color of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
 
 <br>
 
@@ -326,15 +328,15 @@ adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-is string or object. Internaly is used the value `stroke-dasharray` so if you defin the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
+is string or object. Internaly is used the value `stroke-dasharray` so if you define the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
 
 ###### Example: :scroll:
-`"10 10"` - as String with 10px big dashes and 10px spacing. Or just `"10"`
+`dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
 ```js
-{
-  count: 60 // Number of dashes
-  spacing: 0.99 // spacing between dashes, any value >= 0 and < 1
-}
+:dash="{;
+    60; // Number of dashes
+    0.99; // spacing between dashes, any value >= 0 and < 1
+  }"
 ```
 
 <br>
@@ -374,32 +376,26 @@ This code ...
 
 <br>
 
-## Run project local
+## Compatibility
+The plugin was tested in all major modern browsers. Should also work properly in older browsers. In old browsers issues can be caused by animations since they are implemented using css custom properties. Basic svg renders even in IE 11. 
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
+| --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:
+
+## Development
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
+## Build for publishing
 ```
 npm run lint
-```
-
-### Run your unit tests
-```
 npm run test:unit
+npm run build
 ```
