@@ -1,6 +1,6 @@
 <template>
   <linearGradient
-    v-if="!color.gradient.radial"
+    v-if="!color.radial"
     :id="`ep-${type}-gradient-${id}`"
     x1="0%"
     y1="100%"
@@ -9,20 +9,20 @@
     area-hidden="true"
   >
     <stop
-      v-for="(col, i) in color.gradient.colors"
+      v-for="(col, i) in color.colors"
       :key="i"
       :offset="`${col.offset}%`"
       :stop-color="`${col.color}`"
-      :stop-opacity="`${col.opacity}`"
+      :stop-opacity="`${col.opacity || 1}`"
     />
   </linearGradient>
   <radialGradient v-else :id="`ep-${type}-gradient-${id}`" x1="0%" y1="100%" x2="0%" y2="0%" area-hidden="true">
     <stop
-      v-for="(col, i) in color.gradient.colors"
+      v-for="(col, i) in color.colors"
       :key="i"
       :offset="`${col.offset}%`"
       :stop-color="`${col.color}`"
-      :stop-opacity="`${col.opacity}`"
+      :stop-opacity="`${col.opacity || 1}`"
     />
   </radialGradient>
 </template>

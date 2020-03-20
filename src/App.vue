@@ -40,7 +40,7 @@
         :thickness="40"
         :progress="progress"
         empty-color="rgba(17,34,51,0.66)"
-        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
+        animation="rs 1000 0"
         :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
@@ -48,55 +48,27 @@
         <span slot="legend-value">/hui</span>
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
-
-      <vue-ellipse-progress
-        :thickness="10"
-        :no-data="noData"
-        :determinate="determinate"
-        :empty-thickness="20"
-        legend-class="legend-custom-style"
-        :legend-value="23"
-        :line-mode="{ mode: 'bottom', offset: 10 }"
-        :legend="true"
-      >
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
-        :progress="parseFloat(progress)"
-        :color="color"
-        :loading="loading"
-        :emptyColor="emptyColor"
-        :size="size"
-        :emptyThickness="5"
-        :lineMode="{ mode: 'in', offset: 10 }"
-        :legend="false"
-        :animation="{ type: 'rs', duration: 700 }"
-        dash="10 10"
-        fontSize="5rem"
-      >
-        <img slot="legend-capture" src="@/assets/icon.svg" />
-      </vue-ellipse-progress>
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
-        :color="color"
         :determinate="determinate"
         :loading="loading"
-        :emptyColor="emptyColor"
         :emptyColorFill="emptyColorFill"
         thickness="2%"
         emptyThickness="5%"
         :size="size"
         line="round"
-        :dash="{ count: 60, spacing: 0.95 }"
-        :lineMode="{ mode: 'in-overlap', offset: 10 }"
+        dash="strict 60 0.95"
+        lineMode="top"
         :legend="true"
         :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
-        :animation="{ type: 'loop', duration: 700, delay: 300 }"
+        animation="loop 700 300"
       >
       </vue-ellipse-progress>
-      <vue-ellipse-progress
+      <vue-ellipse-progress :progress="67" line-mode="out 20" dash="strict 10 0.98"> </vue-ellipse-progress>
+      <!--<vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
         :color="color"
@@ -163,7 +135,7 @@
       >
         <span slot="legend-value">/200</span>
         <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>
+      </vue-ellipse-progress>-->
     </div>
   </div>
 </template>
@@ -176,7 +148,7 @@ export default {
       {
         progress: 0,
         thickness: 40,
-        animation: { type: "rs", duration: 2000, delay: 2000 },
+        animation: "rs 2000 2000",
         loading: false,
         half: true
       },
@@ -186,7 +158,7 @@ export default {
         color: "blue",
         // angle: "-90",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 400 }
+        animation: "bounce 2000 400"
       },
       {
         progress: 35,
@@ -194,7 +166,7 @@ export default {
         color: "red",
         // angle: "155",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 600 }
+        animation: "loop 2000 600"
       },
       {
         progress: 15,
@@ -202,7 +174,7 @@ export default {
         color: "yellow",
         // angle: "165",
         loading: false,
-        animation: { type: "rs", duration: 2000, delay: 800 }
+        animation: "reverse 2000 800"
       }
     ],
     determinate: false,
@@ -213,117 +185,50 @@ export default {
     sec: 0,
     tasks_done: 125,
     size: 300,
-    color: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "0",
-            opacity: "0"
-          },
-          {
-            color: "#3260FC",
-            offset: "100",
-            opacity: "1"
-          }
-        ]
-      }
-    },
-    colorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "40",
-            opacity: "1"
-          },
-          {
-            color: "transparent",
-            offset: "80",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
-    },
-    emptyColor: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#050a27",
-            offset: "0",
-            opacity: "0.3"
-          },
-          {
-            color: "#050a27",
-            offset: "100",
-            opacity: "0.3"
-          }
-        ]
-      }
-    },
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.2"
-          },
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
+      colors: [
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.2"
+        },
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1"
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        }
+      ],
+      radial: true
     }
   }),
   computed: {

@@ -5,9 +5,9 @@
       :r="emptyRadius"
       :cx="position"
       :cy="position"
-      :stroke="emptyColor"
+      :stroke="computedEmptyColor"
       :stroke-dasharray="emptyDasharray"
-      :fill="emptyColorFill"
+      :fill="computedEmptyColorFill"
       :style="{ transition: animationDuration }"
       :class="{ 'ep_circle--nodata': !dataIsAvailable }"
       :stroke-width="emptyThickness"
@@ -22,9 +22,9 @@
             :cx="position"
             :cy="position"
             fill="transparent"
-            :stroke="color"
-            :stroke-width="thickness"
-            :stroke-linecap="options.line"
+            :stroke="computedColor"
+            :stroke-width="computedThickness"
+            :stroke-linecap="line"
             :stroke-dasharray="circumference"
             :style="styles"
           >
@@ -38,10 +38,10 @@
       :r="radius"
       :cx="position"
       :cy="position"
-      :fill="colorFill"
-      :stroke="color"
-      :stroke-width="thickness"
-      :stroke-linecap="options.line"
+      :fill="computedColorFill"
+      :stroke="computedColor"
+      :stroke-width="computedThickness"
+      :stroke-linecap="line"
       :stroke-dasharray="circumference"
       :style="styles"
     >
@@ -60,7 +60,7 @@ export default {
   computed: {
     // only component specific props here, another props comes from the circleMixin
     progressOffset() {
-      const offset = this.circumference - (this.progress / 100) * this.circumference;
+      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
         return 0;
       }
