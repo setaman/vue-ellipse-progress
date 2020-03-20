@@ -69,7 +69,7 @@ Actually you are ready to go with only following line:
 ```
 The **[`progress`](#progress)** is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
 
-This table provide a quick overview over all available options. For more information and how to create exclusive circles 
+This table provides a quick overview over all available options. For more information and how to create exclusive circles 
 using this properties please read below the table.
 
 > :grey_exclamation: Also make sure to check **[slot options](#slot-options)** 
@@ -81,11 +81,11 @@ using this properties please read below the table.
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
 | **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ offset ]" | "normal 0" |   
-| **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
-| **[`color`](#color)** | String \| Object | any color as string or object to specify gradient (see details) |  #3f79ff |   
+| **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
+| **[`color`](#color)** | String \| Object | any color as string or object to specify gradient (see details) |  "#3f79ff" |   
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  transparent |
-| **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  #e6e9f0 |
-| **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  transparent |
+| **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
+| **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | your know it |  true |
 | **[`legendValue`](#legendvalue)** | Number | any |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
@@ -93,8 +93,8 @@ using this properties please read below the table.
 | **[`determinate`](#determinate)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any number |-90|
-| **[`fontSize`](#fontsize)** | String | any valid css value | 1rem |
-| **[`fontColor`](#fontsize)** | String | any valid css value | gray |
+| **[`fontSize`](#fontsize)** | String | any valid css value | "1rem" |
+| **[`fontColor`](#fontsize)** | String | any valid css value | "gray" |
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
