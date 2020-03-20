@@ -10,7 +10,7 @@
 
 A Vue.js component to create beautiful animated circular progress bars
 
-:grey_exclamation: :grey_exclamation: :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation: :grey_exclamation: :grey_exclamation:
+:grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
 <div align="center" style="text-align: center;">
   <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">  
@@ -40,12 +40,12 @@ Now use the component
   :size="300"
   :thickness="10"
   emptyThickness="10%"
-  :lineMode="{mode: 'in', offset: 10}"
+  lineMode="in 10"
   :legend="true"
   :legendValue="180"
   legendClass="legend-custom-style"
-  :dash="{count: 60, spacing: 0.9}"
-  :animation="{type: 'reverse', duration: 700, delay: 400}"
+  dash="60 0.9"
+  animation="reverse 700 400"
   :noData="false"
   :loading="false"                      
   fontColor="white"
@@ -71,55 +71,34 @@ using this properties please read below the table.
 
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
-| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined below | |
 | **[`progress`](#progress)** | Number | 0 - 100 | 
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ number ]" | "normal 0" |   
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ offset ]" | "normal 0" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object to specify gradient (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  transparent |
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  #e6e9f0 |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  transparent |
-| **[`legend`](#legend)** | Boolean | your know this |  true |
+| **[`legend`](#legend)** | Boolean | your know it |  true |
 | **[`legendValue`](#legendvalue)** | Number | any |   |
-| **[`animation`](#animation)** | Object | see details | `{` <br> `type:default` <br> `duration: 1000` <br> `delay: 400` <br> `}`|
+| **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
+| **[`determinate`](#determinate)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any number |-90|
 | **[`fontSize`](#fontsize)** | String | any valid css value | 1rem |
 | **[`fontColor`](#fontsize)** | String | any valid css value | gray |
 | **[`legendClass`](#legendclass)** | String | any |  |
-| **[`dash`](#dash)** | String \| Object | see details |  |
+| **[`dash`](#dash)** | String | "count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
+| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined above | |
+| **[`gap`](#gap)** | Number | Defines the gap between multiple circles | 0 |
 
 
 <br>
 
-- ### `data`
-
-You can specify 2 or more circles as objects in an array as `data`. For each circle you can use all other available properties. It is not required to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are renderd inside each other.
-
-###### Example: :scroll:
-
-```js
-data: [
-  { 
-    progress: 50, // required for each circle
-    color: "red"  // will overwrite global progress color
-    ...           // all other options will be merged with global
-  },
-  { 
-    progress: 50, // required for each circle
-    animation: "loop 1500 500"  // you can set any option that will be specific to this circle
-  }
-}
-```
-
->:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified 
-
-<br>
 
 - ### `progress`
 
@@ -297,24 +276,29 @@ Now you can display custom progress value that still animated and circle progres
 
 - ### `animation`
 
-defines the initial animation of progress circle line filling. You can choose one from predefined animations and set a specific duration and delay. 
+descriptive string in form `type [ duration delay ]` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and you can only define the `delay` with `duration`. 
 
-- `type:`
-  - `default | rs | reverse | bounce| loop` try this animations in the demo!
-- `duration` Number in milliseconds, default `1000`
-- `delay` Number in milliseconds, default `400`
+- `type`- is onf of `default | rs | reverse | bounce| loop`
+- `duration` - number in milliseconds, default `1000`
+- `delay` - number in milliseconds, default `400`
 
 ###### Example: :scroll:
 
 ```js
-:animation="{type: 'rs', duration: 700, duration: 200}"
+animation="rs 700 200}"
 ```
 
 <br>
 
 - ### `loading`
 
-forces loading state. The component provide an indeterminate state for the case that you data is not available immediately. With this property set `true` you can use the component as the indeterminate progress. 
+forces loading state. The component provide an indeterminate state for the case that you data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
+
+<br>
+
+- ### `determinate`
+
+provides a determinate loading state that indicates that you data loading is still in progress but allows to show the progress. 
 
 <br>
 
@@ -354,16 +338,10 @@ adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-is string or object. Internaly is used the value `stroke-dasharray` so if you define the value as **string** you can specify the size and the spacing of the dashes. For more precise dashes calculations you can define the value as an object with explicit number of dashes and spacing. 
+descriptive string in form `"count spacing"` that add dashed empty progress line. `count` is the explicit number of dashes with given as number in range >= 0 and < 1 `spacing`. 
 
 ###### Example: :scroll:
-`dash="10 10"` - as String with 10px big dashes and 10px spacing. Or just `dash="10"`
-```js
-:dash="{;
-    60; // Number of dashes
-    0.99; // spacing between dashes, any value >= 0 and < 1
-  }"
-```
+`dash="60 0.99"` - 60 dashes with 0.99 spacing
 
 <br>
 
@@ -399,6 +377,44 @@ This code ...
 ... produces following result. The slots are marked corresponding:
 
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
+
+<br>
+
+- ### `data`
+
+You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost all other available properties. It is not required to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are renderd inside each other.
+
+###### Example: :scroll:
+
+```js
+data: [
+  { 
+    progress: 50, // required for each circle
+    color: "red"  // will overwrite global progress color
+    ...           // other options will be merged with global
+  },
+  { 
+    progress: 50, // required for each circle
+    animation: "loop 1500 500"  // you can set almost any option that will be specific to this circle
+  }
+}
+```
+
+>:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified. Also the legend of this circle is not shown 
+
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.png">
+
+<br>
+
+- ### `gap`
+
+defines the gap in pixel between circles. Applied only if [`data`](#data) prop is used.
+
+###### Example: :scroll:
+
+```js
+:gap="10"
+```
 
 <br>
 
