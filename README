@@ -8,13 +8,15 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful animated circular progress bars
+A Vue.js component to create beautiful animated circular progress bars, created with SVG. The purpose of this plugin is to combine the best properties of other available libraries and add uniqe features, delivered in a simple to use compnent with friendly interface.
+
+:grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
 <div align="center" style="text-align: center;">
-  <img src="https://drive.google.com/uc?export=view&id=1-shUZ3AbE4CBwFeGEZry2gsRI5viHD0j">
+  <img src="https://ibb.co/qxxxwH4" alt="Component demo">  
 </div>
 
-## How to use
+## Usage
 install the library via npm
 ```
 npm i -S vue-ellipse-progress
@@ -27,33 +29,34 @@ Vue.use(VueEllipseProgress);
 ```
 Now use the component
 ```html
-<vue-ellipse-progress
+<vue-ellipse-progress 
+  :data="circles"                    
   :progress="progress"
   :angle="-90"
   color="blue"
   :colorFill="colorFillGradient"
   emptyColor="#8ec5fc"
-  :emptyColorFill="emptyColorFillGradient"
+  :emptyColorFill="emptyColorFillGradient"                      
   :size="300"
   :thickness="10"
   emptyThickness="10%"
-  :lineMode="{mode: 'in', offset: 10}"
+  lineMode="in 10"
   :legend="true"
   :legendValue="180"
   legendClass="legend-custom-style"
-  :dash="{count: 60, spacing: 0.9}"
-  :animation="{type: 'reverse', duration: 700, delay: 400}"
+  dash="60 0.9"
+  animation="reverse 700 400"
   :noData="false"
-  :loading="false"
+  :loading="false"                      
   fontColor="white"
-  :half="false"
+  :half="false"                      
   fontSize="5rem">
-
+  
   <span slot="legend-value">/200</span>
   <p slot="legend-caption">GOOD JOB</p>
-
+  
 </vue-ellipse-progress>
-```
+``` 
 ## Options
 Actually you are ready to go with only following line:
 ```html
