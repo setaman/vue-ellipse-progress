@@ -93,8 +93,8 @@ using this properties please read below the table.
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
-| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined above | |
 | **[`gap`](#gap)** | Number | Defines the gap between multiple circles | 0 |
+| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined above | |
 
 
 <br>
@@ -276,16 +276,16 @@ Now you can display custom progress value that still animated and circle progres
 
 - ### `animation`
 
-descriptive string in form `type [ duration delay ]` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and you can only define the `delay` with `duration`. 
+descriptive string in form `"type [ duration delay ]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and you can only define the `delay` with `duration`. 
 
-- `type`- is onf of `default | rs | reverse | bounce| loop`
+- `type`- is one of `default | rs | reverse | bounce| loop`
 - `duration` - number in milliseconds, default `1000`
 - `delay` - number in milliseconds, default `400`
 
 ###### Example: :scroll:
 
 ```js
-animation="rs 700 200}"
+animation="rs 700 200"
 ```
 
 <br>
@@ -384,6 +384,8 @@ This code ...
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost all other available properties. It is not required to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are renderd inside each other.
 
+>:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified. Also the legend of this circle is not shown 
+
 ###### Example: :scroll:
 
 ```js
@@ -400,9 +402,7 @@ data: [
 }
 ```
 
->:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified. Also the legend of this circle is not shown 
-
-<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.png">
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.PNG">
 
 <br>
 
