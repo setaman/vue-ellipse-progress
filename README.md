@@ -30,6 +30,7 @@ Vue.use(VueEllipseProgress);
 Now use the component
 ```html
 <vue-ellipse-progress 
+  :data="circles"                    
   :progress="progress"
   :angle="-90"
   color="blue"
@@ -70,7 +71,8 @@ using this properties please read below the table.
 
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
-| **[`progress`](#progress)** | Number | 0 - 100 |   
+| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined below | |
+| **[`progress`](#progress)** | Number | 0 - 100 | 
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
@@ -91,6 +93,31 @@ using this properties please read below the table.
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String \| Object | see details |  |
 | **[`half`](#half)** | Boolean |  | false |
+
+
+<br>
+
+- ### `data`
+
+You can specify 2 or more circles as objects in an array as `data`. For each circle you can use all other available properties. It is not required to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are renderd inside each other.
+
+###### Example: :scroll:
+
+```js
+data: [
+  { 
+    progress: 50, // required for each circle
+    color: "red"  // will overwrite global progress color
+    ...           // all other options will be merged with global
+  },
+  { 
+    progress: 50, // required for each circle
+    animation: "loop 1500 500"  // you can set any option that will be specific to this circle
+  }
+}
+```
+
+>:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified 
 
 <br>
 
