@@ -72,9 +72,9 @@ using this properties please read below the table.
 |----------|--------|---------|---------|
 | **[`progress`](#progress)** | Number | 0 - 100 |   
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
-| **[`line`](#line)** | String | round \| square \| butt |  round|   
-| **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  5% |      
-| **[`lineMode`](#linemode)** | Object | `{` <br> `mode: normal \| out \| out-over \| in \| in-over \| top \| bottom` <br> `offset: any number `<br> `}` | `{` <br> `mode: normal` <br> `offset: 0` <br> `}` |   
+| **[`line`](#line)** | String | round \| square \| butt |  "round"|   
+| **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ number ]" | `"normal 0"` |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  5% |     
 | **[`color`](#color)** | String \| Object | any color as string or object (see details) |  #3f79ff |   
 | **[`colorFill`](#colorfill)** | String \| Object | any color as string or object (see details) |  transparent |
@@ -142,7 +142,7 @@ is any Number or percent value >=0. Defines the progress circle line thickness. 
 
 ###### Animated: :heavy_check_mark: 
 
-This property defines how the progress line is aligned in relation to empty line. You can undestand the modes as the preset that helps you to easy align lines as you need. 
+Descreptive String in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional is the `offset`. You can undestand the modes as the preset that helps you to easy align lines as you need. 
 
 - `mode`:
   - `normal`: this is the default value and both lines are aligned at the base line (centered).
@@ -172,11 +172,11 @@ This property defines how the progress line is aligned in relation to empty line
 
 Lets take a look at few examples
 
-| `{mode: 'in', offset: 10}`  | `{mode: 'in', offset: -10}`   | `{mode: 'out', offset: 10}`  | `{mode: 'out', offset: -15}` |
+| `'in 10'`  | `'in 10'`   | `'out 10'`  | `'out 15'` |
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
-As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But the povided modes like a presets take care about annoying calculations and do the job for you. Make sure to play with this values in the demo!
+As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But the povided modes like a presets take care about annoying calculations and do the job for you.
 
 <br>
 
