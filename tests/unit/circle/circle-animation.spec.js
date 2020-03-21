@@ -25,7 +25,10 @@ export default () => {
       const circleWrapper = wrapper.find(Circle);
       const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
       it("applies @default animation class by default", () => {
-        expect(circleProgressWrapper.classes()).to.include("animation__default");
+        const classes = circleProgressWrapper.classes();
+        expect(classes)
+          .to.be.an("array")
+          .that.includes("animation__default");
       });
       it("applies @rs animation class correctly", () => {
         wrapper.setProps({
@@ -53,25 +56,37 @@ export default () => {
       });
     });
     describe("#animation.duration", () => {
-      const wrapper = factory({
-        progress: 50
+      it("applies default @1000 duration value as transition and animation duration", () => {
+        const wrapper = factory({
+          progress: 50
+        });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+
+        expect(circleProgressWrapper.element.style.transition).to.include("1000ms");
+        expect(circleProgressWrapper.element.style.animationDuration).to.equal("1000ms");
       });
-      const circleWrapper = wrapper.find(Circle);
-      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-      it("applies default @1000 duration value as transition", () => {
-        expect(circleProgressWrapper.element.style.transition).to.equal("1000ms");
-      });
-      it("applies provided duration value as transition", () => {
-        wrapper.setProps({
+      it("applies provided duration value as transition and animation duration", () => {
+        const wrapper = factory({
+          progress: 50,
           animation: "rs 500"
         });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+
         expect(circleProgressWrapper.element.style.transition).to.equal("500ms");
+        expect(circleProgressWrapper.element.style.animationDuration).to.equal("500ms");
       });
-      it("applies @0 duration value as transition", () => {
-        wrapper.setProps({
+      it("applies @0 duration value as transition and animation duration", () => {
+        const wrapper = factory({
+          progress: 50,
           animation: "rs 0"
         });
+        const circleWrapper = wrapper.find(Circle);
+        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+
         expect(circleProgressWrapper.element.style.transition).to.equal("0ms");
+        expect(circleProgressWrapper.element.style.animationDuration).to.equal("0ms");
       });
     });
     describe("#animation.delay", () => {
@@ -80,36 +95,15 @@ export default () => {
           progress: 50
         });
         const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        expect(circleProgressWrapper.element.style.animationDelay).to.equal("400ms");
-      });
-      it("applies provided delay value as animation-delay", () => {
-        const wrapper = factory({
-          progress: 50,
-          animation: "rs 1000 1000"
-        });
-        const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        expect(circleProgressWrapper.element.style.animationDelay).to.equal("1000ms");
+        expect(circleWrapper.vm.parsedAnimation.delay).to.equal(400);
       });
       it("applies @0 delay value as animation-delay", () => {
         const wrapper = factory({
           progress: 50,
-          animation: "rs 1000 0"
+          animation: "rs 0 0"
         });
         const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
-      });
-      it("resets animation-delay value to 0 after animation played", async () => {
-        const wrapper = factory({
-          progress: 50,
-          animation: "rs 100 100"
-        });
-        const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        await wait(300);
-        expect(circleProgressWrapper.element.style.animationDelay).to.equal("0ms");
+        expect(circleWrapper.vm.parsedAnimation.delay).to.equal(0);
       });
     });
   });

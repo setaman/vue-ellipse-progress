@@ -19,6 +19,10 @@
           No DATA
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
+        <label for="animation">
+          Animation
+          <input v-model="animation" id="animation" />
+        </label>
         <label for="determinate">
           Determinate
           <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
@@ -31,7 +35,7 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         :gap="30"
         color-fill="rgba(17,34,51,0.0)"
         half
@@ -66,14 +70,14 @@
         :noData="noData"
         animation="loop 700 300"
       >
-      </vue-ellipse-progress>
+      </vue-ellipse-progress>-->
       <vue-ellipse-progress
         :progress="50"
-        animation="default 0 0"
-        half
+        :animation="animation"
         emptyColor="red"
         line-mode="out 20"
         dash="strict 10 0.1"
+        :no-data="noData"
       >
       </vue-ellipse-progress>
       <!--<vue-ellipse-progress
@@ -237,7 +241,8 @@ export default {
         }
       ],
       radial: true
-    }
+    },
+    animation: "rs 1000 500"
   }),
   computed: {
     tasksDonePercent() {

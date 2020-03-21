@@ -146,7 +146,7 @@ describe("[ CircleProgress.vue ]", () => {
     });
   });
   // lineTest();
-  // animationTest();
+  animationTest();
   describe("#half", () => {
     const progress = 50;
     const size = 200;
