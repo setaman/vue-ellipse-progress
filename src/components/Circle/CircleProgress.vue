@@ -10,7 +10,7 @@
       :fill="computedEmptyColorFill"
       :style="{ transition: animationDuration }"
       :class="{ 'ep_circle--nodata': !dataIsAvailable }"
-      :stroke-width="emptyThickness"
+      :stroke-width="computedEmptyThickness"
     >
     </circle>
     <fade-in-transition>
