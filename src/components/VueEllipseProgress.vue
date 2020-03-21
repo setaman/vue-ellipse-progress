@@ -67,8 +67,10 @@ export default {
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {
+      const durationValue = this.animation.split(" ")[1];
+      const duration = isValidNumber(durationValue) ? durationValue : 1000;
       return {
-        duration: (parseFloat(this.animation.split(" ")[1]) || 1000) / 1000,
+        duration,
         target: "span",
         decimalPlaces: this.countDecimals,
         decimal: "."

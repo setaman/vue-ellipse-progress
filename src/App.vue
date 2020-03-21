@@ -242,7 +242,7 @@ export default {
       ],
       radial: true
     },
-    animation: "rs 1000 500"
+    animation: "rs 0 0"
   }),
   computed: {
     tasksDonePercent() {
