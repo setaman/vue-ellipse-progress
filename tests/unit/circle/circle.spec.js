@@ -178,7 +178,7 @@ describe("[ CircleProgress.vue ]", () => {
     it("calculates the progress circle stroke offset correctly", async () => {
       const circumference = (radius * 2 * Math.PI) / 2;
       const expectedOffset = circumference - (progress / 100) * circumference;
-      await wait(400);
+      await wait(1);
       expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });

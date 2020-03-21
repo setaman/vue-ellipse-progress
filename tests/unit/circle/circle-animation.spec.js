@@ -18,12 +18,13 @@ const factory = propsData => {
 
 export default () => {
   describe("#animation", () => {
-    describe("#animation.type", () => {
+    describe("#animation.type", async () => {
       const wrapper = factory({
         progress: 50
       });
       const circleWrapper = wrapper.find(Circle);
       const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      await wait(100);
       it("applies @default animation class by default", () => {
         const classes = circleProgressWrapper.classes();
         expect(classes)

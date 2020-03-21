@@ -73,7 +73,6 @@
       </vue-ellipse-progress>-->
       <vue-ellipse-progress
         :progress="50"
-        :animation="animation"
         emptyColor="red"
         line-mode="out 20"
         dash="strict 10 0.1"
