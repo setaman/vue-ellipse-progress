@@ -35,19 +35,6 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(svgWrapper.element.getAttribute("height")).to.equal("250");
     });
   });
-  describe("#transition", () => {
-    it("sets the transition property of the container correctly", () => {
-      const animation = {
-        type: "default",
-        duration: 1000,
-        delay: 300
-      };
-      const wrapper = shallowMount(Container, {
-        propsData: { animation: `${animation.type} ${animation.duration} ${animation.delay}`, progress: 50 }
-      });
-      expect(wrapper.element.style.transition).to.equal(`${animation.duration}ms ease-in-out`);
-    });
-  });
   describe("#angle", () => {
     it("sets the rotation of the svg container correctly", () => {
       const angle = 40;
