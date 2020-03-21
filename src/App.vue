@@ -68,12 +68,12 @@
       >
       </vue-ellipse-progress>
       <vue-ellipse-progress
-        :progress="67"
+        :progress="50"
+        animation="default 0 0"
+        half
         emptyColor="red"
-        thickness="5%"
-        empty-thickness="15%"
         line-mode="out 20"
-        dash="strict 10 0.98"
+        dash="strict 10 0.1"
       >
       </vue-ellipse-progress>
       <!--<vue-ellipse-progress

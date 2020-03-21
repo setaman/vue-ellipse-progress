@@ -7,6 +7,8 @@ import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
 import lineTest from "./circle-line.spec";
 import animationTest from "./circle-animation.spec";
 
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+
 const factory = propsData => {
   return mount(Container, {
     propsData: {
@@ -146,7 +148,7 @@ describe("[ CircleProgress.vue ]", () => {
   // lineTest();
   // animationTest();
   describe("#half", () => {
-    const progress = 60;
+    const progress = 50;
     const size = 200;
     const thickness = 10;
 
@@ -176,6 +178,7 @@ describe("[ CircleProgress.vue ]", () => {
     it("calculates the progress circle stroke offset correctly", async () => {
       const circumference = (radius * 2 * Math.PI) / 2;
       const expectedOffset = circumference - (progress / 100) * circumference;
+      await wait(400);
       expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });
