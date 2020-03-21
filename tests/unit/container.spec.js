@@ -37,19 +37,10 @@ describe("[ EllipseProgressContainer.vue ]", () => {
   });
   describe("#angle", () => {
     it("sets the rotation of the svg container correctly", () => {
-      const angle = 40;
-      const wrapper = shallowMount(Container, {
-        propsData: { angle, progress: 50 }
-      });
-      const svgWrapper = wrapper.find("svg");
-      expect(svgWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+      // TODO: move to circle
     });
     it("sets the rotation of the svg container to default, if not defined", () => {
-      const wrapper = shallowMount(Container, {
-        propsData: { progress: 50 }
-      });
-      const svgWrapper = wrapper.find("svg");
-      expect(svgWrapper.element.style.transform).to.equal("rotate(-90deg)");
+      // TODO: move to circle
     });
   });
   describe("#progress", () => {
@@ -91,7 +82,6 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       wrapper.setProps({ progress });
       expect(wrapper.vm.countDecimals).to.equal(4);
     });
-    // FIXME: Produces error, see corresponding issue
     it("forces noData state, if invalid", () => {
       const progress = "s3ome";
       const wrapper = shallowMount(Container, {
