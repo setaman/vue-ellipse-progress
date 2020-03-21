@@ -69,7 +69,7 @@ describe("[ CircleProgress.vue ]", () => {
       const circleWrapper = wrapper.find(Circle);
       const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
 
-      expect(circleWrapper.vm.thickness).to.equal(relativeThickness);
+      expect(circleWrapper.vm.computedThickness).to.equal(relativeThickness);
       expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${relativeThickness}`);
     });
   });
@@ -100,7 +100,7 @@ describe("[ CircleProgress.vue ]", () => {
       const circleWrapper = wrapper.find(Circle);
       const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
-      expect(circleWrapper.vm.emptyThickness).to.equal(relativeThickness);
+      expect(circleWrapper.vm.computedEmptyThickness).to.equal(relativeThickness);
       expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${relativeThickness}`);
     });
   });

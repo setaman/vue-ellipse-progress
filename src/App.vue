@@ -67,7 +67,15 @@
         animation="loop 700 300"
       >
       </vue-ellipse-progress>
-      <vue-ellipse-progress :progress="67" line-mode="out 20" dash="strict 10 0.98"> </vue-ellipse-progress>
+      <vue-ellipse-progress
+        :progress="67"
+        emptyColor="red"
+        thickness="5%"
+        empty-thickness="15%"
+        line-mode="out 20"
+        dash="strict 10 0.98"
+      >
+      </vue-ellipse-progress>
       <!--<vue-ellipse-progress
         id="half-example"
         :progress="parseFloat(timerProgress)"
