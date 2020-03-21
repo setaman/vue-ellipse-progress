@@ -95,7 +95,7 @@ export default () => {
           progress: 50
         });
         const circleWrapper = wrapper.find(Circle);
-        expect(circleWrapper.vm.parsedAnimation.delay).to.equal(400);
+        expect(circleWrapper.vm.parsedAnimation.delay).to.equal("400");
       });
       it("applies @0 delay value as animation-delay", () => {
         const wrapper = factory({
@@ -103,7 +103,7 @@ export default () => {
           animation: "rs 0 0"
         });
         const circleWrapper = wrapper.find(Circle);
-        expect(circleWrapper.vm.parsedAnimation.delay).to.equal(0);
+        expect(circleWrapper.vm.parsedAnimation.delay).to.equal("0");
       });
     });
   });

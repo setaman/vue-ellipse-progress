@@ -1,4 +1,4 @@
-import { getValueIfDefined } from "../utils";
+import { getValueIfDefined, isValidNumber } from "../utils";
 
 /* const colorParser = color => {
   const config = color.trim().split(",");
@@ -37,8 +37,8 @@ const animationParser = animation => {
   const animationConfig = animation.trim().split(" ");
   return {
     type: animationConfig[0],
-    duration: getValueIfDefined(animationConfig[1]) || 1000,
-    delay: getValueIfDefined(animationConfig[2]) || 400
+    duration: isValidNumber(animationConfig[1]) ? animationConfig[1] : 1000,
+    delay: isValidNumber(animationConfig[2]) ? animationConfig[2] : 400
   };
 };
 
