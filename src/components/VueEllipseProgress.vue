@@ -4,7 +4,6 @@
     :style="{
       maxWidth: `${size}px`,
       maxHeight: `${size}px`,
-      transition: `${animation.duration}ms ease-in-out`
     }"
   >
     <div class="ep-content">
