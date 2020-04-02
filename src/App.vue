@@ -23,6 +23,10 @@
           Animation
           <input v-model="animation" id="animation" />
         </label>
+        <label for="line">
+          line
+          <input v-model="line" id="line" />
+        </label>
         <label for="determinate">
           Determinate
           <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
@@ -52,6 +56,7 @@
         <span slot="legend-value">/hui</span>
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
+
       <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
@@ -73,33 +78,20 @@
       </vue-ellipse-progress>-->
       <vue-ellipse-progress
         :progress="50"
+        :animation="animation"
         emptyColor="red"
         line-mode="out 20"
         dash="strict 10 0.1"
         :no-data="noData"
+        :line="line"
       >
       </vue-ellipse-progress>
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         id="half-example"
-        :progress="parseFloat(timerProgress)"
-        :color="color"
-        :loading="loading"
-        :emptyColor="emptyColor"
-        emptyColorFill=""
-        thickness="10"
-        emptyThickness="10"
-        :size="size"
-        line="round"
-        :lineMode="{ mode: 'in', offset: 10 }"
-        :legend="true"
-        :legendValue="sec"
-        legendClass="legend-custom-style"
-        :noData="noData"
-        :animation="{ type: 'reverse', duration: 700, delay: 300 }"
-        fontSize="4rem"
-        fontColor="white"
-        angle="-90"
-        half
+        :progress="50"
+        :size="200"
+        :thickness="10"
+        :empty-thickness="10"
       >
         <span slot="legend-value"></span>
       </vue-ellipse-progress>
@@ -110,7 +102,7 @@
         <input v-model="tasks_done" max="200" min="0" type="number" id="tasks" />
         <button @click="updateTasksDone">Update Tasks</button>
       </div>
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         :progress="parseFloat(tasksDonePercent)"
         :color="color"
         :emptyColor="emptyColor"
@@ -155,6 +147,7 @@ export default {
   name: "app",
   components: {},
   data: () => ({
+    line: "round",
     circles: [
       {
         progress: 0,
@@ -241,7 +234,7 @@ export default {
       ],
       radial: true
     },
-    animation: "rs 0 0"
+    animation: "rs 200 5000"
   }),
   computed: {
     tasksDonePercent() {
