@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { shallowMount, mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import Container from "../../src/components/VueEllipseProgress.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
@@ -44,33 +44,10 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#progress", () => {
-    const animation = {
-      type: "default",
-      duration: 1,
-      delay: 1
-    };
-    /* it("renders the progress correctly", async () => {
-      let progress = 40;
-      const wrapper = mount(Container, {
-        propsData: { animation, progress }
-      });
-      await wait(2000);
-      const spanWrapper = wrapper.find(".ep-legend--value > span");
-      console.log("Text:", spanWrapper.text());
-      expect(spanWrapper.text()).to.equal(`${progress}`);
-
-      progress = 56.34;
-      wrapper.vm.progress = progress;
-      expect(spanWrapper.text()).to.equal(`${progress}`);
-
-      progress = -45.24;
-      wrapper.vm.progress = progress;
-      expect(spanWrapper.text()).to.equal(`${progress}`);
-    }); */
     it("counts the decimals correctly", () => {
       let progress = 40;
       const wrapper = shallowMount(Container, {
-        propsData: { animation: `${animation.type} ${animation.duration} ${animation.delay}`, progress }
+        propsData: { progress }
       });
       expect(wrapper.vm.countDecimals).to.equal(0);
 
@@ -83,25 +60,20 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.vm.countDecimals).to.equal(4);
     });
     it("forces noData state, if invalid", () => {
-      const progress = "s3ome";
+      const progress = "notANumber";
       const wrapper = shallowMount(Container, {
         propsData: { progress }
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
-      expect(wrapper.vm.dataIsAvailable).to.equal(false);
+      expect(wrapper.vm.isDataAvailable).to.equal(false);
     });
   });
   describe("#legendValue", () => {
-    const animation = {
-      type: "default",
-      duration: 1,
-      delay: 1
-    };
     const progress = 40;
     it("counts the decimals correctly", () => {
       const wrapper = shallowMount(Container, {
-        propsData: { animation: `${animation.type} ${animation.duration} ${animation.delay}`, progress }
+        propsData: { progress }
       });
       expect(wrapper.vm.countDecimals).to.equal(0);
 
@@ -121,31 +93,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.vm.legendVal).to.equal(legendValue);
       expect(wrapper.vm.progress).to.equal(progress);
     });
-    // FIXME: Produces error, see corresponding issue
-    /* it("forces noData state, if invalid", () => {
-      const progress = "s3ome";
-      const wrapper = shallowMount(Container, {
-        propsData: { progress }
-      });
-      const spanWrapper = wrapper.find(".ep-legend--value");
-      expect(spanWrapper.classes()).to.include("ep-hidden");
-      // expect(wrapper.vm.dataIsAvailable).to.equal(false);
-    }); */
   });
   describe("#noData", () => {
-    const animation = {
-      type: "default",
-      duration: 1,
-      delay: 0
-    };
+    const wrapper = shallowMount(Container, {
+      propsData: {
+        noData: true,
+        progress: 50
+      }
+    });
     it("hides the legend, if true", () => {
-      const wrapper = shallowMount(Container, {
-        propsData: {
-          animation: `${animation.type} ${animation.duration} ${animation.delay}`,
-          noData: true,
-          progress: 50
-        }
-      });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
     });

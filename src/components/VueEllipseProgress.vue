@@ -67,9 +67,9 @@ export default {
       const durationValue = this.animation.split(" ")[1];
       const delayValue = this.animation.split(" ")[2];
       const duration = (isValidNumber(durationValue) ? durationValue : 1000) / 1000;
-      const delay = (isValidNumber(delayValue) ? delayValue : 400);
+      const delay = isValidNumber(delayValue) ? delayValue : 400;
       return {
-        delay,
+        delay: parseFloat(delay),
         duration,
         target: "span",
         decimalPlaces: this.countDecimals,
