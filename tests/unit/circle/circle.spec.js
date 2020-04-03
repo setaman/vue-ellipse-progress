@@ -144,6 +144,26 @@ describe("[ CircleProgress.vue ]", () => {
       expect(circleWrapper.vm.parsedDash.spacing).to.equal(0.5);
     });
   });
+  describe("#noData", () => {
+    const progress = 60;
+    const size = 200;
+    const thickness = 10;
+
+    const wrapper = factory({ noData: true, progress, size });
+    const circleWrapper = wrapper.find(Circle);
+
+    it("sets the shown progress to 0", () => {
+      const radius = size / 2 - thickness / 2;
+      const circumference = radius * 2 * Math.PI;
+
+      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
+    });
+    it("adds .ep_circle--nodata class to empty circle", () => {
+      const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
+      expect(circleEmptyWrapper.classes()).to.include("ep_circle--nodata");
+    });
+  });
   // thicknessTest();
   // lineTest();
   // animationTest();

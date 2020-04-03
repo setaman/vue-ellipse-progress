@@ -79,6 +79,7 @@
       <vue-ellipse-progress
         :progress="50"
         :animation="animation"
+        :loading="loading"
         emptyColor="red"
         line-mode="out 20"
         dash="strict 60 0.8"

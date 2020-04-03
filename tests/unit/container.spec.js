@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, mount } from "@vue/test-utils";
+import Circle from "../../src/components/Circle/CircleProgress.vue";
 import Container from "../../src/components/VueEllipseProgress.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {
@@ -95,11 +96,9 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#noData", () => {
-    const wrapper = shallowMount(Container, {
-      propsData: {
-        noData: true,
-        progress: 50
-      }
+    const wrapper = mount(Container, {
+      propsData: { noData: true, progress: 50 },
+      stubs: { CountUp: true }
     });
     it("hides the legend, if true", () => {
       const spanWrapper = wrapper.find(".ep-legend--value");
@@ -107,18 +106,9 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#loading", () => {
-    const animation = {
-      type: "default",
-      duration: 1,
-      delay: 0
-    };
     it("hides the legend, if true", () => {
       const wrapper = shallowMount(Container, {
-        propsData: {
-          animation: `${animation.type} ${animation.duration} ${animation.delay}`,
-          noData: true,
-          progress: 50
-        }
+        propsData: { noData: true, progress: 50 }
       });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
