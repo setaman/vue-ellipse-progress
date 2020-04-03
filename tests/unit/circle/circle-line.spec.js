@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import Container from "../../../src/components/VueEllipseProgress.vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 
-// const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
@@ -56,11 +56,10 @@ export default () => {
           thickness,
           emptyThickness,
           lineMode: "normal",
+          animation: "default 0 0",
           size
         });
         const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
           it("in case #thickness >= #emptyThickness", () => {
@@ -187,8 +186,6 @@ export default () => {
         });
 
         const circleWrapper = wrapper.find(Circle);
-        const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-        const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
           it("in case #thickness >= #emptyThickness", () => {

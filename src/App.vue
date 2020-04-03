@@ -81,7 +81,7 @@
         :animation="animation"
         emptyColor="red"
         line-mode="out 20"
-        dash="strict 10 0.1"
+        dash="strict 60 0.8"
         :no-data="noData"
         :line="line"
       >
@@ -90,7 +90,7 @@
         id="half-example"
         :progress="50"
         :size="200"
-        :thickness="10"
+        :thickness="20"
         :empty-thickness="10"
       >
         <span slot="legend-value"></span>

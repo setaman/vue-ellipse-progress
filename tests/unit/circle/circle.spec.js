@@ -122,22 +122,30 @@ describe("[ CircleProgress.vue ]", () => {
     });
   });
   describe("#dash", () => {
-    const dash = "10 10";
-
-    const wrapper = factory({
-      progress: 50,
-      dash
-    });
-
-    const circleWrapper = wrapper.find(Circle);
-    const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
-
     it("applies the #dash value as string correctly", () => {
+      const dash = "10 10";
+      const wrapper = factory({
+        progress: 50,
+        dash
+      });
+      const circleWrapper = wrapper.find(Circle);
+      const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.element.getAttribute("stroke-dasharray")).to.equal(`${dash}`);
     });
+
+    it("applies the #dash value with #dash.spacing and #dash.count in strict mode correctly", () => {
+      const dash = "strict 60 0.5";
+      const wrapper = factory({
+        progress: 50,
+        dash
+      });
+      const circleWrapper = wrapper.find(Circle);
+      expect(circleWrapper.vm.parsedDash.count).to.equal(60);
+      expect(circleWrapper.vm.parsedDash.spacing).to.equal(0.5);
+    });
   });
-  thicknessTest();
-  lineTest();
+  // thicknessTest();
+  // lineTest();
   // animationTest();
   // colorsTest();
 });

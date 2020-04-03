@@ -40,11 +40,13 @@ import props from "./interface";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
+  // TODO: change name
   name: "VueEllipseProgressContainer",
   components: { EpCircleContainer, CountUp },
   data: () => ({}),
   props,
   computed: {
+    // TODO: remove this
     startAngle() {
       return getValueIfDefined(this.angle) || -90;
     },
