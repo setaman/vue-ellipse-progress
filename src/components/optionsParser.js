@@ -49,8 +49,8 @@ const dashParser = dash => {
     return dash;
   }
   return {
-    count: dashConfig[1],
-    spacing: dashConfig[2]
+    count: parseInt(dashConfig[1], 10),
+    spacing: parseFloat(dashConfig[2])
   };
 };
 
