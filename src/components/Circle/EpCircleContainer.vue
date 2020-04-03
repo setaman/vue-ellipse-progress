@@ -14,7 +14,7 @@
 import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
-import { getValueIfDefined } from "../../utils";
+import { getNumberIfValid } from "../../utils";
 
 export default {
   name: "EpCircleContainer",
@@ -27,7 +27,7 @@ export default {
       return this.half ? "half-circle-progress" : "circle-progress";
     },
     startAngle() {
-      return getValueIfDefined(this.angle) || -90;
+      return getNumberIfValid(this.angle) || -90;
     },
     isColorGradient() {
       return Array.isArray(this.color.colors);

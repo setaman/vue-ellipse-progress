@@ -3,7 +3,7 @@
     class="ep-container"
     :style="{
       maxWidth: `${size}px`,
-      maxHeight: `${size}px`,
+      maxHeight: `${size}px`
     }"
   >
     <div class="ep-content">
@@ -35,31 +35,26 @@
 
 <script>
 import CountUp from "vue-countup-v2";
-import { getValueIfDefined, isValidNumber } from "../utils";
+import { getNumberIfValid, isValidNumber } from "../utils";
 import props from "./interface";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {
-  // TODO: change name
-  name: "VueEllipseProgressContainer",
+  name: "VueEllipseProgress",
   components: { EpCircleContainer, CountUp },
   data: () => ({}),
   props,
   computed: {
-    // TODO: remove this
-    startAngle() {
-      return getValueIfDefined(this.angle) || -90;
-    },
     legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      const legendValue = getValueIfDefined(parseFloat(this.legendValue));
-      const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
+      const legendValue = getNumberIfValid(this.legendValue);
+      const progressValue = getNumberIfValid(this.progress) || 0;
       return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
-      return !this.dataIsAvailable || this.loading || this.noData;
+      return !this.dataIsAvailable || this.loading;
     },
     dataIsAvailable() {
       return isValidNumber(this.progress) && !this.noData;

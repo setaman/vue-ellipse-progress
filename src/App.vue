@@ -86,13 +86,7 @@
         :line="line"
       >
       </vue-ellipse-progress>
-      <vue-ellipse-progress
-        id="half-example"
-        :progress="50"
-        :size="200"
-        :thickness="20"
-        :empty-thickness="10"
-      >
+      <vue-ellipse-progress id="half-example" :progress="50" :size="200" :thickness="20" :empty-thickness="10">
         <span slot="legend-value"></span>
       </vue-ellipse-progress>
       <div>

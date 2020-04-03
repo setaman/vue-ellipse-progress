@@ -5,6 +5,6 @@ module.exports = {
   rules: {
     "no-unused-expressions": 0,
     "no-multi-assign": 0,
-    "no-unused-vars": 1,
+    "no-unused-vars": 1
   }
 };
