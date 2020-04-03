@@ -24,7 +24,7 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
+          <CountUp ref="count" :endVal="legendVal" :delay="counterOptions.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
         <slot name="legend-caption"></slot>
@@ -54,19 +54,22 @@ export default {
       return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
-      return !this.dataIsAvailable || this.loading;
+      return !this.isDataAvailable || this.loading;
     },
-    dataIsAvailable() {
+    isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
     },
     countDecimals() {
-      if (!this.dataIsAvailable || this.legendVal % 1 === 0) return 0;
+      if (!this.isDataAvailable || this.legendVal % 1 === 0) return 0;
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {
       const durationValue = this.animation.split(" ")[1];
-      const duration = isValidNumber(durationValue) ? durationValue : 1000;
+      const delayValue = this.animation.split(" ")[2];
+      const duration = (isValidNumber(durationValue) ? durationValue : 1000) / 1000;
+      const delay = (isValidNumber(delayValue) ? delayValue : 400);
       return {
+        delay,
         duration,
         target: "span",
         decimalPlaces: this.countDecimals,
