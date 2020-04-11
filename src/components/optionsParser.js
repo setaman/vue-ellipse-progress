@@ -12,8 +12,8 @@ const animationParser = animation => {
   const animationConfig = animation.trim().split(" ");
   return {
     type: animationConfig[0],
-    duration: isValidNumber(animationConfig[1]) ? animationConfig[1] : 1000,
-    delay: isValidNumber(animationConfig[2]) ? animationConfig[2] : 400
+    duration: isValidNumber(animationConfig[1]) ? parseFloat(animationConfig[1]) : 1000,
+    delay: isValidNumber(animationConfig[2]) ? parseFloat(animationConfig[2]) : 400
   };
 };
 

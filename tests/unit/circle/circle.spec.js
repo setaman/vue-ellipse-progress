@@ -183,8 +183,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleProgressWrapper.classes()).to.include("animation__loading");
     });
   });
-  // thicknessTest();
+  thicknessTest();
   lineTest();
-  // animationTest();
-  // colorsTest();
+  animationTest();
+  colorsTest();
 });

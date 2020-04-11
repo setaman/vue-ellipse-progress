@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
+import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 
 const factory = propsData => {
@@ -13,6 +14,13 @@ const factory = propsData => {
 
 export default () => {
   describe("#animation", () => {
+    it("it parses the #animation property correctly", () => {
+      const wrapper = factory({ animation: "rs 2000 600" });
+
+      expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
+      expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
+      expect(wrapper.vm.parsedAnimation.delay).to.equal(600);
+    });
     describe("#animation.type", () => {
       const wrapper = factory();
       const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
@@ -21,21 +29,25 @@ export default () => {
           .to.be.an("array")
           .that.includes("animation__default");
       });
-      it("applies @rs animation class correctly", () => {
-        wrapper.setProps({ animation: "rs 500 500" });
-        expect(circleProgressWrapper.classes()).to.include("animation__rs");
-      });
-      it("applies @loop animation class correctly", () => {
-        wrapper.setProps({ animation: "rs 500 500" });
-        expect(circleProgressWrapper.classes()).to.include("animation__loop");
-      });
-      it("applies @bounce animation class correctly", () => {
-        wrapper.setProps({ animation: "bounce rs 500 500" });
+      it("applies @bounce animation class correctly", async () => {
+        wrapper.setProps({ animation: "bounce 500 500" });
+        await Vue.nextTick();
         expect(circleProgressWrapper.classes()).to.include("animation__bounce");
       });
-      it("applies @reverse animation class correctly", () => {
-        wrapper.setProps({ animation: "reverse rs 500 500" });
+      it("applies @loop animation class correctly", async () => {
+        wrapper.setProps({ animation: "loop 500 500" });
+        await Vue.nextTick();
+        expect(circleProgressWrapper.classes()).to.include("animation__loop");
+      });
+      it("applies @reverse animation class correctly", async () => {
+        wrapper.setProps({ animation: "reverse 500 500" });
+        await Vue.nextTick();
         expect(circleProgressWrapper.classes()).to.include("animation__reverse");
+      });
+      it("applies @rs animation class correctly", async () => {
+        wrapper.setProps({ animation: "rs 500 500" });
+        await Vue.nextTick();
+        expect(circleProgressWrapper.classes()).to.include("animation__rs");
       });
     });
     describe("#animation.duration", () => {
@@ -61,11 +73,11 @@ export default () => {
       });
     });
     describe("#animation.delay", () => {
-      it("applies default @400 delay value as animation-delay", () => {
-        expect(factory().vm.parsedAnimation.delay).to.equal("400");
+      it("applies default @400 delay value as initial animation delay", () => {
+        expect(factory().vm.parsedAnimation.delay).to.equal(400);
       });
       it("applies @0 delay value as animation-delay", () => {
-        expect(factory({ animation: "rs 0 0" }).vm.parsedAnimation.delay).to.equal("0");
+        expect(factory({ animation: "rs 0 0" }).vm.parsedAnimation.delay).to.equal(0);
       });
     });
   });
