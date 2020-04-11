@@ -31,6 +31,8 @@ The library is provided as a Vue.js plugin. So just initialize it in your ``main
 import VueEllipseProgress from 'vue-ellipse-progress';
 
 Vue.use(VueEllipseProgress);
+
+// Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
 Now use the component
 ```html
@@ -54,7 +56,8 @@ Now use the component
   :noData="false"
   :loading="false"                      
   fontColor="white"
-  :half="false"                      
+  :half="false"
+  :gap="10"                    
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
@@ -67,7 +70,7 @@ You are ready to go with just following line:
 ```html
 <vue-ellipse-progress :progress="progress"/>
 ```
-The **[`progress`](#progress)** is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
+The **[`progress`](#progress)** is the only required property. However, in order to created unique circles that match your design needs, you can use all the properties explained below.
 
 This table below provides a quick overview over all available options. To gain more information in generell and conserning the creation of exclusive circles please read below the table.
 
