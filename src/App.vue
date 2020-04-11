@@ -89,7 +89,7 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="50"
+        :progress="88"
         :size="200"
         :thickness="20"
         :empty-thickness="10"
