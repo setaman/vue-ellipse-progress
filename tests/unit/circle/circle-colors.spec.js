@@ -3,24 +3,21 @@ import { mount } from "@vue/test-utils";
 import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
 import Gradient from "../../../src/components/Gradient.vue";
 
-const factory = propsData => {
+const factory = (colorObject = {}) => {
   return mount(CircleContainer, {
-    propsData
+    propsData: {
+      progress: 50,
+      index: 0,
+      multiple: false,
+      ...colorObject
+    }
   });
-};
-const commonProps = {
-  index: 0,
-  multiple: false
 };
 
 export default () => {
   describe("#color", () => {
-    const color = "#3f79ff";
-    const wrapper = factory({
-      progress: 50,
-      color,
-      ...commonProps
-    });
+    const color = "#ff0020";
+    const wrapper = factory({ color });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
@@ -55,12 +52,8 @@ export default () => {
     });
   });
   describe("#emptyColor", () => {
-    const emptyColor = "#3f79ff";
-    const wrapper = factory({
-      progress: 50,
-      emptyColor,
-      ...commonProps
-    });
+    const emptyColor = "#a617ff";
+    const wrapper = factory({ emptyColor });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--empty");
 
@@ -95,12 +88,8 @@ export default () => {
     });
   });
   describe("#colorFill", () => {
-    const colorFill = "#3f79ff";
-    const wrapper = factory({
-      progress: 50,
-      colorFill,
-      ...commonProps
-    });
+    const colorFill = "#fff149";
+    const wrapper = factory({ colorFill });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
@@ -136,11 +125,7 @@ export default () => {
   });
   describe("#emptyColorFill", () => {
     const emptyColorFill = "#3f79ff";
-    const wrapper = factory({
-      progress: 50,
-      emptyColorFill,
-      ...commonProps
-    });
+    const wrapper = factory({ emptyColorFill });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--empty");
 
