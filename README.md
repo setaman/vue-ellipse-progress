@@ -128,9 +128,9 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from >=0. Defines the width and height of the circle. The circumference of the circle is calculated depending on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
+Is any number from >=0. It defines the width and height of the circle. The calculation of the circumference of the circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
 
->:heavy_exclamation_mark: check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
+>:heavy_exclamation_mark: Check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
 <br>
 
