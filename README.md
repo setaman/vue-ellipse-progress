@@ -82,26 +82,26 @@ This table below provides a quick overview over all available options. To gain m
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| [ offset ]" | "normal 0" |   
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top [ offset ]" | "normal 0" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
-| **[`color`](#color)** | String \| Object | any color as string or object to specify gradient (see details) |  "#3f79ff" |   
-| **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  transparent |
+| **[`color`](#color)** | String \| Object | any color as String or Object to specify gradient (see details) |  "#3f79ff" |   
+| **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
-| **[`legend`](#legend)** | Boolean | your know it |  true |
+| **[`legend`](#legend)** | Boolean | |  true |
 | **[`legendValue`](#legendvalue)** | Number | any |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
-| **[`angle`](#angle)** | Number | any number |-90|
-| **[`fontSize`](#fontsize)** | String | any valid css value | "1rem" |
-| **[`fontColor`](#fontsize)** | String | any valid css value | "gray" |
+| **[`angle`](#angle)** | Number | any Number |-90|
+| **[`fontSize`](#fontsize)** | String | any valid CSS value | "1rem" |
+| **[`fontColor`](#fontsize)** | String | any valid CSS value | "gray" |
 | **[`legendClass`](#legendclass)** | String | any |  |
-| **[`dash`](#dash)** | String | "count spacing" |  |
+| **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
-| **[`gap`](#gap)** | Number | Defines the gap between multiple circles | 0 |
-| **[`data`](#data)** | Array | Defines multiple circles, takes as values objects with all props defined above | |
+| **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
+| **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with all props defined above | |
 
 
 <br>
