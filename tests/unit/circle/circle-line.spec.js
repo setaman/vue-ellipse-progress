@@ -53,6 +53,12 @@ export default () => {
   });
   describe("#lineMode", () => {
     describe("#lineMode.mode", () => {
+      it("it parses the #lineMode property correctly", () => {
+        const wrapper = factory({ lineMode: "normal 10" });
+
+        expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
+        expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
+      });
       describe("#lineMode.mode.normal", () => {
         let thickness = 20;
         let emptyThickness = 10;
@@ -107,7 +113,7 @@ export default () => {
             const expectedProgressCircleRadius = expectedEmptyCircleRadius;
             compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness < #emptyThickness and #lineMode.offset", async () => {
+          it("in case #thickness < #emptyThickness and #lineMode.offset = 10", async () => {
             // offset must be ignored in this mode
             thickness = 10;
             emptyThickness = 20;
