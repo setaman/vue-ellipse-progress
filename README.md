@@ -144,7 +144,7 @@ is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-is any Number or percent value >=0. Defines the progress circle line thickness. If you define the value in percent the thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
+Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
 
 <br>
 
@@ -152,7 +152,7 @@ is any Number or percent value >=0. Defines the progress circle line thickness. 
 
 ###### Animated: :heavy_check_mark: 
 
-Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional second is the `offset`. You can undestand the modes as the preset that helps you to easy align lines as you need. 
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional second is the `offset`. You can understand the modes as the presets that help you to align lines as you want to. 
 
 - `mode`:
   - `normal`: this is the default value and both lines are aligned at the base line (centered).
@@ -161,13 +161,13 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
   - `in`: the progress line is inside the empty circle
   <img width="100" height="40" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.png">
   
-   - `in-over`: the progress line is also inside the empty circle but overlap the empty circle 
+   - `in-over`: the progress line is both inside the empty circle and overlaps the empty circle 
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.over.png">
   
   - `out`: the progress line is outside the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out.png">
   
-  - `out-over`: the progress line is also outside the empty circle but overlap the empty circle
+  - `out-over`: the progress line is both outside the empty circle and overlaps the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out-over.png">
   
   - `bottom`: the progress line is aligned at the bottom of the empty circle
@@ -176,11 +176,11 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
   - `top`: the progress line is aligned at the top of the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-top.png">
 
-- `offset`: is any negative o positive number and defines the distance between the progress and empty lines. Can be **only** combied with the `in` and `out` modes
+- `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combied with the `in` and `out` modes
 
 ###### Example: :scroll:
 
-Lets take a look at few examples
+Let's take a look at few examples
 
 | `'in 10'`  | `'in 10'`   | `'out 10'`  | `'out 15'` |
 |----------|--------|---------|---------|
@@ -194,13 +194,13 @@ As you can see the second and fourth examples are similar to the modes `bottom` 
 
 ###### Animated: :heavy_check_mark:
 
-is any Number or percent value >=0. Defines the empty circle line thickness. If you define the value in percent thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
+Is any number or percent value >=0. It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the CSS property `stroke-width`.
 
 <br>
 
 - ### `color`
 
-Defines the color of progress circle **line**. Is any css color like `#123` or `lime` or an object that defines the gradient.
+Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
 - `color:` (String) '#3f79ff'
 
@@ -225,7 +225,7 @@ color: {
       {
         color: 'lime',
         offset: '100',
-        opacity: '1',
+        opacity: '0.6',
       },
     ]
   }
@@ -237,25 +237,25 @@ color: {
 
 - ### `colorFill`
 
-defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
+Defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
 
 <br>
 
 - ### `emptyColor`
 
-defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
+Defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
 
 <br>
 
 - ### `emptyColorFill`
 
-defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
+Defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
 <br>
 
 - ### `legend`
 
-is a Boolean. Defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
+Is a Boolean. It defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
 
 <br>
 
@@ -263,11 +263,11 @@ is a Boolean. Defines whether the **[`progress`](#progress)** or from you define
 
 ###### Animated: :heavy_check_mark:
 
-is any Number. Use this property if you want to customize the shown progress as the legend of the circle. If defined `legendValue` replaces **[`progress`](#progress)** as the circle legend!
+Is any number. Use this property if you want to customize the shown progress as the legend of the circle. If defined, `legendValue` will replace **[`progress`](#progress)** as the circle legend!
 
 ###### Example: :scroll:
 
-Lets say you have to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
+Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
 
 ```js
 this.progress = 3.5 * 100 / 5; // the rating percentage
@@ -280,9 +280,9 @@ Now you can display custom progress value that still animated and circle progres
 
 - ### `animation`
 
-descriptive string in form `"type [ duration delay ]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and you can only define the `delay` with `duration`. 
+Descriptive string in form `"type [ duration delay ]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and that you can only define the `delay` after `duration`. 
 
-- `type`- is one of `default | rs | reverse | bounce| loop`
+- `type`- is one of the predefined animations: `default | rs | reverse | bounce| loop`
 - `duration` - number in milliseconds, default `1000`
 - `delay` - number in milliseconds, default `400`
 
@@ -296,45 +296,45 @@ animation="rs 700 200"
 
 - ### `loading`
 
-forces loading state. The component provide an indeterminate state for the case that you data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
+Forces loading state. The component provides an indeterminate state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
 
 <br>
 
 - ### `determinate`
 
-provides a determinate loading state that indicates that you data loading is still in progress but allows to show the progress. 
+Provides a determinate loading state that indicates that your data loading is still in progress but allows to show the progress. 
 
 <br>
 
 - ### `noData`
 
-forces no data state. The component provides an no data state for the case that you data is not available. The circle progress still empty.
+Forces no data state. The component provides an no data state for the case that your data is not available. The circle progress is still empty.
 
->:heavy_exclamation_mark: the component takes the no data state also if you provide an invalid **[`progress`](#progress)** value 
+>:heavy_exclamation_mark: The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
 
 <br>
 
 - ### `angle`
 
-is any Number. Defines the starting point of the progress circle line 
+Is any number. It defines the starting point of the progress circle line 
 
 <br>
 
 - ### `fontSize`
 
-is any valid css size property. Defines the font size of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
+Is any valid CSS size value. It defines the font size of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
 
 <br>
 
 - ### `fontColor`
 
-is any valid css color. Defines the color of the circle legend. Use **[`legendClass`](#legendClass)** if you want apply more specific styles
+Is any valid CSS color value. It defines the color of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
 
 <br>
 
 - ### `legendClass`
 
-adds class to the circles legend to give you the possibility to style it
+Adds class to the circles legend to give you the possibility to style it
 
 <br>
 
@@ -342,16 +342,17 @@ adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-descriptive string in form `"count spacing"` that add dashed empty progress line. `count` is the explicit number of dashes with given as number in range >= 0 and < 1 `spacing`. 
+Descriptive string in form `" [strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
 ###### Example: :scroll:
-`dash="60 0.99"` - 60 dashes with 0.99 spacing
+`dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
+`dash="10 10"` - 10 pixel big dashes with 10 pixel spacing, the number of deshes depends on the empty circle circumference
 
 <br>
 
 - ### `half` 
 
-boolean value that specifies the type of the circle. If set to true only the half of the circle is drawn like a gague chart  
+Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gague chart  
 
 ###### Example: :scroll:
 <img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png"/>
@@ -362,10 +363,10 @@ boolean value that specifies the type of the circle. If set to true only the hal
 
 - #### `legend-value`
 
-in this slot you can put an additionall element that you want to display biside the progress
+In this slot you can put an additional element that you want to display biside the progress
 
 - #### `legend-caption`
-in this slot you can put any HTML and slye it on your own. This slot is aligned below the progress 
+in this slot you can put any HTML and style it on your own. This slot is aligned below the progress 
 
 ###### Example: :scroll:
 
@@ -386,13 +387,16 @@ This code ...
 
 - ### `data`
 
-You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost all other available properties. It is not required to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are renderd inside each other.
+You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
->:heavy_exclamation_mark: the **[`lineMode`](#lineMode)** property is ignored if `data` is specified. Also the legend of this circle is not shown 
+>:heavy_exclamation_mark: Тhe **[`lineMode`](#lineMode)** property will be ignored if `data` is specified. The legend of this circle is also not shown 
 
 ###### Example: :scroll:
 
 ```js
+// this props are applied to all circles, if not overwritten
+<vue-ellipse-progres color="blue" animation="loop 500" ... />
+
 data: [
   { 
     progress: 50, // required for each circle
@@ -401,7 +405,7 @@ data: [
   },
   { 
     progress: 50, // required for each circle
-    animation: "loop 1500 500"  // you can set almost any option that will be specific to this circle
+    animation: "rs 1500 500"  // you can set almost any option that will be specific to this circle
   }
 }
 ```
@@ -412,7 +416,7 @@ data: [
 
 - ### `gap`
 
-defines the gap in pixel between circles. Applied only if [`data`](#data) prop is used.
+Defines the gap in pixel between circles. It will be applied only if [`data`](#data) prop is used.
 
 ###### Example: :scroll:
 
@@ -423,7 +427,7 @@ defines the gap in pixel between circles. Applied only if [`data`](#data) prop i
 <br>
 
 ## Compatibility
-The plugin was tested in all major modern browsers. Should also work properly in older browsers. In old browsers issues can be caused by animations since they are implemented using css custom properties. Basic svg renders even in IE 11. 
+The plugin was tested in all major modern browsers. It should also work properly in older browsers. In old browsers issues can arise by animations since they are implemented using CSS custom properties. Basic SVG renders even in IE 11. 
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
 | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
@@ -431,7 +435,7 @@ The plugin was tested in all major modern browsers. Should also work properly in
 
 ## Development
 ```
-npm install
+npm i
 ```
 
 ### Compiles and hot-reloads
