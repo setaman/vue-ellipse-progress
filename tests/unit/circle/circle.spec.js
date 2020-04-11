@@ -182,6 +182,27 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleProgressWrapper.classes()).to.include("animation__loading");
     });
   });
+  describe("#determinate", () => {
+    const progress = 60;
+    const color = "gray";
+    const thickness = 15;
+    const wrapper = factory({
+      progress,
+      color,
+      thickness,
+      determinate: true
+    });
+
+    it("shows the determinate loading circle", () => {
+      expect(wrapper.contains(".ep-circle--determinate")).to.be.true;
+    });
+    it("applies same styles to determinate circle as to progress circle", () => {
+      const determinateCircleWrapper = wrapper.find(".ep-circle--determinate");
+      expect(determinateCircleWrapper.element.getAttribute("stroke")).to.equal(`${color}`);
+      expect(determinateCircleWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
+      expect(determinateCircleWrapper.element.getAttribute("fill")).to.equal("transparent");
+    });
+  });
   thicknessTest();
   lineTest();
   animationTest();
