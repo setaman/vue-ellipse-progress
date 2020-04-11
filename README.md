@@ -69,8 +69,7 @@ Actually you are ready to go with only following line:
 ```
 The **[`progress`](#progress)** is the only one required property. However in order to created unique circles that match your design needs you can use all the properties explained below.
 
-This table provides a quick overview over all available options. For more information and how to create exclusive circles 
-using this properties please read below the table.
+This table below provides a quick overview over all available options. To gain more information in generell and conserning the creation of exclusive circles please read below the table.
 
 > :grey_exclamation: Also make sure to check **[slot options](#slot-options)** 
 
@@ -110,8 +109,8 @@ using this properties please read below the table.
 ###### Animated: :heavy_check_mark: 
 
 is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
-percent. `progress` is animated and count up or down on any value changes with duration defined in 
-**[`animation:duration`](#animation)** property. How the progress is calculated is up to you. The progress is shown by default as the **legend** in the middle of the circle.
+percent. `progress` is animated and counts up or down on any value changes with duration defined in 
+**[`animation.duration`](#animation)** property. The calculation of the progress is up to you. The progress is shown by default as the **legend** in the middle of the circle.
 
 ###### Example: :scroll:
 
@@ -120,8 +119,8 @@ this.progress = 55.5;
 this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: the `progress` is always used to fill the progress circle line. So you can not customize this value and all values under 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
->if **[`legendValue`](#legendvalue)** is defined the progress is **NOT** displayed as circle legend.
+>:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this value. All values below 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+>If **[`legendValue`](#legendvalue)** is defined the progress will **NOT** be displayed as circle legend.
 
 <br>
 
