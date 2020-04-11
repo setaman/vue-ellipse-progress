@@ -15,12 +15,21 @@ import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
 import { getNumberIfValid } from "../../utils";
+import props from "../interface";
 
 export default {
   name: "EpCircleContainer",
   components: { CircleProgress, HalfCircleProgress, Gradient },
   props: {
-    ...CircleProgress.mixins[0].props
+    ...props,
+    index: {
+      type: Number,
+      required: true
+    },
+    multiple: {
+      type: Boolean,
+      required: true
+    }
   },
   computed: {
     circleType() {

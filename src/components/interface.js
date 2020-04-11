@@ -3,11 +3,11 @@ const colorConfig = (defaultColor = "transparent") => ({
   required: false,
   default: defaultColor,
   validator: value => {
-    if (value && typeof value === "string") {
+    if (typeof value === "string" && value) {
       return true;
     }
     if (typeof value === "object" && value.colors) {
-      return value.colors.filter(config => config.color && config.offset).length > 0;
+      return value.colors.every(config => config.color && config.offset);
     }
     return false;
   }
