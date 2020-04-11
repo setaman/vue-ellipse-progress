@@ -1,10 +1,7 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Container from "../../../src/components/VueEllipseProgress.vue";
+import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
-import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
-
-const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
@@ -18,12 +15,12 @@ const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expect
 };
 
 const factory = propsData => {
-  return mount(Container, {
+  return mount(Circle, {
     propsData: {
-      ...propsData
-    },
-    stubs: {
-      CountUp: true
+      ...propsData,
+      id: 1,
+      index: 0,
+      multiple: false
     }
   });
 };
@@ -38,8 +35,7 @@ export default () => {
         progress,
         line
       });
-      const circleWrapper = wrapper.find(Circle);
-      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
       expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
     });
   });
@@ -60,58 +56,62 @@ export default () => {
           animation: "default 0 0",
           size
         });
-        const circleWrapper = wrapper.find(Circle);
-        const cc = wrapper.find(CircleContainer);
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
-          it("in case #thickness >= #emptyThickness", () => {
+          it("in case #thickness >= #emptyThickness", async () => {
             let expectedProgressCircleRadius = baseRadius - thickness / 2;
             let expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
 
             thickness = emptyThickness = 10;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             expectedProgressCircleRadius = baseRadius - thickness / 2;
             expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness >= #emptyThickness and #lineMode.offset = 10", () => {
+          it("in case #thickness >= #emptyThickness and #lineMode.offset = 10", async () => {
             // offset must be ignored in this mode
             wrapper.setProps({ lineMode: "normal 10" });
+            await Vue.nextTick();
+
             let expectedProgressCircleRadius = baseRadius - thickness / 2;
             let expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
 
             thickness = emptyThickness = 10;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             expectedProgressCircleRadius = baseRadius - thickness / 2;
             expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness < #emptyThickness", () => {
+          it("in case #thickness < #emptyThickness", async () => {
             thickness = 10;
             emptyThickness = 20;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
             const expectedProgressCircleRadius = expectedEmptyCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness < #emptyThickness and #lineMode.offset", () => {
+          it("in case #thickness < #emptyThickness and #lineMode.offset", async () => {
             // offset must be ignored in this mode
             thickness = 10;
             emptyThickness = 20;
 
             wrapper.setProps({ thickness, emptyThickness, lineMode: "normal 10" });
+            await Vue.nextTick();
 
             const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
             const expectedProgressCircleRadius = expectedEmptyCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
         });
       });
@@ -127,12 +127,10 @@ export default () => {
           size
         });
 
-        const circleWrapper = wrapper.find(Circle);
-
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2 - thickness / 2 - offset;
-          compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+          compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
         });
       });
       describe("#lineMode.mode.in-over", () => {
@@ -143,16 +141,14 @@ export default () => {
           progress,
           thickness,
           emptyThickness,
-          lineMode: `in ${offset}`,
+          lineMode: `in-over ${offset}`,
           size
         });
-
-        const circleWrapper = wrapper.find(Circle);
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = baseRadius - thickness / 2;
-          compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+          compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
         });
       });
       describe("#lineMode.mode.out", () => {
@@ -167,12 +163,10 @@ export default () => {
           size
         });
 
-        const circleWrapper = wrapper.find(Circle);
-
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
           const expectedProgressCircleRadius = baseRadius - emptyThickness / 2;
           const expectedEmptyCircleRadius = expectedProgressCircleRadius - emptyThickness / 2 - thickness / 2 - offset;
-          compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+          compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
         });
       });
       describe("#lineMode.mode.out-over", () => {
@@ -187,31 +181,31 @@ export default () => {
           size
         });
 
-        const circleWrapper = wrapper.find(Circle);
-
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
-          it("in case #thickness >= #emptyThickness", () => {
+          it("in case #thickness >= #emptyThickness", async () => {
             let expectedProgressCircleRadius = baseRadius - thickness / 2;
             let expectedEmptyCircleRadius = expectedProgressCircleRadius - thickness / 2 + emptyThickness / 2;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
 
             thickness = emptyThickness = 10;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             expectedProgressCircleRadius = baseRadius - thickness / 2;
             expectedEmptyCircleRadius = expectedProgressCircleRadius;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness < #emptyThickness", () => {
+          it("in case #thickness < #emptyThickness", async () => {
             thickness = 10;
             emptyThickness = 20;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
             const expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2 + thickness / 2;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
         });
       });
@@ -227,12 +221,10 @@ export default () => {
           size
         });
 
-        const circleWrapper = wrapper.find(Circle);
-
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
           const expectedProgressCircleRadius = baseRadius - thickness / 2;
           const expectedEmptyCircleRadius = expectedProgressCircleRadius - emptyThickness / 2;
-          compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+          compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
         });
       });
       describe("#lineMode.mode.bottom", () => {
@@ -247,31 +239,31 @@ export default () => {
           size
         });
 
-        const circleWrapper = wrapper.find(Circle);
-
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
           it("in case #thickness * 2 > #emptyThickness", () => {
             const expectedProgressCircleRadius = baseRadius - thickness / 2;
             const expectedEmptyCircleRadius = expectedProgressCircleRadius + emptyThickness / 2;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
-          it("in case #thickness * 2 <= #emptyThickness", () => {
+          it("in case #thickness * 2 <= #emptyThickness", async () => {
             thickness = 10;
             emptyThickness = 20;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             let expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
             let expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
 
             thickness = emptyThickness = 20;
 
             wrapper.setProps({ thickness, emptyThickness });
+            await Vue.nextTick();
 
             expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
             expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
-            compareRadiusValues(circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
+            compareRadiusValues(wrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius);
           });
         });
       });

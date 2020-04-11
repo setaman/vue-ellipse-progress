@@ -184,7 +184,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   // thicknessTest();
-  // lineTest();
-  animationTest();
+  lineTest();
+  // animationTest();
   // colorsTest();
 });

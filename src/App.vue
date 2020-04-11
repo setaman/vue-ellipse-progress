@@ -91,6 +91,7 @@
         id="half-example"
         :progress="88"
         :size="200"
+        line-mode="in-over 10"
         :thickness="20"
         :empty-thickness="10"
         :colorFill="emptyColorFill"
