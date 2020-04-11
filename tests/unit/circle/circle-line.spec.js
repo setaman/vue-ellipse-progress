@@ -14,10 +14,16 @@ const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expect
   expect(emptyCircleRadius).to.equal(`${expectedEmptyCircleRadius}`);
 };
 
+const progress = 50;
+const size = 200;
+const baseRadius = size / 2;
+
 const factory = propsData => {
   return mount(Circle, {
     propsData: {
       ...propsData,
+      progress,
+      size,
       id: 1,
       index: 0,
       multiple: false
@@ -28,23 +34,25 @@ const factory = propsData => {
 export default () => {
   describe("#line", () => {
     it("renders line type correctly", async () => {
-      const progress = 60;
-      const line = "round";
+      let line = "round";
 
-      const wrapper = factory({
-        progress,
-        line
-      });
+      const wrapper = factory({ line });
       const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+      expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
+
+      line = "butt";
+      wrapper.setProps({ line });
+      await Vue.nextTick();
+      expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
+
+      line = "square";
+      wrapper.setProps({ line });
+      await Vue.nextTick();
       expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
     });
   });
   describe("#lineMode", () => {
     describe("#lineMode.mode", () => {
-      const progress = 50;
-      const size = 200;
-      const baseRadius = size / 2;
-
       describe("#lineMode.mode.normal", () => {
         let thickness = 20;
         let emptyThickness = 10;
