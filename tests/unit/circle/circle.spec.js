@@ -100,6 +100,13 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const circleProgressWrapper = wrapper.find(".ep-half-circle.ep-circle--progress");
     const circleEmptyWrapper = wrapper.find(".ep-circle--empty");
 
+    it("renders half progress circle SVG path", () => {
+      expect(wrapper.contains("path.ep-half-circle.ep-circle--progress")).to.be.true;
+    });
+    it("renders half empty circle SVG path", () => {
+      expect(wrapper.contains("path.ep-circle--empty")).to.be.true;
+    });
+
     it("calculates and sets the position of the half circles correctly", () => {
       expect(wrapper.vm.position).to.equal(position);
       expect(wrapper.vm.path).to.equal(expectedPath);
