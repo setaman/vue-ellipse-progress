@@ -14,7 +14,7 @@ export default {
     },
     id: {
       type: Number,
-      required: false
+      required: true
     },
     index: {
       type: Number,

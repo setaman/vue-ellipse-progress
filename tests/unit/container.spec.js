@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
-import Circle from "../../src/components/Circle/CircleProgress.vue";
 import Container from "../../src/components/VueEllipseProgress.vue";
 
 describe("[ EllipseProgressContainer.vue ]", () => {

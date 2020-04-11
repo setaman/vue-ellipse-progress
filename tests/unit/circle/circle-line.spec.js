@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Container from "../../../src/components/VueEllipseProgress.vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
+import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -60,6 +61,7 @@ export default () => {
           size
         });
         const circleWrapper = wrapper.find(Circle);
+        const cc = wrapper.find(CircleContainer);
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
           it("in case #thickness >= #emptyThickness", () => {
