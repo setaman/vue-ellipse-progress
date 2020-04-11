@@ -56,7 +56,13 @@ export default {
     type: String,
     required: false,
     default: "normal",
-    validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.split(" ")[0])
+    validator: value => {
+      const lineModeConfig = value.split(" ");
+      const isValidType = ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
+      const isValidOffset = lineModeConfig[1] ? !Number.isNaN(parseFloat(lineModeConfig[1])) : true;
+
+      return isValidType && isValidOffset;
+    }
   },
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),

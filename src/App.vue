@@ -81,7 +81,7 @@
         :animation="animation"
         :loading="loading"
         emptyColor="red"
-        line-mode="out 20"
+        line-mode="out"
         dash="strict 60 0.8"
         :no-data="noData"
         :line="line"

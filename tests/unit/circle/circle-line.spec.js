@@ -52,13 +52,19 @@ export default () => {
     });
   });
   describe("#lineMode", () => {
-    describe("#lineMode.mode", () => {
-      it("it parses the #lineMode property correctly", () => {
-        const wrapper = factory({ lineMode: "normal 10" });
+    it("it parses the #lineMode property correctly", () => {
+      const wrapper = factory({ lineMode: "normal 10" });
 
-        expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
-        expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
-      });
+      expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
+      expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
+    });
+    it("it applies default value correctly", () => {
+      const wrapper = factory({ lineMode: "normal 10" });
+
+      expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
+      expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
+    });
+    describe("#lineMode.mode", () => {
       describe("#lineMode.mode.normal", () => {
         let thickness = 20;
         let emptyThickness = 10;
