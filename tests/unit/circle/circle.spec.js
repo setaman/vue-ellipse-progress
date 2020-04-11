@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Container from "../../../src/components/VueEllipseProgress.vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
 
@@ -9,15 +8,10 @@ import thicknessTest from "./circle-thickness.spec";
 import animationTest from "./circle-animation.spec";
 import colorsTest from "./circle-colors.spec";
 
-const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
-
-const factory = propsData => {
-  return mount(Container, {
+const factory = (propsData, container = Circle) => {
+  return mount(container, {
     propsData: {
       ...propsData
-    },
-    stubs: {
-      CountUp: true
     }
   });
 };
@@ -41,9 +35,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const circumference = radius * 2 * Math.PI;
       const expectedOffset = circumference - (progress / 100) * circumference;
 
-      const circleWrapper = wrapper.find(Circle);
-
-      expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
+      expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
     });
   });
   describe("#size", () => {
@@ -56,11 +48,11 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         progress,
         size
       });
-      const circleWrapper = wrapper.find(Circle);
-      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
-      const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
 
-      expect(circleWrapper.vm.position).to.equal(position);
+      const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+      const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
+
+      expect(wrapper.vm.position).to.equal(position);
 
       expect(circleProgressWrapper.element.getAttribute("cx")).to.equal(`${position}`);
       expect(circleProgressWrapper.element.getAttribute("cy")).to.equal(`${position}`);
@@ -81,8 +73,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         thickness,
         emptyThickness: thickness
       });
-      const circleWrapper = wrapper.find(Circle);
-      expect(circleWrapper.vm.circumference).to.equal(circumference);
+
+      expect(wrapper.vm.circumference).to.equal(circumference);
     });
   });
   describe("#half", () => {
@@ -90,25 +82,27 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 200;
     const thickness = 10;
 
-    const wrapper = factory({
-      progress,
-      thickness,
-      size,
-      half: true,
-      animation: "default 0 0"
-    });
+    const wrapper = factory(
+      {
+        progress,
+        thickness,
+        size,
+        half: true,
+        animation: "default 0 0"
+      },
+      HalfCircle
+    );
 
     const radius = size / 2 - thickness / 2;
     const position = size / 2 - radius;
     const expectedPath = ` M ${position}, ${size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
 
-    const circleWrapper = wrapper.find(HalfCircle);
-    const circleProgressWrapper = circleWrapper.find(".ep-circle--progress");
-    const circleEmptyWrapper = circleWrapper.find(".ep-circle--empty");
+    const circleProgressWrapper = wrapper.find(".ep-half-circle.ep-circle--progress");
+    const circleEmptyWrapper = wrapper.find(".ep-circle--empty");
 
     it("calculates and sets the position of the half circles correctly", () => {
-      expect(circleWrapper.vm.position).to.equal(position);
-      expect(circleWrapper.vm.path).to.equal(expectedPath);
+      expect(wrapper.vm.position).to.equal(position);
+      expect(wrapper.vm.path).to.equal(expectedPath);
 
       expect(circleProgressWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
       expect(circleEmptyWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
@@ -116,8 +110,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("calculates the progress circle stroke offset correctly", async () => {
       const circumference = (radius * 2 * Math.PI) / 2;
       const expectedOffset = circumference - (progress / 100) * circumference;
-      await wait(1);
-      expect(circleWrapper.vm.progressOffset).to.equal(expectedOffset);
+      expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });
   });
@@ -128,8 +121,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         progress: 50,
         dash
       });
-      const circleWrapper = wrapper.find(Circle);
-      const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
+
+      const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.element.getAttribute("stroke-dasharray")).to.equal(`${dash}`);
     });
 
@@ -139,9 +132,9 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         progress: 50,
         dash
       });
-      const circleWrapper = wrapper.find(Circle);
-      expect(circleWrapper.vm.parsedDash.count).to.equal(60);
-      expect(circleWrapper.vm.parsedDash.spacing).to.equal(0.5);
+
+      expect(wrapper.vm.parsedDash.count).to.equal(60);
+      expect(wrapper.vm.parsedDash.spacing).to.equal(0.5);
     });
   });
   describe("#noData", () => {
@@ -150,17 +143,16 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const thickness = 10;
 
     const wrapper = factory({ noData: true, progress, size });
-    const circleWrapper = wrapper.find(Circle);
 
     it("sets the stroke dash offset to circumference value", () => {
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
-      const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+      const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
     });
     it("adds .ep_circle--nodata class to empty circle", () => {
-      const circleEmptyWrapper = circleWrapper.find("circle.ep-circle--empty");
+      const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.classes()).to.include("ep_circle--nodata");
     });
   });
@@ -170,8 +162,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const thickness = 10;
 
     const wrapper = factory({ loading: true, progress, size });
-    const circleWrapper = wrapper.find(Circle);
-    const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
+
+    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
     it("sets the stroke dash offset to circumference value", () => {
       const radius = size / 2 - thickness / 2;
