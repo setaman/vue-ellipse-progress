@@ -362,32 +362,6 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 <br>
 
-### Slot options
-
-- #### `legend-value`
-
-In this slot you can put an additional element that you want to display biside the progress
-
-- #### `legend-caption`
-in this slot you can put any HTML and style it on your own. This slot is aligned below the progress 
-
-###### Example: :scroll:
-
-This code ...
-```html
-<vue-ellipse-progress ....>
-  
-    <span slot="legend-value">/200</span>
-    <p slot="legend-caption">TASKS DONE</p>
-  
-</vue-ellipse-progress>
-```
-... produces following result. The slots are marked corresponding:
-
-<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
-
-<br>
-
 - ### `data`
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
@@ -397,8 +371,8 @@ You can specify 2 or more circles as objects in an array as `data`. For each cir
 ###### Example: :scroll:
 
 ```js
-// this props are applied to all circles, if not overwritten
-<vue-ellipse-progres color="blue" animation="loop 500" ... />
+<!-- this props are applied to all circles, if not overwritten in "data"-->
+<vue-ellipse-progres color="blue" animation="loop 500" ...  :data="data"/>
 
 data: [
   { 
@@ -426,6 +400,32 @@ Defines the gap in pixel between circles. It will be applied only if [`data`](#d
 ```js
 :gap="10"
 ```
+
+<br>
+
+### Slot options
+
+- #### `legend-value`
+
+In this slot you can put an additional element that you want to display biside the progress
+
+- #### `legend-caption`
+in this slot you can put any HTML and style it on your own. This slot is aligned below the progress 
+
+###### Example: :scroll:
+
+This code ...
+```html
+<vue-ellipse-progress ....>
+  
+    <span slot="legend-value">/200</span>
+    <p slot="legend-caption">TASKS DONE</p>
+  
+</vue-ellipse-progress>
+```
+... produces following result. The slots are marked corresponding:
+
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
 
 <br>
 
