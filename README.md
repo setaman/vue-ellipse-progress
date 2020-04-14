@@ -111,7 +111,7 @@ This table below provides a quick overview over all available options. To gain m
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
+Is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The calculation of the progress is up to you. The progress is shown by default as the **legend** in the middle of the circle.
 
@@ -139,7 +139,7 @@ Is any number from >=0. It defines the width and height of the circle. The calcu
 
 - ### `line` 
 
-is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+Is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
 
 <br>
 
