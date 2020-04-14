@@ -205,18 +205,20 @@ Is any number or percent value >=0. It defines the empty circle line thickness. 
 
 Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
-- `color:` (String) '#3f79ff'
+- `color="#3f79ff"` - as String
 
-- `color:` (Object)
-  - `radial:` default `false`. Defines whether the gradient is radial or linear
-  - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0 [, opacity: 1] }`
+- `:color="{...}"` - as Object
+  - `radial` - default `false`. Defines whether the gradient is radial or linear
+  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
     
 ###### Example: :scroll:
 
 Now you are ready for a bad example.
 
 ```js
-color: {
+:color="gradient"
+
+gradient: {
   {
     radial: false,
     colors;: [
