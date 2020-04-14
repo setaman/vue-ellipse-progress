@@ -185,7 +185,7 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
 
 Let's take a look at few examples
 
-| `'in 10'`  | `'in 10'`   | `'out 10'`  | `'out 15'` |
+| `line-mode="in 10"`  | `line-mode="in 10"`   | `line-mode="out 10"`  | `line-mode="out 15"` |
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
