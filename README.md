@@ -349,6 +349,7 @@ Descriptive string in form `" [strict] count spacing"` that adds dashed empty pr
 
 ###### Example: :scroll:
 `dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
+
 `dash="10 10"` - 10 pixel big dashes with 10 pixel spacing, the number of deshes depends on the empty circle circumference
 
 <br>
