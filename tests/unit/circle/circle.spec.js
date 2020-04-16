@@ -1,6 +1,8 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
+import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
+import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
 
 import lineTest from "./circle-line.spec";
@@ -11,6 +13,9 @@ import colorsTest from "./circle-colors.spec";
 const factory = (propsData, container = Circle) => {
   return mount(container, {
     propsData: {
+      index: 0,
+      id: 123,
+      multiple: false,
       ...propsData
     }
   });
@@ -203,8 +208,20 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(determinateCircleWrapper.element.getAttribute("fill")).to.equal("transparent");
     });
   });
-  thicknessTest();
+  describe("#angle", () => {
+    const circleContainerWrapper = factory({ progress: 50 }, CircleContainer);
+    it("sets the rotation of the svg container to default, if not defined", () => {
+      expect(circleContainerWrapper.element.style.transform).to.equal("rotate(-90deg)");
+    });
+    it("sets the rotation of the svg container correctly", async () => {
+      const angle = 80;
+      circleContainerWrapper.setProps({ angle });
+      await Vue.nextTick();
+      expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+    });
+  });
+  /* thicknessTest();
   lineTest();
   animationTest();
-  colorsTest();
+  colorsTest(); */
 });
