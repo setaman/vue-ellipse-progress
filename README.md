@@ -82,7 +82,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top [ offset ]" | "normal 0" |   
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top [offset]" | "normal 0" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
 | **[`color`](#color)** | String \| Object | any color as String or Object to specify gradient (see details) |  "#3f79ff" |   
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  "transparent" |
@@ -111,7 +111,7 @@ This table below provides a quick overview over all available options. To gain m
 
 ###### Animated: :heavy_check_mark: 
 
-is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
+Is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The calculation of the progress is up to you. The progress is shown by default as the **legend** in the middle of the circle.
 
@@ -139,7 +139,7 @@ Is any number from >=0. It defines the width and height of the circle. The calcu
 
 - ### `line` 
 
-is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+Is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
 
 <br>
 
@@ -185,7 +185,7 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
 
 Let's take a look at few examples
 
-| `'in 10'`  | `'in 10'`   | `'out 10'`  | `'out 15'` |
+| `line-mode="in 10"`  | `line-mode="in 10"`   | `line-mode="out 10"`  | `line-mode="out 15"` |
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
@@ -205,18 +205,20 @@ Is any number or percent value >=0. It defines the empty circle line thickness. 
 
 Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
-- `color:` (String) '#3f79ff'
+- `color="#3f79ff"` - as String
 
-- `color:` (Object)
-  - `radial:` default `false`. Defines whether the gradient is radial or linear
-  - `colors:` (Array) contains the gradient colors as an object `{color: "#6546f7", offset: 0 [, opacity: 1] }`
+- `:color="{...}"` - as Object
+  - `radial` - default `false`. Defines whether the gradient is radial or linear
+  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
     
 ###### Example: :scroll:
 
 Now you are ready for a bad example.
 
 ```js
-color: {
+:color="gradient"
+
+gradient: {
   {
     radial: false,
     colors;: [
@@ -345,10 +347,11 @@ Adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-Descriptive string in form `" [strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
+Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
 ###### Example: :scroll:
 `dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
+
 `dash="10 10"` - 10 pixel big dashes with 10 pixel spacing, the number of deshes depends on the empty circle circumference
 
 <br>
@@ -366,7 +369,7 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
->:heavy_exclamation_mark: Тhe **[`lineMode`](#lineMode)** property will be ignored if `data` is specified. The legend of this circle is also not shown 
+>:heavy_exclamation_mark: Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. This properties will be ignored, if `data` is specified. The legend of this circle is also not shown 
 
 ###### Example: :scroll:
 
@@ -393,7 +396,7 @@ data: [
 
 - ### `gap`
 
-Defines the gap in pixel between circles. It will be applied only if [`data`](#data) prop is used.
+Defines the gap in pixel from one circle to the previous cirlce. It will be applied only if [`data`](#data) prop is used.
 
 ###### Example: :scroll:
 
