@@ -133,7 +133,8 @@ const props = {
   gap: {
     type: Number,
     required: false,
-    default: 0
+    default: 0,
+    validator: val => parseInt(val, 10) > 0
   },
   determinate: {
     type: Boolean,
