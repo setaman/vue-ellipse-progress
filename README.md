@@ -82,7 +82,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top [ offset ]" | "normal 0" |   
+| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top [offset]" | "normal 0" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
 | **[`color`](#color)** | String \| Object | any color as String or Object to specify gradient (see details) |  "#3f79ff" |   
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  "transparent" |
@@ -347,7 +347,7 @@ Adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-Descriptive string in form `" [strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
+Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
 ###### Example: :scroll:
 `dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
@@ -369,7 +369,7 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, thay will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
->:heavy_exclamation_mark: Тhe **[`lineMode`](#lineMode)** property will be ignored if `data` is specified. The legend of this circle is also not shown 
+>:heavy_exclamation_mark: Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. This properties will be ignored, if `data` is specified. The legend of this circle is also not shown 
 
 ###### Example: :scroll:
 
