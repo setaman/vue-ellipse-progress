@@ -19,6 +19,15 @@ export default {
     index: {
       type: Number,
       required: true
+    },
+    globalThickness: {
+      type: [Number, String],
+      required: false,
+      default: "5%"
+    },
+    globalGap: {
+      type: Number,
+      required: false
     }
   },
   data() {
@@ -145,6 +154,9 @@ export default {
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
+    computedGlobalThickness() {
+      return this.calculateThickness(this.globalThickness.toString());
+    },
     computedEmptyThickness() {
       return this.calculateThickness(this.emptyThickness.toString());
     },
@@ -170,8 +182,8 @@ export default {
       const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
         .map(data => {
-          const thickness = isValidNumber(data.thickness) ? data.thickness : this.thickness;
-          const gap = isValidNumber(data.gap) ? data.gap : this.gap;
+          const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
+          const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
           return thickness + gap;
         })
         .reduce((acc, current) => acc + current);

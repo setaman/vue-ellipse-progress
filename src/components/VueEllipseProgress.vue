@@ -14,6 +14,8 @@
           v-bind="options"
           :multiple="isMultiple"
           :index="i"
+          :globalThickness="thickness"
+          :globalGap="gap"
         />
       </svg>
 

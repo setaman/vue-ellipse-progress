@@ -6,7 +6,7 @@
       <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="_uid" />
       <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
-    <component :is="circleType" v-bind="$props" :multiple="multiple" :id="_uid" :index="index" />
+    <component :is="circleType" v-bind="$props" :id="_uid" />
   </g>
 </template>
 
@@ -29,6 +29,15 @@ export default {
     multiple: {
       type: Boolean,
       required: true
+    },
+    globalThickness: {
+      type: [Number, String],
+      required: false,
+      default: "5%"
+    },
+    globalGap: {
+      type: Number,
+      required: false
     }
   },
   computed: {
