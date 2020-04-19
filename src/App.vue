@@ -33,21 +33,19 @@
           <input id="determinate2" type="checkbox" v-model="determinate" />
         </label>
       </div>
-      <div>
+      <!--<div>
         <input type="checkbox" v-model="circles[0].loading" />
         <input type="checkbox" v-model="circles[1].loading" />
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
-      </div>
+      </div>-->
       <vue-ellipse-progress
-        :gap="30"
+        :gap="10"
         color-fill="rgba(17,34,51,0.0)"
-        half
         :data="circles"
-        :size="700"
-        :thickness="40"
+        :size="200"
+        :thickness="10"
         empty-color="rgba(17,34,51,0.66)"
-        animation="rs 1000 0"
         :loading="loading"
         :no-data="noData"
       >
@@ -151,37 +149,9 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      {
-        progress: 0,
-        thickness: 40,
-        animation: "rs 2000 2000",
-        loading: false,
-        half: true
-      },
-      {
-        progress: 55,
-        thickness: 40,
-        color: "blue",
-        // angle: "-90",
-        loading: false,
-        animation: "bounce 2000 400"
-      },
-      {
-        progress: 35,
-        thickness: 40,
-        color: "red",
-        // angle: "155",
-        loading: false,
-        animation: "loop 2000 600"
-      },
-      {
-        progress: 15,
-        thickness: 40,
-        color: "yellow",
-        // angle: "165",
-        loading: false,
-        animation: "reverse 2000 800"
-      }
+      { progress: 25, color: "red", gap: 25, thickness: 5 },
+      { progress: 35, color: "blue", gap: 10, thickness: 5 },
+      { progress: 55, color: "green" }
     ],
     determinate: false,
     loading: false,

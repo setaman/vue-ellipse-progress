@@ -2,8 +2,9 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
-import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
+import EpCircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
+import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 
 import lineTest from "./circle-line.spec";
 import thicknessTest from "./circle-thickness.spec";
@@ -209,7 +210,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   describe("#angle", () => {
-    const circleContainerWrapper = factory({ progress: 50 }, CircleContainer);
+    const circleContainerWrapper = factory({ progress: 50 }, EpCircleContainer);
     it("sets the rotation of the svg container to default, if not defined", () => {
       expect(circleContainerWrapper.element.style.transform).to.equal("rotate(-90deg)");
     });
@@ -220,6 +221,48 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
   });
+  describe("#data", () => {
+    const size = 200;
+    const globalThickness = 10;
+    const globalGap = 10;
+
+    const data = [
+      { progress: 25, color: "red", gap: 25, thickness: 5 },
+      { progress: 35, color: "blue", gap: 10, thickness: 5 },
+      { progress: 55, color: "green" }
+    ];
+    const wrapper = factory({ data, gap: globalGap, thickness: globalThickness, size }, VueEllipseProgress);
+    const circleWrappers = wrapper.findAll(Circle);
+    it("calculates the radius of each circle correctly depending on #thickness and #gap ", () => {
+      for (let i = 0; i < data.length; i++) {
+        const circleData = data[i];
+        const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
+        const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
+
+        let radius;
+        const baseRadius = size / 2 - circleThickness / 2;
+        if (i > 0) {
+          const previousCirclesData = data.filter((props, index) => index < i);
+          const previousCirclesThickness = previousCirclesData
+            .map(({ gap, thickness }) => {
+              const g = gap !== undefined ? gap : globalGap;
+              const t = thickness !== undefined ? thickness : globalThickness;
+              return g + t;
+            })
+            .reduce((acc, current) => acc + current);
+
+          radius = baseRadius - (previousCirclesThickness + circleGap);
+        } else {
+          radius = baseRadius;
+        }
+        const circleProgressWrapper = circleWrappers.at(i).find("circle.ep-circle--progress");
+        const circleEmptyWrapper = circleWrappers.at(i).find("circle.ep-circle--empty");
+        expect(circleProgressWrapper.element.getAttribute("r")).to.equal(`${radius}`);
+        expect(circleEmptyWrapper.element.getAttribute("r")).to.equal(`${radius}`);
+      }
+    });
+  });
+
   /* thicknessTest();
   lineTest();
   animationTest();
