@@ -146,7 +146,10 @@ const props = {
 const simplifiedProps = {};
 
 for (const p in props) {
-  simplifiedProps[p] = props[p].type;
+  simplifiedProps[p] = {
+    type: props[p].type,
+    default: props[p].default
+  };
 }
 
 export { props, simplifiedProps };
