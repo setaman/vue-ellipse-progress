@@ -35,7 +35,7 @@ export default {
       const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
       switch (this.parsedLineMode.mode) {
@@ -61,7 +61,7 @@ export default {
       const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
       switch (this.parsedLineMode.mode) {
@@ -166,10 +166,16 @@ export default {
     },
     previousCirclesThickness() {
       if (this.index === 0) return 0;
-      return this.data
+      const currentCircleGap = isValidNumber(this.data[this.index].gap) ? this.data[this.index].gap : this.gap;
+      const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
-        .map(data => (data.thickness || this.thickness) + (data.gap || this.gap))
+        .map(data => {
+          const thickness = isValidNumber(data.thickness) ? data.thickness : this.thickness;
+          const gap = isValidNumber(data.gap) ? data.gap : this.gap;
+          return thickness + gap;
+        })
         .reduce((acc, current) => acc + current);
+      return previousCirclesGap + currentCircleGap;
     },
     styles() {
       return {
