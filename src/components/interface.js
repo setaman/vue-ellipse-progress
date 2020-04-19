@@ -13,7 +13,7 @@ const colorConfig = (defaultColor = "transparent") => ({
   }
 });
 
-export default {
+const props = {
   data: {
     type: Array,
     required: false,
@@ -80,9 +80,9 @@ export default {
     type: String,
     required: false,
     default: "default 1000 400",
-    validation: value => {
+    validator: value => {
       const config = value.split(" ");
-      const isValidType = ["default", "rs", "loop", "reverse", "bounce"].includes(config[0]);
+      const isValidType = ["default", "rs", "loop", "reverse", "bounce"].some(val => val === config[0]);
       const isValidDuration = config[0] ? parseFloat(config[1]) > 0 : true;
       const isValidDelay = config[2] ? parseFloat(config[2]) > 0 : true;
 
@@ -133,7 +133,8 @@ export default {
   gap: {
     type: Number,
     required: false,
-    default: 0
+    default: 0,
+    validator: val => parseInt(val, 10) >= 0
   },
   determinate: {
     type: Boolean,
@@ -141,3 +142,11 @@ export default {
     default: false
   }
 };
+
+const simplifiedProps = {};
+
+for (const p in props) {
+  simplifiedProps[p] = props[p].type;
+}
+
+export { props, simplifiedProps };

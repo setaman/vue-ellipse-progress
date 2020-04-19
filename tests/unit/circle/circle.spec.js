@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
-import EpCircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
+import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 
@@ -212,7 +212,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   describe("#angle", () => {
-    const circleContainerWrapper = factory({ progress: 50 }, EpCircleContainer);
+    const circleContainerWrapper = factory({ progress: 50 }, CircleContainer);
     it("sets the rotation of the svg container to default, if not defined", () => {
       expect(circleContainerWrapper.element.style.transform).to.equal("rotate(-90deg)");
     });

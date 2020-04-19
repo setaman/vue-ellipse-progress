@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import CircleContainer from "../../../src/components/Circle/EpCircleContainer.vue";
+import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
 import Gradient from "../../../src/components/Gradient.vue";
 
 const factory = (colorObject = {}) => {
