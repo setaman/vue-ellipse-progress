@@ -3,17 +3,17 @@ const colorConfig = (defaultColor = "transparent") => ({
   required: false,
   default: defaultColor,
   validator: value => {
-    if (value && typeof value === "string") {
+    if (typeof value === "string" && value) {
       return true;
     }
     if (typeof value === "object" && value.colors) {
-      return value.colors.filter(config => config.color && config.offset).length > 0;
+      return value.colors.every(config => config.color && config.offset);
     }
     return false;
   }
 });
 
-export default {
+const props = {
   data: {
     type: Array,
     required: false,
@@ -56,7 +56,13 @@ export default {
     type: String,
     required: false,
     default: "normal",
-    validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.split(" ")[0])
+    validator: value => {
+      const lineModeConfig = value.split(" ");
+      const isValidType = ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
+      const isValidOffset = lineModeConfig[1] ? !Number.isNaN(parseFloat(lineModeConfig[1])) : true;
+
+      return isValidType && isValidOffset;
+    }
   },
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
@@ -74,9 +80,9 @@ export default {
     type: String,
     required: false,
     default: "default 1000 400",
-    validation: value => {
+    validator: value => {
       const config = value.split(" ");
-      const isValidType = ["default", "rs", "loop", "reverse", "bounce"].includes(config[0]);
+      const isValidType = ["default", "rs", "loop", "reverse", "bounce"].some(val => val === config[0]);
       const isValidDuration = config[0] ? parseFloat(config[1]) > 0 : true;
       const isValidDelay = config[2] ? parseFloat(config[2]) > 0 : true;
 
@@ -127,7 +133,8 @@ export default {
   gap: {
     type: Number,
     required: false,
-    default: 0
+    default: 0,
+    validator: val => parseInt(val, 10) >= 0
   },
   determinate: {
     type: Boolean,
@@ -135,3 +142,14 @@ export default {
     default: false
   }
 };
+
+const simplifiedProps = {};
+
+for (const p in props) {
+  simplifiedProps[p] = {
+    type: props[p].type,
+    default: props[p].default
+  };
+}
+
+export { props, simplifiedProps };

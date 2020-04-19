@@ -1,24 +1,33 @@
 import { isValidNumber } from "../../utils";
 import { animationParser, dashParser, lineModeParser } from "../optionsParser";
-import interfaceDefinition from "../interface";
+import { simplifiedProps } from "../interface";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
   props: {
-    ...interfaceDefinition,
+    ...simplifiedProps,
     multiple: {
       type: Boolean,
       required: true
     },
     id: {
       type: Number,
-      required: false
+      required: true
     },
     index: {
       type: Number,
       required: true
+    },
+    globalThickness: {
+      type: [Number, String],
+      required: false,
+      default: "5%"
+    },
+    globalGap: {
+      type: Number,
+      required: false
     }
   },
   data() {
@@ -35,7 +44,7 @@ export default {
       const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
       switch (this.parsedLineMode.mode) {
@@ -61,7 +70,7 @@ export default {
       const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
       switch (this.parsedLineMode.mode) {
@@ -112,7 +121,7 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
+          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "default"
         }`,
         `${this.loading ? "animation__loading" : ""}`
       ];
@@ -145,6 +154,9 @@ export default {
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
+    computedGlobalThickness() {
+      return this.calculateThickness(this.globalThickness.toString());
+    },
     computedEmptyThickness() {
       return this.calculateThickness(this.emptyThickness.toString());
     },
@@ -166,10 +178,16 @@ export default {
     },
     previousCirclesThickness() {
       if (this.index === 0) return 0;
-      return this.data
+      const currentCircleGap = isValidNumber(this.data[this.index].gap) ? this.data[this.index].gap : this.gap;
+      const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
-        .map(data => (data.thickness || this.thickness) + (data.gap || this.gap))
+        .map(data => {
+          const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
+          const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
+          return thickness + gap;
+        })
         .reduce((acc, current) => acc + current);
+      return previousCirclesGap + currentCircleGap;
     },
     styles() {
       return {

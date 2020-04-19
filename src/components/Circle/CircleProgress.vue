@@ -10,7 +10,7 @@
       :fill="computedEmptyColorFill"
       :style="{ transition: animationDuration }"
       :class="{ 'ep_circle--nodata': !dataIsAvailable }"
-      :stroke-width="emptyThickness"
+      :stroke-width="computedEmptyThickness"
     >
     </circle>
     <fade-in-transition>
@@ -58,7 +58,6 @@ export default {
   components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
-    // only component specific props here, another props comes from the circleMixin
     progressOffset() {
       const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
