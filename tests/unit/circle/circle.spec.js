@@ -249,7 +249,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       it(`calculates the radius of circle #${i} correctly
-        #thickness= ${circleData.thickness} | #gap= ${circleData.gap} `, () => {
+        #thickness ${circleData.thickness} | #gap ${circleData.gap} `, () => {
         const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
         const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
 
@@ -277,8 +277,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     }
   });
 
-  /* thicknessTest();
+  thicknessTest();
   lineTest();
   animationTest();
-  colorsTest(); */
+  colorsTest();
 });

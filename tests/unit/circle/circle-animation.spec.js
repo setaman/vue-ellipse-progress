@@ -6,6 +6,9 @@ import Circle from "../../../src/components/Circle/CircleProgress.vue";
 const factory = propsData => {
   return mount(Circle, {
     propsData: {
+      index: 1,
+      id: 2,
+      multiple: false,
       progress: 50,
       ...propsData
     }

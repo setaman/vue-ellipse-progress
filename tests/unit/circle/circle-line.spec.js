@@ -173,7 +173,7 @@ export default () => {
           progress,
           thickness,
           emptyThickness,
-          lineMode: `out ${offset}`,
+          lineMode: `out ${offset}`
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -189,7 +189,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `out-over ${offset}`,
+          lineMode: `out-over ${offset}`
         });
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -227,7 +227,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `top ${offset}`,
+          lineMode: `top ${offset}`
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -243,7 +243,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `bottom ${offset}`,
+          lineMode: `bottom ${offset}`
         });
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
