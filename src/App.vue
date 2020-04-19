@@ -208,7 +208,7 @@ export default {
       ],
       radial: true
     },
-    animation: "rsf 200 5000"
+    animation: "drsf 200 5000"
   }),
   computed: {
     tasksDonePercent() {
