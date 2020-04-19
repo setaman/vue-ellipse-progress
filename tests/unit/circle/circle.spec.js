@@ -22,6 +22,8 @@ const factory = (propsData, container = Circle) => {
   });
 };
 
+const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
   describe("#progress", () => {
     it("calculates the progress circle stroke offset correctly", () => {
@@ -222,20 +224,32 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   describe("#data", () => {
-    const size = 200;
-    const globalThickness = 10;
-    const globalGap = 10;
+    const size = 400;
+    const globalThickness = 5;
+    const globalGap = 5;
 
-    const data = [
-      { progress: 25, color: "red", gap: 25, thickness: 5 },
-      { progress: 35, color: "blue", gap: 10, thickness: 5 },
-      { progress: 55, color: "green" }
-    ];
+    const data = [];
+    // generate random test data
+    for (let n = 0; n < 6; n++) {
+      data.push({
+        progress: 25,
+        gap: randomNumberInRange(),
+        thickness: randomNumberInRange()
+      });
+    }
+    // some special cases
+    data.push({ progress: 50, thickness: 5 });
+    data.push({ progress: 50, gap: 5 });
+    data.push({ progress: 50, gap: 0 });
+    data.push({ progress: 50 });
+
     const wrapper = factory({ data, gap: globalGap, thickness: globalThickness, size }, VueEllipseProgress);
     const circleWrappers = wrapper.findAll(Circle);
-    it("calculates the radius of each circle correctly depending on #thickness and #gap ", () => {
-      for (let i = 0; i < data.length; i++) {
-        const circleData = data[i];
+
+    for (let i = 0; i < data.length; i++) {
+      const circleData = data[i];
+      it(`calculates the radius of circle #${i} correctly
+        #thickness= ${circleData.thickness} | #gap= ${circleData.gap} `, () => {
         const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
         const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
 
@@ -259,8 +273,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         const circleEmptyWrapper = circleWrappers.at(i).find("circle.ep-circle--empty");
         expect(circleProgressWrapper.element.getAttribute("r")).to.equal(`${radius}`);
         expect(circleEmptyWrapper.element.getAttribute("r")).to.equal(`${radius}`);
-      }
-    });
+      });
+    }
   });
 
   /* thicknessTest();

@@ -40,11 +40,11 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <vue-ellipse-progress
-        :gap="10"
+        :gap="5"
         color-fill="rgba(17,34,51,0.0)"
-        :data="circles"
-        :size="200"
-        :thickness="10"
+        :data="circlesTest"
+        :size="400"
+        :thickness="5"
         empty-color="rgba(17,34,51,0.66)"
         :loading="loading"
         :no-data="noData"
@@ -143,6 +143,8 @@
   </div>
 </template>
 <script>
+const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 export default {
   name: "app",
   components: {},
@@ -211,6 +213,51 @@ export default {
   computed: {
     tasksDonePercent() {
       return (this.tasks_done * 100) / 200;
+    },
+    circlesTest() {
+      const data = [];
+      // generate random test data
+      for (let n = 0; n < 6; n++) {
+        data.push({
+          progress: 25,
+          gap: randomNumberInRange(),
+          thickness: randomNumberInRange()
+        });
+      }
+      // some special cases
+      data.push({ progress: 50, color: "red", thickness: 5 });
+      data.push({ progress: 50, gap: 5 });
+      data.push({ progress: 50, gap: 0 });
+      data.push({ progress: 50 });
+      const globalThickness = 5;
+      const globalGap = 5;
+      for (let i = 0; i < data.length; i++) {
+        const circleData = data[i];
+
+        const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
+        const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
+
+        let previousCirclesThickness;
+
+        let radius;
+        const baseRadius = 400 / 2 - circleThickness / 2;
+        if (i > 0) {
+          const previousCirclesData = data.filter((props, index) => index < i);
+          previousCirclesThickness = previousCirclesData
+            .map(({ gap, thickness }) => {
+              const g = gap !== undefined ? gap : globalGap;
+              const t = thickness !== undefined ? thickness : globalThickness;
+              return g + t;
+            })
+            .reduce((acc, current) => acc + current);
+
+          radius = baseRadius - (previousCirclesThickness + circleGap);
+        } else {
+          radius = baseRadius;
+        }
+        console.log("#", i, "|", circleData.thickness, circleData.gap, previousCirclesThickness, radius);
+      }
+      return data;
     }
   },
   methods: {
