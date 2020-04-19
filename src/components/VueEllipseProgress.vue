@@ -84,7 +84,7 @@ export default {
         return this.data.map(data => ({
           ...this.$props,
           ...data,
-          // TODO: why?
+          // currently the thickness for both lines must be equal
           emptyThickness: data.thickness || this.$props.thickness
         }));
       }

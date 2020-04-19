@@ -1,7 +1,8 @@
 import { expect } from "chai";
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, mount } from "@vue/test-utils";
 import Vue from "vue";
 import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
+import EpCircleContainer from "../../src/components/Circle/EpCircleContainer.vue";
 
 const factory = propsData => {
   return shallowMount(VueEllipseProgress, {
@@ -128,6 +129,41 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
       });
+    });
+  });
+  describe("#data", () => {
+    const data = [
+      { progress: 25, color: "red" },
+      { progress: 35, color: "blue" },
+      { progress: 55, color: "green", loading: true }
+    ];
+    const wrapper = mount(VueEllipseProgress, { propsData: { progress: 10, data, color: "pink" } });
+    it("hides the circle legend", () => {
+      expect(wrapper.find(".ep-legend--value").exists()).to.be.false;
+    });
+    it(`renders ${data.length} circles`, () => {
+      expect(wrapper.findAll(EpCircleContainer).length).to.equal(data.length);
+    });
+    it("merges circles props with the global props", () => {
+      const { circlesData } = wrapper.vm;
+      const globalProps = wrapper.props();
+      for (const circleProps of circlesData) {
+        for (const prop of Object.keys(circleProps)) {
+          // this must be overwritten
+          if (prop === "progress" || prop === "color" || prop === "loading") {
+            continue;
+          }
+          expect(circleProps[prop]).to.equal(globalProps[prop]);
+        }
+      }
+    });
+    it("overrides global props by circles props", () => {
+      const { circlesData } = wrapper.vm;
+      for (let i = 0; i < data.length; i++) {
+        for (const prop of Object.keys(data[i])) {
+          expect(circlesData[i][prop]).to.equal(data[i][prop]);
+        }
+      }
     });
   });
 });

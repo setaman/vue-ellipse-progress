@@ -39,17 +39,15 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         :gap="30"
         color-fill="rgba(17,34,51,0.0)"
         half
         :data="circles"
         :size="700"
         :thickness="40"
-        :progress="progress"
         empty-color="rgba(17,34,51,0.66)"
         animation="rs 1000 0"
-        :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
       >
@@ -57,7 +55,7 @@
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
         :determinate="determinate"
