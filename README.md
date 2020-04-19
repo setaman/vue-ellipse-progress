@@ -396,7 +396,7 @@ data: [
 
 - ### `gap`
 
-Defines the gap in pixel between circles. It will be applied only if [`data`](#data) prop is used.
+Defines the gap in pixel from one circle to the previous cirlce. It will be applied only if [`data`](#data) prop is used.
 
 ###### Example: :scroll:
 
