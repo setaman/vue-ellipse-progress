@@ -38,7 +38,7 @@
 <script>
 import CountUp from "vue-countup-v2";
 import { getNumberIfValid, isValidNumber } from "../utils";
-import props from "./interface";
+import { props } from "./interface";
 import EpCircleContainer from "./Circle/EpCircleContainer.vue";
 
 export default {

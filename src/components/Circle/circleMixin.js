@@ -1,13 +1,13 @@
 import { isValidNumber } from "../../utils";
 import { animationParser, dashParser, lineModeParser } from "../optionsParser";
-import interfaceDefinition from "../interface";
+import { simplifiedProps } from "../interface";
 
 const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
   props: {
-    ...interfaceDefinition,
+    ...simplifiedProps,
     multiple: {
       type: Boolean,
       required: true

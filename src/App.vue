@@ -208,7 +208,7 @@ export default {
       ],
       radial: true
     },
-    animation: "rs 200 5000"
+    animation: "rsf 200 5000"
   }),
   computed: {
     tasksDonePercent() {
@@ -229,34 +229,6 @@ export default {
       data.push({ progress: 50, gap: 5 });
       data.push({ progress: 50, gap: 0 });
       data.push({ progress: 50 });
-      const globalThickness = 5;
-      const globalGap = 5;
-      for (let i = 0; i < data.length; i++) {
-        const circleData = data[i];
-
-        const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
-        const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
-
-        let previousCirclesThickness;
-
-        let radius;
-        const baseRadius = 400 / 2 - circleThickness / 2;
-        if (i > 0) {
-          const previousCirclesData = data.filter((props, index) => index < i);
-          previousCirclesThickness = previousCirclesData
-            .map(({ gap, thickness }) => {
-              const g = gap !== undefined ? gap : globalGap;
-              const t = thickness !== undefined ? thickness : globalThickness;
-              return g + t;
-            })
-            .reduce((acc, current) => acc + current);
-
-          radius = baseRadius - (previousCirclesThickness + circleGap);
-        } else {
-          radius = baseRadius;
-        }
-        console.log("#", i, "|", circleData.thickness, circleData.gap, previousCirclesThickness, radius);
-      }
       return data;
     }
   },

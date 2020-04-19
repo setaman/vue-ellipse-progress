@@ -13,7 +13,7 @@ const colorConfig = (defaultColor = "transparent") => ({
   }
 });
 
-export default {
+const props = {
   data: {
     type: Array,
     required: false,
@@ -141,3 +141,11 @@ export default {
     default: false
   }
 };
+
+const simplifiedProps = {};
+
+for (const p in props) {
+  simplifiedProps[p] = props[p].type;
+}
+
+export { props, simplifiedProps };
