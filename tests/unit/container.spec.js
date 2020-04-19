@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
 import Vue from "vue";
 import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
-import EpCircleContainer from "../../src/components/Circle/EpCircleContainer.vue";
+import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
 
 const factory = propsData => {
   return shallowMount(VueEllipseProgress, {
@@ -142,7 +142,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.find(".ep-legend--value").exists()).to.be.false;
     });
     it(`renders ${data.length} circles`, () => {
-      expect(wrapper.findAll(EpCircleContainer).length).to.equal(data.length);
+      expect(wrapper.findAll(CircleContainer).length).to.equal(data.length);
     });
     it("merges circles props with the global props", () => {
       const { circlesData } = wrapper.vm;

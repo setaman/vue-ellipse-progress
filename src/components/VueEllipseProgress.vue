@@ -8,7 +8,7 @@
   >
     <div class="ep-content">
       <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <ep-circle-container
+        <circle-container
           v-for="(options, i) in circlesData"
           :key="i"
           v-bind="options"
@@ -39,11 +39,11 @@
 import CountUp from "vue-countup-v2";
 import { getNumberIfValid, isValidNumber } from "../utils";
 import { props } from "./interface";
-import EpCircleContainer from "./Circle/EpCircleContainer.vue";
+import CircleContainer from "./Circle/CircleContainer.vue";
 
 export default {
   name: "VueEllipseProgress",
-  components: { EpCircleContainer, CountUp },
+  components: { CircleContainer, CountUp },
   data: () => ({}),
   props,
   computed: {
