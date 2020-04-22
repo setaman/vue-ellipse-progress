@@ -85,11 +85,10 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="88"
+        :progress="60"
         :size="200"
-        line-mode="in-over 10"
-        half
-        :thickness="20"
+        animation="default 500 20000"
+        :thickness="4"
         :empty-thickness="10"
         :colorFill="emptyColorFill"
       >
