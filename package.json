@@ -1,9 +1,9 @@
 {
   "name": "vue-ellipse-progress",
-  "version": "0.20.0",
+  "version": "1.0.0-beta.14",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
-  "main": "./dist/vue-ellipse-progress.common.js",
+  "main": "./dist/vue-ellipse-progress.umd.min.js",
   "author": {
     "name": "Sergej Atamantschuk",
     "email": "sergejatam@gmail.com"
@@ -25,32 +25,34 @@
   "repository": "github:setaman/vue-ellipse-progress",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vue-ellipse-progress ./src/plugin.js",
+    "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "countup.js": "^2.0.4",
-    "vue": "^2.6.6",
+    "vue": "^2.6.11",
     "vue-countup-v2": "^4.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.12.1",
-    "@vue/cli-plugin-eslint": "^3.12.1",
-    "@vue/cli-plugin-unit-mocha": "^3.12.1",
-    "@vue/cli-service": "^3.12.1",
-    "@vue/eslint-config-airbnb": "^4.0.1",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "babel-eslint": "^10.0.3",
-    "chai": "^4.1.2",
-    "eslint": "^5.8.0",
-    "eslint-config-prettier": "^4.3.0",
+    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-plugin-eslint": "^4.2.3",
+    "@vue/cli-plugin-unit-mocha": "^4.2.3",
+    "@vue/cli-service": "^4.2.3",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/test-utils": "1.0.0-beta.32",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^5.2.3",
-    "node-sass": "^4.13.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

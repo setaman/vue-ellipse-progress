@@ -5,16 +5,16 @@
       :r="emptyRadius"
       :cx="position"
       :cy="position"
-      :stroke="emptyColor"
+      :stroke="computedEmptyColor"
       :stroke-dasharray="emptyDasharray"
-      :fill="emptyColorFill"
+      :fill="computedEmptyColorFill"
       :style="{ transition: animationDuration }"
       :class="{ 'ep_circle--nodata': !dataIsAvailable }"
-      :stroke-width="emptyThickness"
+      :stroke-width="computedEmptyThickness"
     >
     </circle>
     <fade-in-transition>
-      <g v-if="options.determinate && !options.loading">
+      <g v-if="showDeterminate">
         <g style="opacity: 0.7;">
           <circle
             class="ep-circle--determinate animation__loading"
@@ -22,16 +22,11 @@
             :cx="position"
             :cy="position"
             fill="transparent"
-            :stroke="color"
-            :stroke-width="thickness"
-            :stroke-linecap="options.line"
+            :stroke="computedColor"
+            :stroke-width="computedThickness"
+            :stroke-linecap="line"
             :stroke-dasharray="circumference"
-            :style="{
-              strokeDashoffset: circumference,
-              transition: animationDuration,
-              'animation-delay': `${delay}ms`,
-              'transform-origin': transformOrigin
-            }"
+            :style="styles"
           >
           </circle>
         </g>
@@ -43,17 +38,12 @@
       :r="radius"
       :cx="position"
       :cy="position"
-      :fill="colorFill"
-      :stroke="color"
-      :stroke-width="thickness"
-      :stroke-linecap="options.line"
+      :fill="computedColorFill"
+      :stroke="computedColor"
+      :stroke-width="computedThickness"
+      :stroke-linecap="line"
       :stroke-dasharray="circumference"
-      :style="{
-        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
-        transition: animationDuration,
-        'animation-delay': `${delay}ms`,
-        'transform-origin': transformOrigin
-      }"
+      :style="styles"
     >
     </circle>
   </g>
@@ -68,9 +58,8 @@ export default {
   components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
-    // only component specific props here, another props comes from the circleMixin
     progressOffset() {
-      const offset = this.circumference - (this.progress / 100) * this.circumference;
+      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
         return 0;
       }

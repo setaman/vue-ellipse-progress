@@ -19,30 +19,33 @@
           No DATA
           <input id="nodata" type="checkbox" v-model="noData" />
         </label>
+        <label for="animation">
+          Animation
+          <input v-model="animation" id="animation" />
+        </label>
+        <label for="line">
+          line
+          <input v-model="line" id="line" />
+        </label>
         <label for="determinate">
           Determinate
-          <input id="determinate" type="checkbox" v-model="determinate" />
+          <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
+          <input id="determinate2" type="checkbox" v-model="determinate" />
         </label>
       </div>
-      <div>
+      <!--<div>
         <input type="checkbox" v-model="circles[0].loading" />
         <input type="checkbox" v-model="circles[1].loading" />
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
-      </div>
+      </div>-->
       <vue-ellipse-progress
-        :gap="20"
-        half
-        color-fill="transparent"
-        :determinate="determinate"
-        :data="circles"
-        :size="800"
-        :thickness="10"
-        :empty-thickness="10"
-        :progress="timerProgress"
+        :gap="5"
+        color-fill="rgba(17,34,51,0.0)"
+        :data="circlesTest"
+        :size="400"
+        :thickness="5"
         empty-color="rgba(17,34,51,0.66)"
-        :animation="{ type: 'rs', duration: 1000, delay: 0 }"
-        :legend-value="10.45"
         :loading="loading"
         :no-data="noData"
       >
@@ -51,71 +54,44 @@
       </vue-ellipse-progress>
 
       <!--<vue-ellipse-progress
-        :thickness="10"
-        :no-data="noData"
-        :empty-thickness="20"
-        legend-class="legend-custom-style"
-        :legend-value="23"
-        :line-mode="{ mode: 'bottom', offset: 10 }"
-        :legend="true"
-      >
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
-        :progress="parseFloat(progress)"
-        :color="color"
-        :loading="loading"
-        :emptyColor="emptyColor"
-        :size="size"
-        :emptyThickness="5"
-        :lineMode="{ mode: 'in', offset: 10 }"
-        :legend="false"
-        :animation="{ type: 'rs', duration: 700 }"
-        dash="10 10"
-        fontSize="5rem"
-      >
-        <img slot="legend-capture" src="@/assets/icon.svg" />
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
-        :color="color"
+        :determinate="determinate"
         :loading="loading"
-        :emptyColor="emptyColor"
         :emptyColorFill="emptyColorFill"
         thickness="2%"
         emptyThickness="5%"
         :size="size"
         line="round"
-        :dash="{ count: 60, spacing: 0.95 }"
-        :lineMode="{ mode: 'in-overlap', offset: 10 }"
+        dash="strict 60 0.95"
+        lineMode="top"
         :legend="true"
         :legendValue="sec"
         legendClass="legend-custom-style"
         :noData="noData"
-        :animation="{ type: 'loop', duration: 700, delay: 300 }"
+        animation="loop 700 300"
+      >
+      </vue-ellipse-progress>-->
+      <vue-ellipse-progress
+        :progress="50"
+        :animation="animation"
+        :loading="loading"
+        emptyColor="red"
+        line-mode="out"
+        dash="strict 60 0.8"
+        :no-data="noData"
+        :line="line"
       >
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="parseFloat(timerProgress)"
-        :color="color"
-        :loading="loading"
-        :emptyColor="emptyColor"
-        emptyColorFill=""
-        thickness="10"
-        emptyThickness="10"
-        :size="size"
-        line="round"
-        :lineMode="{ mode: 'in', offset: 10 }"
-        :legend="true"
-        :legendValue="sec"
-        legendClass="legend-custom-style"
-        :noData="noData"
-        :animation="{ type: 'reverse', duration: 700, delay: 300 }"
-        fontSize="4rem"
-        fontColor="white"
-        angle="-90"
+        :progress="88"
+        :size="200"
+        line-mode="in-over 10"
         half
+        :thickness="20"
+        :empty-thickness="10"
+        :colorFill="emptyColorFill"
       >
         <span slot="legend-value"></span>
       </vue-ellipse-progress>
@@ -126,7 +102,7 @@
         <input v-model="tasks_done" max="200" min="0" type="number" id="tasks" />
         <button @click="updateTasksDone">Update Tasks</button>
       </div>
-      <vue-ellipse-progress
+      <!--<vue-ellipse-progress
         :progress="parseFloat(tasksDonePercent)"
         :color="color"
         :emptyColor="emptyColor"
@@ -167,42 +143,17 @@
   </div>
 </template>
 <script>
+const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 export default {
   name: "app",
   components: {},
   data: () => ({
+    line: "round",
     circles: [
-      {
-        progress: 75,
-        thickness: 20,
-        animation: { type: "rs", duration: 2000, delay: 200 },
-        loading: false,
-        half: false
-      },
-      {
-        progress: 55,
-        thickness: 40,
-        color: "blue",
-        // angle: "-90",
-        loading: false,
-        animation: { type: "rs", duration: 2000, delay: 400 }
-      },
-      {
-        progress: 35,
-        thickness: 40,
-        color: "red",
-        // angle: "155",
-        loading: false,
-        animation: { type: "rs", duration: 2000, delay: 600 }
-      },
-      {
-        progress: 15,
-        thickness: 40,
-        color: "yellow",
-        // angle: "165",
-        loading: false,
-        animation: { type: "rs", duration: 2000, delay: 800 }
-      }
+      { progress: 25, color: "red", gap: 25, thickness: 5 },
+      { progress: 35, color: "blue", gap: 10, thickness: 5 },
+      { progress: 55, color: "green" }
     ],
     determinate: false,
     loading: false,
@@ -212,122 +163,73 @@ export default {
     sec: 0,
     tasks_done: 125,
     size: 300,
-    color: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "0",
-            opacity: "0"
-          },
-          {
-            color: "#3260FC",
-            offset: "100",
-            opacity: "1"
-          }
-        ]
-      }
-    },
-    colorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "40",
-            opacity: "1"
-          },
-          {
-            color: "transparent",
-            offset: "80",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
-    },
-    emptyColor: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#050a27",
-            offset: "0",
-            opacity: "0.3"
-          },
-          {
-            color: "#050a27",
-            offset: "100",
-            opacity: "0.3"
-          }
-        ]
-      }
-    },
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.2"
-          },
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
-    }
+      colors: [
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.2"
+        },
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1"
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        }
+      ],
+      radial: true
+    },
+    animation: "rs 200 5000"
   }),
   computed: {
     tasksDonePercent() {
       return (this.tasks_done * 100) / 200;
+    },
+    circlesTest() {
+      const data = [];
+      // generate random test data
+      for (let n = 0; n < 6; n++) {
+        data.push({
+          progress: 25,
+          gap: randomNumberInRange(),
+          thickness: randomNumberInRange()
+        });
+      }
+      // some special cases
+      data.push({ progress: 50, color: "red", thickness: 5 });
+      data.push({ progress: 50, gap: 5 });
+      data.push({ progress: 50, gap: 0 });
+      data.push({ progress: 50 });
+      return data;
     }
   },
   methods: {
@@ -342,10 +244,12 @@ export default {
         if (this.sec === 60) {
           this.sec = 0;
           this.timerProgress = (this.sec * 100) / 60;
+          this.circles[0].progress = this.timerProgress;
           return;
         }
         this.sec++;
         this.timerProgress = (this.sec * 100) / 60;
+        this.circles[0].progress = this.timerProgress;
       }, 1000);
     }
   },
