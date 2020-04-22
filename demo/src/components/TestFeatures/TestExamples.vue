@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Example1 from "@/components/Examples/Example1";
+/*import Example1 from "@/components/Examples/Example1";
 import Example2 from "@/components/Examples/Example2";
 import Example3 from "@/components/Examples/Example3";
 import Example4 from "@/components/Examples/Example4";
@@ -45,7 +45,7 @@ import Example5 from "@/components/Examples/Example5";
 import Example6 from "@/components/Examples/Example6";
 import Example7 from "@/components/Examples/Example7";
 import Example8 from "@/components/Examples/Example8";
-import Example9 from "@/components/Examples/Example9";
+import Example9 from "@/components/Examples/Example9";*/
 import ExamplesControls from "@/components/Examples/ExamplesControls";
 import Example10 from "@/components/Examples/Example10";
 import Example11 from "@/components/Examples/Example11";
@@ -57,8 +57,8 @@ export default {
     Example12,
     Example11,
     Example10,
-    ExamplesControls,
-    Example9,
+    ExamplesControls
+    /*Example9,
     Example8,
     Example7,
     Example6,
@@ -66,7 +66,7 @@ export default {
     Example4,
     Example3,
     Example2,
-    Example1
+    Example1*/
   },
   data: () => ({
     loading: false,

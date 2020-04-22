@@ -46,7 +46,7 @@ export default {
       const progress = this.progress;
       return [
         {
-          progress: progress + randomNumberInRange(0, 20),
+          progress: progress + randomNumberInRange(0, 20)
         },
         {
           progress: progress + randomNumberInRange(0, 20)
