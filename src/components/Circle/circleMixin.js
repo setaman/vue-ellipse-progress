@@ -121,7 +121,7 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "default"
+          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
         `${this.loading ? "animation__loading" : ""}`
       ];
