@@ -158,17 +158,20 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const thickness = 10;
 
     const wrapper = factory({ noData: true, progress, size });
+    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+    const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
 
     it("sets the stroke dash offset to circumference value", () => {
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
-      const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
     });
     it("adds .ep_circle--nodata class to empty circle", () => {
-      const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.classes()).to.include("ep_circle--nodata");
+    });
+    it("resets the progress circle animation class", () => {
+      expect(circleProgressWrapper.classes()).to.not.include("animation__default");
     });
   });
   describe("#loading", () => {
