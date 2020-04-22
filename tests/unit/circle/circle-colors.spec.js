@@ -14,32 +14,39 @@ const factory = (colorObject = {}) => {
   });
 };
 
+const gradientColor = {
+  radial: false,
+  colors: [
+    {
+      color: "red",
+      offset: 0,
+      opacity: 1
+    },
+    {
+      color: "blue",
+      offset: 0,
+      opacity: 1
+    }
+  ]
+};
+
 export default () => {
   describe("#color", () => {
     const color = "#ff0020";
     const wrapper = factory({ color });
 
+    const p = wrapper.vm.isColorGradient;
+
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+
+    it("do not recognize gradient colors", () => {
+      expect(wrapper.vm.isColorGradient).to.be.false;
+    });
 
     it("applies color correctly", () => {
       expect(circleProgressWrapper.element.getAttribute("stroke")).to.equal(`${color}`);
     });
-    it("applies gradient color correctly", () => {
-      const gradientColor = {
-        radial: false,
-        colors: [
-          {
-            color: "red",
-            offset: 0,
-            opacity: 1
-          },
-          {
-            color: "blue",
-            offset: 0,
-            opacity: 1
-          }
-        ]
-      };
+    describe("applies gradient color correctly", () => {
       wrapper.setProps({
         color: gradientColor
       });
@@ -47,7 +54,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
-        expect(wrapper.findAll("stop").length).to.equal(gradientColor.gradient.colors.length);
+        expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
       });
     });
   });
@@ -60,22 +67,7 @@ export default () => {
     it("applies color correctly", () => {
       expect(circleProgressWrapper.element.getAttribute("stroke")).to.equal(`${emptyColor}`);
     });
-    it("applies gradient color correctly", () => {
-      const gradientColor = {
-        radial: false,
-        colors: [
-          {
-            color: "red",
-            offset: 0,
-            opacity: 1
-          },
-          {
-            color: "blue",
-            offset: 0,
-            opacity: 1
-          }
-        ]
-      };
+    describe("applies gradient color correctly", () => {
       wrapper.setProps({
         emptyColor: gradientColor
       });
@@ -83,7 +75,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
-        expect(wrapper.findAll("stop").length).to.equal(gradientColor.gradient.colors.length);
+        expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
       });
     });
   });
@@ -96,22 +88,7 @@ export default () => {
     it("applies color correctly", () => {
       expect(circleProgressWrapper.element.getAttribute("fill")).to.equal(`${colorFill}`);
     });
-    it("applies gradient color correctly", () => {
-      const gradientColor = {
-        radial: false,
-        colors: [
-          {
-            color: "red",
-            offset: 0,
-            opacity: 1
-          },
-          {
-            color: "blue",
-            offset: 0,
-            opacity: 1
-          }
-        ]
-      };
+    describe("applies gradient color correctly", () => {
       wrapper.setProps({
         colorFill: gradientColor
       });
@@ -119,7 +96,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
-        expect(wrapper.findAll("stop").length).to.equal(gradientColor.gradient.colors.length);
+        expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
       });
     });
   });
@@ -132,22 +109,7 @@ export default () => {
     it("applies color correctly", () => {
       expect(circleProgressWrapper.element.getAttribute("fill")).to.equal(`${emptyColorFill}`);
     });
-    it("applies gradient color correctly", () => {
-      const gradientColor = {
-        radial: false,
-        colors: [
-          {
-            color: "red",
-            offset: 0,
-            opacity: 1
-          },
-          {
-            color: "blue",
-            offset: 0,
-            opacity: 1
-          }
-        ]
-      };
+    describe("applies gradient color correctly", () => {
       wrapper.setProps({
         emptyColorFill: gradientColor
       });
@@ -155,7 +117,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
-        expect(wrapper.findAll("stop").length).to.equal(gradientColor.gradient.colors.length);
+        expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
       });
     });
   });
