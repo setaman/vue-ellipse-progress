@@ -121,35 +121,24 @@ export default {
     animationClass() {
       return [
         `animation__${
-          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "default"
+          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
         `${this.loading ? "animation__loading" : ""}`
       ];
     },
-    /* Colors */
     computedColor() {
-      if (this.color.colors) {
-        return `url(#ep-progress-gradient-${this.id})`;
-      }
-      return this.color;
+      return Array.isArray(this.color.colors) ? `url(#ep-progress-gradient-${this.id})` : this.color;
     },
     computedEmptyColor() {
-      if (this.emptyColor.colors) {
-        return `url(#ep-empty-gradient-${this.id})`;
-      }
-      return this.emptyColor;
+      return Array.isArray(this.emptyColor.colors) ? `url(#ep-empty-gradient-${this.id})` : this.emptyColor;
     },
     computedColorFill() {
-      if (this.colorFill.colors) {
-        return `url(#ep-progress-fill-gradient-${this.id})`;
-      }
-      return this.colorFill || "transparent";
+      return Array.isArray(this.colorFill.colors) ? `url(#ep-progress-fill-gradient-${this.id})` : this.colorFill;
     },
     computedEmptyColorFill() {
-      if (this.emptyColorFill.colors) {
-        return `url(#ep-empty-fill-gradient-${this.id})`;
-      }
-      return this.emptyColorFill || "transparent";
+      return Array.isArray(this.emptyColorFill.colors)
+        ? `url(#ep-empty-fill-gradient-${this.id})`
+        : this.emptyColorFill;
     },
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
