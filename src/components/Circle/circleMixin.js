@@ -130,13 +130,15 @@ export default {
       return Array.isArray(this.color.colors) ? `url(#ep-progress-gradient-${this.id})` : this.color;
     },
     computedEmptyColor() {
-      return Array.isArray(this.emptyColor.colors) ? `url(#ep-progress-gradient-${this.id})` : this.emptyColor;
+      return Array.isArray(this.emptyColor.colors) ? `url(#ep-empty-gradient-${this.id})` : this.emptyColor;
     },
     computedColorFill() {
-      return Array.isArray(this.colorFill.colors) ? `url(#ep-progress-gradient-${this.id})` : this.colorFill;
+      return Array.isArray(this.colorFill.colors) ? `url(#ep-progress-fill-gradient-${this.id})` : this.colorFill;
     },
     computedEmptyColorFill() {
-      return Array.isArray(this.emptyColorFill.colors) ? `url(#ep-progress-gradient-${this.id})` : this.emptyColorFill;
+      return Array.isArray(this.emptyColorFill.colors)
+        ? `url(#ep-empty-fill-gradient-${this.id})`
+        : this.emptyColorFill;
     },
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());

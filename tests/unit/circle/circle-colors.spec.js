@@ -123,7 +123,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("applies gradient URL to SVG fill", () => {
-        expect(circleProgressWrapper.element.getAttribute("stroke")).to.equal(`url(#ep-progress-fill-gradient-${id})`);
+        expect(circleProgressWrapper.element.getAttribute("fill")).to.equal(`url(#ep-progress-fill-gradient-${id})`);
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
         expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
@@ -146,7 +146,7 @@ export default () => {
     });
     describe("applies gradient color correctly", () => {
       const wrapper = factory({ emptyColorFill: gradientColor });
-      const circleProgressWrapper = wrapper.find("circle.ep-circle--empty");
+      const emptyCircleWrapper = wrapper.find("circle.ep-circle--empty");
       const id = wrapper.vm._uid;
 
       it("recognizes gradient colors", () => {
@@ -156,7 +156,7 @@ export default () => {
         expect(wrapper.contains(Gradient)).to.be.true;
       });
       it("applies gradient URL to SVG fill", () => {
-        expect(circleProgressWrapper.element.getAttribute("fill")).to.equal(`url(#ep-empty-fill-gradient-${id})`);
+        expect(emptyCircleWrapper.element.getAttribute("fill")).to.equal(`url(#ep-empty-fill-gradient-${id})`);
       });
       it("renders corresponding amount of stop colors SVG elements", () => {
         expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
