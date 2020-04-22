@@ -3,6 +3,8 @@ import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 
+const wait = (ms = 400) => new Promise(resolve => setTimeout(resolve, ms));
+
 const factory = propsData => {
   return mount(Circle, {
     propsData: {
@@ -18,19 +20,23 @@ const factory = propsData => {
 export default () => {
   describe("#animation", () => {
     it("it parses the #animation property correctly", () => {
-      const wrapper = factory({ animation: "rs 2000 600" });
+      const wrapper = factory({ animation: "rs 2000 50" });
 
       expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
       expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
-      expect(wrapper.vm.parsedAnimation.delay).to.equal(600);
+      expect(wrapper.vm.parsedAnimation.delay).to.equal(50);
     });
     describe("#animation.type", () => {
       const wrapper = factory();
       const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
-      it("applies @default animation class by default", () => {
-        expect(circleProgressWrapper.classes())
-          .to.be.an("array")
-          .that.includes("animation__default");
+      it("applies @default animation class by default", done => {
+        setTimeout(() => {
+          expect(wrapper.vm.parsedAnimation.type).to.equal("default");
+          expect(circleProgressWrapper.classes())
+            .to.be.an("array")
+            .that.includes("animation__default");
+          done();
+        }, 60);
       });
       it("applies @bounce animation class correctly", async () => {
         wrapper.setProps({ animation: "bounce 500 500" });
