@@ -33,9 +33,8 @@ export default {
       "empty-color": "#324c7e",
       size: 180,
       thickness: 5,
-      "empty-thickness": 3,
-      "line-mode": { mode: "out", offset: 5 },
-      animation: { type: "rs", duration: 700, delay: 1000 },
+      "line-mode": "out 5",
+      animation: "rs 700 1000",
       "font-size": "1.5rem",
       "font-color": "white"
     }
@@ -49,19 +48,21 @@ export default {
       return [
         {
           progress: progress + randomNumberInRange(0, 20),
-          thickness: 3
+          thickness: 3,
+          gap: 0
         },
         {
           progress: progress + randomNumberInRange(0, 20),
-          thickness: 4,
-
+          gap: 5,
+          thickness: 5,
           color: "RGB(218, 112, 214)",
           emptyColor: "RGBA(218, 112, 214, 0.2)"
         },
         {
           progress: progress + randomNumberInRange(0, 20),
           color: "RGB(0, 206, 209)",
-          thickness: 5,
+          gap: 7,
+          thickness: 7,
           emptyColor: "RGBA(0, 206, 209, 0.2)"
         }
       ];
