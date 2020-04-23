@@ -76,8 +76,7 @@ export default {
     emptyPosition() {
       return this.size / 2 - this.emptyRadius;
     }
-  },
-  methods: {}
+  }
 };
 </script>
 

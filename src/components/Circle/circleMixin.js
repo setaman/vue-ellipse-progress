@@ -30,16 +30,14 @@ export default {
       required: false
     }
   },
-  data() {
-    return {
-      isInitialized: false
-    };
-  },
+  data: () => ({
+    isInitialized: false
+  }),
   computed: {
     computedProgress() {
       return parseFloat(this.progress || 0);
     },
-    /* Radius Calculation */
+
     radius() {
       const { offset } = this.parsedLineMode;
 
@@ -65,7 +63,6 @@ export default {
           return this.baseRadius;
       }
     },
-
     emptyRadius() {
       const { offset } = this.parsedLineMode;
 
@@ -106,6 +103,7 @@ export default {
       }
       return this.baseRadius;
     },
+
     parsedLineMode() {
       return lineModeParser(this.lineMode);
     },
@@ -118,6 +116,7 @@ export default {
     dataIsAvailable() {
       return isValidNumber(this.computedProgress) && !this.noData;
     },
+
     animationClass() {
       return [
         `animation__${
@@ -126,6 +125,10 @@ export default {
         `${this.loading ? "animation__loading" : ""}`
       ];
     },
+    animationDuration() {
+      return `${this.parsedAnimation.duration}ms`;
+    },
+
     computedColor() {
       return Array.isArray(this.color.colors) ? `url(#ep-progress-gradient-${this.id})` : this.color;
     },
@@ -140,6 +143,7 @@ export default {
         ? `url(#ep-empty-fill-gradient-${this.id})`
         : this.emptyColorFill;
     },
+
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
@@ -149,12 +153,11 @@ export default {
     computedEmptyThickness() {
       return this.calculateThickness(this.emptyThickness.toString());
     },
-    animationDuration() {
-      return `${this.parsedAnimation.duration}ms`;
-    },
+
     transformOrigin() {
       return "50% 50%";
     },
+
     emptyDasharray() {
       if (!this.parsedDash.count || !this.parsedDash.spacing) {
         return this.parsedDash;
@@ -162,9 +165,11 @@ export default {
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
+
     strokeDashOffset() {
       return this.dataIsAvailable && !this.loading && this.isInitialized ? this.progressOffset : this.circumference;
     },
+
     previousCirclesThickness() {
       if (this.index === 0) return 0;
       const currentCircleGap = isValidNumber(this.data[this.index].gap) ? this.data[this.index].gap : this.gap;
@@ -178,6 +183,7 @@ export default {
         .reduce((acc, current) => acc + current);
       return previousCirclesGap + currentCircleGap;
     },
+
     styles() {
       return {
         strokeDashoffset: this.strokeDashOffset,
@@ -195,20 +201,19 @@ export default {
         "animation-duration": this.animationDuration
       };
     },
+
     showDeterminate() {
       return this.determinate && !this.loading && this.dataIsAvailable;
     }
   },
   methods: {
     calculateThickness(thickness) {
-      const percent = parseFloat(thickness);
+      const value = parseFloat(thickness);
       switch (true) {
         case thickness.includes("%"):
-          return (percent * this.size) / 100;
-        case thickness.includes("rem"): // TODO: Is it worth to implement?
-          return (percent * this.size) / 100;
+          return (value * this.size) / 100;
         default:
-          return percent;
+          return value;
       }
     },
     getDashSpacingPercent() {
@@ -239,7 +244,7 @@ export default {
   },
   async mounted() {
     if (!this.loading) {
-      // await initial delay before applying animations and other props
+      // await initial delay before applying animations
       await wait(this.parsedAnimation.delay);
     }
     this.isInitialized = true;

@@ -85,11 +85,11 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="60"
+        :progress="-1"
         :size="200"
-        animation="default 500 20000"
+        animation="default 500 500"
         :thickness="4"
-        :empty-thickness="10"
+        :empty-thickness="4"
         :colorFill="emptyColorFill"
       >
         <span slot="legend-value"></span>
