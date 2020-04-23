@@ -17,8 +17,8 @@ const factory = (propsData, container = Circle) => {
       index: 0,
       id: 123,
       multiple: false,
-      ...propsData
-    }
+      ...propsData,
+    },
   });
 };
 
@@ -36,7 +36,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         progress,
         thickness,
         emptyThickness: thickness,
-        animation: "default 0 0"
+        animation: "default 0 0",
       });
 
       const radius = size / 2 - thickness / 2;
@@ -54,7 +54,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
       const wrapper = factory({
         progress,
-        size
+        size,
       });
 
       const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
@@ -79,7 +79,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         size,
         progress,
         thickness,
-        emptyThickness: thickness
+        emptyThickness: thickness,
       });
 
       expect(wrapper.vm.circumference).to.equal(circumference);
@@ -96,7 +96,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         thickness,
         size,
         half: true,
-        animation: "default 0 0"
+        animation: "default 0 0",
       },
       HalfCircle
     );
@@ -134,7 +134,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const dash = "10 10";
       const wrapper = factory({
         progress: 50,
-        dash
+        dash,
       });
 
       const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
@@ -145,7 +145,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const dash = "strict 60 0.5";
       const wrapper = factory({
         progress: 50,
-        dash
+        dash,
       });
 
       expect(wrapper.vm.parsedDash.count).to.equal(60);
@@ -201,7 +201,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       progress,
       color,
       thickness,
-      determinate: true
+      determinate: true,
     });
 
     it("shows the determinate loading circle", () => {
@@ -243,7 +243,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       data.push({
         progress: 25,
         gap: randomNumberInRange(),
-        thickness: randomNumberInRange()
+        thickness: randomNumberInRange(),
       });
     }
     // some special cases

@@ -9,8 +9,8 @@ const factory = (colorObject = {}) => {
       progress: 50,
       index: 0,
       multiple: false,
-      ...colorObject
-    }
+      ...colorObject,
+    },
   });
 };
 
@@ -20,14 +20,14 @@ const gradientColor = {
     {
       color: "red",
       offset: 0,
-      opacity: 1
+      opacity: 1,
     },
     {
       color: "blue",
       offset: 0,
-      opacity: 1
-    }
-  ]
+      opacity: 1,
+    },
+  ],
 };
 
 export default () => {

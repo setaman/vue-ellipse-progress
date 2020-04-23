@@ -2,7 +2,7 @@ import { isValidNumber } from "../../utils";
 import { animationParser, dashParser, lineModeParser } from "../optionsParser";
 import { simplifiedProps } from "../interface";
 
-const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
@@ -10,28 +10,28 @@ export default {
     ...simplifiedProps,
     multiple: {
       type: Boolean,
-      required: true
+      required: true,
     },
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     globalThickness: {
       type: [Number, String],
       required: false,
-      default: "5%"
+      default: "5%",
     },
     globalGap: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
   data: () => ({
-    isInitialized: false
+    isInitialized: false,
   }),
   computed: {
     computedProgress() {
@@ -122,7 +122,7 @@ export default {
         `animation__${
           !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
-        `${this.loading ? "animation__loading" : ""}`
+        `${this.loading ? "animation__loading" : ""}`,
       ];
     },
     animationDuration() {
@@ -198,13 +198,13 @@ export default {
         "--ep-bounce-in-stroke-offset": this.getBounceInOffset(),
         "--ep-reverse-stroke-offset": this.getReverseOffset(),
         "--ep-loading-stroke-offset": this.circumference * 0.2,
-        "animation-duration": this.animationDuration
+        "animation-duration": this.animationDuration,
       };
     },
 
     showDeterminate() {
       return this.determinate && !this.loading && this.dataIsAvailable;
-    }
+    },
   },
   methods: {
     calculateThickness(thickness) {
@@ -240,7 +240,7 @@ export default {
     },
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
-    }
+    },
   },
   async mounted() {
     if (!this.loading) {
@@ -248,5 +248,5 @@ export default {
       await wait(this.parsedAnimation.delay);
     }
     this.isInitialized = true;
-  }
+  },
 };

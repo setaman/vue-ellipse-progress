@@ -2,15 +2,15 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 
-const factory = propsData => {
+const factory = (propsData) => {
   return mount(Circle, {
     propsData: {
       progress: 50,
       multiple: true,
       id: 1,
       index: 0,
-      ...propsData
-    }
+      ...propsData,
+    },
   });
 };
 

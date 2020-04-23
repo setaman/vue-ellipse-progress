@@ -24,21 +24,21 @@ export default {
     ...simplifiedProps,
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     multiple: {
       type: Boolean,
-      required: true
+      required: true,
     },
     globalThickness: {
       type: [Number, String],
       required: false,
-      default: "5%"
+      default: "5%",
     },
     globalGap: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
   computed: {
     circleType() {
@@ -58,8 +58,8 @@ export default {
     },
     isEmptyColorFillGradient() {
       return Array.isArray(this.emptyColorFill.colors);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">

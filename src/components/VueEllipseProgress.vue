@@ -3,7 +3,7 @@
     class="ep-container"
     :style="{
       maxWidth: `${size}px`,
-      maxHeight: `${size}px`
+      maxHeight: `${size}px`,
     }"
   >
     <div class="ep-content">
@@ -75,7 +75,7 @@ export default {
         duration,
         target: "span",
         decimalPlaces: this.countDecimals,
-        decimal: "."
+        decimal: ".",
       };
     },
     isMultiple() {
@@ -83,16 +83,16 @@ export default {
     },
     circlesData() {
       if (this.isMultiple) {
-        return this.data.map(data => ({
+        return this.data.map((data) => ({
           ...this.$props,
           ...data,
           // currently the thickness for both lines must be equal
-          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness
+          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
         }));
       }
       return [this.$props];
-    }
-  }
+    },
+  },
 };
 </script>
 

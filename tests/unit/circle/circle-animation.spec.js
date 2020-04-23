@@ -3,15 +3,15 @@ import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
 
-const factory = propsData => {
+const factory = (propsData) => {
   return mount(Circle, {
     propsData: {
       index: 1,
       id: 2,
       multiple: false,
       progress: 50,
-      ...propsData
-    }
+      ...propsData,
+    },
   });
 };
 
@@ -35,15 +35,13 @@ export default () => {
             "animation__bounce",
             "animation__rs",
             "animation__reverse",
-            "animation__loop"
+            "animation__loop",
           ]);
       });
-      it("applies @default animation class by default", done => {
+      it("applies @default animation class by default", (done) => {
         setTimeout(() => {
           expect(wrapper.vm.parsedAnimation.type).to.equal("default");
-          expect(circleProgressWrapper.classes())
-            .to.be.an("array")
-            .that.include("animation__default");
+          expect(circleProgressWrapper.classes()).to.be.an("array").that.include("animation__default");
           done();
         }, 250);
       });
@@ -112,7 +110,7 @@ export default () => {
         expect(wrapper.vm.strokeDashOffset).to.equal(circumference);
         expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
       });
-      it("applies the progress after delay", done => {
+      it("applies the progress after delay", (done) => {
         const wrapper = factory({ progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" });
         const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
         setTimeout(() => {

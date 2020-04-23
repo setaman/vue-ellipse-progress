@@ -4,9 +4,9 @@ import Vue from "vue";
 import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
 import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
 
-const factory = propsData => {
+const factory = (propsData) => {
   return shallowMount(VueEllipseProgress, {
-    propsData: { progress: 50, ...propsData }
+    propsData: { progress: 50, ...propsData },
   });
 };
 
@@ -113,8 +113,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = shallowMount(VueEllipseProgress, {
           propsData: { progress: 50 },
           slots: {
-            "legend-value": '<span id="my-slot">Hello Circle</span>'
-          }
+            "legend-value": '<span id="my-slot">Hello Circle</span>',
+          },
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
       });
@@ -124,8 +124,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = shallowMount(VueEllipseProgress, {
           propsData: { progress: 50 },
           slots: {
-            "legend-caption": '<span id="my-slot">Hello Circle</span>'
-          }
+            "legend-caption": '<span id="my-slot">Hello Circle</span>',
+          },
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
       });
@@ -135,7 +135,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const data = [
       { progress: 25, color: "red" },
       { progress: 35, color: "blue" },
-      { progress: 55, color: "green", loading: true }
+      { progress: 55, color: "green", loading: true },
     ];
     const wrapper = mount(VueEllipseProgress, { propsData: { progress: 10, data, color: "pink" } });
     it("hides the circle legend", () => {

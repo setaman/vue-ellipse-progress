@@ -163,7 +163,7 @@ export default {
     circles: [
       { progress: 25, color: "red", thickness: 5 },
       { progress: 35, color: "blue", gap: 0, thickness: 5 },
-      { progress: 55, color: "green" }
+      { progress: 55, color: "green" },
     ],
     determinate: false,
     loading: false,
@@ -178,47 +178,47 @@ export default {
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.2"
+          opacity: "0.2",
         },
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "#3260FC",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
-        }
+          opacity: "0.1",
+        },
       ],
-      radial: true
+      radial: true,
     },
-    animation: "rs 200 5000"
+    animation: "rs 200 5000",
   }),
   computed: {
     tasksDonePercent() {
@@ -232,7 +232,7 @@ export default {
           progress: 25,
           gap: randomNumberInRange(),
           thickness: randomNumberInRange(),
-          determinate: this.determinate
+          determinate: this.determinate,
         });
       }
       // some special cases
@@ -241,7 +241,7 @@ export default {
       data.push({ progress: 50, gap: 0 });
       data.push({ progress: 50 });
       return data;
-    }
+    },
   },
   methods: {
     updateProgress() {
@@ -262,11 +262,11 @@ export default {
         this.timerProgress = (this.sec * 100) / 60;
         this.circles[0].progress = this.timerProgress;
       }, 1000);
-    }
+    },
   },
   mounted() {
     this.runTimer();
-  }
+  },
 };
 </script>
 
