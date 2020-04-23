@@ -44,7 +44,7 @@
         hide-details
         v-model="determinate"
         dark
-        label="determine"
+        label="determinate"
         @change="emitDeterminateChange"
       ></v-switch>
     </div>
