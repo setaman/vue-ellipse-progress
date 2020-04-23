@@ -11,7 +11,7 @@
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :animation="{ type: 'bounce', duration: 700, delay: 1000 }"
+      animation="bounce 700 1000"
       fontSize="1.5rem"
       font-color="white"
       :loading="loading"
