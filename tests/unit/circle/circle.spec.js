@@ -225,6 +225,12 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       await Vue.nextTick();
       expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
+    it("sets @0 value as the rotation of the svg container correctly", async () => {
+      const angle = 0;
+      circleContainerWrapper.setProps({ angle });
+      await Vue.nextTick();
+      expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+    });
   });
   describe("#data", () => {
     const size = 400;

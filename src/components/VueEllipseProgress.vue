@@ -93,7 +93,6 @@ export default {
       return [this.$props];
     }
   },
-  methods: {}
 };
 </script>
 
