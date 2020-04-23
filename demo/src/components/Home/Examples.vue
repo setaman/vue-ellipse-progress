@@ -26,11 +26,11 @@
 
         <example9 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example10 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example10 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example11 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example11 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example12 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example12 :loading="loading" :determinate="determinate" :no-data="noData" />
       </v-row>
     </v-container>
   </section>

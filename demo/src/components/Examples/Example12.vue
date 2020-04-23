@@ -1,15 +1,15 @@
 <template>
   <example-card
-    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example12.vue"
+    link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example11.vue"
   >
     <component
       :is="component"
       :data="circles"
-      :gap="5"
-      half
       :determinate="determinate"
+      animation="default 1000"
       v-bind="options"
       :loading="loading"
+      half
       :no-data="noData"
     >
     </component>
@@ -23,18 +23,38 @@ import randomNumberInRange from "@/utils/randomNumberInRange";
 import props from "@/components/Examples/examplesProps";
 
 export default {
-  name: "Example12",
+  name: "Example11",
   components: { ExampleCard },
   props,
   data: () => ({
-    progress: 34,
+    circlesData: [
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      }
+    ],
+    colors: ["rgb(117,121,255)", "rgb(147, 112, 219)", "rgb(104,54,243)", "rgb(106, 90, 205)"],
     options: {
       determinate: true,
       color: "#7579ff",
       "empty-color": "#324c7e",
       size: 180,
       thickness: 5,
-      animation: "rs 700 1000",
+      "line-mode": "out 5",
       "font-size": "1.5rem",
       "font-color": "white"
     }
@@ -44,27 +64,26 @@ export default {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     },
     circles() {
-      const progress = this.progress;
-      return [
-        {
-          progress: progress + randomNumberInRange(0, 20)
-        },
-        {
-          progress: progress + randomNumberInRange(0, 20),
-          color: "RGB(218, 112, 214)",
-          emptyColor: "RGBA(218, 112, 214, 0.2)"
-        },
-        {
-          progress: progress + randomNumberInRange(0, 20),
-          color: "RGB(0, 206, 209)",
-          emptyColor: "RGBA(0, 206, 209, 0.2)"
-        }
-      ];
+      return this.circlesData;
     }
   },
   methods: {
     randomizeOptions() {
-      this.progress = randomNumberInRange(0, 100);
+      const gap = randomNumberInRange(2, 10);
+      const thickness = randomNumberInRange(1, 3);
+
+      let updatedData = [];
+
+      for (let n = 0; n < 6; n++) {
+        updatedData.push({
+          progress: randomNumberInRange(0, 100),
+          angle: 20 * n, // randomNumberInRange(0, 100),
+          color: this.colors[randomNumberInRange(0, 3)],
+          gap,
+          thickness
+        });
+      }
+      this.circlesData = updatedData;
     }
   },
   mounted() {

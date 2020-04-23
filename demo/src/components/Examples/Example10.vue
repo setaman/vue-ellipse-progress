@@ -6,9 +6,10 @@
       :is="component"
       :data="circles"
       :gap="5"
-      :determinate="determinate"
+      :thickness="1"
+      animation="default 1000"
       v-bind="options"
-      :loading="loading"
+      :loading="true"
       :no-data="noData"
     >
     </component>
@@ -26,14 +27,35 @@ export default {
   components: { ExampleCard },
   props,
   data: () => ({
-    progress: 34,
+    circlesData: [
+      {
+        progress: randomNumberInRange(0, 20),
+        gap: 5
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20)
+      },
+      {
+        progress: randomNumberInRange(0, 20),
+      },
+      {
+        progress: randomNumberInRange(0, 20),
+      }
+    ],
+    colors: ["rgb(51,54,177)", "rgb(105,36,255)", "rgb(104,54,243)", "rgb(64,44,180)"],
     options: {
       determinate: true,
       color: "#7579ff",
       "empty-color": "#324c7e",
       size: 180,
       thickness: 5,
-      animation: "rs 700 1000",
+      "line-mode": "out 5",
       "font-size": "1.5rem",
       "font-color": "white"
     }
@@ -43,23 +65,37 @@ export default {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     },
     circles() {
-      const progress = this.progress;
-      return [
-        {
-          progress: progress + randomNumberInRange(0, 20)
-        },
-        {
-          progress: progress + randomNumberInRange(0, 20)
-        },
-        {
-          progress: progress + randomNumberInRange(0, 20)
-        }
-      ];
+      return this.circlesData;
     }
   },
   methods: {
     randomizeOptions() {
-      this.progress = randomNumberInRange(0, 100);
+      const previousGap = this.circlesData[0].gap;
+
+      let gap;
+      let thickness;
+      let opacity;
+      if (previousGap === 5) {
+        gap = 10;
+        thickness = 2;
+        opacity = 0.3;
+      } else {
+        gap = 5;
+        thickness = 1;
+        opacity = 0.05
+      }
+
+      for (let n = 0; n < 6; n++) {
+        const color = this.colors[randomNumberInRange(0, 3)];
+        this.circlesData.splice(n, 1, {
+          progress: randomNumberInRange(0, 100),
+          angle: 20 * n, // randomNumberInRange(0, 100),
+          color: color,
+          emptyColor: color.replace(")", `, ${opacity})`).replace("rgb", "rgba"),
+          gap,
+          thickness
+        });
+      }
     }
   },
   mounted() {
