@@ -17,8 +17,8 @@ const factory = (propsData, container = Circle) => {
       index: 0,
       id: 123,
       multiple: false,
-      ...propsData
-    }
+      ...propsData,
+    },
   });
 };
 
@@ -36,7 +36,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         progress,
         thickness,
         emptyThickness: thickness,
-        animation: "default 0 0"
+        animation: "default 0 0",
       });
 
       const radius = size / 2 - thickness / 2;
@@ -54,7 +54,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
       const wrapper = factory({
         progress,
-        size
+        size,
       });
 
       const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
@@ -79,7 +79,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         size,
         progress,
         thickness,
-        emptyThickness: thickness
+        emptyThickness: thickness,
       });
 
       expect(wrapper.vm.circumference).to.equal(circumference);
@@ -96,7 +96,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         thickness,
         size,
         half: true,
-        animation: "default 0 0"
+        animation: "default 0 0",
       },
       HalfCircle
     );
@@ -134,7 +134,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const dash = "10 10";
       const wrapper = factory({
         progress: 50,
-        dash
+        dash,
       });
 
       const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
@@ -145,7 +145,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const dash = "strict 60 0.5";
       const wrapper = factory({
         progress: 50,
-        dash
+        dash,
       });
 
       expect(wrapper.vm.parsedDash.count).to.equal(60);
@@ -158,17 +158,20 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const thickness = 10;
 
     const wrapper = factory({ noData: true, progress, size });
+    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+    const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
 
     it("sets the stroke dash offset to circumference value", () => {
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
-      const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
     });
     it("adds .ep_circle--nodata class to empty circle", () => {
-      const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.classes()).to.include("ep_circle--nodata");
+    });
+    it("resets the progress circle animation class", () => {
+      expect(circleProgressWrapper.classes()).to.not.include("animation__default");
     });
   });
   describe("#loading", () => {
@@ -198,7 +201,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       progress,
       color,
       thickness,
-      determinate: true
+      determinate: true,
     });
 
     it("shows the determinate loading circle", () => {
@@ -222,6 +225,12 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       await Vue.nextTick();
       expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
+    it("sets @0 value as the rotation of the svg container correctly", async () => {
+      const angle = 0;
+      circleContainerWrapper.setProps({ angle });
+      await Vue.nextTick();
+      expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+    });
   });
   describe("#data", () => {
     const size = 400;
@@ -234,7 +243,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       data.push({
         progress: 25,
         gap: randomNumberInRange(),
-        thickness: randomNumberInRange()
+        thickness: randomNumberInRange(),
       });
     }
     // some special cases
@@ -258,10 +267,10 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         if (i > 0) {
           const previousCirclesData = data.filter((props, index) => index < i);
           const previousCirclesThickness = previousCirclesData
-            .map(({ gap, thickness }) => {
+            .map(({ gap, thickness }, n) => {
               const g = gap !== undefined ? gap : globalGap;
               const t = thickness !== undefined ? thickness : globalThickness;
-              return g + t;
+              return n > 0 ? g + t : t;
             })
             .reduce((acc, current) => acc + current);
 

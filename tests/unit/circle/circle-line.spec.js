@@ -18,7 +18,7 @@ const progress = 50;
 const size = 200;
 const baseRadius = size / 2;
 
-const factory = propsData => {
+const factory = (propsData) => {
   return mount(Circle, {
     propsData: {
       ...propsData,
@@ -26,8 +26,8 @@ const factory = propsData => {
       size,
       id: 1,
       index: 0,
-      multiple: false
-    }
+      multiple: false,
+    },
   });
 };
 
@@ -72,7 +72,7 @@ export default () => {
           thickness,
           emptyThickness,
           lineMode: "normal",
-          animation: "default 0 0"
+          animation: "default 0 0",
         });
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -140,7 +140,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `in ${offset}`
+          lineMode: `in ${offset}`,
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -156,7 +156,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `in-over ${offset}`
+          lineMode: `in-over ${offset}`,
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -173,7 +173,7 @@ export default () => {
           progress,
           thickness,
           emptyThickness,
-          lineMode: `out ${offset}`
+          lineMode: `out ${offset}`,
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -189,7 +189,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `out-over ${offset}`
+          lineMode: `out-over ${offset}`,
         });
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -227,7 +227,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `top ${offset}`
+          lineMode: `top ${offset}`,
         });
 
         it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -243,7 +243,7 @@ export default () => {
         const wrapper = factory({
           thickness,
           emptyThickness,
-          lineMode: `bottom ${offset}`
+          lineMode: `bottom ${offset}`,
         });
 
         describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {

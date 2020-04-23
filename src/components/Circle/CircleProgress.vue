@@ -15,7 +15,7 @@
     </circle>
     <fade-in-transition>
       <g v-if="showDeterminate">
-        <g style="opacity: 0.7;">
+        <g style="opacity: 0.45;">
           <circle
             class="ep-circle--determinate animation__loading"
             :r="radius"
@@ -70,9 +70,8 @@ export default {
     },
     circumference() {
       return this.radius * 2 * Math.PI;
-    }
+    },
   },
-  methods: {}
 };
 </script>
 
