@@ -57,9 +57,9 @@
               thickness="4px"
               empty-thickness="0px"
               :empty-color-fill="emptyColorFill"
-              :line-mode="{ mode: 'in', offset: 26 }"
+              line-mode="in 26"
               :size="300"
-              :animation="{ type: 'rs', duration: 700, delay: 300 }"
+              animation="rs 700 300"
               :legend-value="teamStats ? teamStats.won : 0"
               :loading="loading"
               :no-data="error || (!loading && !teamStats)"
@@ -126,37 +126,34 @@ export default {
     loading: true,
     error: false,
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: waveColor,
-            offset: "0",
-            opacity: "0"
-          },
-          {
-            color: waveColor,
-            offset: "79",
-            opacity: "0"
-          },
-          {
-            color: waveColor,
-            offset: "80",
-            opacity: "0.2"
-          },
-          {
-            color: waveColor,
-            offset: "90",
-            opacity: "0.02"
-          },
-          {
-            color: waveColor,
-            offset: "100",
-            opacity: "0.00"
-          }
-        ]
-      }
+      radial: true,
+      colors: [
+        {
+          color: waveColor,
+          offset: "0",
+          opacity: "0"
+        },
+        {
+          color: waveColor,
+          offset: "79",
+          opacity: "0"
+        },
+        {
+          color: waveColor,
+          offset: "80",
+          opacity: "0.2"
+        },
+        {
+          color: waveColor,
+          offset: "90",
+          opacity: "0.02"
+        },
+        {
+          color: waveColor,
+          offset: "100",
+          opacity: "0.00"
+        }
+      ]
     }
   }),
   computed: {

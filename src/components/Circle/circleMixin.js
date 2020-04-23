@@ -2,7 +2,7 @@ import { isValidNumber } from "../../utils";
 import { animationParser, dashParser, lineModeParser } from "../optionsParser";
 import { simplifiedProps } from "../interface";
 
-const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
@@ -10,36 +10,34 @@ export default {
     ...simplifiedProps,
     multiple: {
       type: Boolean,
-      required: true
+      required: true,
     },
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     globalThickness: {
       type: [Number, String],
       required: false,
-      default: "5%"
+      default: "5%",
     },
     globalGap: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
-  data() {
-    return {
-      isInitialized: false
-    };
-  },
+  data: () => ({
+    isInitialized: false,
+  }),
   computed: {
     computedProgress() {
       return parseFloat(this.progress || 0);
     },
-    /* Radius Calculation */
+
     radius() {
       const { offset } = this.parsedLineMode;
 
@@ -65,7 +63,6 @@ export default {
           return this.baseRadius;
       }
     },
-
     emptyRadius() {
       const { offset } = this.parsedLineMode;
 
@@ -106,6 +103,7 @@ export default {
       }
       return this.baseRadius;
     },
+
     parsedLineMode() {
       return lineModeParser(this.lineMode);
     },
@@ -118,39 +116,34 @@ export default {
     dataIsAvailable() {
       return isValidNumber(this.computedProgress) && !this.noData;
     },
+
     animationClass() {
       return [
         `animation__${
-          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "default"
+          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
-        `${this.loading ? "animation__loading" : ""}`
+        `${this.loading ? "animation__loading" : ""}`,
       ];
     },
-    /* Colors */
+    animationDuration() {
+      return `${this.parsedAnimation.duration}ms`;
+    },
+
     computedColor() {
-      if (this.color.colors) {
-        return `url(#ep-progress-gradient-${this.id})`;
-      }
-      return this.color;
+      return Array.isArray(this.color.colors) ? `url(#ep-progress-gradient-${this.id})` : this.color;
     },
     computedEmptyColor() {
-      if (this.emptyColor.colors) {
-        return `url(#ep-empty-gradient-${this.id})`;
-      }
-      return this.emptyColor;
+      return Array.isArray(this.emptyColor.colors) ? `url(#ep-empty-gradient-${this.id})` : this.emptyColor;
     },
     computedColorFill() {
-      if (this.colorFill.colors) {
-        return `url(#ep-progress-fill-gradient-${this.id})`;
-      }
-      return this.colorFill || "transparent";
+      return Array.isArray(this.colorFill.colors) ? `url(#ep-progress-fill-gradient-${this.id})` : this.colorFill;
     },
     computedEmptyColorFill() {
-      if (this.emptyColorFill.colors) {
-        return `url(#ep-empty-fill-gradient-${this.id})`;
-      }
-      return this.emptyColorFill || "transparent";
+      return Array.isArray(this.emptyColorFill.colors)
+        ? `url(#ep-empty-fill-gradient-${this.id})`
+        : this.emptyColorFill;
     },
+
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
@@ -160,12 +153,11 @@ export default {
     computedEmptyThickness() {
       return this.calculateThickness(this.emptyThickness.toString());
     },
-    animationDuration() {
-      return `${this.parsedAnimation.duration}ms`;
-    },
+
     transformOrigin() {
       return "50% 50%";
     },
+
     emptyDasharray() {
       if (!this.parsedDash.count || !this.parsedDash.spacing) {
         return this.parsedDash;
@@ -173,22 +165,25 @@ export default {
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
+
     strokeDashOffset() {
       return this.dataIsAvailable && !this.loading && this.isInitialized ? this.progressOffset : this.circumference;
     },
+
     previousCirclesThickness() {
       if (this.index === 0) return 0;
-      const currentCircleGap = isValidNumber(this.data[this.index].gap) ? this.data[this.index].gap : this.gap;
+      const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
       const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
-        .map(data => {
+        .map((data, n) => {
           const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
           const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-          return thickness + gap;
+          return n > 0 ? thickness + gap : thickness;
         })
         .reduce((acc, current) => acc + current);
       return previousCirclesGap + currentCircleGap;
     },
+
     styles() {
       return {
         strokeDashoffset: this.strokeDashOffset,
@@ -203,23 +198,22 @@ export default {
         "--ep-bounce-in-stroke-offset": this.getBounceInOffset(),
         "--ep-reverse-stroke-offset": this.getReverseOffset(),
         "--ep-loading-stroke-offset": this.circumference * 0.2,
-        "animation-duration": this.animationDuration
+        "animation-duration": this.animationDuration,
       };
     },
+
     showDeterminate() {
       return this.determinate && !this.loading && this.dataIsAvailable;
-    }
+    },
   },
   methods: {
     calculateThickness(thickness) {
-      const percent = parseFloat(thickness);
+      const value = parseFloat(thickness);
       switch (true) {
         case thickness.includes("%"):
-          return (percent * this.size) / 100;
-        case thickness.includes("rem"): // TODO: Is it worth to implement?
-          return (percent * this.size) / 100;
+          return (value * this.size) / 100;
         default:
-          return percent;
+          return value;
       }
     },
     getDashSpacingPercent() {
@@ -246,13 +240,13 @@ export default {
     },
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
-    }
+    },
   },
   async mounted() {
     if (!this.loading) {
-      // await initial delay before applying animations and other props
+      // await initial delay before applying animations
       await wait(this.parsedAnimation.delay);
     }
     this.isInitialized = true;
-  }
+  },
 };

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "FadeInTransition"
+  name: "FadeInTransition",
 };
 </script>
 

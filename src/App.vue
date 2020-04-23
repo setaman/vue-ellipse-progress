@@ -53,6 +53,18 @@
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
+      <vue-ellipse-progress
+        :progress="50"
+        :gap="10"
+        :data="circles"
+        :loading="loading"
+        emptyColor="red"
+        line-mode="out"
+        :no-data="noData"
+        :line="line"
+      >
+      </vue-ellipse-progress>
+
       <!--<vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
@@ -77,7 +89,6 @@
         :animation="animation"
         :loading="loading"
         emptyColor="red"
-        line-mode="out"
         dash="strict 60 0.8"
         :no-data="noData"
         :line="line"
@@ -85,12 +96,11 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="88"
+        :progress="0"
         :size="200"
-        line-mode="in-over 10"
-        half
-        :thickness="20"
-        :empty-thickness="10"
+        animation="default 500 500"
+        :thickness="4"
+        :empty-thickness="4"
         :colorFill="emptyColorFill"
       >
         <span slot="legend-value"></span>
@@ -151,9 +161,9 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 25, color: "red", gap: 25, thickness: 5 },
-      { progress: 35, color: "blue", gap: 10, thickness: 5 },
-      { progress: 55, color: "green" }
+      { progress: 25, color: "red", thickness: 5 },
+      { progress: 35, color: "blue", gap: 0, thickness: 5 },
+      { progress: 55, color: "green" },
     ],
     determinate: false,
     loading: false,
@@ -168,47 +178,47 @@ export default {
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.2"
+          opacity: "0.2",
         },
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "#3260FC",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
-        }
+          opacity: "0.1",
+        },
       ],
-      radial: true
+      radial: true,
     },
-    animation: "rs 200 5000"
+    animation: "rs 200 5000",
   }),
   computed: {
     tasksDonePercent() {
@@ -221,7 +231,8 @@ export default {
         data.push({
           progress: 25,
           gap: randomNumberInRange(),
-          thickness: randomNumberInRange()
+          thickness: randomNumberInRange(),
+          determinate: this.determinate,
         });
       }
       // some special cases
@@ -230,7 +241,7 @@ export default {
       data.push({ progress: 50, gap: 0 });
       data.push({ progress: 50 });
       return data;
-    }
+    },
   },
   methods: {
     updateProgress() {
@@ -251,11 +262,11 @@ export default {
         this.timerProgress = (this.sec * 100) / 60;
         this.circles[0].progress = this.timerProgress;
       }, 1000);
-    }
+    },
   },
   mounted() {
     this.runTimer();
-  }
+  },
 };
 </script>
 

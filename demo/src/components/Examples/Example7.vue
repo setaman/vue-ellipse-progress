@@ -12,9 +12,9 @@
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :lineMode="{ mode: 'out', offset: 5 }"
+      lineMode="out 5"
       :legend="false"
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      animation="rs 700 1000"
       fontSize="1.5rem"
       :loading="loading"
       :no-data="noData"
@@ -37,22 +37,19 @@ export default {
   data: () => ({
     progress: 34,
     emptyColorFill: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#754fc1",
-            offset: "0",
-            opacity: "0.3"
-          },
-          {
-            color: "#366bfc",
-            offset: "100",
-            opacity: "0.3"
-          }
-        ]
-      }
+      radial: false,
+      colors: [
+        {
+          color: "#754fc1",
+          offset: "0",
+          opacity: "0.3"
+        },
+        {
+          color: "#366bfc",
+          offset: "100",
+          opacity: "0.3"
+        }
+      ]
     }
   }),
   computed: {

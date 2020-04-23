@@ -13,13 +13,13 @@
       thickness="2%"
       emptyThickness="5%"
       :size="180"
-      :dash="{ count: 60, spacing: 0.8 }"
-      :lineMode="{ mode: 'in-over', offset: 10 }"
+      dash="strict 60 0.8"
+      lineMode="in-over"
       :legend="false"
       legendClass="legend-custom-style"
       fontSize="1.5rem"
       font-color="white"
-      :animation="{ type: 'loop', duration: 1000, delay: 100 }"
+      animation="loop 1000 100"
       :loading="loading"
       :no-data="noData"
     >
@@ -47,70 +47,64 @@ export default {
     min: 0,
     tasksDone: 125,
     emptyColor: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#8ec5fc",
-            offset: "0",
-            opacity: "1"
-          },
-          {
-            color: "#e0c3fc",
-            offset: "100",
-            opacity: "1"
-          }
-        ]
-      }
+      radial: false,
+      colors: [
+        {
+          color: "#8ec5fc",
+          offset: "0",
+          opacity: "1"
+        },
+        {
+          color: "#e0c3fc",
+          offset: "100",
+          opacity: "1"
+        }
+      ]
     },
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.2"
-          },
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
+      radial: true,
+      colors: [
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.2"
+        },
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1"
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        }
+      ]
     }
   }),
   computed: {

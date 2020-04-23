@@ -14,7 +14,7 @@
 import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
-import { getNumberIfValid } from "../../utils";
+import { isValidNumber } from "../../utils";
 import { simplifiedProps } from "../interface";
 
 export default {
@@ -24,28 +24,28 @@ export default {
     ...simplifiedProps,
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     multiple: {
       type: Boolean,
-      required: true
+      required: true,
     },
     globalThickness: {
       type: [Number, String],
       required: false,
-      default: "5%"
+      default: "5%",
     },
     globalGap: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
   computed: {
     circleType() {
       return this.half ? "half-circle-progress" : "circle-progress";
     },
     startAngle() {
-      return getNumberIfValid(this.angle) || -90;
+      return isValidNumber(this.angle) ? this.angle : -90;
     },
     isColorGradient() {
       return Array.isArray(this.color.colors);
@@ -58,8 +58,8 @@ export default {
     },
     isEmptyColorFillGradient() {
       return Array.isArray(this.emptyColorFill.colors);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">

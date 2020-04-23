@@ -13,8 +13,8 @@
       :thickness="5"
       :empty-thickness="3"
       :legend="false"
-      :lineMode="{ mode: 'out', offset: 5 }"
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      lineMode="out 5"
+      animation="rs 700 1000"
       fontSize="1.5rem"
       half
       :loading="loading"

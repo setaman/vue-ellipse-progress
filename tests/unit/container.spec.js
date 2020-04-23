@@ -4,16 +4,16 @@ import Vue from "vue";
 import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
 import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
 
-const factory = propsData => {
+const factory = (propsData) => {
   return shallowMount(VueEllipseProgress, {
-    propsData: { ...propsData }
+    propsData: { progress: 50, ...propsData },
   });
 };
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#size", () => {
     const size = 250;
-    const wrapper = factory({ size, progress: 50 });
+    const wrapper = factory({ size });
     it("sets the size of the container correctly", () => {
       expect(wrapper.element.style.maxWidth).to.equal(`${size}px`);
       expect(wrapper.element.style.maxHeight).to.equal(`${size}px`);
@@ -73,7 +73,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#noData", () => {
-    const wrapper = factory({ progress: 50, noData: true });
+    const wrapper = factory({ noData: true });
     it("hides the legend, if true", () => {
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
@@ -81,28 +81,28 @@ describe("[ EllipseProgressContainer.vue ]", () => {
   });
   describe("#loading", () => {
     it("hides the legend, if true", () => {
-      const wrapper = factory({ progress: 50, loading: true });
+      const wrapper = factory({ loading: true });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
     });
   });
   describe("#fontSize", () => {
     it("sets the font size of the legend correctly", () => {
-      const wrapper = factory({ progress: 50, fontSize: "15px" });
+      const wrapper = factory({ fontSize: "15px" });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.element.style.fontSize).to.equal("15px");
     });
   });
   describe("#fontColor", () => {
     it("sets the font color of the legend correctly", () => {
-      const wrapper = factory({ progress: 50, fontColor: "lime" });
+      const wrapper = factory({ fontColor: "lime" });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.element.style.color).to.equal("lime");
     });
   });
   describe("#legendClass", () => {
     it("applies class to circle legend", () => {
-      const wrapper = factory({ progress: 50, legendClass: "applied-class" });
+      const wrapper = factory({ legendClass: "applied-class" });
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("applied-class");
     });
@@ -113,8 +113,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = shallowMount(VueEllipseProgress, {
           propsData: { progress: 50 },
           slots: {
-            "legend-value": '<span id="my-slot">Hello Circle</span>'
-          }
+            "legend-value": '<span id="my-slot">Hello Circle</span>',
+          },
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
       });
@@ -124,8 +124,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = shallowMount(VueEllipseProgress, {
           propsData: { progress: 50 },
           slots: {
-            "legend-caption": '<span id="my-slot">Hello Circle</span>'
-          }
+            "legend-caption": '<span id="my-slot">Hello Circle</span>',
+          },
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
       });
@@ -135,7 +135,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const data = [
       { progress: 25, color: "red" },
       { progress: 35, color: "blue" },
-      { progress: 55, color: "green", loading: true }
+      { progress: 55, color: "green", loading: true },
     ];
     const wrapper = mount(VueEllipseProgress, { propsData: { progress: 10, data, color: "pink" } });
     it("hides the circle legend", () => {

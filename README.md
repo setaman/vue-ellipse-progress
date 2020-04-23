@@ -89,7 +89,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
-| **[`legendValue`](#legendvalue)** | Number | any |   |
+| **[`legendValue`](#legendvalue)** | Number | any Number |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
@@ -139,7 +139,13 @@ Is any number from >=0. It defines the width and height of the circle. The calcu
 
 - ### `line` 
 
+###### Animated: :heavy_check_mark:
+
 Is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+
+###### Example: :scroll:
+
+`line="round"`
 
 <br>
 
@@ -203,6 +209,8 @@ Is any number or percent value >=0. It defines the empty circle line thickness. 
 
 - ### `color`
 
+###### Animated: :heavy_check_mark:
+
 Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
 - `color="#3f79ff"` - as String
@@ -242,17 +250,23 @@ gradient: {
 
 - ### `colorFill`
 
+###### Animated: :heavy_check_mark:
+
 Defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
 
 <br>
 
 - ### `emptyColor`
 
+###### Animated: :heavy_check_mark:
+
 Defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
 
 <br>
 
 - ### `emptyColorFill`
+
+###### Animated: :heavy_check_mark:
 
 Defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
@@ -313,6 +327,8 @@ Provides a determinate loading state that indicates that your data loading is st
 
 - ### `noData`
 
+###### Animated: :heavy_check_mark:
+
 Forces no data state. The component provides an no data state for the case that your data is not available. The circle progress is still empty.
 
 >:heavy_exclamation_mark: The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
@@ -321,17 +337,23 @@ Forces no data state. The component provides an no data state for the case that 
 
 - ### `angle`
 
+###### Animated: :heavy_check_mark:
+
 Is any number. It defines the starting point of the progress circle line 
 
 <br>
 
 - ### `fontSize`
 
+###### Animated: :heavy_check_mark:
+
 Is any valid CSS size value. It defines the font size of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
 
 <br>
 
 - ### `fontColor`
+
+###### Animated: :heavy_check_mark:
 
 Is any valid CSS color value. It defines the color of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
 
@@ -395,6 +417,8 @@ data: [
 <br>
 
 - ### `gap`
+
+###### Animated: :heavy_check_mark:
 
 Defines the gap in pixel from one circle to the previous cirlce. It will be applied only if [`data`](#data) prop is used.
 

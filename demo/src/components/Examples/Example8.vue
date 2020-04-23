@@ -12,7 +12,7 @@
       :thickness="thickness"
       :emptyThickness="emptyThickness"
       :lineMode="lineMode"
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      animation="rs 700 1000"
       fontSize="1.5rem"
       font-color="white"
       :loading="loading"
@@ -37,10 +37,7 @@ export default {
     lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
     thickness: 3,
     emptyThickness: 3,
-    lineMode: {
-      mode: "normal",
-      offset: 0
-    }
+    lineMode: "normal 0"
   }),
   computed: {
     component() {
@@ -49,10 +46,9 @@ export default {
   },
   methods: {
     randomizeOptions() {
-      this.lineMode = {
-        mode: this.lineModes[randomNumberInRange(0, this.lineModes.length - 1)],
-        offset: randomNumberInRange(0, 15)
-      };
+      const mode = this.lineModes[randomNumberInRange(0, this.lineModes.length - 1)];
+      const offset = randomNumberInRange(0, 15);
+      this.lineMode = `${mode} ${offset}`.trim();
       this.progress = randomNumberInRange(0, 100);
       this.thickness = randomNumberInRange(1, 10);
       this.emptyThickness = randomNumberInRange(1, 10);

@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    mocha: true
+    mocha: true,
   },
   rules: {
     "no-unused-expressions": 0,
@@ -9,6 +9,6 @@ module.exports = {
     "prefer-destructuring": 0,
     "no-restricted-syntax": 0,
     "guard-for-in": 0,
-    "no-continue": 0
-  }
+    "no-continue": 0,
+  },
 };

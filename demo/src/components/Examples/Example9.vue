@@ -11,9 +11,9 @@
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :lineMode="{ mode: 'out', offset: 5 }"
+      lineMode="out 5"
       legend
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      animation="rs 700 1000"
       :legendValue="rating"
       fontSize="1.5rem"
       font-color="white"
