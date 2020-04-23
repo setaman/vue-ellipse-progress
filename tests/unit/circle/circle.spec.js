@@ -265,7 +265,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         let radius;
         const baseRadius = size / 2 - circleThickness / 2;
         if (i > 0) {
-          const previousCirclesData = data.filter((props, index) => index < i);
+          const previousCirclesData = data.filter((props, index) => index < i && index > 0);
           const previousCirclesThickness = previousCirclesData
             .map(({ gap, thickness }) => {
               const g = gap !== undefined ? gap : globalGap;
