@@ -220,7 +220,8 @@ export default {
         data.push({
           progress: 25,
           gap: randomNumberInRange(),
-          thickness: randomNumberInRange()
+          thickness: randomNumberInRange(),
+          determinate: this.determinate
         });
       }
       // some special cases
