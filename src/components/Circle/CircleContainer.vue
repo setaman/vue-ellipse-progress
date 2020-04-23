@@ -14,7 +14,7 @@
 import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
-import { getNumberIfValid } from "../../utils";
+import { isValidNumber } from "../../utils";
 import { simplifiedProps } from "../interface";
 
 export default {
@@ -45,7 +45,7 @@ export default {
       return this.half ? "half-circle-progress" : "circle-progress";
     },
     startAngle() {
-      return getNumberIfValid(this.angle) || -90;
+      return isValidNumber(this.angle) ? this.angle : -90;
     },
     isColorGradient() {
       return Array.isArray(this.color.colors);
