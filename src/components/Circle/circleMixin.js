@@ -1,206 +1,226 @@
 import { isValidNumber } from "../../utils";
+import { animationParser, dashParser, lineModeParser } from "../optionsParser";
+import { simplifiedProps } from "../interface";
 
-const wait = (ms = 400) => new Promise(resolve => setTimeout(() => resolve(), ms));
+const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 export default {
   name: "CircleMixin",
   props: {
-    options: {
-      type: Object,
-      required: true
-    },
+    ...simplifiedProps,
     multiple: {
       type: Boolean,
-      required: true
+      required: true,
     },
     id: {
       type: Number,
-      required: false
+      required: true,
     },
     index: {
       type: Number,
-      required: true
-    }
-  },
-  data() {
-    return {
-      isInitialized: false,
-      delay: this.options.animation.delay,
-      loading: this.options.loading,
-      circle: null,
-      gap: 0
-    };
-  },
-  watch: {
-    options: {
-      handler() {
-        this.setProperties();
-        this.setDeterminateCircleProperties();
-      },
-      deep: true
-    }
-  },
-  computed: {
-    progress() {
-      return parseFloat(this.options.progress || 0);
+      required: true,
     },
-    /* Radius Calculation */
+    globalThickness: {
+      type: [Number, String],
+      required: false,
+      default: "5%",
+    },
+    globalGap: {
+      type: Number,
+      required: false,
+    },
+  },
+  data: () => ({
+    isInitialized: false,
+  }),
+  computed: {
+    computedProgress() {
+      return parseFloat(this.progress || 0);
+    },
+
     radius() {
-      const offset = Number(this.options.lineMode.offset || 0);
+      const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
-      switch (this.options.lineMode.mode) {
+      switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
-          return this.baseRadius - (this.emptyThickness + offset);
+          return this.baseRadius - (this.computedEmptyThickness + offset);
         case "out-over":
-          if (this.emptyThickness <= this.thickness) {
+          if (this.computedEmptyThickness <= this.computedThickness) {
             return this.baseRadius;
           }
-          return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
+          return this.emptyRadius - this.computedEmptyThickness / 2 + this.computedThickness / 2;
         case "bottom":
-          return this.emptyRadius - this.emptyThickness / 2;
+          return this.emptyRadius - this.computedEmptyThickness / 2;
         case "top":
-          return this.emptyRadius + this.emptyThickness / 2;
+          return this.emptyRadius + this.computedEmptyThickness / 2;
         default:
           return this.baseRadius;
       }
     },
-
     emptyRadius() {
-      const offset = Number(this.options.lineMode.offset || 0);
+      const { offset } = this.parsedLineMode;
 
       if (this.multiple) {
-        return this.normalLineModeRadius - this.previousCirclesThickness;
+        return this.baseRadius - this.previousCirclesThickness;
       }
 
-      switch (this.options.lineMode.mode) {
+      switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
-          return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
+          return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
-          if (this.emptyThickness <= this.thickness) {
-            return this.baseRadius - this.thickness / 2 + this.emptyThickness / 2;
+          if (this.computedEmptyThickness <= this.computedThickness) {
+            return this.baseRadius - this.computedThickness / 2 + this.computedEmptyThickness / 2;
           }
           return this.emptyBaseRadius;
         case "bottom":
-          if (this.emptyThickness < this.thickness / 2) {
-            return this.emptyBaseRadius - (this.thickness / 2 - this.emptyThickness);
+          if (this.computedEmptyThickness < this.computedThickness / 2) {
+            return this.emptyBaseRadius - (this.computedThickness / 2 - this.computedEmptyThickness);
           }
           return this.emptyBaseRadius;
         case "top":
-          return this.emptyBaseRadius - this.thickness / 2;
+          return this.emptyBaseRadius - this.computedThickness / 2;
         default:
           return this.emptyBaseRadius;
       }
     },
-
-    // the radius of the progress circle without taking into account the lineMode, baseline for advanced radius
-    // calculations depending on lineMode
     baseRadius() {
-      return this.size / 2 - this.thickness / 2;
+      return this.size / 2 - this.computedThickness / 2;
     },
-
     emptyBaseRadius() {
-      return this.size / 2 - this.emptyThickness / 2;
+      return this.size / 2 - this.computedEmptyThickness / 2;
     },
-
-    // with lineMode.type = normal need to calculate which of the circles is bigger so the radius does not exceeds the
-    // size property
     normalLineModeRadius() {
-      if (this.thickness < this.emptyThickness) {
+      if (this.computedThickness < this.computedEmptyThickness) {
         return this.emptyBaseRadius;
       }
       return this.baseRadius;
     },
-    dataIsAvailable() {
-      return isValidNumber(this.options.progress) && !this.options.noData;
+
+    parsedLineMode() {
+      return lineModeParser(this.lineMode);
     },
+    parsedAnimation() {
+      return animationParser(this.animation);
+    },
+    parsedDash() {
+      return dashParser(this.dash);
+    },
+    dataIsAvailable() {
+      return isValidNumber(this.computedProgress) && !this.noData;
+    },
+
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable ? this.options.animation.type || "default" : "none"
+          !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
-        `${this.options.loading ? "animation__loading" : ""}`
+        `${this.loading ? "animation__loading" : ""}`,
       ];
     },
-    /* Colors */
-    color() {
-      if (this.options.color.gradient && this.options.color.gradient.colors.length > 0) {
-        return `url(#ep-progress-gradient-${this.id})`;
-      }
-      return this.options.color;
-    },
-    emptyColor() {
-      if (this.options.emptyColor.gradient && this.options.emptyColor.gradient.colors.length > 0) {
-        return `url(#ep-empty-gradient-${this.id})`;
-      }
-      return this.options.emptyColor;
-    },
-    colorFill() {
-      if (this.options.colorFill.gradient && this.options.colorFill.gradient.colors.length > 0) {
-        return `url(#ep-progress-fill-gradient-${this.id})`;
-      }
-      return this.options.colorFill || "transparent";
-    },
-    emptyColorFill() {
-      if (this.options.emptyColorFill.gradient && this.options.emptyColorFill.gradient.colors.length > 0) {
-        return `url(#ep-empty-fill-gradient-${this.id})`;
-      }
-      return this.options.emptyColorFill || "transparent";
-    },
-    size() {
-      return this.options.size;
-    },
-    thickness() {
-      return this.calculateThickness(this.options.thickness.toString());
-    },
-    emptyThickness() {
-      return this.calculateThickness(this.options.emptyThickness.toString());
-    },
     animationDuration() {
-      return `${isValidNumber(this.options.animation.duration) ? this.options.animation.duration : 1000}ms`;
+      return `${this.parsedAnimation.duration}ms`;
     },
+
+    computedColor() {
+      return Array.isArray(this.color.colors) ? `url(#ep-progress-gradient-${this.id})` : this.color;
+    },
+    computedEmptyColor() {
+      return Array.isArray(this.emptyColor.colors) ? `url(#ep-empty-gradient-${this.id})` : this.emptyColor;
+    },
+    computedColorFill() {
+      return Array.isArray(this.colorFill.colors) ? `url(#ep-progress-fill-gradient-${this.id})` : this.colorFill;
+    },
+    computedEmptyColorFill() {
+      return Array.isArray(this.emptyColorFill.colors)
+        ? `url(#ep-empty-fill-gradient-${this.id})`
+        : this.emptyColorFill;
+    },
+
+    computedThickness() {
+      return this.calculateThickness(this.thickness.toString());
+    },
+    computedGlobalThickness() {
+      return this.calculateThickness(this.globalThickness.toString());
+    },
+    computedEmptyThickness() {
+      return this.calculateThickness(this.emptyThickness.toString());
+    },
+
     transformOrigin() {
       return "50% 50%";
     },
+
     emptyDasharray() {
-      if (!this.options.dash.count || !this.options.dash.spacing) {
-        return this.options.dash;
+      if (!this.parsedDash.count || !this.parsedDash.spacing) {
+        return this.parsedDash;
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
     },
+
+    strokeDashOffset() {
+      return this.dataIsAvailable && !this.loading && this.isInitialized ? this.progressOffset : this.circumference;
+    },
+
     previousCirclesThickness() {
       if (this.index === 0) return 0;
-      return this.options.data
+      const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
+      const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
-        .map(data => (data.thickness || this.thickness) + (data.gap || this.options.gap))
+        .map((data, n) => {
+          const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
+          const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
+          return n > 0 ? thickness + gap : thickness;
+        })
         .reduce((acc, current) => acc + current);
-    }
+      return previousCirclesGap + currentCircleGap;
+    },
+
+    styles() {
+      return {
+        strokeDashoffset: this.strokeDashOffset,
+        transition: this.animationDuration,
+        transformOrigin: this.transformOrigin,
+        "--ep-circumference": this.circumference,
+        "--ep-negative-circumference": this.getNegativeCircumference(),
+        "--ep-double-circumference": this.getDoubleCircumference(),
+        "--ep-stroke-offset": this.progressOffset,
+        "--ep-loop-stroke-offset": this.getLoopOffset(),
+        "--ep-bounce-out-stroke-offset": this.getBounceOutOffset(),
+        "--ep-bounce-in-stroke-offset": this.getBounceInOffset(),
+        "--ep-reverse-stroke-offset": this.getReverseOffset(),
+        "--ep-loading-stroke-offset": this.circumference * 0.2,
+        "animation-duration": this.animationDuration,
+      };
+    },
+
+    showDeterminate() {
+      return this.determinate && !this.loading && this.dataIsAvailable;
+    },
   },
   methods: {
     calculateThickness(thickness) {
-      const percent = parseFloat(thickness);
+      const value = parseFloat(thickness);
       switch (true) {
         case thickness.includes("%"):
-          return (percent * this.options.size) / 100;
-        case thickness.includes("rem"): // TODO: Is it worth to implement?
-          return (percent * this.options.size) / 100;
+          return (value * this.size) / 100;
         default:
-          return percent;
+          return value;
       }
     },
     getDashSpacingPercent() {
-      return this.options.dash.spacing / this.options.dash.count;
+      return this.parsedDash.spacing / this.parsedDash.count;
     },
     getDashPercent() {
-      return (1 - this.options.dash.spacing) / this.options.dash.count;
+      return (1 - this.parsedDash.spacing) / this.parsedDash.count;
     },
     /* Animations helper Methods */
     getNegativeCircumference() {
@@ -221,51 +241,12 @@ export default {
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
     },
-    async setAnimationDelay() {
-      if (this.loading) {
-        this.delay = 0;
-        return;
-      }
-      await wait(this.delay + this.options.animation.duration);
-      this.delay = 0;
-    },
-    setProperties() {
-      this.circle.style.setProperty("--ep-circumference", this.circumference);
-      this.circle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
-      this.circle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
-      this.circle.style.setProperty("--ep-stroke-offset", this.progressOffset);
-      this.circle.style.setProperty("--ep-loop-stroke-offset", this.getLoopOffset());
-      this.circle.style.setProperty("--ep-bounce-out-stroke-offset", this.getBounceOutOffset());
-      this.circle.style.setProperty("--ep-bounce-in-stroke-offset", this.getBounceInOffset());
-      this.circle.style.setProperty("--ep-reverse-stroke-offset", this.getReverseOffset());
-      this.circle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
-      this.circle.style.setProperty("animation-duration", this.animationDuration);
-    },
-    setDeterminateCircleProperties() {
-      if (this.options.determinate) {
-        const circleType = this.options.half ? "half-" : "";
-        const determinateCircle = this.$el.getElementsByClassName(`ep-${circleType}circle--determinate`)[0];
-        if (determinateCircle) {
-          determinateCircle.style.setProperty("--ep-loading-stroke-offset", this.circumference * 0.2);
-          determinateCircle.style.setProperty("animation-duration", this.animationDuration);
-          determinateCircle.style.setProperty("--ep-negative-circumference", this.getNegativeCircumference());
-          determinateCircle.style.setProperty("--ep-circumference", this.circumference);
-          determinateCircle.style.setProperty("--ep-double-circumference", this.getDoubleCircumference());
-        }
-      }
-    }
   },
-  mounted() {
-    this.setAnimationDelay();
-    if (this.loading || this.options.determinate) {
-      this.isInitialized = true;
-    } else {
-      setTimeout(() => {
-        this.isInitialized = true;
-      }, this.options.animation.delay);
+  async mounted() {
+    if (!this.loading) {
+      // await initial delay before applying animations
+      await wait(this.parsedAnimation.delay);
     }
-    this.circle = this.$el.getElementsByClassName("ep-circle--progress")[0];
-    this.setProperties();
-    this.setDeterminateCircleProperties();
-  }
+    this.isInitialized = true;
+  },
 };

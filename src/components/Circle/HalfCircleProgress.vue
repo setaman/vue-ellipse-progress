@@ -1,33 +1,29 @@
 <template>
   <g class="ep-half-circle--container">
     <path
-      :stroke-width="emptyThickness"
-      :fill="emptyColorFill"
-      :stroke="emptyColor"
+      :stroke-width="computedEmptyThickness"
+      :fill="computedColorFill"
+      :stroke="computedEmptyColor"
       class="ep-circle--empty"
       :d="emptyPath"
+      :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
-      :style="{ transition: animationDuration, 'stroke-linecap': options.line }"
-      :class="{ 'ep-circle--nodata': options.noData }"
+      :style="{ transition: animationDuration }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
     <fade-in-transition>
-      <g v-if="options.determinate && !options.loading">
-        <g style="opacity: 0.7;">
+      <g v-if="showDeterminate">
+        <g style="opacity: 0.6;">
           <path
-            :stroke-width="thickness"
+            :stroke-width="computedThickness"
             class="ep-half-circle--determinate animation__loading"
             :d="path"
-            :fill="colorFill"
-            :stroke="color"
+            :fill="computedColorFill"
+            :stroke="computedColor"
             :stroke-dasharray="circumference"
-            :style="{
-              strokeDashoffset: circumference,
-              transition: animationDuration,
-              'animation-delay': `${delay}ms`,
-              'transform-origin': transformOrigin,
-              'stroke-linecap': options.line
-            }"
+            :stroke-linecap="line"
+            :style="styles"
           >
           </path>
         </g>
@@ -35,20 +31,15 @@
     </fade-in-transition>
 
     <path
-      :stroke-width="thickness"
+      :stroke-width="computedThickness"
       class="ep-half-circle ep-circle--progress"
       :class="animationClass"
       :d="path"
-      :fill="colorFill"
-      :stroke="color"
+      :fill="computedColorFill"
+      :stroke="computedColor"
       :stroke-dasharray="circumference"
-      :style="{
-        strokeDashoffset: dataIsAvailable && isInitialized && !options.loading ? progressOffset : circumference,
-        transition: animationDuration,
-        'animation-delay': `${delay}ms`,
-        'transform-origin': transformOrigin,
-        'stroke-linecap': options.line
-      }"
+      :stroke-linecap="line"
+      :style="styles"
     >
     </path>
   </g>
@@ -63,7 +54,7 @@ export default {
   mixins: [CircleMixin],
   computed: {
     progressOffset() {
-      const offset = this.circumference - (this.progress / 100) * this.circumference;
+      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
         return 1;
       }
@@ -76,17 +67,17 @@ export default {
       return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
     },
     emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${this
-        .emptyRadius * 2},0`;
+      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
+        this.emptyRadius * 2
+      },0`;
     },
     position() {
       return this.size / 2 - this.radius;
     },
     emptyPosition() {
       return this.size / 2 - this.emptyRadius;
-    }
+    },
   },
-  methods: {}
 };
 </script>
 

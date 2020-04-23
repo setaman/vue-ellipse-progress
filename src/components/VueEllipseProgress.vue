@@ -4,17 +4,18 @@
     :style="{
       maxWidth: `${size}px`,
       maxHeight: `${size}px`,
-      transition: `${animation.duration}ms ease-in-out`
     }"
   >
     <div class="ep-content">
       <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <ep-circle-container
+        <circle-container
           v-for="(options, i) in circlesData"
           :key="i"
-          :options="options"
+          v-bind="options"
           :multiple="isMultiple"
           :index="i"
+          :globalThickness="thickness"
+          :globalGap="gap"
         />
       </svg>
 
@@ -25,7 +26,7 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp ref="count" :endVal="legendVal" :delay="animation.delay" :options="counterOptions"></CountUp>
+          <CountUp ref="count" :endVal="legendVal" :delay="counterOptions.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
         </span>
         <slot name="legend-caption"></slot>
@@ -36,184 +37,45 @@
 
 <script>
 import CountUp from "vue-countup-v2";
-import { getValueIfDefined, isValidNumber } from "../utils";
-import EpCircleContainer from "./Circle/EpCircleContainer.vue";
+import { getNumberIfValid, isValidNumber } from "../utils";
+import { props } from "./interface";
+import CircleContainer from "./Circle/CircleContainer.vue";
 
 export default {
-  name: "EllipseProgressContainer",
-  components: { EpCircleContainer, CountUp },
+  name: "VueEllipseProgress",
+  components: { CircleContainer, CountUp },
   data: () => ({}),
-  props: {
-    data: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
-    progress: {
-      type: Number,
-      require: true,
-      validator: val => val >= 0 && val <= 100
-    },
-    legendValue: {
-      type: Number,
-      required: false
-    },
-    size: {
-      type: Number,
-      required: false,
-      default: 200,
-      validator: value => value >= 0
-    },
-    thickness: {
-      type: [Number, String],
-      required: false,
-      default: "5%",
-      validator: value => parseFloat(value) >= 0
-    },
-    emptyThickness: {
-      type: [Number, String],
-      required: false,
-      default: "5%",
-      validator: value => parseFloat(value) >= 0
-    },
-    line: {
-      type: String,
-      required: false,
-      default: "round",
-      validator: value => ["round", "butt", "square"].includes(value)
-    },
-    lineMode: {
-      type: [Object],
-      required: false,
-      default: () => ({
-        mode: "normal",
-        offset: 0
-      }),
-      validator: value => ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(value.mode)
-    },
-    color: {
-      type: [String, Object],
-      required: false,
-      default: "#3f79ff"
-    },
-    emptyColor: {
-      type: [String, Object],
-      required: false,
-      default: "#e6e9f0"
-    },
-    colorFill: {
-      type: [String, Object],
-      required: false,
-      default: "transparent"
-    },
-    emptyColorFill: {
-      type: [String, Object],
-      required: false,
-      default: "transparent"
-    },
-    fontSize: {
-      type: String,
-      required: false
-    },
-    fontColor: {
-      type: String,
-      required: false
-    },
-    animation: {
-      type: Object,
-      required: false,
-      default: () => ({
-        type: "default",
-        duration: 1000,
-        delay: 400
-      })
-    },
-    legend: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    legendClass: {
-      type: String,
-      required: false
-    },
-    angle: {
-      type: [String, Number],
-      required: false,
-      default: -90
-    },
-    loading: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    noData: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    dash: {
-      type: [String, Object],
-      required: false,
-      default: "",
-      validator: value => {
-        if (!value || typeof value === "string") {
-          return true;
-        }
-
-        if (typeof value === "object") {
-          return value.count >= 0 && value.spacing >= 0;
-        }
-        return false;
-      }
-    },
-    half: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    gap: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    determinate: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
+  props,
   computed: {
-    options() {
-      return { ...this.$props, id: this._uid };
-    },
-    startAngle() {
-      return getValueIfDefined(this.angle) || -90;
-    },
     legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      const legendValue = getValueIfDefined(parseFloat(this.legendValue));
-      const progressValue = getValueIfDefined(parseFloat(this.progress)) || 0;
+      const legendValue = getNumberIfValid(this.legendValue);
+      const progressValue = getNumberIfValid(this.progress) || 0;
       return isValidNumber(legendValue) ? legendValue : progressValue;
     },
     shouldHideLegendValue() {
-      return !this.dataIsAvailable || this.loading || this.noData;
+      return !this.isDataAvailable || this.loading;
     },
-    dataIsAvailable() {
+    isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
     },
     countDecimals() {
-      if (!this.dataIsAvailable || this.legendVal % 1 === 0) return 0;
+      if (!this.isDataAvailable || this.legendVal % 1 === 0) return 0;
       return this.legendVal.toString().split(".")[1].length;
     },
     counterOptions() {
+      const durationValue = this.animation.split(" ")[1];
+      const delayValue = this.animation.split(" ")[2];
+      const duration = (isValidNumber(durationValue) ? durationValue : 1000) / 1000;
+      const delay = isValidNumber(delayValue) ? delayValue : 400;
       return {
-        duration: this.animation.duration / 1000,
+        delay: parseFloat(delay),
+        duration,
         target: "span",
         decimalPlaces: this.countDecimals,
-        decimal: "."
+        decimal: ".",
       };
     },
     isMultiple() {
@@ -221,16 +83,16 @@ export default {
     },
     circlesData() {
       if (this.isMultiple) {
-        return this.data.map(data => ({
+        return this.data.map((data) => ({
           ...this.$props,
           ...data,
-          emptyThickness: data.thickness || this.$props.thickness
+          // currently the thickness for both lines must be equal
+          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
         }));
       }
       return [this.$props];
-    }
+    },
   },
-  methods: {}
 };
 </script>
 
