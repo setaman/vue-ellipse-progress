@@ -172,13 +172,13 @@ export default {
 
     previousCirclesThickness() {
       if (this.index === 0) return 0;
-      const currentCircleGap = isValidNumber(this.data[this.index].gap) ? this.data[this.index].gap : this.gap;
+      const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
       const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
-        .map(data => {
+        .map((data, n) => {
           const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
           const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-          return thickness + gap;
+          return n > 0 ? thickness + gap : thickness;
         })
         .reduce((acc, current) => acc + current);
       return previousCirclesGap + currentCircleGap;

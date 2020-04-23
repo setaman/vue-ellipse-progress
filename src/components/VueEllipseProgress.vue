@@ -87,12 +87,12 @@ export default {
           ...this.$props,
           ...data,
           // currently the thickness for both lines must be equal
-          emptyThickness: data.thickness || this.$props.thickness
+          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness
         }));
       }
       return [this.$props];
     }
-  },
+  }
 };
 </script>
 

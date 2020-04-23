@@ -53,6 +53,18 @@
         <p slot="legend-caption" class="ma-0">This is caption slot</p>
       </vue-ellipse-progress>
 
+      <vue-ellipse-progress
+        :progress="50"
+        :gap="10"
+        :data="circles"
+        :loading="loading"
+        emptyColor="red"
+        line-mode="out"
+        :no-data="noData"
+        :line="line"
+      >
+      </vue-ellipse-progress>
+
       <!--<vue-ellipse-progress
         id="timer-example"
         :progress="parseFloat(timerProgress)"
@@ -77,7 +89,6 @@
         :animation="animation"
         :loading="loading"
         emptyColor="red"
-        line-mode="out"
         dash="strict 60 0.8"
         :no-data="noData"
         :line="line"
@@ -85,7 +96,7 @@
       </vue-ellipse-progress>
       <vue-ellipse-progress
         id="half-example"
-        :progress="-1"
+        :progress="0"
         :size="200"
         animation="default 500 500"
         :thickness="4"
@@ -150,8 +161,8 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 25, color: "red", gap: 25, thickness: 5 },
-      { progress: 35, color: "blue", gap: 10, thickness: 5 },
+      { progress: 25, color: "red", thickness: 5 },
+      { progress: 35, color: "blue", gap: 0, thickness: 5 },
       { progress: 55, color: "green" }
     ],
     determinate: false,
