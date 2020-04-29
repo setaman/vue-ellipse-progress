@@ -42,10 +42,10 @@ export default {
         progress: randomNumberInRange(0, 20)
       },
       {
-        progress: randomNumberInRange(0, 20),
+        progress: randomNumberInRange(0, 20)
       },
       {
-        progress: randomNumberInRange(0, 20),
+        progress: randomNumberInRange(0, 20)
       }
     ],
     colors: ["rgb(51,54,177)", "rgb(105,36,255)", "rgb(104,54,243)", "rgb(64,44,180)"],
@@ -82,19 +82,16 @@ export default {
       } else {
         gap = 5;
         thickness = 1;
-        opacity = 0.05
+        opacity = 0.05;
       }
 
       for (let n = 0; n < 6; n++) {
         const color = this.colors[randomNumberInRange(0, 3)];
-        this.circlesData.splice(n, 1, {
-          progress: randomNumberInRange(0, 100),
-          angle: 20 * n, // randomNumberInRange(0, 100),
-          color: color,
-          emptyColor: color.replace(")", `, ${opacity})`).replace("rgb", "rgba"),
-          gap,
-          thickness
-        });
+        this.circlesData[n].gap = gap;
+        this.circlesData[n].thickness = thickness;
+        this.circlesData[n].angle = 20 * n;
+        this.circlesData[n].emptyColor = color.replace(")", `, ${opacity})`).replace("rgb", "rgba");
+        this.circlesData[n].color = color;
       }
     }
   },
