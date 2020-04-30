@@ -39,125 +39,18 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
-      <vue-ellipse-progress
-        :gap="5"
-        color-fill="rgba(17,34,51,0.0)"
-        :data="circlesTest"
-        :size="400"
-        :thickness="5"
-        empty-color="rgba(17,34,51,0.66)"
-        :loading="loading"
-        :no-data="noData"
-      >
-        <span slot="legend-value">/hui</span>
-        <p slot="legend-caption" class="ma-0">This is caption slot</p>
-      </vue-ellipse-progress>
-
-      <vue-ellipse-progress
-        :progress="50"
-        :gap="10"
-        :data="circles"
-        :loading="loading"
-        emptyColor="red"
-        line-mode="out"
-        :no-data="noData"
-        :line="line"
-      >
-      </vue-ellipse-progress>
-
-      <!--<vue-ellipse-progress
-        id="timer-example"
-        :progress="parseFloat(timerProgress)"
-        :determinate="determinate"
-        :loading="loading"
-        :emptyColorFill="emptyColorFill"
-        thickness="2%"
-        emptyThickness="5%"
-        :size="size"
-        line="round"
-        dash="strict 60 0.95"
-        lineMode="top"
-        :legend="true"
-        :legendValue="sec"
-        legendClass="legend-custom-style"
-        :noData="noData"
-        animation="loop 700 300"
-      >
-      </vue-ellipse-progress>-->
-      <vue-ellipse-progress
-        :progress="50"
-        :animation="animation"
-        :loading="loading"
-        emptyColor="red"
-        dash="strict 60 0.8"
-        :no-data="noData"
-        :line="line"
-      >
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
-        id="half-example"
-        :progress="0"
-        :size="200"
-        animation="default 500 500"
-        :thickness="4"
-        :empty-thickness="4"
-        :colorFill="emptyColorFill"
-      >
-        <span slot="legend-value"></span>
-      </vue-ellipse-progress>
-      <div>
-        <label for="tasks">
-          Tasks
-        </label>
-        <input v-model="tasks_done" max="200" min="0" type="number" id="tasks" />
-        <button @click="updateTasksDone">Update Tasks</button>
-      </div>
-      <!--<vue-ellipse-progress
-        :progress="parseFloat(tasksDonePercent)"
-        :color="color"
-        :emptyColor="emptyColor"
-        :size="size"
-        :thickness="21"
-        angle=""
-        :loading="false"
-        :emptyThickness="20"
-        :lineMode="{ mode: 'normal', offset: 10 }"
-        :legendValue="tasks_done"
-        fontColor="white"
-        :animation="{ type: 'loop', duration: 1000 }"
-        fontSize="4rem"
-        :noData="noData"
-      >
-        <span slot="legend-value">/200</span>
-        <p slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>
-      <vue-ellipse-progress
-        :progress="parseFloat(tasksDonePercent)"
-        :color="color"
-        :emptyColor="emptyColor"
-        :size="size"
-        :thickness="21"
-        angle=""
-        :loading="loading"
-        :emptyThickness="20"
-        :lineMode="{ mode: 'normal', offset: 10 }"
-        :legendValue="tasks_done"
-        fontColor="white"
-        :animation="{ type: 'bounce', duration: 1000 }"
-        fontSize="2rem"
-      >
-        <span slot="legend-value">/200</span>
-        <p style="margin-bottom: 0" slot="legend-capture">GOOD JOB</p>
-      </vue-ellipse-progress>-->
+      <vue-ellipse-progress :progress="50" :legend="false" :thickness="4" :empty-thickness="4"/>
     </div>
   </div>
 </template>
 <script>
+import VueEllipseProgress from "./components/VueEllipseProgress.vue";
+
 const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export default {
   name: "app",
-  components: {},
+  components: { VueEllipseProgress },
   data: () => ({
     line: "round",
     circles: [

@@ -46,16 +46,18 @@
       :style="styles"
     >
     </circle>
+    <circle-dot v-bind="$props" :radius="radius"/>
   </g>
 </template>
 
 <script>
 import CircleMixin from "./circleMixin";
 import FadeInTransition from "../FadeInTransition.vue";
+import CircleDot from "./CircleDot.vue";
 
 export default {
   name: "CircleProgress",
-  components: { FadeInTransition },
+  components: { CircleDot, FadeInTransition },
   mixins: [CircleMixin],
   computed: {
     progressOffset() {
