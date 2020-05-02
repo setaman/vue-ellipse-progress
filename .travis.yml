@@ -5,6 +5,11 @@ branches:
   only:
     - master
     - dev
+
+notifications:
+  email: false
+
 scripts:
   - npm run lint
   - npm run test
+  - npm run build
