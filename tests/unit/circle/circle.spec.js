@@ -215,21 +215,21 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   describe("#angle", () => {
-    const circleContainerWrapper = factory({ progress: 50 }, CircleContainer);
+    const circleWrapper = factory({ progress: 50 });
     it("sets the rotation of the svg container to default, if not defined", () => {
-      expect(circleContainerWrapper.element.style.transform).to.equal("rotate(-90deg)");
+      expect(circleWrapper.element.style.transform).to.equal("rotate(-90deg)");
     });
     it("sets the rotation of the svg container correctly", async () => {
       const angle = 80;
-      circleContainerWrapper.setProps({ angle });
+      circleWrapper.setProps({ angle });
       await Vue.nextTick();
-      expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+      expect(circleWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
     it("sets @0 value as the rotation of the svg container correctly", async () => {
       const angle = 0;
-      circleContainerWrapper.setProps({ angle });
+      circleWrapper.setProps({ angle });
       await Vue.nextTick();
-      expect(circleContainerWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
+      expect(circleWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
   });
   describe("#data", () => {
