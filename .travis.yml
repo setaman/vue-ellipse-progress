@@ -9,7 +9,14 @@ branches:
 notifications:
   email: false
 
-scripts:
-  - npm run lint
-  - npm run test
-  - npm run build
+jobs:
+  include:
+    - stage: "Lint"
+      name: "Run EsLint"
+      script: npm run lint
+    - stage: "Test"
+      name: "Run Unit Tests"
+      script: npm run tests
+    - stage: build
+      name: "Build the Library"
+      script: npm run build
