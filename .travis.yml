@@ -17,6 +17,6 @@ jobs:
     - stage: "Test"
       name: "Run Unit Tests"
       script: npm run tests
-    - stage: build
+    - stage: "Build"
       name: "Build the Library"
       script: npm run build
