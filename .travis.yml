@@ -16,7 +16,7 @@ jobs:
       script: npm run lint
     - stage: "Test"
       name: "Run Unit Tests"
-      script: npm run tests
+      script: npm run test
     - stage: "Build"
       name: "Build the Library"
       script: npm run build
