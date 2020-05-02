@@ -2,7 +2,6 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/CircleProgress.vue";
-import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 

@@ -29,7 +29,7 @@
         </label>
         <label for="angle">
           Angle
-          <input v-model="angle" id="angle" type="number"/>
+          <input v-model="angle" id="angle" type="number" />
         </label>
         <label for="determinate">
           Determinate
