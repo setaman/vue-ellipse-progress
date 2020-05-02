@@ -154,6 +154,10 @@ export default {
       return this.calculateThickness(this.emptyThickness.toString());
     },
 
+    computedAngle() {
+      return isValidNumber(this.angle) ? this.angle : -90;
+    },
+
     transformOrigin() {
       return "50% 50%";
     },
