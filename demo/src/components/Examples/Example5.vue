@@ -2,111 +2,109 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example5.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       id="timer-example"
       :progress="progress"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :emptyColorFill="emptyColorFill"
       thickness="2%"
       emptyThickness="5%"
       :size="180"
-      :dash="{ count: 60, spacing: 0.8 }"
-      :lineMode="{ mode: 'in-over', offset: 10 }"
+      dash="strict 60 0.8"
+      lineMode="in-over"
       :legend="false"
       legendClass="legend-custom-style"
       fontSize="1.5rem"
       font-color="white"
-      :animation="{ type: 'loop', duration: 1000, delay: 100 }"
+      animation="loop 1000 100"
       :loading="loading"
       :no-data="noData"
     >
-      <span slot="legend-capture">
+      <span slot="legend-caption">
         <span>{{ minPrefix }}{{ min }}</span>
         <span class="mx-2">:</span>
         <span>{{ secPrefix }}{{ sec }}</span>
       </span>
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
 <script>
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example5",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     progress: 0,
     sec: 0,
     min: 0,
     tasksDone: 125,
     emptyColor: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#8ec5fc",
-            offset: "0",
-            opacity: "1"
-          },
-          {
-            color: "#e0c3fc",
-            offset: "100",
-            opacity: "1"
-          }
-        ]
-      }
+      radial: false,
+      colors: [
+        {
+          color: "#8ec5fc",
+          offset: "0",
+          opacity: "1"
+        },
+        {
+          color: "#e0c3fc",
+          offset: "100",
+          opacity: "1"
+        }
+      ]
     },
     emptyColorFill: {
-      gradient: {
-        radial: true,
-        direction: "",
-        colors: [
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.2"
-          },
-          {
-            color: "#3260FC",
-            offset: "50",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.15"
-          },
-          {
-            color: "#3260FC",
-            offset: "70",
-            opacity: "0.1"
-          },
-          {
-            color: "#3260FC",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "90",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          },
-          {
-            color: "transparent",
-            offset: "95",
-            opacity: "0.1"
-          }
-        ]
-      }
+      radial: true,
+      colors: [
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.2"
+        },
+        {
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15"
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1"
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "90",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        },
+        {
+          color: "transparent",
+          offset: "95",
+          opacity: "0.1"
+        }
+      ]
     }
   }),
   computed: {
@@ -114,10 +112,13 @@ export default {
       return (this.tasksDone * 100) / 200;
     },
     minPrefix() {
-      return this.min < 1 ? "0" : "";
+      return this.min < 10 ? "0" : "";
     },
     secPrefix() {
       return this.sec < 10 ? "0" : "";
+    },
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     }
   },
   methods: {

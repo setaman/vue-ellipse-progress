@@ -1,25 +1,38 @@
 <template>
   <section id="examples">
-    <examples-controls @loadingChange="setLoadingState" @noDataChange="setNoDataState" />
-    <v-container fluid class="fill-height">
+    <v-container>
+      <examples-controls
+        @loadingChange="setLoadingState"
+        @noDataChange="setNoDataState"
+        @determinateChange="setDeterminateState"
+        :test="true"
+      />
+    </v-container>
+    <v-container fluid>
       <v-row>
-        <example1 :loading="loading" :no-data="noData" />
+        <example1 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example2 :loading="loading" :no-data="noData" />
+        <example2 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example3 :loading="loading" :no-data="noData" />
+        <example3 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example4 :loading="loading" :no-data="noData" />
+        <example4 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example5 :loading="loading" :no-data="noData" />
+        <example5 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example6 :loading="loading" :no-data="noData" />
+        <example6 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example7 :loading="loading" :no-data="noData" />
+        <example7 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example8 :loading="loading" :no-data="noData" />
+        <example8 :loading="loading" :determinate="determinate" :no-data="noData" />
 
-        <example9 :loading="loading" :no-data="noData" />
+        <example9 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example10 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example11 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example12 :loading="loading" :determinate="determinate" :no-data="noData" />
       </v-row>
     </v-container>
   </section>
@@ -36,9 +49,15 @@ import Example7 from "../Examples/Example7";
 import Example8 from "../Examples/Example8";
 import Example9 from "../Examples/Example9";
 import ExamplesControls from "../Examples/ExamplesControls";
+import Example10 from "../Examples/Example10";
+import Example11 from "../Examples/Example11";
+import Example12 from "../Examples/Example12";
 export default {
   name: "Examples",
   components: {
+    Example12,
+    Example11,
+    Example10,
     ExamplesControls,
     Example9,
     Example8,
@@ -52,7 +71,8 @@ export default {
   },
   data: () => ({
     loading: false,
-    noData: false
+    noData: false,
+    determinate: false
   }),
   methods: {
     setLoadingState(loadingState) {
@@ -60,6 +80,9 @@ export default {
     },
     setNoDataState(noDataState) {
       this.noData = noDataState;
+    },
+    setDeterminateState(determinateState) {
+      this.determinate = determinateState;
     }
   }
 };

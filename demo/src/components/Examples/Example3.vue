@@ -2,16 +2,18 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example3.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="tasksDonePercent"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :lineMode="{ mode: 'in', offset: 10 }"
+      lineMode="in 10"
       :legend-value="tasksDone"
-      :animation="{ type: 'loop', duration: 700, delay: 1000 }"
+      animation="loop 700 1000"
       fontSize="1.5rem"
       font-color="white"
       dash="5"
@@ -19,8 +21,8 @@
       :no-data="noData"
     >
       <span slot="legend-value">/200</span>
-      <span slot="legend-capture">TASKS DONE</span>
-    </vue-ellipse-progress>
+      <span slot="legend-caption">TASKS DONE</span>
+    </component>
   </example-card>
 </template>
 
@@ -28,16 +30,21 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example3",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     tasksDone: 125
   }),
   computed: {
     tasksDonePercent() {
       return (this.tasksDone * 100) / 200;
+    },
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     }
   },
   methods: {

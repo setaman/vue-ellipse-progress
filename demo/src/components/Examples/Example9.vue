@@ -2,16 +2,18 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example9.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="ratingProgress"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="#324c7e"
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :lineMode="{ mode: 'out', offset: 5 }"
+      lineMode="out 5"
       legend
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      animation="rs 700 1000"
       :legendValue="rating"
       fontSize="1.5rem"
       font-color="white"
@@ -26,11 +28,11 @@
           5
         </span>
       </span>
-      <div slot="legend-capture">
+      <div slot="legend-caption">
         <p class="mb-0">24 REVIEWS</p>
         <v-rating dense small v-model="rating"></v-rating>
       </div>
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
@@ -38,16 +40,21 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example9",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     rating: 3
   }),
   computed: {
     ratingProgress() {
       return (this.rating * 100) / 5;
+    },
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
     }
   },
   methods: {

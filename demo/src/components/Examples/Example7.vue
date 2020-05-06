@@ -2,23 +2,25 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example7.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="progress"
+      :determinate="determinate"
       color="#7579ff"
       empty-color="transparent"
       :empty-color-fill="emptyColorFill"
       :size="180"
       :thickness="5"
       :empty-thickness="3"
-      :lineMode="{ mode: 'out', offset: 5 }"
+      lineMode="out 5"
       :legend="false"
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
+      animation="rs 700 1000"
       fontSize="1.5rem"
       :loading="loading"
       :no-data="noData"
     >
-      <img slot="legend-capture" height="80px" src="@/assets/upload.png" />
-    </vue-ellipse-progress>
+      <img slot="legend-caption" height="80px" src="@/assets/upload.png" />
+    </component>
   </example-card>
 </template>
 
@@ -26,31 +28,35 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
+
 export default {
   name: "Example7",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
     progress: 34,
     emptyColorFill: {
-      gradient: {
-        radial: false,
-        direction: "",
-        colors: [
-          {
-            color: "#754fc1",
-            offset: "0",
-            opacity: "0.3"
-          },
-          {
-            color: "#366bfc",
-            offset: "100",
-            opacity: "0.3"
-          }
-        ]
-      }
+      radial: false,
+      colors: [
+        {
+          color: "#754fc1",
+          offset: "0",
+          opacity: "0.3"
+        },
+        {
+          color: "#366bfc",
+          offset: "100",
+          opacity: "0.3"
+        }
+      ]
     }
   }),
+  computed: {
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
+    }
+  },
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
