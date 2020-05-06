@@ -1,5 +1,8 @@
 <template>
-  <g class="ep-circle--container">
+  <g
+    class="ep-circle--container"
+    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
+  >
     <circle
       class="ep-circle--empty"
       :r="emptyRadius"
@@ -76,6 +79,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ep-circle--container {
+  transform-origin: 50% 50%;
+}
 @import "~@/styles/animations.scss";
 @import "~@/styles/animationsUsage.scss";
 </style>

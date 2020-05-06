@@ -27,6 +27,10 @@
           line
           <input v-model="line" id="line" />
         </label>
+        <label for="angle">
+          Angle
+          <input v-model="angle" id="angle" type="number" />
+        </label>
         <label for="determinate">
           Determinate
           <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
@@ -41,6 +45,8 @@
       </div>-->
       <vue-ellipse-progress
         :gap="5"
+        half
+        :angle="angle"
         color-fill="rgba(17,34,51,0.0)"
         :data="circlesTest"
         :size="400"
@@ -160,6 +166,7 @@ export default {
   components: {},
   data: () => ({
     line: "round",
+    angle: 90,
     circles: [
       { progress: 25, color: "red", thickness: 5 },
       { progress: 35, color: "blue", gap: 0, thickness: 5 },

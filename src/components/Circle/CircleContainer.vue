@@ -1,5 +1,5 @@
 <template>
-  <g class="ep-circle" :style="{ transform: `rotate(${startAngle}deg)` }">
+  <g class="ep-circle">
     <defs>
       <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
       <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
@@ -14,7 +14,6 @@
 import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
-import { isValidNumber } from "../../utils";
 import { simplifiedProps } from "../interface";
 
 export default {
@@ -43,9 +42,6 @@ export default {
   computed: {
     circleType() {
       return this.half ? "half-circle-progress" : "circle-progress";
-    },
-    startAngle() {
-      return isValidNumber(this.angle) ? this.angle : -90;
     },
     isColorGradient() {
       return Array.isArray(this.color.colors);

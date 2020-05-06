@@ -1,5 +1,8 @@
 <template>
-  <g class="ep-half-circle--container">
+  <g
+    class="ep-half-circle--container"
+    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
+  >
     <path
       :stroke-width="computedEmptyThickness"
       :fill="computedColorFill"
@@ -82,6 +85,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ep-half-circle--container {
+  transform-origin: 50% 50%;
+}
 @import "~@/styles/animations.scss";
 @import "~@/styles/animationsUsage.scss";
 </style>
