@@ -1,13 +1,8 @@
 <template>
-  <section id="start">
-    <v-container fluid class="fill-height pa-0">
-      <v-row class="fill-height">
-        <v-col
-          sm="12"
-          md="5"
-          style="min-height: 100vh; position: relative"
-          class="fill-height text-center d-flex align-center"
-        >
+  <v-container fluid id="start" class="d-flex">
+    <section class="d-flex">
+      <v-row>
+        <v-col sm="12" md="5" class="text-center d-flex align-center">
           <v-row>
             <v-col cols="12">
               <div class="px-sm-3">
@@ -48,7 +43,7 @@
             </div>
           </div>
         </v-col>
-        <v-col sm="12" md="7" style="min-height: 100vh; position: relative" class="fill-height d-flex align-center">
+        <v-col sm="12" md="7" style="position: relative" class="d-flex align-center">
           <div id="overlay"></div>
           <div class="text-center fill-width">
             <vue-ellipse-progress
@@ -103,8 +98,8 @@
       <v-snackbar v-model="snackbar" color="info">
         Command copied
       </v-snackbar>
-    </v-container>
-  </section>
+    </section>
+  </v-container>
 </template>
 
 <script>
