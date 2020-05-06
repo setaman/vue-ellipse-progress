@@ -1,12 +1,14 @@
 <template>
   <section id="examples">
-    <examples-controls
-      @loadingChange="setLoadingState"
-      @noDataChange="setNoDataState"
-      @determinateChange="setDeterminateState"
-      :test="true"
-    />
-    <v-container fluid class="fill-height">
+    <v-container>
+      <examples-controls
+        @loadingChange="setLoadingState"
+        @noDataChange="setNoDataState"
+        @determinateChange="setDeterminateState"
+        :test="true"
+      />
+    </v-container>
+    <v-container fluid>
       <v-row>
         <example1 :loading="loading" :determinate="determinate" :no-data="noData" />
 
