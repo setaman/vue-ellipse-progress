@@ -19,7 +19,7 @@ A Vue.js component to create beautiful and animated circular progress bars, impl
 :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
 <div align="center" style="text-align: center;">
-  <img src="https://ibb.co/qxxxwH4" alt="Component demo">  
+  <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
 </div>
 
 ## Usage
