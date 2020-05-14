@@ -14,20 +14,20 @@ export default {
   name: "Btn",
   components: {
     VBtn,
-    VIcon
+    VIcon,
   },
   props: {
     ...VBtn.options.props,
     buttonIcon: {
       type: Object,
-      required: false
-    }
+      required: false,
+    },
   },
   methods: {
     emitClickEvent() {
       this.$emit("click");
-    }
-  }
+    },
+  },
 };
 </script>
 

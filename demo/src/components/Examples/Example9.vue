@@ -47,7 +47,7 @@ export default {
   components: { ExampleCard },
   props,
   data: () => ({
-    rating: 3
+    rating: 3,
   }),
   computed: {
     ratingProgress() {
@@ -55,16 +55,16 @@ export default {
     },
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     randomizeOptions() {
       this.rating = randomNumberInRange(0, 5);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

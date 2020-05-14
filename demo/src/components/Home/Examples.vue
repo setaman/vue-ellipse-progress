@@ -1,11 +1,12 @@
 <template>
-  <section id="examples">
+  <section id="examples" v-scroll="onScroll">
     <v-container>
       <examples-controls
         @loadingChange="setLoadingState"
         @noDataChange="setNoDataState"
         @determinateChange="setDeterminateState"
         :test="true"
+        :fixed="offsetTop > 1160"
       />
     </v-container>
     <v-container fluid>
@@ -67,14 +68,18 @@ export default {
     Example4,
     Example3,
     Example2,
-    Example1
+    Example1,
   },
   data: () => ({
     loading: false,
     noData: false,
-    determinate: false
+    determinate: false,
+    offsetTop: 0,
   }),
   methods: {
+    onScroll() {
+      this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+    },
     setLoadingState(loadingState) {
       this.loading = loadingState;
     },
@@ -83,8 +88,8 @@ export default {
     },
     setDeterminateState(determinateState) {
       this.determinate = determinateState;
-    }
-  }
+    },
+  },
 };
 </script>
 

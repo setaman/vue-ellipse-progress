@@ -29,23 +29,23 @@ export default {
   data: () => ({
     circlesData: [
       {
-        progress: randomNumberInRange(0, 20)
+        progress: randomNumberInRange(0, 20),
       },
       {
-        progress: randomNumberInRange(0, 20)
+        progress: randomNumberInRange(0, 20),
       },
       {
-        progress: randomNumberInRange(0, 20)
+        progress: randomNumberInRange(0, 20),
       },
       {
-        progress: randomNumberInRange(0, 20)
+        progress: randomNumberInRange(0, 20),
       },
       {
-        progress: randomNumberInRange(0, 20)
+        progress: randomNumberInRange(0, 20),
       },
       {
-        progress: randomNumberInRange(0, 20)
-      }
+        progress: randomNumberInRange(0, 20),
+      },
     ],
     colors: ["rgb(117,121,255)", "rgb(147, 112, 219)", "rgb(104,54,243)", "rgb(106, 90, 205)"],
     options: {
@@ -56,8 +56,8 @@ export default {
       thickness: 5,
       "line-mode": "out 5",
       "font-size": "1.5rem",
-      "font-color": "white"
-    }
+      "font-color": "white",
+    },
   }),
   computed: {
     component() {
@@ -65,7 +65,7 @@ export default {
     },
     circles() {
       return this.circlesData;
-    }
+    },
   },
   methods: {
     randomizeOptions() {
@@ -80,15 +80,15 @@ export default {
           angle: 20 * n, // randomNumberInRange(0, 100),
           color: this.colors[randomNumberInRange(0, 3)],
           gap,
-          thickness
+          thickness,
         });
       }
       this.circlesData = updatedData;
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

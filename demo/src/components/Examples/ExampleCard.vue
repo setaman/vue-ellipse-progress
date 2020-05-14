@@ -18,7 +18,7 @@ import Btn from "@/components/Base/Btn";
 export default {
   name: "ExampleCard",
   components: { Btn },
-  props: ["link"]
+  props: ["link"],
 };
 </script>
 

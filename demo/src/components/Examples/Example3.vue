@@ -37,7 +37,7 @@ export default {
   components: { ExampleCard },
   props,
   data: () => ({
-    tasksDone: 125
+    tasksDone: 125,
   }),
   computed: {
     tasksDonePercent() {
@@ -45,16 +45,16 @@ export default {
     },
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     randomizeOptions() {
       this.tasksDone = randomNumberInRange(0, 200);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

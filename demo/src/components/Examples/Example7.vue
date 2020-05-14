@@ -42,29 +42,29 @@ export default {
         {
           color: "#754fc1",
           offset: "0",
-          opacity: "0.3"
+          opacity: "0.3",
         },
         {
           color: "#366bfc",
           offset: "100",
-          opacity: "0.3"
-        }
-      ]
-    }
+          opacity: "0.3",
+        },
+      ],
+    },
   }),
   computed: {
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@
           <v-alert class="mx-lg-12 mx-md-12 mx-sm-0" text type="error" icon="mdi-alert-circle-outline">
             <div class="title">Danger zone</div>
             This site is supposed for testing only and contains the latest <b>unstable</b> features of the library
-            <v-divider class="my-4 info" style="opacity: 0.22"></v-divider>
+            <v-divider class="my-4 info" style="opacity: 0.22;"></v-divider>
 
             <v-row align="center" no-gutters>
               <v-spacer></v-spacer>
@@ -43,8 +43,8 @@ export default {
     version() {
       const testPackage = packageInfo.dependencies["vue-ellipse-progress-test"];
       return testPackage.slice(testPackage.search("@") + 1).replace("^", "");
-    }
-  }
+    },
+  },
 };
 </script>
 
