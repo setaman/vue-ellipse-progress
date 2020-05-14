@@ -6,10 +6,10 @@
         @noDataChange="setNoDataState"
         @determinateChange="setDeterminateState"
         :test="true"
+        :fixed="offsetTop > 1160"
       />
     </v-container>
     <v-container fluid>
-      {{ offsetTop }}
       <v-row>
         <example1 :loading="loading" :determinate="determinate" :no-data="noData" />
 
@@ -77,8 +77,8 @@ export default {
     offsetTop: 0
   }),
   methods: {
-    onScroll(e) {
-      this.offsetTop = e.target.scrollTop;
+    onScroll() {
+      this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
     },
     setLoadingState(loadingState) {
       this.loading = loadingState;
