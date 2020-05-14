@@ -199,10 +199,10 @@ export default {
 
 #overlay {
   position: absolute;
-  top: -100px;
+  top: -115px;
   right: -180px;
   background-color: white;
-  height: 100%;
+  height: 110%;
   width: 110%;
   border-bottom-left-radius: 150px;
   transform: rotate(15deg);
