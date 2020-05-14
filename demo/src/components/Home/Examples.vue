@@ -1,5 +1,5 @@
 <template>
-  <section id="examples">
+  <section id="examples" v-scroll="onScroll">
     <v-container>
       <examples-controls
         @loadingChange="setLoadingState"
@@ -9,6 +9,7 @@
       />
     </v-container>
     <v-container fluid>
+      {{ offsetTop }}
       <v-row>
         <example1 :loading="loading" :determinate="determinate" :no-data="noData" />
 
@@ -72,9 +73,13 @@ export default {
   data: () => ({
     loading: false,
     noData: false,
-    determinate: false
+    determinate: false,
+    offsetTop: 0
   }),
   methods: {
+    onScroll(e) {
+      this.offsetTop = e.target.scrollTop;
+    },
     setLoadingState(loadingState) {
       this.loading = loadingState;
     },
