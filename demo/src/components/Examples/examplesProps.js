@@ -1,14 +1,14 @@
 export default {
   loading: {
-    type: Boolean
+    type: Boolean,
   },
   noData: {
-    type: Boolean
+    type: Boolean,
   },
   determinate: {
-    type: Boolean
+    type: Boolean,
   },
   test: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
 };

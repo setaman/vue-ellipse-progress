@@ -68,13 +68,13 @@ export default {
     Example4,
     Example3,
     Example2,
-    Example1
+    Example1,
   },
   data: () => ({
     loading: false,
     noData: false,
     determinate: false,
-    offsetTop: 0
+    offsetTop: 0,
   }),
   methods: {
     onScroll() {
@@ -88,8 +88,8 @@ export default {
     },
     setDeterminateState(determinateState) {
       this.determinate = determinateState;
-    }
-  }
+    },
+  },
 };
 </script>
 

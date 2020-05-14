@@ -37,12 +37,12 @@ export default {
     lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
     thickness: 3,
     emptyThickness: 3,
-    lineMode: "normal 0"
+    lineMode: "normal 0",
   }),
   computed: {
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     randomizeOptions() {
@@ -52,11 +52,11 @@ export default {
       this.progress = randomNumberInRange(0, 100);
       this.thickness = randomNumberInRange(1, 10);
       this.emptyThickness = randomNumberInRange(1, 10);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

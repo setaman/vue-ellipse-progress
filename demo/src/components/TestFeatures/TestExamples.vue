@@ -57,7 +57,7 @@ export default {
     Example12,
     Example11,
     Example10,
-    ExamplesControls
+    ExamplesControls,
     /*Example9,
     Example8,
     Example7,
@@ -71,7 +71,7 @@ export default {
   data: () => ({
     loading: false,
     noData: false,
-    determinate: false
+    determinate: false,
   }),
   methods: {
     setLoadingState(loadingState) {
@@ -82,8 +82,8 @@ export default {
     },
     setDeterminateState(determinateState) {
       this.determinate = determinateState;
-    }
-  }
+    },
+  },
 };
 </script>
 

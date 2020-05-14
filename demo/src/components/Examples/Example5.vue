@@ -52,14 +52,14 @@ export default {
         {
           color: "#8ec5fc",
           offset: "0",
-          opacity: "1"
+          opacity: "1",
         },
         {
           color: "#e0c3fc",
           offset: "100",
-          opacity: "1"
-        }
-      ]
+          opacity: "1",
+        },
+      ],
     },
     emptyColorFill: {
       radial: true,
@@ -67,45 +67,45 @@ export default {
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.2"
+          opacity: "0.2",
         },
         {
           color: "#3260FC",
           offset: "50",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.15"
+          opacity: "0.15",
         },
         {
           color: "#3260FC",
           offset: "70",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "#3260FC",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "90",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
+          opacity: "0.1",
         },
         {
           color: "transparent",
           offset: "95",
-          opacity: "0.1"
-        }
-      ]
-    }
+          opacity: "0.1",
+        },
+      ],
+    },
   }),
   computed: {
     tasksDonePercent() {
@@ -119,7 +119,7 @@ export default {
     },
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     runTimer() {
@@ -131,11 +131,11 @@ export default {
       }
       this.sec++;
       this.progress = (this.sec * 100) / 60;
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.runTimer);
-  }
+  },
 };
 </script>
 

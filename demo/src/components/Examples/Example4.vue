@@ -34,21 +34,21 @@ export default {
   components: { ExampleCard },
   props,
   data: () => ({
-    progress: 34
+    progress: 34,
   }),
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
-    }
+    },
   },
   computed: {
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

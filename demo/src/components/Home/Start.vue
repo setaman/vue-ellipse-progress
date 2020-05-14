@@ -43,7 +43,7 @@
             </div>
           </div>
         </v-col>
-        <v-col sm="12" md="7" style="position: relative" class="d-flex align-center">
+        <v-col sm="12" md="7" style="position: relative;" class="d-flex align-center">
           <div id="overlay"></div>
           <div class="text-center fill-width">
             <vue-ellipse-progress
@@ -65,7 +65,7 @@
                 <span class="mx-2">/</span>
                 <span>{{ teamStats ? teamStats.playedGames : "" }}</span>
               </span>
-              <div slot="legend-caption" style="color: #7579ff">
+              <div slot="legend-caption" style="color: #7579ff;">
                 <div v-if="teamStats"><b>WON</b> VS <b>PLAYED</b></div>
                 <span>{{ teamStats ? teamStats.team.name : "" }}</span>
               </div>
@@ -106,7 +106,7 @@
 import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
 import packageInfo from "../../../package";
-const wait = () => new Promise(resolve => setTimeout(resolve, 2000));
+const wait = () => new Promise((resolve) => setTimeout(resolve, 2000));
 const waveColor = "#237cef";
 export default {
   name: "Start",
@@ -126,35 +126,35 @@ export default {
         {
           color: waveColor,
           offset: "0",
-          opacity: "0"
+          opacity: "0",
         },
         {
           color: waveColor,
           offset: "79",
-          opacity: "0"
+          opacity: "0",
         },
         {
           color: waveColor,
           offset: "80",
-          opacity: "0.2"
+          opacity: "0.2",
         },
         {
           color: waveColor,
           offset: "90",
-          opacity: "0.02"
+          opacity: "0.02",
         },
         {
           color: waveColor,
           offset: "100",
-          opacity: "0.00"
-        }
-      ]
-    }
+          opacity: "0.00",
+        },
+      ],
+    },
   }),
   computed: {
     calculatedProgress() {
       return !this.teamStats ? 0 : (this.teamStats.won * 100) / this.teamStats.playedGames;
-    }
+    },
   },
   methods: {
     async loadTeamStats() {
@@ -163,7 +163,7 @@ export default {
         this.error = false;
         const response = await teamStats();
         await wait();
-        this.teamStats = response.data.standings[0].table.filter(teamData =>
+        this.teamStats = response.data.standings[0].table.filter((teamData) =>
           teamData.team.name.toLowerCase().includes(this.teamName.toLowerCase())
         )[0];
       } catch (e) {
@@ -175,11 +175,11 @@ export default {
     copyNmpCommand() {
       this.$clipboard(this.npm);
       this.snackbar = true;
-    }
+    },
   },
   mounted() {
     this.loadTeamStats();
-  }
+  },
 };
 </script>
 

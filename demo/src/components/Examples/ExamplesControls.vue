@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col style="min-height: 100px">
+    <v-col style="min-height: 100px;">
       <div id="examples-controls-container" class="text-center mb-10" :class="{ fixed: fixed }">
         <div id="examples-controls">
           <div>
@@ -65,7 +65,7 @@ export default {
     isRunning: true,
     loading: false,
     noData: false,
-    determinate: false
+    determinate: false,
   }),
   methods: {
     run() {
@@ -88,11 +88,11 @@ export default {
     },
     emitDeterminateChange() {
       this.$emit("determinateChange", this.determinate);
-    }
+    },
   },
   mounted() {
     setTimeout(this.run, 2000);
-  }
+  },
 };
 </script>
 

@@ -35,22 +35,22 @@ export default {
       "line-mode": "out 5",
       animation: "rs 700 1000",
       "font-size": "1.5rem",
-      "font-color": "white"
-    }
+      "font-color": "white",
+    },
   }),
   computed: {
     component() {
       return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
-    }
+    },
   },
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 
