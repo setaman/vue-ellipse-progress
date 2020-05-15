@@ -39,7 +39,13 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
-      <vue-ellipse-progress :progress="50" :legend="false" :thickness="4" :empty-thickness="4"/>
+      <vue-ellipse-progress
+        :loading="loading"
+        :progress="progress"
+        :legend="false"
+        :thickness="10"
+        :empty-thickness="4"
+      />
     </div>
   </div>
 </template>

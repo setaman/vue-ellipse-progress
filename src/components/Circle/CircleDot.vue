@@ -3,7 +3,7 @@
     class="ep-circle--progress__dot-container"
     :width="size"
     :height="size"
-    :style="{ transform: `rotate(${angle * -1}deg) rotateX(0deg)` }"
+    :style="{ transform: `rotate(${rotation}deg)`, transition: animationDuration }"
   >
     <span class="ep-circle--progress__dot"> </span>
     <!--<span class="ep-circle&#45;&#45;progress__dot-container" >
@@ -14,14 +14,22 @@
 
 <script>
 import { simplifiedProps } from "../interface";
+import CircleMixin from "./circleMixin";
 
 export default {
   props: { ...simplifiedProps, radius: Number },
   name: "CircleDot",
+  mixins: [CircleMixin],
+  computed: {
+    rotation() {
+      return this.angle * -1 + (parseFloat(this.progress) * 360) / 100;
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+$size: 10px;
 .ep-circle--progress__dot-container {
   /*position: absolute;
   width: 1px;
@@ -33,11 +41,13 @@ export default {
   transform-origin: center center;
 }
 .ep-circle--progress__dot {
+  box-sizing: border-box;
   display: inline-block;
-  height: 20px;
-  width: 20px;
-  background-color: #5c5cfa;
-  border-radius: 10px;
+  // border: 1px solid white;
+  height: $size;
+  width: $size;
+  background-color: #0000ff;
+  border-radius: $size / 2;
   position: absolute;
   margin: auto;
   right: 0;
