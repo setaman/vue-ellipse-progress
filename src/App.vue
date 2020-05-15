@@ -41,12 +41,13 @@
       </div>-->
       <vue-ellipse-progress
         :loading="loading"
+        :no-data="noData"
         :progress="progress"
         animation="default 1500 1000"
         :angle="-90"
         :legend="false"
         :thickness="10"
-        :empty-thickness="4"
+        :empty-thickness="10"
       />
     </div>
   </div>

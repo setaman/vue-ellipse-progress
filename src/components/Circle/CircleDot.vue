@@ -1,6 +1,6 @@
 <template>
-  <foreignObject class="ep-circle--progress__dot-container" :width="size" :height="size" :style="dotContainerStyle">
-    <span class="ep-circle--progress__dot"> </span>
+  <foreignObject class="ep-circle--progress__dot-container" :width="radius" :height="radius" :style="dotContainerStyle">
+    <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
   </foreignObject>
 </template>
 
@@ -23,9 +23,17 @@ export default {
 
       return {
         transform: `rotate(${rotation}deg)`,
-        transitionDuration: this.animationDuration,
+        transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
       };
+    },
+    dotStyle() {
+      return {
+        transitionDuration: this.loading ? "0s" : this.animationDuration,
+      };
+    },
+    isHidden() {
+      return this.loading || !this.dataIsAvailable;
     },
   },
 };
@@ -34,9 +42,14 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
+  border: 2px red solid;
   transform-origin: center center;
+  &.hidden {
+    transition-duration: 0s;
+  }
 }
 .ep-circle--progress__dot {
+  transition-duration: 0.3s;
   box-sizing: border-box;
   display: inline-block;
   // border: 1px solid white;
@@ -48,5 +61,9 @@ $size: 10px;
   margin: auto;
   right: 0;
   left: 0;
+
+  &.hidden {
+    transform: scale(0);
+  }
 }
 </style>
