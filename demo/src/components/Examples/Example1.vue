@@ -2,21 +2,15 @@
   <example-card
     link="https://github.com/setaman/vue-ellipse-progress/blob/demo/demo/src/components/Examples/Example1.vue"
   >
-    <vue-ellipse-progress
+    <component
+      :is="component"
       :progress="progress"
-      color="#7579ff"
-      empty-color="#324c7e"
-      :size="180"
-      :thickness="5"
-      :empty-thickness="3"
-      :line-mode="{ mode: 'out', offset: 5 }"
-      :animation="{ type: 'rs', duration: 700, delay: 1000 }"
-      font-size="1.5rem"
-      font-color="white"
+      :determinate="determinate"
+      v-bind="options"
       :loading="loading"
       :no-data="noData"
     >
-    </vue-ellipse-progress>
+    </component>
   </example-card>
 </template>
 
@@ -24,22 +18,39 @@
 import ExampleCard from "@/components/Examples/ExampleCard";
 import Interval from "@/utils/interval";
 import randomNumberInRange from "@/utils/randomNumberInRange";
+import props from "@/components/Examples/examplesProps";
 
 export default {
   name: "Example1",
   components: { ExampleCard },
-  props: ["loading", "noData"],
+  props,
   data: () => ({
-    progress: 34
+    progress: 34,
+    options: {
+      color: "#7579ff",
+      "empty-color": "#324c7e",
+      size: 180,
+      thickness: 5,
+      "empty-thickness": 3,
+      "line-mode": "out 5",
+      animation: "rs 700 1000",
+      "font-size": "1.5rem",
+      "font-color": "white",
+    },
   }),
+  computed: {
+    component() {
+      return this.test ? "vue-ellipse-progress-test" : "vue-ellipse-progress";
+    },
+  },
   methods: {
     randomizeOptions() {
       this.progress = randomNumberInRange(0, 100);
-    }
+    },
   },
   mounted() {
     Interval.addTask(this.randomizeOptions);
-  }
+  },
 };
 </script>
 

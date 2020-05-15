@@ -5,6 +5,18 @@ branches:
   only:
     - master
     - dev
-scripts:
-  - npm run lint
-  - npm run test
+
+notifications:
+  email: false
+
+jobs:
+  include:
+    - stage: "Lint"
+      name: "Run EsLint"
+      script: npm run lint
+    - stage: "Test"
+      name: "Run Unit Tests"
+      script: npm run test
+    - stage: "Build"
+      name: "Build the Library"
+      script: npm run build

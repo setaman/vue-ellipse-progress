@@ -7,8 +7,8 @@ import EllipseProgressContainer from "vue-ellipse-progress/src/components/Ellips
 export default {
   name: "CircleWrapper",
   props: {
-    ...EllipseProgressContainer.options.props
-  }
+    ...EllipseProgressContainer.options.props,
+  },
 };
 </script>
 
