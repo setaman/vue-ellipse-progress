@@ -1,5 +1,6 @@
 <template>
   <g class="ep-circle--container">
+    <!--TODO: fix transition timing function-->
     <circle
       class="ep-circle--empty"
       :r="emptyRadius"

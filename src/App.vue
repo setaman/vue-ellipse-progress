@@ -46,10 +46,10 @@
         animation="default 1500 1000"
         :angle="-90"
         :legend="false"
-        :dot="20"
+        :dot="0"
         :thickness="10"
-        line-mode="out"
-        :empty-thickness="40"
+        line-mode=""
+        :empty-thickness="10"
       />
     </div>
   </div>

@@ -51,10 +51,10 @@ export default {
         case "in":
           return this.baseRadius - (this.computedEmptyThickness + offset);
         case "out-over":
-          if (this.computedEmptyThickness <= this.computedThickness) {
+          if (this.computedEmptyThickness <= this.thicknessWithDot) {
             return this.baseRadius;
           }
-          return this.emptyRadius - this.computedEmptyThickness / 2 + this.computedThickness / 2;
+          return this.emptyRadius - this.computedEmptyThickness / 2 + this.thicknessWithDot / 2;
         case "bottom":
           return this.emptyRadius - this.computedEmptyThickness / 2;
         case "top":
@@ -74,31 +74,31 @@ export default {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
-          return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
+          return this.baseRadius - (this.thicknessWithDot / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
-          if (this.computedEmptyThickness <= this.computedThickness) {
-            return this.baseRadius - this.computedThickness / 2 + this.computedEmptyThickness / 2;
+          if (this.computedEmptyThickness <= this.thicknessWithDot) {
+            return this.baseRadius - this.thicknessWithDot / 2 + this.computedEmptyThickness / 2;
           }
           return this.emptyBaseRadius;
         case "bottom":
-          if (this.computedEmptyThickness < this.computedThickness / 2) {
-            return this.emptyBaseRadius - (this.computedThickness / 2 - this.computedEmptyThickness);
+          if (this.computedEmptyThickness < this.thicknessWithDot / 2) {
+            return this.emptyBaseRadius - (this.thicknessWithDot / 2 - this.computedEmptyThickness);
           }
           return this.emptyBaseRadius;
         case "top":
-          return this.emptyBaseRadius - this.computedThickness / 2;
+          return this.emptyBaseRadius - this.thicknessWithDot / 2;
         default:
           return this.emptyBaseRadius;
       }
     },
     baseRadius() {
-      return this.size / 2 - this.computedThickness / 2;
+      return this.size / 2 - this.thicknessWithDot / 2;
     },
     emptyBaseRadius() {
       return this.size / 2 - this.computedEmptyThickness / 2;
     },
     normalLineModeRadius() {
-      if (this.computedThickness < this.computedEmptyThickness) {
+      if (this.thicknessWithDot < this.computedEmptyThickness) {
         return this.emptyBaseRadius;
       }
       return this.baseRadius;
@@ -147,6 +147,11 @@ export default {
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
+
+    thicknessWithDot() {
+      return this.computedThickness < this.dotSize ? this.dotSize : this.computedThickness;
+    },
+
     computedGlobalThickness() {
       return this.calculateThickness(this.globalThickness.toString());
     },
