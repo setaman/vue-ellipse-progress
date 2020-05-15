@@ -1,14 +1,6 @@
 <template>
-  <foreignObject
-    class="ep-circle--progress__dot-container"
-    :width="size"
-    :height="size"
-    :style="{ transform: `rotate(${rotation}deg)`, transition: animationDuration }"
-  >
+  <foreignObject class="ep-circle--progress__dot-container" :width="size" :height="size" :style="dotContainerStyle">
     <span class="ep-circle--progress__dot"> </span>
-    <!--<span class="ep-circle&#45;&#45;progress__dot-container" >
-    </span>-->
-    <!--:style="{ transform: `translateX(${radius}px) rotate(${150}deg)` }"-->
   </foreignObject>
 </template>
 
@@ -17,12 +9,23 @@ import { simplifiedProps } from "../interface";
 import CircleMixin from "./circleMixin";
 
 export default {
-  props: { ...simplifiedProps, radius: Number },
+  props: { ...simplifiedProps },
   name: "CircleDot",
   mixins: [CircleMixin],
   computed: {
-    rotation() {
-      return this.angle * -1 + (parseFloat(this.progress) * 360) / 100;
+    dotContainerStyle() {
+      let rotation = 0;
+      if (this.isInitialized && !this.loading && this.dataIsAvailable) {
+        rotation = this.angle * -1 + (this.computedProgress * 360) / 100;
+      } else {
+        rotation = this.angle * -1;
+      }
+
+      return {
+        transform: `rotate(${rotation}deg)`,
+        transitionDuration: this.animationDuration,
+        transitionTimingFunction: "ease-in-out",
+      };
     },
   },
 };
@@ -31,13 +34,6 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
-  /*position: absolute;
-  width: 1px;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;*/
   transform-origin: center center;
 }
 .ep-circle--progress__dot {

@@ -42,6 +42,8 @@
       <vue-ellipse-progress
         :loading="loading"
         :progress="progress"
+        animation="default 1500 1000"
+        :angle="-90"
         :legend="false"
         :thickness="10"
         :empty-thickness="4"

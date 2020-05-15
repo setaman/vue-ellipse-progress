@@ -187,7 +187,8 @@ export default {
     styles() {
       return {
         strokeDashoffset: this.strokeDashOffset,
-        transition: this.animationDuration,
+        transitionDuration: this.animationDuration,
+        transitionTimingFunction: "ease-in-out",
         transformOrigin: this.transformOrigin,
         "--ep-circumference": this.circumference,
         "--ep-negative-circumference": this.getNegativeCircumference(),
