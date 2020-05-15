@@ -1,10 +1,10 @@
 <template>
   <foreignObject
-    :x="dotContainerPosition * 2"
+    :x="dotContainerPosition"
     :y="dotContainerPosition"
     class="ep-circle--progress__dot-container"
-    :width="radius * 2"
-    :height="radius * 2"
+    :width="dotContainerSize"
+    :height="dotContainerSize"
     :style="dotContainerStyle"
   >
     <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
@@ -21,7 +21,10 @@ export default {
   mixins: [CircleMixin],
   computed: {
     dotContainerPosition() {
-      return (this.size - (this.radius + 5) * 2) / 2;
+      return (this.size - this.radius * 2 - this.dotSize) / 2;
+    },
+    dotContainerSize() {
+      return this.radius * 2 + this.dotSize;
     },
     dotContainerStyle() {
       let rotation = 0;
@@ -40,6 +43,10 @@ export default {
     dotStyle() {
       return {
         transitionDuration: this.loading ? "0s" : this.animationDuration,
+        "--ep-dot-size": this.dotSize,
+        height: `${this.dotSize}px`,
+        width: `${this.dotSize}px`,
+        borderRadius: `${this.dotSize / 2}px`,
       };
     },
     isHidden() {
@@ -52,7 +59,7 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
-  border: 1px red solid;
+  border: 0px red solid;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;
@@ -62,11 +69,7 @@ $size: 10px;
   transition-duration: 0.3s;
   box-sizing: border-box;
   display: inline-block;
-  // border: 1px solid white;
-  height: $size;
-  width: $size;
   background-color: #0000ff;
-  border-radius: $size / 2;
   position: absolute;
   margin: auto;
   right: 0;

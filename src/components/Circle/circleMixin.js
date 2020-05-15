@@ -184,6 +184,10 @@ export default {
       return previousCirclesGap + currentCircleGap;
     },
 
+    dotSize() {
+      return isValidNumber(this.dot.size) ? this.dot.size : this.dot;
+    },
+
     styles() {
       return {
         strokeDashoffset: this.strokeDashOffset,
