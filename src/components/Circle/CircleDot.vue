@@ -1,5 +1,12 @@
 <template>
-  <foreignObject class="ep-circle--progress__dot-container" :width="radius" :height="radius" :style="dotContainerStyle">
+  <foreignObject
+    :x="dotContainerPosition * 2"
+    :y="dotContainerPosition"
+    class="ep-circle--progress__dot-container"
+    :width="radius * 2"
+    :height="radius * 2"
+    :style="dotContainerStyle"
+  >
     <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
   </foreignObject>
 </template>
@@ -13,6 +20,9 @@ export default {
   name: "CircleDot",
   mixins: [CircleMixin],
   computed: {
+    dotContainerPosition() {
+      return (this.size - (this.radius + 5) * 2) / 2;
+    },
     dotContainerStyle() {
       let rotation = 0;
       if (this.isInitialized && !this.loading && this.dataIsAvailable) {
@@ -42,7 +52,7 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
-  border: 2px red solid;
+  border: 1px red solid;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;

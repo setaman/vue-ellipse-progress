@@ -141,6 +141,17 @@ const props = {
     required: false,
     default: false,
   },
+  dot: {
+    type: [Number, Object],
+    required: false,
+    default: 0,
+    validator: (value) => {
+      if (typeof value === "object" && value.size) {
+        return !Number.isNaN(parseFloat(value.size));
+      }
+      return !Number.isNaN(parseFloat(value));
+    },
+  },
 };
 
 const simplifiedProps = {};

@@ -46,7 +46,7 @@
         animation="default 1500 1000"
         :angle="-90"
         :legend="false"
-        :thickness="10"
+        :thickness="20"
         :empty-thickness="10"
       />
     </div>
