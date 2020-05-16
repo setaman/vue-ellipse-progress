@@ -50,7 +50,7 @@
       :style="styles"
     >
     </circle>
-    <circle-dot v-bind="$props"/>
+    <circle-dot v-if="dotSize" v-bind="$props" :id="id" :index="index" :multiple="multiple"/>
   </g>
 </template>
 

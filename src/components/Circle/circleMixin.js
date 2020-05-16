@@ -194,7 +194,8 @@ export default {
     },
 
     dotSize() {
-      return isValidNumber(this.dot.size) ? this.dot.size : this.dot;
+      const value = isValidNumber(this.dot.size) ? this.dot.size : this.dot;
+      return this.calculateThickness(value);
     },
 
     styles() {
@@ -224,7 +225,7 @@ export default {
     calculateThickness(thickness) {
       const value = parseFloat(thickness);
       switch (true) {
-        case thickness.includes("%"):
+        case thickness.toString().includes("%"):
           return (value * this.size) / 100;
         default:
           return value;

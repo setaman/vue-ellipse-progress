@@ -142,7 +142,7 @@ const props = {
     default: false,
   },
   dot: {
-    type: [Number, Object],
+    type: [String, Number, Object],
     required: false,
     default: 0,
     validator: (value) => {
