@@ -39,7 +39,7 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
-      <div style="border: 1px solid red; display: inline-block">
+      <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
           :loading="loading"
           :no-data="noData"
@@ -48,7 +48,7 @@
           :legend="false"
           :thickness="25"
           :empty-thickness="10"
-          :dot="10"
+          :dot="{ size: 20 }"
           line-mode="normal"
         />
       </div>

@@ -42,12 +42,13 @@ export default {
     },
     dotStyle() {
       return {
+        borderRadius: `${this.dotSize / 2}px`,
+        width: `${this.dotSize}px`,
+        ...this.dot,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         "--ep-dot-size": this.dotSize,
         "--ep-dot-rotation": this.dotContainerRotation,
         height: `${this.dotSize}px`,
-        width: `${this.dotSize}px`,
-        borderRadius: `${this.dotSize / 2}px`,
       };
     },
     isHidden() {
@@ -60,7 +61,7 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
-  border: 1px solid green;
+  border: 0px solid green;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;
