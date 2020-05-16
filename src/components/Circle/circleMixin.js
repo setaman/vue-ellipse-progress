@@ -79,6 +79,11 @@ export default {
             return this.emptyBaseRadius - (this.dotSize / 2 - dotSizeLimit);
           }
           return this.emptyBaseRadius;
+        case "in-over":
+          if (this.dotToThicknessDifference > 0) {
+            return this.emptyBaseRadius - this.dotToThicknessDifference / 2;
+          }
+          return this.emptyBaseRadius;
         case "out":
           return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":

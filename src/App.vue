@@ -46,10 +46,10 @@
         animation="rs 2000 500"
         :angle="-90"
         :legend="false"
-        :thickness="10"
+        :thickness="20"
         :empty-thickness="10"
-        :dot="60"
-        line-mode="in 5"
+        :dot="50"
+        line-mode="out-over"
       />
     </div>
   </div>
