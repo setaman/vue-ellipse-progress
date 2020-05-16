@@ -45,7 +45,7 @@
         :progress="progress"
         :angle="-90"
         :legend="false"
-        dot="3%"
+        dot="10%"
         line-mode="normal"
       />
     </div>

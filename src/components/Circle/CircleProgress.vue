@@ -3,7 +3,6 @@
     class="ep-circle--container"
     :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
   >
-    <!--TODO: fix transition timing function-->
     <circle
       class="ep-circle--empty"
       :r="emptyRadius"
@@ -12,7 +11,10 @@
       :stroke="computedEmptyColor"
       :stroke-dasharray="emptyDasharray"
       :fill="computedEmptyColorFill"
-      :style="{ transition: animationDuration }"
+      :style="{
+        transitionDuration: styles.transitionDuration,
+        transitionTimingFunction: styles.transitionTimingFunction,
+      }"
       :class="{ 'ep_circle--nodata': !dataIsAvailable }"
       :stroke-width="computedEmptyThickness"
     >
@@ -50,7 +52,7 @@
       :style="styles"
     >
     </circle>
-    <circle-dot v-if="dotSize" v-bind="$props" :id="id" :index="index" :multiple="multiple"/>
+    <circle-dot v-if="dotSize" v-bind="$props" :id="id" :index="index" :multiple="multiple" />
   </g>
 </template>
 
