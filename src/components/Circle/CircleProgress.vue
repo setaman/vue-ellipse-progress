@@ -50,7 +50,7 @@
       :style="styles"
     >
     </circle>
-    <circle-dot v-bind="$props" :radius="radius"/>
+    <circle-dot v-bind="$props"/>
   </g>
 </template>
 

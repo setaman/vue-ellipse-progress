@@ -43,12 +43,11 @@
         :loading="loading"
         :no-data="noData"
         :progress="progress"
-        animation="default 1500 1000"
         :angle="-90"
         :legend="false"
         :dot="0"
         :thickness="10"
-        line-mode=""
+        line-mode="normal"
         :empty-thickness="10"
       />
     </div>
