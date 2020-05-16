@@ -46,9 +46,9 @@
           :progress="progress"
           :angle="-90"
           :legend="false"
-          :thickness="25"
-          :empty-thickness="10"
-          :dot="{ size: 20 }"
+          :thickness="10"
+          :empty-thickness="4"
+          :dot="{ size: 10, backgroundColor: 'rgba(123,256,200,0.5)' }"
           line-mode="normal"
         />
       </div>

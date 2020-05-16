@@ -1,5 +1,5 @@
 import { isValidNumber } from "../../utils";
-import { animationParser, dashParser, lineModeParser } from "../optionsParser";
+import { animationParser, dashParser, lineModeParser, dotParser } from "../optionsParser";
 import { simplifiedProps } from "../interface";
 
 const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -204,9 +204,14 @@ export default {
       return previousCirclesGap + currentCircleGap;
     },
 
+    parsedDot() {
+      return dotParser(this.dot);
+    },
     dotSize() {
-      const value = isValidNumber(this.dot.size) ? this.dot.size : this.dot;
-      return this.calculateThickness(value);
+      return this.calculateThickness(this.parsedDot.size);
+    },
+    dotColor() {
+      return this.parsedDot.color;
     },
     dotToThicknessDifference() {
       return this.dotSize - this.computedThickness;

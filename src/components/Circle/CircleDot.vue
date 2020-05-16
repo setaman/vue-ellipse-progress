@@ -44,6 +44,7 @@ export default {
       return {
         borderRadius: `${this.dotSize / 2}px`,
         width: `${this.dotSize}px`,
+        backgroundColor: this.dotColor,
         ...this.dot,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         "--ep-dot-size": this.dotSize,
