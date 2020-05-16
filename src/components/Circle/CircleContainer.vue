@@ -7,6 +7,7 @@
       <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
     <component :is="circleType" v-bind="$props" :id="_uid" />
+    <circle-dot v-if="dot" v-bind="$props" :id="_uid" :index="index" :multiple="multiple" />
   </g>
 </template>
 
@@ -15,10 +16,11 @@ import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircleProgress.vue";
 import CircleProgress from "./CircleProgress.vue";
 import { simplifiedProps } from "../interface";
+import CircleDot from "./CircleDot.vue";
 
 export default {
   name: "EpCircleContainer",
-  components: { CircleProgress, HalfCircleProgress, Gradient },
+  components: { CircleDot, CircleProgress, HalfCircleProgress, Gradient },
   props: {
     ...simplifiedProps,
     index: {

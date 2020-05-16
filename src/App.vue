@@ -39,18 +39,19 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
-      <vue-ellipse-progress
-        :loading="loading"
-        :no-data="noData"
-        :progress="progress"
-        animation="rs 2000 500"
-        :angle="-90"
-        :legend="false"
-        :thickness="20"
-        :empty-thickness="10"
-        :dot="50"
-        line-mode="out-over"
-      />
+      <div style="border: 1px solid red; display: inline-block">
+        <vue-ellipse-progress
+          :loading="loading"
+          :no-data="noData"
+          :progress="progress"
+          :angle="-90"
+          :legend="false"
+          :thickness="25"
+          :empty-thickness="10"
+          :dot="10"
+          line-mode="normal"
+        />
+      </div>
     </div>
   </div>
 </template>

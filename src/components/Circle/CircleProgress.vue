@@ -1,7 +1,11 @@
 <template>
   <g
     class="ep-circle--container"
-    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
+    :style="{
+      transitionDuration: styles.transitionDuration,
+      transitionTimingFunction: styles.transitionTimingFunction,
+      transform: `rotate(${computedAngle}deg)`,
+    }"
   >
     <circle
       class="ep-circle--empty"
@@ -52,18 +56,16 @@
       :style="styles"
     >
     </circle>
-    <circle-dot v-if="dotSize" v-bind="$props" :id="id" :index="index" :multiple="multiple" />
   </g>
 </template>
 
 <script>
 import CircleMixin from "./circleMixin";
 import FadeInTransition from "../FadeInTransition.vue";
-import CircleDot from "./CircleDot.vue";
 
 export default {
   name: "CircleProgress",
-  components: { CircleDot, FadeInTransition },
+  components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
     progressOffset() {

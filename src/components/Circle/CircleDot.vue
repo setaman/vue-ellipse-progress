@@ -26,16 +26,16 @@ export default {
     dotContainerSize() {
       return this.radius * 2 + this.dotSize;
     },
-    dotContainerStyle() {
-      let rotation = 0;
+    dotContainerRotation() {
+      let rotation = this.angle + 90;
       if (this.isInitialized && !this.loading && this.dataIsAvailable) {
-        rotation = this.angle * -1 + (this.computedProgress * 360) / 100;
-      } else {
-        rotation = this.angle * -1;
+        rotation += (this.computedProgress * 360) / 100;
       }
-
+      return rotation;
+    },
+    dotContainerStyle() {
       return {
-        transform: `rotate(${rotation}deg)`,
+        transform: `rotate(${this.dotContainerRotation}deg)`,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
       };
@@ -44,6 +44,7 @@ export default {
       return {
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         "--ep-dot-size": this.dotSize,
+        "--ep-dot-rotation": this.dotContainerRotation,
         height: `${this.dotSize}px`,
         width: `${this.dotSize}px`,
         borderRadius: `${this.dotSize / 2}px`,
@@ -59,7 +60,7 @@ export default {
 <style scoped lang="scss">
 $size: 10px;
 .ep-circle--progress__dot-container {
-  border: 0px red solid;
+  border: 1px solid green;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;
