@@ -74,7 +74,7 @@ export default {
         case "normal":
           return this.normalLineModeRadius;
         case "out":
-          return this.baseRadius - (this.thicknessWithDot / 2 + this.computedEmptyThickness / 2 + offset);
+          return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
           if (this.computedEmptyThickness <= this.thicknessWithDot) {
             return this.baseRadius - this.thicknessWithDot / 2 + this.computedEmptyThickness / 2;
