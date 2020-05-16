@@ -69,7 +69,7 @@ $size: 10px;
   transition-duration: 0.3s;
   box-sizing: border-box;
   display: inline-block;
-  background-color: #ffffff;
+  background-color: #ff0000;
   position: absolute;
   margin: auto;
   right: 0;

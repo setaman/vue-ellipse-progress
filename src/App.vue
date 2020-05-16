@@ -43,12 +43,13 @@
         :loading="loading"
         :no-data="noData"
         :progress="progress"
+        animation="rs 2000 500"
         :angle="-90"
         :legend="false"
-        :thickness="20"
+        :thickness="10"
         :empty-thickness="10"
-        dot="10"
-        line-mode="out-over"
+        :dot="60"
+        line-mode="in 5"
       />
     </div>
   </div>

@@ -49,7 +49,7 @@ export default {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
-          return this.baseRadius - (this.computedEmptyThickness + offset);
+          return this.emptyRadius - (this.computedEmptyThickness / 2 + this.computedThickness / 2 + offset);
         case "out-over":
           if (this.computedEmptyThickness <= this.computedThickness) {
             return this.baseRadius;
@@ -73,6 +73,12 @@ export default {
       switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
+        case "in":
+          const dotSizeLimit = this.computedThickness / 2 + this.computedEmptyThickness + offset;
+          if (this.dotSize / 2 > dotSizeLimit) {
+            return this.emptyBaseRadius - (this.dotSize / 2 - dotSizeLimit);
+          }
+          return this.emptyBaseRadius;
         case "out":
           return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
@@ -196,6 +202,9 @@ export default {
     dotSize() {
       const value = isValidNumber(this.dot.size) ? this.dot.size : this.dot;
       return this.calculateThickness(value);
+    },
+    dotToThicknessDifference() {
+      return this.dotSize - this.computedThickness;
     },
 
     styles() {
