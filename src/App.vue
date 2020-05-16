@@ -45,8 +45,10 @@
         :progress="progress"
         :angle="-90"
         :legend="false"
-        dot="16%"
-        line-mode="out"
+        :thickness="20"
+        :empty-thickness="10"
+        dot="10"
+        line-mode="out-over"
       />
     </div>
   </div>

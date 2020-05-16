@@ -51,10 +51,10 @@ export default {
         case "in":
           return this.baseRadius - (this.computedEmptyThickness + offset);
         case "out-over":
-          if (this.computedEmptyThickness <= this.thicknessWithDot) {
+          if (this.computedEmptyThickness <= this.computedThickness) {
             return this.baseRadius;
           }
-          return this.emptyRadius - this.computedEmptyThickness / 2 + this.thicknessWithDot / 2;
+          return this.emptyRadius - this.computedEmptyThickness / 2 + this.computedThickness / 2;
         case "bottom":
           return this.emptyRadius - this.computedEmptyThickness / 2;
         case "top":
@@ -76,8 +76,8 @@ export default {
         case "out":
           return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
-          if (this.computedEmptyThickness <= this.thicknessWithDot) {
-            return this.baseRadius - this.thicknessWithDot / 2 + this.computedEmptyThickness / 2;
+          if (this.computedEmptyThickness <= this.computedThickness) {
+            return this.baseRadius - this.computedThickness / 2 + this.computedEmptyThickness / 2;
           }
           return this.emptyBaseRadius;
         case "bottom":
