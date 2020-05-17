@@ -50,6 +50,7 @@
   &.animation__bounce {
   }
   &.animation__reverse {
+    animation-name: ep-dot--init__reverse;
   }
   &.animation__loop {
     animation-name: ep-dot--init__loop;

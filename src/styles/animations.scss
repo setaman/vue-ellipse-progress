@@ -150,3 +150,15 @@
     transform: rotate(var(--ep-dot-loop-end));
   }
 }
+
+@keyframes ep-dot--init__reverse {
+  0% {
+    transform: rotate(var(--ep-dot-360));
+  }
+  50% {
+    transform: rotate(var(--ep-dot-360));
+  }
+  100% {
+    transform: rotate(var(--ep-dot-end));
+  }
+}
