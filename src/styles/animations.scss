@@ -162,3 +162,15 @@
     transform: rotate(var(--ep-dot-end));
   }
 }
+
+@keyframes ep-dot--init__bounce {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

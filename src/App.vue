@@ -48,11 +48,25 @@
           :legend="false"
           :thickness="10"
           :empty-thickness="4"
-          animation="reverse 2000"
+          animation="bounce 5000"
           :dot="{ size: 20, backgroundColor: 'rgba(4,256,4,1)' }"
           line-mode="normal"
         />
       </div>
+      <!--<vue-ellipse-progress
+        :loading="loading"
+        :no-data="noData"
+        :progress="progress"
+        :angle="-90"
+        :legend="false"
+        :thickness="100"
+        dash="strict 60 0.95"
+        :empty-thickness="100"
+        line="butt"
+        animation="rs 1000"
+        :dot="{ size: 100, backgroundColor: 'rgba(100,256,4,1)', width: '2px' }"
+        line-mode="in-over"
+      />-->
     </div>
   </div>
 </template>

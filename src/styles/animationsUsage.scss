@@ -42,12 +42,13 @@
 }
 
 .ep-circle--progress__dot-container {
-  animation-duration: 2s !important;
   animation-timing-function: ease-in-out;
   &.animation__rs {
     animation-name: ep-dot--init__rs;
   }
   &.animation__bounce {
+    opacity: 1 !important;
+    animation-name: ep-dot--init__bounce;
   }
   &.animation__reverse {
     animation-name: ep-dot--init__reverse;

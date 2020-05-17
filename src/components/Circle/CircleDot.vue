@@ -39,6 +39,7 @@ export default {
         transform: `rotate(${this.dotContainerRotation}deg)`,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
+        "animation-duration": this.animationDuration,
         "--ep-dot-size": this.dotSize,
         "--ep-dot-start": `${this.dotStart}deg`,
         "--ep-dot-end": `${this.dotEnd}deg`,
@@ -50,6 +51,10 @@ export default {
       const styles = {
         loop: {
           "--ep-dot-loop-end": `${this.dotStart + 360 + this.dotEnd}deg`,
+        },
+        bounce: {
+          opacity: 0,
+          "animation-duration": `${this.parsedAnimation.duration + 500}ms`,
         },
       };
       return styles[this.parsedAnimation.type];
