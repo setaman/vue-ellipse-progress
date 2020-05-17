@@ -40,8 +40,9 @@ export default {
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         "--ep-dot-size": this.dotSize,
-        "--ep-dot-start": this.dotStart,
-        "--ep-dot-end": this.dotEnd,
+        "--ep-dot-start": `${this.dotStart}deg`,
+        "--ep-dot-360": `${this.dotStart + 360}deg`,
+        "--ep-dot-end": `${this.dotEnd}deg`,
       };
     },
     dotStyle() {

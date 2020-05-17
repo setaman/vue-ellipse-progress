@@ -77,4 +77,4 @@
 @include ep-half-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference),
                 var(--ep-negative-circumference));
 @include ep-progress--loading__rotation();
-@include ep-dot--init__rs(var(--ep-dot-start), var(--ep-dot-end));
+@include ep-dot--init__rs(var(--ep-dot-start), var(--ep-dot-end), var(--ep-dot-360));
