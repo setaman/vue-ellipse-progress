@@ -89,6 +89,4 @@ export default {
 .ep-circle--container {
   transform-origin: 50% 50%;
 }
-@import "~@/styles/animations.scss";
-@import "~@/styles/animationsUsage.scss";
 </style>

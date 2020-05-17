@@ -121,3 +121,17 @@
     }
   }
 }
+
+@mixin ep-dot--init__rs ($dotStart, $dotEnd) {
+  @keyframes ep-dot--init__rs {
+    0% {
+      transform: rotate(#{$dotStart}deg);
+    }
+    50% {
+      transform: rotate(#{$dotStart + 360}deg);
+    }
+    100% {
+      transform: rotate(#{$dotEnd}deg);
+    }
+  }
+}

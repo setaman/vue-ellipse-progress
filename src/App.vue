@@ -48,6 +48,7 @@
           :legend="false"
           :thickness="10"
           :empty-thickness="4"
+          animation="rs"
           :dot="{ size: 10, backgroundColor: 'rgba(123,256,200,0.5)' }"
           line-mode="normal"
         />

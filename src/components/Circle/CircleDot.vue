@@ -3,6 +3,7 @@
     :x="dotContainerPosition"
     :y="dotContainerPosition"
     class="ep-circle--progress__dot-container"
+    :class="animationClass"
     :width="dotContainerSize"
     :height="dotContainerSize"
     :style="dotContainerStyle"
@@ -38,6 +39,9 @@ export default {
         transform: `rotate(${this.dotContainerRotation}deg)`,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
+        "--ep-dot-size": this.dotSize,
+        "--ep-dot-start": this.dotStart,
+        "--ep-dot-end": this.dotEnd,
       };
     },
     dotStyle() {
@@ -47,10 +51,14 @@ export default {
         backgroundColor: this.dotColor,
         ...this.dot,
         transitionDuration: this.loading ? "0s" : this.animationDuration,
-        "--ep-dot-size": this.dotSize,
-        "--ep-dot-rotation": this.dotContainerRotation,
         height: `${this.dotSize}px`,
       };
+    },
+    dotStart() {
+      return this.angle + 90;
+    },
+    dotEnd() {
+      return this.dotStart + (this.computedProgress * 360) / 100;
     },
     isHidden() {
       return this.loading || !this.dataIsAvailable;
@@ -60,7 +68,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$size: 10px;
 .ep-circle--progress__dot-container {
   border: 0px solid green;
   transform-origin: center center;

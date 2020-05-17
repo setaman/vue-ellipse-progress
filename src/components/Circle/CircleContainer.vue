@@ -60,7 +60,9 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
+@import "~@/styles/animations.scss";
+@import "~@/styles/animationsUsage.scss";
 g.ep-circle {
   transition: inherit;
   transform-origin: 50% 50%;
