@@ -135,3 +135,18 @@
     }
   }
 }
+
+@keyframes ep-dot--init__loop {
+  0% {
+    transform: rotate(var(--ep-dot-start));
+  }
+  33% {
+    transform: rotate(var(--ep-dot-360));
+  }
+  66% {
+    transform: rotate(var(--ep-dot-360));
+  }
+  100% {
+    transform: rotate(var(--ep-dot-loop-end));
+  }
+}

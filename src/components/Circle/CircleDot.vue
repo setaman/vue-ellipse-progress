@@ -41,9 +41,21 @@ export default {
         transitionTimingFunction: "ease-in-out",
         "--ep-dot-size": this.dotSize,
         "--ep-dot-start": `${this.dotStart}deg`,
-        "--ep-dot-360": `${this.dotStart + 360}deg`,
         "--ep-dot-end": `${this.dotEnd}deg`,
+        ...this.dotContainerAnimationStyle,
       };
+    },
+    dotContainerAnimationStyle() {
+      const styles = {
+        rs: {
+          "--ep-dot-360": `${this.dotStart + 360}deg`,
+        },
+        loop: {
+          "--ep-dot-360": `${this.dotStart + 360}deg`,
+          "--ep-dot-loop-end": `${this.dotStart + 360 + this.dotEnd}deg`,
+        },
+      };
+      return styles[this.parsedAnimation.type];
     },
     dotStyle() {
       return {
