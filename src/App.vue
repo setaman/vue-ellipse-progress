@@ -44,7 +44,7 @@
           :loading="loading"
           :no-data="noData"
           :progress="progress"
-          :angle="190"
+          :angle="0"
           :legend="true"
           :thickness="10"
           :animation="animation"

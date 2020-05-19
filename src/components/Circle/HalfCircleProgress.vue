@@ -1,7 +1,11 @@
 <template>
   <g
     class="ep-half-circle--container"
-    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
+    :style="{
+      transitionDuration: styles.transitionDuration,
+      transitionTimingFunction: styles.transitionTimingFunction,
+      transform: `rotate(${computedAngle}deg)`,
+    }"
   >
     <path
       :stroke-width="computedEmptyThickness"
@@ -11,7 +15,10 @@
       :d="emptyPath"
       :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
-      :style="{ transition: animationDuration }"
+      :style="{
+        transitionDuration: styles.transitionDuration,
+        transitionTimingFunction: styles.transitionTimingFunction,
+      }"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
