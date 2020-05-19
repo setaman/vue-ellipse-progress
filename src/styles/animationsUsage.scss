@@ -57,7 +57,7 @@
     animation-name: ep-dot--init__loop;
   }
   &.ep-half-circle-progress__dot{
-    &.animation__reverse {
+    &.animation__bounce {
       opacity: 1 !important;
       animation-name: ep-dot--init__disabled;
     }
