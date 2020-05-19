@@ -42,15 +42,13 @@
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
           :loading="loading"
+          :data="circles"
           :no-data="noData"
           :progress="progress"
           :angle="0"
           :legend="true"
-          :thickness="10"
           :animation="animation"
-          :empty-thickness="4"
           half
-          :dot="{ size: 20 }"
           line-mode="normal"
         />
       </div>
@@ -82,8 +80,8 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 25, color: "red", thickness: 5 },
-      { progress: 35, color: "blue", gap: 0, thickness: 5 },
+      { progress: 25, color: "red" },
+      { progress: 35, color: "blue", gap: 0, thickness: "4%" },
       { progress: 55, color: "green" },
     ],
     determinate: false,

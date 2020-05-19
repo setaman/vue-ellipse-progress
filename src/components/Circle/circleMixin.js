@@ -196,7 +196,10 @@ export default {
       const previousCirclesGap = this.data
         .filter((data, i) => i < this.index)
         .map((data, n) => {
-          const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
+          debugger;
+          const thickness = isValidNumber(data.thickness)
+            ? this.calculateThickness(data.thickness)
+            : this.computedGlobalThickness;
           const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
           return n > 0 ? thickness + gap : thickness;
         })
