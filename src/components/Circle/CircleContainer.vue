@@ -1,33 +1,47 @@
 <template>
-  <g class="ep-circle" :style="{ transform: `rotate(${startAngle}deg)` }">
+  <g class="ep-circle--container">
     <defs>
       <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
       <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
       <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="_uid" />
       <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
-    <component :is="circleType" v-bind="$props" :multiple="multiple" :id="_uid" :index="index" />
+    <component :is="circleType" v-bind="$props" :id="_uid" />
   </g>
 </template>
 
 <script>
 import Gradient from "../Gradient.vue";
-import HalfCircleProgress from "./HalfCircleProgress.vue";
-import CircleProgress from "./CircleProgress.vue";
-import { getValueIfDefined } from "../../utils";
+import HalfCircleProgress from "./HalfCircle.vue";
+import CircleProgress from "./Circle.vue";
+import { simplifiedProps } from "../interface";
 
 export default {
   name: "EpCircleContainer",
   components: { CircleProgress, HalfCircleProgress, Gradient },
   props: {
-    ...CircleProgress.mixins[0].props
+    ...simplifiedProps,
+    index: {
+      type: Number,
+      required: true,
+    },
+    multiple: {
+      type: Boolean,
+      required: true,
+    },
+    globalThickness: {
+      type: [Number, String],
+      required: false,
+      default: "5%",
+    },
+    globalGap: {
+      type: Number,
+      required: false,
+    },
   },
   computed: {
     circleType() {
       return this.half ? "half-circle-progress" : "circle-progress";
-    },
-    startAngle() {
-      return getValueIfDefined(this.angle) || -90;
     },
     isColorGradient() {
       return Array.isArray(this.color.colors);
@@ -40,12 +54,12 @@ export default {
     },
     isEmptyColorFillGradient() {
       return Array.isArray(this.emptyColorFill.colors);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
-g.ep-circle {
+g.ep-circle--container {
   transition: inherit;
   transform-origin: 50% 50%;
 }

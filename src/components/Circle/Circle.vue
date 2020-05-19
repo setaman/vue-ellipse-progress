@@ -1,5 +1,5 @@
 <template>
-  <g class="ep-circle--container">
+  <g class="ep-circle" :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }">
     <circle
       class="ep-circle--empty"
       :r="emptyRadius"
@@ -9,13 +9,13 @@
       :stroke-dasharray="emptyDasharray"
       :fill="computedEmptyColorFill"
       :style="{ transition: animationDuration }"
-      :class="{ 'ep_circle--nodata': !dataIsAvailable }"
-      :stroke-width="emptyThickness"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+      :stroke-width="computedEmptyThickness"
     >
     </circle>
     <fade-in-transition>
       <g v-if="showDeterminate">
-        <g style="opacity: 0.7;">
+        <g style="opacity: 0.45;">
           <circle
             class="ep-circle--determinate animation__loading"
             :r="radius"
@@ -58,7 +58,6 @@ export default {
   components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
-    // only component specific props here, another props comes from the circleMixin
     progressOffset() {
       const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
       if (offset <= 0) {
@@ -71,13 +70,15 @@ export default {
     },
     circumference() {
       return this.radius * 2 * Math.PI;
-    }
+    },
   },
-  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
+.ep-circle {
+  transform-origin: 50% 50%;
+}
 @import "~@/styles/animations.scss";
 @import "~@/styles/animationsUsage.scss";
 </style>

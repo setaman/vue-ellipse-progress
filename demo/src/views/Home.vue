@@ -10,6 +10,6 @@ import Start from "@/components/Home/Start";
 import Examples from "@/components/Home/Examples";
 export default {
   name: "home",
-  components: { Examples, Start }
+  components: { Examples, Start },
 };
 </script>
