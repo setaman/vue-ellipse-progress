@@ -30,7 +30,7 @@
   }
 }
 
-.ep-half-circle, .ep-half-circle--determinate {
+.ep-half-circle--progress, .ep-half-circle--determinate {
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;
@@ -39,8 +39,8 @@
   }
 }
 
-.ep-circle--empty {
-  &.ep_circle--nodata {
+.ep-half-circle--empty {
+  &.ep-circle--nodata {
     opacity: 0.5;
   }
 }
