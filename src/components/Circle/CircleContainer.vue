@@ -40,6 +40,10 @@ export default {
       type: Number,
       required: false,
     },
+    globalDot: {
+      type: [Number, String, Object],
+      required: false,
+    },
   },
   computed: {
     circleType() {

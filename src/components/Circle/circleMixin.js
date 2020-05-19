@@ -29,6 +29,10 @@ export default {
       type: Number,
       required: false,
     },
+    globalDot: {
+      type: [Number, String, Object],
+      required: false,
+    },
   },
   data: () => ({
     isInitialized: false,
@@ -164,10 +168,10 @@ export default {
     },
 
     computedGlobalThickness() {
-      return this.calculateThickness(this.globalThickness.toString());
+      return this.calculateThickness(this.globalThickness);
     },
     computedEmptyThickness() {
-      return this.calculateThickness(this.emptyThickness.toString());
+      return this.calculateThickness(this.emptyThickness);
     },
 
     computedAngle() {
@@ -196,11 +200,13 @@ export default {
       const previousCirclesThickness = [];
       for (let i = 0; i < this.index; i++) {
         const data = this.data[i];
+        const dot = data.dot ? this.calculateThickness(dotParser(data.dot).size) : this.globalDotSize;
         const thickness = isValidNumber(data.thickness)
           ? this.calculateThickness(data.thickness)
           : this.computedGlobalThickness;
         const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-        previousCirclesThickness.push(i > 0 ? thickness + gap : thickness);
+        const completeThickness = Math.max(dot, thickness);
+        previousCirclesThickness.push(i > 0 ? completeThickness + gap : completeThickness);
       }
       return previousCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
     },
@@ -216,6 +222,9 @@ export default {
     },
     dotToThicknessDifference() {
       return this.dotSize - this.computedThickness;
+    },
+    globalDotSize() {
+      return this.calculateThickness(dotParser(this.globalDot).size);
     },
 
     styles() {

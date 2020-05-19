@@ -45,10 +45,12 @@
           :data="circles"
           :no-data="noData"
           :progress="progress"
-          :angle="0"
+          :angle="-90"
+          :gap="10"
           :legend="true"
+          dot="15 red"
           :animation="animation"
-          half
+          :half="false"
           line-mode="normal"
         />
       </div>
@@ -80,9 +82,9 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 25, color: "red" },
-      { progress: 35, color: "blue", gap: 0, thickness: "4%" },
-      { progress: 55, color: "green" },
+      { progress: 50, color: "red" },
+      { progress: 50, color: "blue", gap: 10, thickness: "16%", dot: { size: 4 } },
+      { progress: 50, color: "green", gap: 0, dot: { size: "15%" } },
     ],
     determinate: false,
     loading: false,
