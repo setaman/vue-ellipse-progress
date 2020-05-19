@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import Circle from "../../../src/components/Circle/CircleProgress.vue";
-import HalfCircle from "../../../src/components/Circle/HalfCircleProgress.vue";
+import Circle from "../../../src/components/Circle/Circle.vue";
+import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 
 import lineTest from "./circle-line.spec";
@@ -104,14 +104,14 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const position = size / 2 - radius;
     const expectedPath = ` M ${position}, ${size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
 
-    const circleProgressWrapper = wrapper.find(".ep-half-circle.ep-circle--progress");
-    const circleEmptyWrapper = wrapper.find(".ep-circle--empty");
+    const circleProgressWrapper = wrapper.find(".ep-half-circle--progress.ep-circle--progress");
+    const circleEmptyWrapper = wrapper.find(".ep-half-circle--empty");
 
     it("renders half progress circle SVG path", () => {
-      expect(wrapper.contains("path.ep-half-circle.ep-circle--progress")).to.be.true;
+      expect(wrapper.contains("path.ep-half-circle--progress.ep-circle--progress")).to.be.true;
     });
     it("renders half empty circle SVG path", () => {
-      expect(wrapper.contains("path.ep-circle--empty")).to.be.true;
+      expect(wrapper.contains("path.ep-half-circle--empty")).to.be.true;
     });
 
     it("calculates and sets the position of the half circles correctly", () => {
@@ -166,8 +166,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
     });
-    it("adds .ep_circle--nodata class to empty circle", () => {
-      expect(circleEmptyWrapper.classes()).to.include("ep_circle--nodata");
+    it("adds .ep-circle--nodata class to empty circle", () => {
+      expect(circleEmptyWrapper.classes()).to.include("ep-circle--nodata");
     });
     it("resets the progress circle animation class", () => {
       expect(circleProgressWrapper.classes()).to.not.include("animation__default");

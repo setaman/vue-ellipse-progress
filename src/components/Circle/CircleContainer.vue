@@ -1,5 +1,5 @@
 <template>
-  <g class="ep-circle">
+  <g class="ep-circle--container">
     <defs>
       <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
       <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
@@ -12,8 +12,8 @@
 
 <script>
 import Gradient from "../Gradient.vue";
-import HalfCircleProgress from "./HalfCircleProgress.vue";
-import CircleProgress from "./CircleProgress.vue";
+import HalfCircleProgress from "./HalfCircle.vue";
+import CircleProgress from "./Circle.vue";
 import { simplifiedProps } from "../interface";
 
 export default {
@@ -59,7 +59,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-g.ep-circle {
+g.ep-circle--container {
   transition: inherit;
   transform-origin: 50% 50%;
 }

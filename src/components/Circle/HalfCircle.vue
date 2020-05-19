@@ -1,13 +1,10 @@
 <template>
-  <g
-    class="ep-half-circle--container"
-    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
-  >
+  <g class="ep-half-circle" :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }">
     <path
       :stroke-width="computedEmptyThickness"
       :fill="computedColorFill"
       :stroke="computedEmptyColor"
-      class="ep-circle--empty"
+      class="ep-half-circle--empty"
       :d="emptyPath"
       :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
@@ -35,7 +32,7 @@
 
     <path
       :stroke-width="computedThickness"
-      class="ep-half-circle ep-circle--progress"
+      class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
       :d="path"
       :fill="computedColorFill"
@@ -85,7 +82,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ep-half-circle--container {
+g.ep-half-circle {
   transform-origin: 50% 50%;
 }
 @import "~@/styles/animations.scss";
