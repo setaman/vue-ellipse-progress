@@ -193,18 +193,16 @@ export default {
     previousCirclesThickness() {
       if (this.index === 0) return 0;
       const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
-      const previousCirclesGap = this.data
-        .filter((data, i) => i < this.index)
-        .map((data, n) => {
-          debugger;
-          const thickness = isValidNumber(data.thickness)
-            ? this.calculateThickness(data.thickness)
-            : this.computedGlobalThickness;
-          const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-          return n > 0 ? thickness + gap : thickness;
-        })
-        .reduce((acc, current) => acc + current);
-      return previousCirclesGap + currentCircleGap;
+      const previousCirclesThickness = [];
+      for (let i = 0; i < this.index; i++) {
+        const data = this.data[i];
+        const thickness = isValidNumber(data.thickness)
+          ? this.calculateThickness(data.thickness)
+          : this.computedGlobalThickness;
+        const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
+        previousCirclesThickness.push(i > 0 ? thickness + gap : thickness);
+      }
+      return previousCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
     },
 
     parsedDot() {
