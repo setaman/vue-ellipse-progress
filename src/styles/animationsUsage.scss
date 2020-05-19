@@ -48,13 +48,23 @@
   }
   &.animation__bounce {
     opacity: 1 !important;
-    animation-name: ep-dot--init__bounce;
+    animation-name: ep-dot--init__disabled;
   }
   &.animation__reverse {
     animation-name: ep-dot--init__reverse;
   }
   &.animation__loop {
     animation-name: ep-dot--init__loop;
+  }
+  &.ep-half-circle-progress__dot{
+    &.animation__reverse {
+      opacity: 1 !important;
+      animation-name: ep-dot--init__disabled;
+    }
+    &.animation__loop {
+      opacity: 1 !important;
+      animation-name: ep-dot--init__disabled;
+    }
   }
 }
 

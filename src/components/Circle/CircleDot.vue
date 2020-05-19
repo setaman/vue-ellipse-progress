@@ -3,7 +3,7 @@
     :x="dotContainerPosition"
     :y="dotContainerPosition"
     class="ep-circle--progress__dot-container"
-    :class="animationClass"
+    :class="dotContainerClasses"
     :width="dotContainerSize"
     :height="dotContainerSize"
     :style="dotContainerStyle"
@@ -28,11 +28,13 @@ export default {
       return this.radius * 2 + this.dotSize;
     },
     dotContainerRotation() {
-      let rotation = this.angle + 90;
       if (this.isInitialized && !this.loading && this.dataIsAvailable) {
-        rotation += (this.computedProgress * 360) / 100;
+        return this.dotEnd;
       }
-      return rotation;
+      return this.dotStart;
+    },
+    dotContainerFullRotationDeg() {
+      return this.half ? 180 : 360;
     },
     dotContainerStyle() {
       return {
@@ -40,17 +42,20 @@ export default {
         transitionDuration: this.loading ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         "animation-duration": this.animationDuration,
-        "--ep-dot-size": this.dotSize,
         "--ep-dot-start": `${this.dotStart}deg`,
         "--ep-dot-end": `${this.dotEnd}deg`,
-        "--ep-dot-360": `${this.dotStart + 360}deg`,
+        "--ep-dot-360": `${this.dotStart + this.dotContainerFullRotationDeg}deg`,
         ...this.dotContainerAnimationStyle,
       };
+    },
+    dotContainerClasses() {
+      return [this.animationClass, !this.half || "ep-half-circle-progress__dot"];
     },
     dotContainerAnimationStyle() {
       const styles = {
         loop: {
-          "--ep-dot-loop-end": `${this.dotStart + 360 + this.dotEnd}deg`,
+          opacity: this.half ? 0 : 1,
+          "--ep-dot-loop-end": `${this.dotStart + this.dotContainerFullRotationDeg + this.dotEnd}deg`,
         },
         bounce: {
           opacity: 0,
@@ -70,10 +75,10 @@ export default {
       };
     },
     dotStart() {
-      return this.angle + 90;
+      return this.half ? this.angle - 90 : this.angle + 90;
     },
     dotEnd() {
-      return this.dotStart + (this.computedProgress * 360) / 100;
+      return this.dotStart + (this.computedProgress * this.dotContainerFullRotationDeg) / 100;
     },
     isHidden() {
       return this.loading || !this.dataIsAvailable;
@@ -84,7 +89,7 @@ export default {
 
 <style scoped lang="scss">
 .ep-circle--progress__dot-container {
-  border: 0px solid green;
+  // border: 0px solid green;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;
@@ -93,8 +98,6 @@ export default {
 .ep-circle--progress__dot {
   transition-duration: 0.3s;
   box-sizing: border-box;
-  display: inline-block;
-  background-color: #ff0000;
   position: absolute;
   margin: auto;
   right: 0;

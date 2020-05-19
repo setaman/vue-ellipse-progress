@@ -44,12 +44,13 @@
           :loading="loading"
           :no-data="noData"
           :progress="progress"
-          :angle="-90"
-          :legend="false"
+          :angle="190"
+          :legend="true"
           :thickness="10"
+          :animation="animation"
           :empty-thickness="4"
-          animation="bounce 5000"
-          :dot="{ size: 20, backgroundColor: 'rgba(4,256,4,1)' }"
+          half
+          :dot="{ size: 20 }"
           line-mode="normal"
         />
       </div>
@@ -138,7 +139,7 @@ export default {
       ],
       radial: true,
     },
-    animation: "rs 200 5000",
+    animation: "rs 1000 500",
   }),
   computed: {
     tasksDonePercent() {
