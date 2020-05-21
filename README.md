@@ -2,7 +2,7 @@
 [![npm](https://img.shields.io/npm/v/vue-ellipse-progress)](https://www.npmjs.com/package/vue-ellipse-progress)
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)]
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)]()
 [![Build Status](https://travis-ci.org/setaman/vue-ellipse-progress.svg?branch=master)](https://travis-ci.org/setaman/vue-ellipse-progress)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
