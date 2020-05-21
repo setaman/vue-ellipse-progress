@@ -392,7 +392,7 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 - ### `dot`
 
-[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](https://github.com/setaman/vue-ellipse-progress#dot) 
+[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) 
 
 ###### Animated: :heavy_check_mark:
 
