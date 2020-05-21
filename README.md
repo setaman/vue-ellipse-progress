@@ -102,7 +102,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
-| **[`dot`](#dot)** | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
+| **[`dot`](#dot)** ![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square) | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
 | **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with all props defined above | |
 
@@ -390,7 +390,11 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 <br>
 
-- ### `dot` 
+- ### `dot`
+
+![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square) 
+
+###### Animated: :heavy_check_mark:
 
 The Dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, desscriptive String or an Object to inject any CSS styles.   
 
