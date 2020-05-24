@@ -8,7 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
-    "test": "vue-cli-service test:unit"
+    "test": "vue-cli-service test:unit --colors"
   },
   "author": {
     "name": "Sergej Atamantschuk",
@@ -29,12 +29,6 @@
     "bar"
   ],
   "repository": "github:setaman/vue-ellipse-progress",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
-    "lint": "vue-cli-service lint --fix",
-    "test": "vue-cli-service test:unit"
-  },
   "dependencies": {
     "countup.js": "^2.0.4",
     "vue": "^2.6.11",

@@ -47,10 +47,8 @@
           :progress="progress"
           :angle="-90"
           :gap="10"
-          half
           :legend="true"
           dot="15 red"
-          :animation="animation"
           line-mode="normal"
         />
       </div>
