@@ -1,5 +1,5 @@
 import { isValidNumber } from "../../utils";
-import { animationParser, dashParser, lineModeParser } from "../optionsParser";
+import { animationParser, dashParser, lineModeParser, dotParser } from "../optionsParser";
 import { simplifiedProps } from "../interface";
 
 const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -29,6 +29,10 @@ export default {
       type: Number,
       required: false,
     },
+    globalDot: {
+      type: [Number, String, Object],
+      required: false,
+    },
   },
   data: () => ({
     isInitialized: false,
@@ -49,7 +53,7 @@ export default {
         case "normal":
           return this.normalLineModeRadius;
         case "in":
-          return this.baseRadius - (this.computedEmptyThickness + offset);
+          return this.emptyRadius - (this.computedEmptyThickness / 2 + this.computedThickness / 2 + offset);
         case "out-over":
           if (this.computedEmptyThickness <= this.computedThickness) {
             return this.baseRadius;
@@ -73,6 +77,17 @@ export default {
       switch (this.parsedLineMode.mode) {
         case "normal":
           return this.normalLineModeRadius;
+        case "in":
+          const dotSizeLimit = this.computedThickness / 2 + this.computedEmptyThickness + offset;
+          if (this.dotSize / 2 > dotSizeLimit) {
+            return this.emptyBaseRadius - (this.dotSize / 2 - dotSizeLimit);
+          }
+          return this.emptyBaseRadius;
+        case "in-over":
+          if (this.dotToThicknessDifference > 0) {
+            return this.emptyBaseRadius - this.dotToThicknessDifference / 2;
+          }
+          return this.emptyBaseRadius;
         case "out":
           return this.baseRadius - (this.computedThickness / 2 + this.computedEmptyThickness / 2 + offset);
         case "out-over":
@@ -81,24 +96,24 @@ export default {
           }
           return this.emptyBaseRadius;
         case "bottom":
-          if (this.computedEmptyThickness < this.computedThickness / 2) {
-            return this.emptyBaseRadius - (this.computedThickness / 2 - this.computedEmptyThickness);
+          if (this.computedEmptyThickness < this.thicknessWithDot / 2) {
+            return this.emptyBaseRadius - (this.thicknessWithDot / 2 - this.computedEmptyThickness);
           }
           return this.emptyBaseRadius;
         case "top":
-          return this.emptyBaseRadius - this.computedThickness / 2;
+          return this.emptyBaseRadius - this.thicknessWithDot / 2;
         default:
           return this.emptyBaseRadius;
       }
     },
     baseRadius() {
-      return this.size / 2 - this.computedThickness / 2;
+      return this.size / 2 - this.thicknessWithDot / 2;
     },
     emptyBaseRadius() {
       return this.size / 2 - this.computedEmptyThickness / 2;
     },
     normalLineModeRadius() {
-      if (this.computedThickness < this.computedEmptyThickness) {
+      if (this.thicknessWithDot < this.computedEmptyThickness) {
         return this.emptyBaseRadius;
       }
       return this.baseRadius;
@@ -147,11 +162,16 @@ export default {
     computedThickness() {
       return this.calculateThickness(this.thickness.toString());
     },
+
+    thicknessWithDot() {
+      return this.computedThickness < this.dotSize ? this.dotSize : this.computedThickness;
+    },
+
     computedGlobalThickness() {
-      return this.calculateThickness(this.globalThickness.toString());
+      return this.calculateThickness(this.globalThickness);
     },
     computedEmptyThickness() {
-      return this.calculateThickness(this.emptyThickness.toString());
+      return this.calculateThickness(this.emptyThickness);
     },
 
     computedAngle() {
@@ -177,21 +197,41 @@ export default {
     previousCirclesThickness() {
       if (this.index === 0) return 0;
       const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
-      const previousCirclesGap = this.data
-        .filter((data, i) => i < this.index)
-        .map((data, n) => {
-          const thickness = isValidNumber(data.thickness) ? data.thickness : this.computedGlobalThickness;
-          const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-          return n > 0 ? thickness + gap : thickness;
-        })
-        .reduce((acc, current) => acc + current);
-      return previousCirclesGap + currentCircleGap;
+      const previousCirclesThickness = [];
+      for (let i = 0; i < this.index; i++) {
+        const data = this.data[i];
+        const dot = data.dot ? this.calculateThickness(dotParser(data.dot).size) : this.globalDotSize;
+        const thickness = isValidNumber(data.thickness)
+          ? this.calculateThickness(data.thickness)
+          : this.computedGlobalThickness;
+        const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
+        const completeThickness = Math.max(dot, thickness);
+        previousCirclesThickness.push(i > 0 ? completeThickness + gap : completeThickness);
+      }
+      return previousCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
+    },
+
+    parsedDot() {
+      return dotParser(this.dot);
+    },
+    dotSize() {
+      return this.calculateThickness(this.parsedDot.size);
+    },
+    dotColor() {
+      return this.parsedDot.color;
+    },
+    dotToThicknessDifference() {
+      return this.dotSize - this.computedThickness;
+    },
+    globalDotSize() {
+      return this.calculateThickness(dotParser(this.globalDot).size);
     },
 
     styles() {
       return {
         strokeDashoffset: this.strokeDashOffset,
-        transition: this.animationDuration,
+        transitionDuration: this.animationDuration,
+        transitionTimingFunction: "ease-in-out",
         transformOrigin: this.transformOrigin,
         "--ep-circumference": this.circumference,
         "--ep-negative-circumference": this.getNegativeCircumference(),
@@ -214,7 +254,7 @@ export default {
     calculateThickness(thickness) {
       const value = parseFloat(thickness);
       switch (true) {
-        case thickness.includes("%"):
+        case thickness.toString().includes("%"):
           return (value * this.size) / 100;
         default:
           return value;

@@ -16,6 +16,7 @@
           :index="i"
           :globalThickness="thickness"
           :globalGap="gap"
+          :globalDot="dot"
         />
       </svg>
 

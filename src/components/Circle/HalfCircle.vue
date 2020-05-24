@@ -1,5 +1,12 @@
 <template>
-  <g class="ep-half-circle" :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }">
+  <g
+    class="ep-half-circle"
+    :style="{
+      transitionDuration: styles.transitionDuration,
+      transitionTimingFunction: styles.transitionTimingFunction,
+      transform: `rotate(${computedAngle}deg)`,
+    }"
+  >
     <path
       :stroke-width="computedEmptyThickness"
       :fill="computedColorFill"
@@ -8,7 +15,10 @@
       :d="emptyPath"
       :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
-      :style="{ transition: animationDuration }"
+      :style="{
+        transitionDuration: styles.transitionDuration,
+        transitionTimingFunction: styles.transitionTimingFunction,
+      }"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
@@ -85,6 +95,4 @@ export default {
 g.ep-half-circle {
   transform-origin: 50% 50%;
 }
-@import "~@/styles/animations.scss";
-@import "~@/styles/animationsUsage.scss";
 </style>
