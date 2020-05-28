@@ -1,7 +1,9 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
+import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
 import Circle from "../../../src/components/Circle/Circle.vue";
+import CircleDot from "../../../src/components/Circle/CircleDot.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 
@@ -303,8 +305,11 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
   });
   describe("#dot", () => {
     const progress = 50;
+    const thickness = 5;
     const size = 500;
     const globalDot = "5%";
+
+    const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
     it(`parses property correctly`, () => {
       const wrapper = factory({ progress, size });
@@ -325,30 +330,46 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
 
     const data = [
-      { progress, dot: 5 },
-      { progress, dot: "5" },
-      { progress, dot: "5%" },
-      { progress, dot: "5% red" },
-      { progress, dot: "5 blue" },
-      { progress, dot: { size: 5 } },
-      { progress, dot: { size: "5%" } },
-      { progress, dot: { size: 5, backgroundColor: "yellow" } },
-      { progress, dot: { size: "3%", backgroundColor: "green", borderRadius: "2px" } },
+      { progress, thickness, dot: 5 },
+      { progress, thickness, dot: "5" },
+      { progress, thickness, dot: "5%" },
+      { progress, thickness, dot: "5% red" },
+      { progress, thickness, dot: "5 blue" },
+      { progress, thickness, dot: { size: 5 } },
+      { progress, thickness, dot: { size: "5%" } },
+      { progress, thickness, dot: { size: 5, backgroundColor: "yellow" } },
+      { progress, thickness, dot: { size: "3%", background: "green", borderRadius: "2px" } },
     ];
 
-    /* for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
-      const wrapper = factory({ size, dot: globalDot, ...circleData }, VueEllipseProgress);
+      const wrapper = factory({ size, dot: globalDot, ...circleData }, CircleContainer);
+      const circleDotsWrapper = wrapper.find("span.ep-circle--progress__dot");
+      const parsedDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot);
+      const parsedDotSize = calculateThickness(parsedDot.size);
+      const parsedDotColor = parsedDot.backgroundColor || parsedDot.background || parsedDot.color;
 
-      /!* it(`parses property correctly`, () => {
-        expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
+      it(`renders dot component | #dot = ${circleData.dot}`, () => {
+        expect(wrapper.contains(CircleDot)).to.be.true;
+      });
 
-      }); *!/
-    } */
+      it(`applies the size of the dot correctly | #dot = ${circleData.dot}`, () => {
+        expect(circleDotsWrapper.element.style.width).to.equal(`${parsedDotSize}px`);
+      });
+
+      it(`applies the color of the dot correctly | #dot = ${circleData.dot}`, () => {
+        const { background } = circleDotsWrapper.element.style;
+        if (background) {
+          expect(circleDotsWrapper.element.style.background).to.equal(`${parsedDotColor}`);
+        } else {
+          expect(circleDotsWrapper.element.style.backgroundColor).to.equal(`${parsedDotColor}`);
+        }
+      });
+    }
   });
 
-  /* thicknessTest();
+  thicknessTest();
   lineTest();
   animationTest();
-  colorsTest(); */
+  colorsTest();
 });
