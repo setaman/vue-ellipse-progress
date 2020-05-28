@@ -42,13 +42,14 @@
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
           :loading="loading"
-          :data="circles"
           :no-data="noData"
           :progress="progress"
-          :angle="-90"
-          :gap="10"
+          :thickness="3"
+          :empty-thickness="3"
+          :gap="5"
+          dot="2%"
+          :size="600"
           :legend="true"
-          dot="15 red"
           line-mode="normal"
         />
       </div>
