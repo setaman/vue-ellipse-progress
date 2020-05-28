@@ -247,6 +247,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     }
     // some special cases
     data.push({ progress: 50, thickness: 5 });
+    data.push({ progress: 50, thickness: "2%" });
+    data.push({ progress: 50, thickness: "4%", gap: 3 });
     data.push({ progress: 50, gap: 5 });
     data.push({ progress: 50, gap: 0 });
     data.push({ progress: 50 });
@@ -254,12 +256,16 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const wrapper = factory({ data, gap: globalGap, thickness: globalThickness, size }, VueEllipseProgress);
     const circleWrappers = wrapper.findAll(Circle);
 
+    const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
+
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       it(`calculates the radius of circle #${i} correctly
         #thickness ${circleData.thickness} | #gap ${circleData.gap} `, () => {
         const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
-        const circleThickness = circleData.thickness !== undefined ? circleData.thickness : globalThickness;
+        const circleThickness = calculateThickness(
+          circleData.thickness !== undefined ? circleData.thickness : globalThickness
+        );
 
         let radius;
         const baseRadius = size / 2 - circleThickness / 2;
@@ -268,7 +274,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
           const previousCirclesThickness = previousCirclesData
             .map(({ gap, thickness }, n) => {
               const g = gap !== undefined ? gap : globalGap;
-              const t = thickness !== undefined ? thickness : globalThickness;
+              const t = calculateThickness(thickness !== undefined ? thickness : globalThickness);
               return n > 0 ? g + t : t;
             })
             .reduce((acc, current) => acc + current);
