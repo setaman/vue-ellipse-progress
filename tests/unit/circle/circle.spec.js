@@ -269,7 +269,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       it(`calculates the radius of circle #${i} correctly
-        #thickness ${circleData.thickness} | #gap ${circleData.gap} | #dot ${circleData.dot} `, async () => {
+        #thickness ${circleData.thickness} | #gap ${circleData.gap} | #dot ${circleData.dot} `, () => {
         const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
         const circleThickness = calculateThickness(
           circleData.thickness !== undefined ? circleData.thickness : globalThickness
@@ -301,9 +301,54 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       });
     }
   });
+  describe("#dot", () => {
+    const progress = 50;
+    const size = 500;
+    const globalDot = "5%";
 
-  thicknessTest();
+    it(`parses property correctly`, () => {
+      const wrapper = factory({ progress, size });
+      let dot = 0;
+      expect(wrapper.vm.parsedDot.size).to.equal("0");
+      expect(wrapper.vm.parsedDot.color).to.equal("white");
+
+      dot = "5% red";
+      wrapper.setProps({ dot });
+      expect(wrapper.vm.parsedDot.size).to.equal("5%");
+      expect(wrapper.vm.parsedDot.color).to.equal("red");
+
+      dot = { size: 10, backgroundColor: "green" };
+      wrapper.setProps({ dot });
+      expect(wrapper.vm.parsedDot.size).to.equal(10);
+      expect(wrapper.vm.parsedDot.color).to.equal("white");
+      expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
+    });
+
+    const data = [
+      { progress, dot: 5 },
+      { progress, dot: "5" },
+      { progress, dot: "5%" },
+      { progress, dot: "5% red" },
+      { progress, dot: "5 blue" },
+      { progress, dot: { size: 5 } },
+      { progress, dot: { size: "5%" } },
+      { progress, dot: { size: 5, backgroundColor: "yellow" } },
+      { progress, dot: { size: "3%", backgroundColor: "green", borderRadius: "2px" } },
+    ];
+
+    /* for (let i = 0; i < data.length; i++) {
+      const circleData = data[i];
+      const wrapper = factory({ size, dot: globalDot, ...circleData }, VueEllipseProgress);
+
+      /!* it(`parses property correctly`, () => {
+        expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
+
+      }); *!/
+    } */
+  });
+
+  /* thicknessTest();
   lineTest();
   animationTest();
-  colorsTest();
+  colorsTest(); */
 });
