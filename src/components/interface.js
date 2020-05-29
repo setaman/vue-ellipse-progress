@@ -147,8 +147,11 @@ const props = {
     required: false,
     default: 0,
     validator: (value) => {
-      if (typeof value === "object" && value.size) {
-        return !Number.isNaN(parseFloat(value.size));
+      if (typeof value === "object") {
+        if (value.size !== undefined) {
+          return !Number.isNaN(parseFloat(value.size));
+        }
+        return false;
       }
       return !Number.isNaN(parseFloat(value));
     },
