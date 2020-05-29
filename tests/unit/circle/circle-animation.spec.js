@@ -3,6 +3,8 @@ import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "../../../src/components/Circle/Circle.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
+import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
+import CircleDot from "../../../src/components/Circle/CircleDot.vue";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {
@@ -132,6 +134,19 @@ export default () => {
     describe("#animation.type", () => {
       animationTypeTests(Circle, "circle.ep-circle--progress");
       animationTypeTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+
+      const wrapper = factory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
+      const circleDotWrapper = wrapper.find(CircleDot);
+      it("circle dot | applies animation class correctly", (done) => {
+        setTimeout(() => {
+          expect(circleDotWrapper.classes()).to.be.an("array").that.include("animation__rs");
+          done();
+        }, 5);
+      });
+      it(`circle dot | applies duration value as transition and animation duration`, () => {
+        expect(circleDotWrapper.element.style.transitionDuration).to.equal("500ms");
+        expect(circleDotWrapper.element.style.animationDuration).to.equal("500ms");
+      });
     });
     describe("#animation.duration", () => {
       animationDurationTests(Circle, "circle.ep-circle--progress");
