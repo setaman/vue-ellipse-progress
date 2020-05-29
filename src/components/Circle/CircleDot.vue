@@ -81,7 +81,7 @@ export default {
       return this.dotStart + (this.computedProgress * this.dotContainerFullRotationDeg) / 100;
     },
     isHidden() {
-      return this.loading || !this.dataIsAvailable;
+      return !this.isInitialized || this.loading || !this.dataIsAvailable;
     },
   },
 };
@@ -96,7 +96,7 @@ export default {
   }
 }
 .ep-circle--progress__dot {
-  transition-duration: 0.3s;
+  transition-duration: 0.2s;
   box-sizing: border-box;
   position: absolute;
   margin: auto;

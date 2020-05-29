@@ -44,15 +44,14 @@
           :loading="loading"
           :no-data="noData"
           :progress="progress"
-          animation="bounce 1000 3000"
+          animation="rs 1000 3000"
           :thickness="30"
           :empty-thickness="50"
           :gap="5"
           color-fill="red"
-          line="butt"
           dot="15 yellow"
           :size="600"
-
+          half
           :legend="true"
           line-mode="in"
         />

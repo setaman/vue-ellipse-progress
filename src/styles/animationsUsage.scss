@@ -47,7 +47,7 @@
     animation-name: ep-dot--init__rs;
   }
   &.animation__bounce {
-    opacity: 1 !important;
+    animation-fill-mode: forwards;
     animation-name: ep-dot--init__disabled;
   }
   &.animation__reverse {
@@ -58,11 +58,11 @@
   }
   &.ep-half-circle-progress__dot{
     &.animation__bounce {
-      opacity: 1 !important;
+      animation-fill-mode: forwards;
       animation-name: ep-dot--init__disabled;
     }
     &.animation__loop {
-      opacity: 1 !important;
+      animation-fill-mode: forwards;
       animation-name: ep-dot--init__disabled;
     }
   }
