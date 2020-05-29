@@ -47,7 +47,6 @@
           :thickness="30"
           :empty-thickness="50"
           :gap="5"
-          dot="2%"
           :size="600"
           :legend="true"
           line-mode="normal"
