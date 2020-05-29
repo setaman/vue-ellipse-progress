@@ -341,6 +341,26 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleWrapper.vm.dotSize).to.equal(0);
     });
 
+    it(`calculates and applies correct rotation of the dot container depending on progress`, (done) => {
+      const wrapper = factory({ progress, dot: 5, animation: "default 0 0" }, CircleContainer);
+      const circleDotWrapper = wrapper.find(CircleDot);
+      const rotationStart = wrapper.props("angle") + 90;
+      const rotation = rotationStart + (progress * 360) / 100;
+      setTimeout(() => {
+        expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotation}deg)`);
+        done();
+      }, 0);
+    });
+
+    it(`applies correct initial rotation of the dot container`, () => {
+      const wrapper = factory({ progress, dot: 5, animation: "default 0 0" }, CircleContainer);
+      const circleDotWrapper = wrapper.find(CircleDot);
+      const angle = wrapper.props("angle");
+      const isHalf = wrapper.props("half");
+      const rotationStart = isHalf ? angle - 90 : angle + 90;
+      expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotationStart}deg)`);
+    });
+
     const data = [
       { progress, thickness, dot: 5 },
       { progress, thickness, dot: "5" },
@@ -356,9 +376,11 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       const wrapper = factory({ size, dot: globalDot, ...circleData }, CircleContainer);
-      const circleDotsWrapper = wrapper.find("span.ep-circle--progress__dot");
+      const circleDotSpanWrapper = wrapper.find("span.ep-circle--progress__dot");
+      const circleDotWrapper = wrapper.find(CircleDot);
+      const circleWrapper = wrapper.find(Circle);
       const parsedDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot);
-      const parsedDotSize = calculateThickness(parsedDot.size);
+      const parsedDotSize = parseFloat(calculateThickness(parsedDot.size));
       const parsedDotColor = parsedDot.backgroundColor || parsedDot.background || parsedDot.color;
 
       it(`renders dot component | #dot = ${circleData.dot}`, () => {
@@ -366,22 +388,36 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       });
 
       it(`applies the size of the dot correctly | #dot = ${circleData.dot}`, () => {
-        expect(circleDotsWrapper.element.style.width).to.equal(`${parsedDotSize}px`);
+        expect(circleDotSpanWrapper.element.style.width).to.equal(`${parsedDotSize}px`);
       });
 
       it(`applies the color of the dot correctly | #dot = ${circleData.dot}`, () => {
-        const { background } = circleDotsWrapper.element.style;
+        const { background } = circleDotSpanWrapper.element.style;
         if (background) {
-          expect(circleDotsWrapper.element.style.background).to.equal(`${parsedDotColor}`);
+          expect(circleDotSpanWrapper.element.style.background).to.equal(`${parsedDotColor}`);
         } else {
-          expect(circleDotsWrapper.element.style.backgroundColor).to.equal(`${parsedDotColor}`);
+          expect(circleDotSpanWrapper.element.style.backgroundColor).to.equal(`${parsedDotColor}`);
         }
+      });
+
+      it(`calculates and applies the position of the dot container correctly | #dot = ${circleData.dot}`, () => {
+        const circleRadius = circleWrapper.vm.radius;
+        const xAndYPosition = (size - circleRadius * 2) / 2 - parsedDotSize / 2;
+        expect(circleDotWrapper.element.getAttribute("y")).to.equal(`${xAndYPosition}`);
+        expect(circleDotWrapper.element.getAttribute("x")).to.equal(`${xAndYPosition}`);
+      });
+
+      it(`calculates and applies the size of the dot container correctly | #dot = ${circleData.dot}`, () => {
+        const circleRadius = circleWrapper.vm.radius;
+        const containerSize = circleRadius * 2 + parsedDotSize;
+        expect(circleDotWrapper.element.getAttribute("width")).to.equal(`${containerSize}`);
+        expect(circleDotWrapper.element.getAttribute("height")).to.equal(`${containerSize}`);
       });
     }
   });
 
   /* thicknessTest();
   lineTest();
-  animationTest();
-  colorsTest(); */
+  colorsTest();
+  animationTest(); */
 });
