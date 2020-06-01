@@ -396,13 +396,13 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 ###### Animated: :heavy_check_mark:
 
-The Dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, desscriptive String or an Object to inject any CSS styles.   
+The dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, descriptive String or an Object to inject any CSS styles.   
 
 **Number**: `:dot="10"` - specifies a round dot with 10px width and height and default `#713dfd` color
 
 **Descriptive string**: `dot="size [color]"` - `size` can be just a number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the string and you can set the `color` only if the `size` is defined.
 
-**Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the Dot you want to, using Vue syntax for defining inline styles, you can even completely breake the positioning of the dot, if you need. You can not override the `height` of the dot since it is important for internal calculation and must be controllable. 
+**Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely breake the positioning of the dot, if you need. You can not override the `height` of the dot since it is important for internal calculation and must be controllable. 
 
 ###### Example: :scroll:
 The examples will provide more clarity
