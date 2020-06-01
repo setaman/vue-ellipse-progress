@@ -1,8 +1,8 @@
 # vue-ellipse-progress
-![npm](https://img.shields.io/npm/v/vue-ellipse-progress)
+[![npm](https://img.shields.io/npm/v/vue-ellipse-progress)](https://www.npmjs.com/package/vue-ellipse-progress)
 [![Known Vulnerabilities](https://snyk.io/test/github/setaman/vue-ellipse-progress/badge.svg?targetFile=package.json)](https://snyk.io/test/github/setaman/vue-ellipse-progress?targetFile=package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#vue-ellipse-progress)
 [![Build Status](https://travis-ci.org/setaman/vue-ellipse-progress.svg?branch=master)](https://travis-ci.org/setaman/vue-ellipse-progress)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
@@ -58,7 +58,8 @@ Now use the component
   :loading="false"                      
   fontColor="white"
   :half="false"
-  :gap="10"                    
+  :gap="10"
+  dot="10 blue"
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
@@ -101,6 +102,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
+| **[`dot`](#dot)** [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
 | **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with all props defined above | |
 
@@ -381,10 +383,43 @@ Descriptive string in form `"[strict] count spacing"` that adds dashed empty pro
 
 - ### `half` 
 
-Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gague chart  
+Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gague chart 
 
 ###### Example: :scroll:
 <img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png"/>
+
+<br>
+
+- ### `dot`
+
+[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) 
+
+###### Animated: :heavy_check_mark:
+
+The dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, descriptive String or an Object to inject any CSS styles.   
+
+**Number**: `:dot="10"` - specifies a round dot with 10px width and height and default `#713dfd` color
+
+**Descriptive string**: `dot="size [color]"` - `size` can be just a number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the string and you can set the `color` only if the `size` is defined.
+
+**Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely breake the positioning of the dot, if you need. You can not override the `height` of the dot since it is important for internal calculation and must be controllable. 
+
+###### Example: :scroll:
+The examples will provide more clarity
+```javascript
+:dot="10" // just a Number defining size in pixel
+dot="10" // the same as above
+dot="10%" // 10% from the circle size will be converted to pixel
+dot="5% red" // adds red dot
+// defines same dot as above
+:dot="{
+  size: "5%" // required
+  backgroundColor: "red" // add any inline CSS using Vue syntax,
+  left: "10px" // you can even move the dot, but it is not recommended
+}
+```
+
+<img width="100px" src="https://github.com/setaman/Bilder/blob/master/Anmerkung%202020-05-19%20220917.png"/>
 
 <br>
 
