@@ -51,7 +51,6 @@
           :gap="5"
           dot="15 yellow"
           :size="600"
-
           :legend="true"
           line-mode="in"
         />
