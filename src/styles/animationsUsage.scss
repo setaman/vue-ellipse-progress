@@ -1,22 +1,18 @@
 .ep-circle--progress {
+  animation-timing-function: ease-in-out;
   &.animation__default {
-    animation-timing-function: ease-in-out;
     animation-name: ep-progress--init__default;
   }
   &.animation__rs {
-    animation-timing-function: ease-out;
     animation-name: ep-progress--init__rs;
   }
   &.animation__bounce {
-    animation-timing-function: ease-out;
     animation-name: ep-progress--init__bounce;
   }
   &.animation__reverse {
-    animation-timing-function: ease-out;
     animation-name: ep-progress--init__reverse;
   }
   &.animation__loop {
-    animation-timing-function: ease-out;
     animation-name: ep-progress--init__loop;
   }
 }
@@ -45,6 +41,33 @@
   }
 }
 
+.ep-circle--progress__dot-container {
+  animation-timing-function: ease-in-out;
+  &.animation__rs {
+    animation-name: ep-dot--init__rs;
+  }
+  &.animation__bounce {
+    animation-fill-mode: forwards;
+    animation-name: ep-dot--init__disabled;
+  }
+  &.animation__reverse {
+    animation-name: ep-dot--init__reverse;
+  }
+  &.animation__loop {
+    animation-name: ep-dot--init__loop;
+  }
+  &.ep-half-circle-progress__dot{
+    &.animation__bounce {
+      animation-fill-mode: forwards;
+      animation-name: ep-dot--init__disabled;
+    }
+    &.animation__loop {
+      animation-fill-mode: forwards;
+      animation-name: ep-dot--init__disabled;
+    }
+  }
+}
+
 @include ep-progress--init__default(var(--ep-stroke-offset), var(--ep-circumference));
 @include ep-progress--init__rs(var(--ep-stroke-offset), var(--ep-circumference));
 @include ep-progress--init__bounce(
@@ -67,3 +90,4 @@
 @include ep-half-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference),
                 var(--ep-negative-circumference));
 @include ep-progress--loading__rotation();
+@include ep-dot--init__rs(var(--ep-dot-start), var(--ep-dot-end), var(--ep-dot-360));

@@ -7,6 +7,7 @@
       <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
     <component :is="circleType" v-bind="$props" :id="_uid" />
+    <circle-dot v-if="dot" v-bind="$props" :id="_uid" :index="index" :multiple="multiple" />
   </g>
 </template>
 
@@ -15,10 +16,11 @@ import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircle.vue";
 import CircleProgress from "./Circle.vue";
 import { simplifiedProps } from "../interface";
+import CircleDot from "./CircleDot.vue";
 
 export default {
   name: "EpCircleContainer",
-  components: { CircleProgress, HalfCircleProgress, Gradient },
+  components: { CircleDot, CircleProgress, HalfCircleProgress, Gradient },
   props: {
     ...simplifiedProps,
     index: {
@@ -36,6 +38,10 @@ export default {
     },
     globalGap: {
       type: Number,
+      required: false,
+    },
+    globalDot: {
+      type: [Number, String, Object],
       required: false,
     },
   },
@@ -58,7 +64,9 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
+@import "~@/styles/animations.scss";
+@import "~@/styles/animationsUsage.scss";
 g.ep-circle--container {
   transition: inherit;
   transform-origin: 50% 50%;

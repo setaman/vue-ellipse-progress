@@ -29,4 +29,23 @@ const dashParser = (dash) => {
   };
 };
 
-export { lineModeParser, animationParser, dashParser };
+const dotParser = (dot) => {
+  let dotSize = 0;
+  let dotColor = "white";
+  let styles = {};
+  if (typeof dot !== "object") {
+    const dotConfig = dot.toString().trim().split(" ");
+    dotSize = isValidNumber(dotConfig[0]) ? dotConfig[0] : 0;
+    dotColor = dotConfig[1] || "white";
+  } else {
+    dotSize = dot.size || 0;
+    styles = dot;
+  }
+  return {
+    ...styles,
+    size: dotSize,
+    color: dotColor,
+  };
+};
+
+export { lineModeParser, animationParser, dashParser, dotParser };
