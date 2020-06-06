@@ -89,7 +89,6 @@ export default {
 
 <style scoped lang="scss">
 .ep-circle--progress__dot-container {
-  // border: 0px solid green;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;

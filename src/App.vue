@@ -41,22 +41,22 @@
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
+          :data="circles"
           :loading="loading"
           :no-data="noData"
-          :progress="progress"
-          animation="rs 1000 3000"
+          :progress="50"
+          animation="bounce 1000 3000"
           :thickness="30"
           :empty-thickness="50"
           :gap="5"
-          color-fill="red"
           dot="15 yellow"
           :size="600"
-          half
+
           :legend="true"
           line-mode="in"
         />
       </div>
-      <!--<vue-ellipse-progress
+      <vue-ellipse-progress
         :loading="loading"
         :no-data="noData"
         :progress="progress"
@@ -69,7 +69,7 @@
         animation="rs 1000"
         :dot="{ size: 100, backgroundColor: 'rgba(100,256,4,1)', width: '2px' }"
         line-mode="in-over"
-      />-->
+      />
     </div>
   </div>
 </template>
@@ -84,9 +84,9 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 50, color: "red" },
-      { progress: 50, color: "blue", gap: 10, thickness: "16%", dot: { size: 4 } },
-      { progress: 50, color: "green", gap: 0, dot: { size: "15%" } },
+      { progress: 50, color: "red", animation: "bounce 3000" },
+      { progress: 50, color: "blue", animation: "loop 2000", gap: 10, dot: { size: 4 } },
+      { progress: 50, color: "green", gap: 0, animation: "reverse 5000", dot: { size: "15%" } },
     ],
     determinate: false,
     loading: false,

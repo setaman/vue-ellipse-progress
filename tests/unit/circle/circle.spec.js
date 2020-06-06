@@ -4,13 +4,13 @@ import Vue from "vue";
 import Circle from "../../../src/components/Circle/Circle.vue";
 import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
-
-import lineTest from "./circle-line.spec";
-import thicknessTest from "./circle-thickness.spec";
-import animationTest from "./circle-animation.spec";
-import colorsTest from "./circle-colors.spec";
-import dotTests from "./cirlce-dot.spec";
 import { dotParser } from "../../../src/components/optionsParser";
+
+import "./circle-line.spec";
+import "./circle-thickness.spec";
+import "./circle-animation.spec";
+import "./circle-colors.spec";
+import "./cirlce-dot.spec";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {
@@ -302,11 +302,4 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       });
     }
   });
-
-  /* thicknessTest();
-  lineTest();
-  colorsTest();
-  */
-  animationTest();
-  // dotTests();
 });

@@ -122,39 +122,77 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   });
 };
 
-export default () => {
-  describe("#animation", () => {
-    it("it parses the #animation property correctly", () => {
-      const wrapper = factory({ animation: "rs 2000 200" });
+describe("#animation", () => {
+  const circleContainerWrapper = factory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
+  const circleDotWrapper = circleContainerWrapper.find(CircleDot);
 
-      expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
-      expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
-      expect(wrapper.vm.parsedAnimation.delay).to.equal(200);
-    });
-    describe("#animation.type", () => {
-      animationTypeTests(Circle, "circle.ep-circle--progress");
-      animationTypeTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+  it("it parses the #animation property correctly", () => {
+    const wrapper = factory({ animation: "rs 2000 200" });
 
-      const wrapper = factory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
-      const circleDotWrapper = wrapper.find(CircleDot);
-      it("circle dot | applies animation class correctly", (done) => {
-        setTimeout(() => {
-          expect(circleDotWrapper.classes()).to.be.an("array").that.include("animation__rs");
-          done();
-        }, 5);
-      });
-      it(`circle dot | applies duration value as transition and animation duration`, () => {
-        expect(circleDotWrapper.element.style.transitionDuration).to.equal("500ms");
-        expect(circleDotWrapper.element.style.animationDuration).to.equal("500ms");
-      });
+    expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
+    expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
+    expect(wrapper.vm.parsedAnimation.delay).to.equal(200);
+  });
+  describe("#animation.type", () => {
+    animationTypeTests(Circle, "circle.ep-circle--progress");
+    animationTypeTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+
+    it("circle dot | applies animation class correctly", (done) => {
+      setTimeout(() => {
+        expect(circleDotWrapper.classes()).to.be.an("array").that.include("animation__rs");
+        done();
+      }, 5);
     });
-    describe("#animation.duration", () => {
-      animationDurationTests(Circle, "circle.ep-circle--progress");
-      animationDurationTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
-    });
-    describe("#animation.delay", () => {
-      animationDelayTests(Circle, "circle.ep-circle--progress");
-      animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+    /* it("circle dot | disables initial animation for @bounce/@loop types", (done) => {
+      const wrapper = factory({ progress: 50, dot: 5, animation: "bounce 500 0" }, CircleContainer);
+      const cDWrapper = wrapper.find(CircleDot);
+      setTimeout(() => {
+        expect(cDWrapper.classes()).to.be.an("array").that.include("animation__bounce");
+        const { animationName } = getComputedStyle(cDWrapper.element);
+        expect(animationName).to.equal("ep-dot--init__disabled");
+        done();
+      }, 10);
+    }); */
+  });
+
+  describe("#animation.duration", () => {
+    animationDurationTests(Circle, "circle.ep-circle--progress");
+    animationDurationTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+
+    it(`circle dot | applies duration value as transition and animation duration`, () => {
+      expect(circleDotWrapper.element.style.transitionDuration).to.equal("500ms");
+      expect(circleDotWrapper.element.style.animationDuration).to.equal("500ms");
     });
   });
-};
+  describe("#animation.delay", () => {
+    animationDelayTests(Circle, "circle.ep-circle--progress");
+    animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
+
+    const progress = 50;
+    const wrapper = factory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
+    const cdWrapper = wrapper.find(CircleDot);
+    const startRotation = wrapper.props("angle") + 90;
+
+    it(`circle dot | do not applies any animation type before delay`, () => {
+      expect(cdWrapper.classes())
+        .to.be.an("array")
+        .that.not.include([
+          "animation__default",
+          "animation__bounce",
+          "animation__rs",
+          "animation__reverse",
+          "animation__loop",
+        ]);
+    });
+    /* it(`circle dot | do not applies rotation before delay`, () => {
+      expect(cdWrapper.element.style.transform).to.equal(`rotate(${startRotation}deg)`);
+    }); */
+    it(`circle dot | applies rotation after delay`, (done) => {
+      const endRotation = startRotation + (progress * 360) / 100;
+      setTimeout(() => {
+        expect(cdWrapper.element.style.transform).to.equal(`rotate(${endRotation}deg)`);
+        done();
+      }, 50);
+    });
+  });
+});
