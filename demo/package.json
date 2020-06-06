@@ -13,7 +13,7 @@
     "v-clipboard": "^2.2.3",
     "vue": "^2.6.11",
     "vue-ellipse-progress": "^1.0.0",
-    "vue-ellipse-progress-test": "npm:vue-ellipse-progress@^1.0.0-beta.14",
+    "vue-ellipse-progress-test": "npm:vue-ellipse-progress@^1.1.0-beta.3",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.28",
     "vuex": "^3.4.0"
