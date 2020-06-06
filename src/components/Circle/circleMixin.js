@@ -289,8 +289,7 @@ export default {
   async mounted() {
     if (!this.loading) {
       // await initial delay before applying animations
-      const a = this.parsedAnimation.delay;
-      await wait(a);
+      await wait(this.parsedAnimation.delay);
     }
     this.isInitialized = true;
   },

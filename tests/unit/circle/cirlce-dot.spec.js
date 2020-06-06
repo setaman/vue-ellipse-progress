@@ -44,6 +44,13 @@ describe("#dot", () => {
     expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
   });
 
+  it(`converts the size percent value to pixel correctly`, () => {
+    const dot = "5%";
+    const wrapper = factory({ progress, size, dot });
+    const dotPixelSize = calculateThickness(dot);
+    expect(wrapper.vm.dotSize).to.equal(dotPixelSize);
+  });
+
   it("applies default value correctly", () => {
     const wrapper = factory({ progress }, VueEllipseProgress);
     const circleWrapper = wrapper.find(Circle);
