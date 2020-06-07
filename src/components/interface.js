@@ -133,7 +133,7 @@ const props = {
     type: Number,
     required: false,
     default: 0,
-    validator: (val) => parseInt(val, 10) >= 0,
+    validator: (val) => !Number.isNaN(parseInt(val, 10)),
   },
   determinate: {
     type: Boolean,

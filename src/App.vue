@@ -41,14 +41,13 @@
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
-          :data="circles"
           :loading="loading"
           :no-data="noData"
           :progress="50"
           animation="bounce 1000 3000"
           :thickness="30"
           :empty-thickness="50"
-          :gap="5"
+          :gap="-5"
           dot="15 yellow"
           :size="600"
           :legend="true"
