@@ -62,13 +62,19 @@ describe("#color", () => {
     it("renders corresponding amount of stop colors SVG elements", () => {
       expect(stopColorWrappers.length).to.equal(gradientColor.colors.length);
     });
-    it("applies opacity correctly to each stop colors SVG elements", () => {
-      for (let i = 0; i < stopColorWrappers.length; i++) {
+    for (let i = 0; i < stopColorWrappers.length; i++) {
+      it("applies opacity correctly to each stop color SVG element", () => {
         expect(stopColorWrappers.at(i).element.getAttribute("stop-opacity")).to.equal(
           `${gradientColor.colors[i].opacity}`
         );
-      }
-    });
+      });
+      it("applies color correctly to each stop color SVG element", () => {
+        expect(stopColorWrappers.at(i).element.getAttribute("stop-color")).to.equal(`${gradientColor.colors[i].color}`);
+      });
+      it("applies offset correctly to each stop color SVG element", () => {
+        expect(stopColorWrappers.at(i).element.getAttribute("offset")).to.equal(`${gradientColor.colors[i].offset}%`);
+      });
+    }
   });
 });
 describe("#emptyColor", () => {
