@@ -47,6 +47,7 @@
           animation="bounce 1000 3000"
           :thickness="30"
           :empty-thickness="50"
+          :empty-color-fill="emptyColorFill"
           :gap="-5"
           dot="15 yellow"
           :size="600"
