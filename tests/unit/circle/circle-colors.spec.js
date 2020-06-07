@@ -20,12 +20,12 @@ const gradientColor = {
     {
       color: "red",
       offset: 0,
-      opacity: 1,
+      opacity: 0.5,
     },
     {
       color: "blue",
-      offset: 0,
-      opacity: 1,
+      offset: 100,
+      opacity: 0,
     },
   ],
 };
@@ -48,6 +48,7 @@ describe("#color", () => {
     const wrapper = factory({ color: gradientColor });
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
     const id = wrapper.vm._uid;
+    const stopColorWrappers = wrapper.findAll("stop");
 
     it("recognizes gradient colors", () => {
       expect(wrapper.vm.isColorGradient).to.be.true;
@@ -59,7 +60,14 @@ describe("#color", () => {
       expect(circleProgressWrapper.element.getAttribute("stroke")).to.equal(`url(#ep-progress-gradient-${id})`);
     });
     it("renders corresponding amount of stop colors SVG elements", () => {
-      expect(wrapper.findAll("stop").length).to.equal(gradientColor.colors.length);
+      expect(stopColorWrappers.length).to.equal(gradientColor.colors.length);
+    });
+    it("applies opacity correctly to each stop colors SVG elements", () => {
+      for (let i = 0; i < stopColorWrappers.length; i++) {
+        expect(stopColorWrappers.at(i).element.getAttribute("stop-opacity")).to.equal(
+          `${gradientColor.colors[i].opacity}`
+        );
+      }
     });
   });
 });
