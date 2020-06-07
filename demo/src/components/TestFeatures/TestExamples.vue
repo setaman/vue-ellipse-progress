@@ -8,7 +8,9 @@
     />
     <v-container fluid class="fill-height">
       <v-row>
-        <example13 :loading="loading" :determinate="determinate" :no-data="noData" :test="true"/>
+        <example13 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example14 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example15 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
       </v-row>
     </v-container>
   </section>
@@ -17,10 +19,14 @@
 <script>
 import ExamplesControls from "@/components/Examples/ExamplesControls";
 import Example13 from "@/components/Examples/Example13";
+import Example14 from "../Examples/Example14";
+import Example15 from "../Examples/Example15";
 
 export default {
   name: "TestExamples",
   components: {
+    Example15,
+    Example14,
     Example13,
     ExamplesControls,
   },

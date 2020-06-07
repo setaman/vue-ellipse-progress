@@ -4,18 +4,23 @@
   >
     <component
       :is="component"
-      :dot="20"
+      :dot="{
+        size: 46,
+        backgroundColor: 'white',
+        width: '2px',
+      }"
       id="timer-example"
       :progress="progress"
       :determinate="determinate"
-      color="#7579ff"
+      line="butt"
+      :color="emptyColor"
       empty-color="#324c7e"
       :emptyColorFill="emptyColorFill"
-      thickness="2%"
-      emptyThickness="5%"
+      thickness="46"
+      emptyThickness="8"
       :size="180"
       dash="strict 60 0.8"
-      lineMode="in-over"
+      lineMode="in -8"
       :legend="false"
       legendClass="legend-custom-style"
       fontSize="1.5rem"
@@ -48,17 +53,37 @@ export default {
     min: 0,
     tasksDone: 125,
     emptyColor: {
-      radial: false,
+      radial: true,
       colors: [
         {
-          color: "#8ec5fc",
-          offset: "0",
+          color: "#3260FC",
+          offset: "50",
+          opacity: "0.15",
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.15",
+        },
+        {
+          color: "#3260FC",
+          offset: "70",
+          opacity: "0.1",
+        },
+        {
+          color: "#3260FC",
+          offset: "90",
           opacity: "1",
         },
         {
-          color: "#e0c3fc",
-          offset: "100",
+          color: "#3260FC",
+          offset: "60",
           opacity: "1",
+        },
+        {
+          color: "#3260FC",
+          offset: "0",
+          opacity: "0",
         },
       ],
     },
