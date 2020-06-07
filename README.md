@@ -9,14 +9,14 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add uniqe features, delivered in a simple to use compnent with friendly interface.
+A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add uniqe features, delivered in a simple to use compnent with friendly interface. With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
 
 - [Usage](#usage)
 - [Options](#options)
 - [Compatibility](#compatibility)
 - [Development](#development)
 
-:grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
+:grey_exclamation: Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
 <div align="center" style="text-align: center;">
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
@@ -224,7 +224,7 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
     
 ###### Example: :scroll:
 
-Now you are ready for a bad example.
+Now you are ready for an example.
 
 ```js
 :color="gradient"
@@ -300,9 +300,9 @@ Now you can display custom progress value that still animated and circle progres
 
 - ### `animation`
 
-Descriptive string in form `"type [ duration delay ]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and that you can only define the `delay` after `duration`. 
+Descriptive string in form `"type [duration delay]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and that you can only define the `delay` after `duration`. 
 
-- `type`- is one of the predefined animations: `default | rs | reverse | bounce| loop`
+- `type` - is one of the predefined animations: `default | rs | reverse | bounce| loop`
 - `duration` - number in milliseconds, default `1000`
 - `delay` - number in milliseconds, default `400`
 
@@ -310,19 +310,20 @@ Descriptive string in form `"type [ duration delay ]"` that defines the initial 
 
 ```js
 animation="rs 700 200"
+animation="bounce 1000"
 ```
 
 <br>
 
 - ### `loading`
 
-Forces loading state. The component provides an indeterminate state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
+Forces loading state. The component provides an indeterminate loading state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
 
 <br>
 
 - ### `determinate`
 
-Provides a determinate loading state that indicates that your data loading is still in progress but allows to show the progress. 
+Provides a determinate loading state that indicates that your data loading is still in progress but allows to show the **[`progress`](#progress)**. 
 
 <br>
 
@@ -491,7 +492,7 @@ This code ...
 <br>
 
 ## Compatibility
-The plugin was tested in all major modern browsers. It should also work properly in older browsers. In old browsers issues can arise by animations since they are implemented using CSS custom properties. Basic SVG renders even in IE 11. 
+The plugin was tested in all major modern mobile and desktop browsers. It should also work properly in older browsers. In old browsers issues can arise by animations since they are implemented using CSS custom properties. Basic SVG renders even in IE 11. 
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
 | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
