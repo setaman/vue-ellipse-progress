@@ -14,7 +14,7 @@
       animation="bounce 700 1000"
       fontSize="1.5rem"
       font-color="white"
-      dot="5"
+      dot="7"
       :loading="loading"
       :no-data="noData"
     >
