@@ -34,6 +34,12 @@
         <example11 :loading="loading" :determinate="determinate" :no-data="noData" />
 
         <example12 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example13 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example14 :loading="loading" :determinate="determinate" :no-data="noData" />
+
+        <example15 :loading="loading" :determinate="determinate" :no-data="noData" />
       </v-row>
     </v-container>
   </section>
@@ -41,21 +47,27 @@
 
 <script>
 import Example1 from "@/components/Examples/Example1";
-import Example2 from "../Examples/Example2";
-import Example3 from "../Examples/Example3";
-import Example4 from "../Examples/Example4";
-import Example5 from "../Examples/Example5";
-import Example6 from "../Examples/Example6";
-import Example7 from "../Examples/Example7";
-import Example8 from "../Examples/Example8";
-import Example9 from "../Examples/Example9";
-import ExamplesControls from "../Examples/ExamplesControls";
-import Example10 from "../Examples/Example10";
-import Example11 from "../Examples/Example11";
-import Example12 from "../Examples/Example12";
+import Example2 from "@/components/Examples/Example2";
+import Example3 from "@/components/Examples/Example3";
+import Example4 from "@/components/Examples/Example4";
+import Example5 from "@/components/Examples/Example5";
+import Example6 from "@/components/Examples/Example6";
+import Example7 from "@/components/Examples/Example7";
+import Example8 from "@/components/Examples/Example8";
+import Example9 from "@/components/Examples/Example9";
+import ExamplesControls from "@/components/Examples/ExamplesControls";
+import Example10 from "@/components/Examples/Example10";
+import Example11 from "@/components/Examples/Example11";
+import Example12 from "@/components/Examples/Example12";
+import Example13 from "@/components/Examples/Example13";
+import Example14 from "@/components/Examples/Example14";
+import Example15 from "@/components/Examples/Example15";
 export default {
   name: "Examples",
   components: {
+    Example15,
+    Example14,
+    Example13,
     Example12,
     Example11,
     Example10,
