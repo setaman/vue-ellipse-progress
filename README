@@ -58,6 +58,7 @@ Now use the component
   fontColor="white"
   :half="false"
   :gap="10"
+  dot="10 blue"
   fontSize="5rem">
 
   <span slot="legend-value">/200</span>
