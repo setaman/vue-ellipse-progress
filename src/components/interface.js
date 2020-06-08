@@ -83,9 +83,8 @@ const props = {
     validator: (value) => {
       const config = value.split(" ");
       const isValidType = ["default", "rs", "loop", "reverse", "bounce"].some((val) => val === config[0]);
-      const isValidDuration = config[0] ? parseFloat(config[1]) > 0 : true;
+      const isValidDuration = config[1] ? parseFloat(config[1]) > 0 : true;
       const isValidDelay = config[2] ? parseFloat(config[2]) > 0 : true;
-
       return isValidType && isValidDuration && isValidDelay;
     },
   },
@@ -134,12 +133,26 @@ const props = {
     type: Number,
     required: false,
     default: 0,
-    validator: (val) => parseInt(val, 10) >= 0,
+    validator: (val) => !Number.isNaN(parseInt(val, 10)),
   },
   determinate: {
     type: Boolean,
     required: false,
     default: false,
+  },
+  dot: {
+    type: [String, Number, Object],
+    required: false,
+    default: 0,
+    validator: (value) => {
+      if (typeof value === "object") {
+        if (value.size !== undefined) {
+          return !Number.isNaN(parseFloat(value.size));
+        }
+        return false;
+      }
+      return !Number.isNaN(parseFloat(value));
+    },
   },
 };
 
