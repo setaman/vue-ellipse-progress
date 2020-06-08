@@ -1,7 +1,11 @@
 <template>
   <g
-    class="ep-circle--container"
-    :style="{ transition: `${animationDuration}`, transform: `rotate(${computedAngle}deg)` }"
+    class="ep-circle"
+    :style="{
+      transitionDuration: styles.transitionDuration,
+      transitionTimingFunction: styles.transitionTimingFunction,
+      transform: `rotate(${computedAngle}deg)`,
+    }"
   >
     <circle
       class="ep-circle--empty"
@@ -11,8 +15,11 @@
       :stroke="computedEmptyColor"
       :stroke-dasharray="emptyDasharray"
       :fill="computedEmptyColorFill"
-      :style="{ transition: animationDuration }"
-      :class="{ 'ep_circle--nodata': !dataIsAvailable }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+      :style="{
+        transitionDuration: styles.transitionDuration,
+        transitionTimingFunction: styles.transitionTimingFunction,
+      }"
       :stroke-width="computedEmptyThickness"
     >
     </circle>
@@ -79,9 +86,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ep-circle--container {
+.ep-circle {
   transform-origin: 50% 50%;
 }
-@import "~@/styles/animations.scss";
-@import "~@/styles/animationsUsage.scss";
 </style>

@@ -1,0 +1,109 @@
+<template>
+  <foreignObject
+    :x="dotContainerPosition"
+    :y="dotContainerPosition"
+    class="ep-circle--progress__dot-container"
+    :class="dotContainerClasses"
+    :width="dotContainerSize"
+    :height="dotContainerSize"
+    :style="dotContainerStyle"
+  >
+    <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
+  </foreignObject>
+</template>
+
+<script>
+import { simplifiedProps } from "../interface";
+import CircleMixin from "./circleMixin";
+
+export default {
+  props: { ...simplifiedProps },
+  name: "CircleDot",
+  mixins: [CircleMixin],
+  computed: {
+    dotContainerPosition() {
+      return (this.size - this.radius * 2 - this.dotSize) / 2;
+    },
+    dotContainerSize() {
+      return this.radius * 2 + this.dotSize;
+    },
+    dotContainerRotation() {
+      if (this.isInitialized && !this.loading && this.dataIsAvailable) {
+        return this.dotEnd;
+      }
+      return this.dotStart;
+    },
+    dotContainerFullRotationDeg() {
+      return this.half ? 180 : 360;
+    },
+    dotContainerStyle() {
+      return {
+        transform: `rotate(${this.dotContainerRotation}deg)`,
+        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        transitionTimingFunction: "ease-in-out",
+        "animation-duration": this.animationDuration,
+        "--ep-dot-start": `${this.dotStart}deg`,
+        "--ep-dot-end": `${this.dotEnd}deg`,
+        "--ep-dot-360": `${this.dotStart + this.dotContainerFullRotationDeg}deg`,
+        ...this.dotContainerAnimationStyle,
+      };
+    },
+    dotContainerClasses() {
+      return [this.animationClass, !this.half || "ep-half-circle-progress__dot"];
+    },
+    dotContainerAnimationStyle() {
+      const styles = {
+        loop: {
+          opacity: this.half ? 0 : 1,
+          "--ep-dot-loop-end": `${this.dotStart + this.dotContainerFullRotationDeg + this.dotEnd}deg`,
+        },
+        bounce: {
+          opacity: 0,
+          "animation-duration": `${this.parsedAnimation.duration + 500}ms`,
+        },
+      };
+      return styles[this.parsedAnimation.type];
+    },
+    dotStyle() {
+      return {
+        borderRadius: `${this.dotSize / 2}px`,
+        width: `${this.dotSize}px`,
+        backgroundColor: this.dotColor,
+        ...this.dot,
+        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        height: `${this.dotSize}px`,
+      };
+    },
+    dotStart() {
+      return this.half ? this.angle - 90 : this.angle + 90;
+    },
+    dotEnd() {
+      return this.dotStart + (this.computedProgress * this.dotContainerFullRotationDeg) / 100;
+    },
+    isHidden() {
+      return !this.isInitialized || this.loading || !this.dataIsAvailable;
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.ep-circle--progress__dot-container {
+  transform-origin: center center;
+  &.hidden {
+    transition-duration: 0s;
+  }
+}
+.ep-circle--progress__dot {
+  transition-duration: 0.2s;
+  box-sizing: border-box;
+  position: absolute;
+  margin: auto;
+  right: 0;
+  left: 0;
+
+  &.hidden {
+    transform: scale(0);
+  }
+}
+</style>
