@@ -9,7 +9,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add uniqe features, delivered in a simple to use compnent with friendly interface. With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
+A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in a simple to use component with friendly interface. With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
 
 - [Usage](#usage)
 - [Options](#options)
@@ -27,7 +27,7 @@ Install the library via npm
 ```
 npm i vue-ellipse-progress
 ```
-The library is provided as a Vue.js plugin. So just initialize it in your ``main.js``
+The library is provided as a Vue.js plugin. So just initialize it in your ``main.js``:
 ```js
 import VueEllipseProgress from 'vue-ellipse-progress';
 
@@ -72,9 +72,9 @@ You are ready to go with just following line:
 ```html
 <vue-ellipse-progress :progress="progress"/>
 ```
-The **[`progress`](#progress)** is the only required property. However, in order to created unique circles that match your design needs, you can use all the properties explained below.
+The **[`progress`](#progress)** is the only required property. However, in order to create unique circles that match your design needs, you can use all the properties explained below.
 
-This table below provides a quick overview over all available options. To gain more information in generell and conserning the creation of exclusive circles please read below the table.
+This table below provides a quick overview over all available options. To gain more information in general and concerning the creation of exclusive circles please read below the table.
 
 > :grey_exclamation: Also make sure to check **[slot options](#slot-options)** 
 
@@ -144,7 +144,7 @@ Is any number from >=0. It defines the width and height of the circle. The calcu
 
 ###### Animated: :heavy_check_mark:
 
-Is a string value from `round | square | butt`. Defines the progress circle line cap. Internaly is used the css property `stroke-linecap`.
+Is a string value from `round | square | butt`. Defines the progress circle line cap. Internally is used the css property `stroke-linecap`.
 
 ###### Example: :scroll:
 
@@ -156,7 +156,7 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the css property `stroke-width`.
+Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internally is used the css property `stroke-width`.
 
 <br>
 
@@ -188,7 +188,7 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
   - `top`: the progress line is aligned at the top of the empty circle
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-top.png">
 
-- `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combied with the `in` and `out` modes
+- `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combined with the `in` and `out` modes
 
 ###### Example: :scroll:
 
@@ -198,7 +198,7 @@ Let's take a look at few examples
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
-As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achive the same result. But the povided modes like a presets take care about annoying calculations and do the job for you.
+As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achieve the same result. But the provided modes like a presets take care about annoying calculations and do the job for you.
 
 <br>
 
@@ -206,7 +206,7 @@ As you can see the second and fourth examples are similar to the modes `bottom` 
 
 ###### Animated: :heavy_check_mark:
 
-Is any number or percent value >=0. It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**. Internaly is used the CSS property `stroke-width`.
+Is any number or percent value >=0. It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
 
 <br>
 
@@ -229,8 +229,8 @@ Now you are ready for an example.
 ```js
 :color="gradient"
 
-gradient: {
-   radial: false,
+{
+   false,
     colors: [
       {
         color: '#6546f7',
@@ -275,7 +275,7 @@ Defines the fill color of the empty circle. Takes the same value as **[`color`](
 
 - ### `legend`
 
-Is a Boolean. It defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayd as the legend of the circle.
+Is a Boolean. It defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayed as the legend of the circle.
 
 <br>
 
@@ -287,7 +287,7 @@ Is any number. Use this property if you want to customize the shown progress as 
 
 ###### Example: :scroll:
 
-Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additionall property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
+Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additional property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
 
 ```js
 this.progress = 3.5 * 100 / 5; // the rating percentage
@@ -331,7 +331,7 @@ Provides a determinate loading state that indicates that your data loading is st
 
 ###### Animated: :heavy_check_mark:
 
-Forces no data state. The component provides an no data state for the case that your data is not available. The circle progress is still empty.
+Forces no data state. The component provides a no data state for the case that your data is not available. The circle progress is still empty.
 
 >:heavy_exclamation_mark: The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
 
@@ -341,7 +341,7 @@ Forces no data state. The component provides an no data state for the case that 
 
 ###### Animated: :heavy_check_mark:
 
-Is any number. It defines the starting point of the progress circle line 
+Is any number. It defines the starting point of the progress circle line. 
 
 <br>
 
@@ -349,7 +349,7 @@ Is any number. It defines the starting point of the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-Is any valid CSS size value. It defines the font size of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
+Is any valid CSS size value. It defines the font size of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles.
 
 <br>
 
@@ -357,13 +357,13 @@ Is any valid CSS size value. It defines the font size of the circle legend. You 
 
 ###### Animated: :heavy_check_mark:
 
-Is any valid CSS color value. It defines the color of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles
+Is any valid CSS color value. It defines the color of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles.
 
 <br>
 
 - ### `legendClass`
 
-Adds class to the circles legend to give you the possibility to style it
+Adds class to the circles legend to give you the possibility to style it.
 
 <br>
 
@@ -371,18 +371,18 @@ Adds class to the circles legend to give you the possibility to style it
 
 ###### Animated: :heavy_check_mark: 
 
-Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` wiht the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
+Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` with the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
 ###### Example: :scroll:
 `dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
 
-`dash="10 10"` - 10 pixel big dashes with 10 pixel spacing, the number of deshes depends on the empty circle circumference
+`dash="10 10"` - 10 pixels big dashes with 10 pixels spacing, the number of dashes depends on the empty circle circumference
 
 <br>
 
 - ### `half` 
 
-Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gague chart 
+Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gauge chart. 
 
 ###### Example: :scroll:
 <img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png"/>
@@ -395,13 +395,13 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 ###### Animated: :heavy_check_mark:
 
-The dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, descriptive String or an Object to inject any CSS styles.   
+The dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, descriptive String, or an Object to inject any CSS styles.   
 
 **Number**: `:dot="10"` - specifies a round dot with 10px width and height and default `#713dfd` color
 
-**Descriptive string**: `dot="size [color]"` - `size` can be just a number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the string and you can set the `color` only if the `size` is defined.
+**Descriptive string**: `dot="size [color]"` - `size` can be just a Number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the String and you can set the `color` only if the `size` is defined.
 
-**Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely breake the positioning of the dot, if you need. You can not override the `height` of the dot since it is important for internal calculation and must be controllable. 
+**Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely break the positioning of the dot, if you need. You cannot override the `height` of the dot since it is important for internal calculation and must be controllable. 
 
 ###### Example: :scroll:
 The examples will provide more clarity
@@ -412,9 +412,9 @@ dot="10%" // 10% from the circle size will be converted to pixel
 dot="5% red" // adds red dot
 // defines same dot as above
 :dot="{
-  size: "5%" // required
-  backgroundColor: "red" // add any inline CSS using Vue syntax,
-  left: "10px" // you can even move the dot, but it is not recommended
+  "5%" // required
+  "red" // add any inline CSS using Vue syntax,
+  "10px" // you can even move the dot, but it is not recommended
 }
 ```
 
@@ -426,7 +426,7 @@ dot="5% red" // adds red dot
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
->:heavy_exclamation_mark: Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. This properties will be ignored, if `data` is specified. The legend of this circle is also not shown 
+>:heavy_exclamation_mark: Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. These properties will be ignored, if `data` is specified. The legend of this circle is also not shown. 
 
 ###### Example: :scroll:
 
@@ -455,7 +455,7 @@ data: [
 
 ###### Animated: :heavy_check_mark:
 
-Defines the gap in pixel from one circle to the previous cirlce. It will be applied only if [`data`](#data) prop is used.
+Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
 
 ###### Example: :scroll:
 
@@ -469,10 +469,10 @@ Defines the gap in pixel from one circle to the previous cirlce. It will be appl
 
 - #### `legend-value`
 
-In this slot you can put an additional element that you want to display biside the progress
+In this slot you can put an additional element that you want to display beside the progress
 
 - #### `legend-caption`
-in this slot you can put any HTML and style it on your own. This slot is aligned below the progress 
+In this slot you can put any HTML and style it on your own. This slot is aligned below the progress. 
 
 ###### Example: :scroll:
 

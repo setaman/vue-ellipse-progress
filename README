@@ -9,14 +9,16 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. 
-The purpose of this plugin is to combine the best properties of other available libraries and to add uniqe 
-features, delivered in a simple to use compnent with friendly interface.
+A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG.
+The purpose of this plugin is to combine the best properties of other available libraries and to add unique features,
+delivered in a simple to use component with friendly interface. With the available options you can create simple circles
+very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
+
 
 :grey_exclamation: Live interactive [DEMO here](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
 <div align="center" style="text-align: center;">
-  <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
+  <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">
 </div>
 
 ## Usage
@@ -34,14 +36,14 @@ Vue.use(VueEllipseProgress);
 ```
 Now use the component
 ```html
-<vue-ellipse-progress 
-  :data="circles"                    
+<vue-ellipse-progress
+  :data="circles"
   :progress="progress"
   :angle="-90"
   color="blue"
   :colorFill="colorFillGradient"
   emptyColor="#8ec5fc"
-  :emptyColorFill="emptyColorFillGradient"                      
+  :emptyColorFill="emptyColorFillGradient"
   :size="300"
   :thickness="10"
   emptyThickness="10%"
@@ -52,23 +54,23 @@ Now use the component
   dash="60 0.9"
   animation="reverse 700 400"
   :noData="false"
-  :loading="false"                      
+  :loading="false"
   fontColor="white"
   :half="false"
-  :gap="10"                    
+  :gap="10"
   fontSize="5rem">
-  
+
   <span slot="legend-value">/200</span>
   <p slot="legend-caption">GOOD JOB</p>
-  
+
 </vue-ellipse-progress>
-``` 
+```
 ## Options
 You are ready to go with just following line:
 ```html
 <vue-ellipse-progress :progress="progress"/>
 ```
-The **[`progress`](#progress)** is the only required property. However, in order to created unique circles 
+The **[`progress`](#progress)** is the only required property. However, in order to created unique circles
 that match your design needs, you can use all the properties explained in the documentation on github.
 
 :heavy_exclamation_mark:
