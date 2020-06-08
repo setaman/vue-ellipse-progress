@@ -1,29 +1,29 @@
 class Interval {
   constructor() {
     this.tasks = [];
-    this.interval = "";
   }
-  addTask(task) {
-    this.tasks.push(task);
+  addTask(task, time = 1000) {
+    this.tasks.push({ task, time });
   }
   run() {
     if (this.tasks.length < 1) {
       return;
     }
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = "";
-    }
-    this.interval = setInterval(() => {
-      for (const task of this.tasks) {
-        task();
+    for (const task of this.tasks) {
+      if (task.interval) {
+        clearInterval(task.interval);
       }
-    }, 1000);
+      task.task();
+      task.interval = setInterval(() => {
+        task.task();
+      }, task.time);
+    }
   }
   stop() {
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = "";
+    for (const task of this.tasks) {
+      if (task.interval) {
+        clearInterval(task.interval);
+      }
     }
   }
 }
