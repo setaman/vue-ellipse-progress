@@ -226,11 +226,10 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 Now you are ready for an example.
 
-```js
+```
 :color="gradient"
-
-{
-   false,
+gradient: {
+    radial: false,
     colors: [
       {
         color: '#6546f7',
