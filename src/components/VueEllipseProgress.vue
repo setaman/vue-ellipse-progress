@@ -21,15 +21,15 @@
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
-        <span
+        <counter
           v-if="legend && !isMultiple"
           class="ep-legend--value"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
+          :value="legendVal"
         >
-          <CountUp ref="count" :endVal="legendVal" :delay="counterOptions.delay" :options="counterOptions"></CountUp>
           <slot name="legend-value"></slot>
-        </span>
+        </counter>
         <slot name="legend-caption"></slot>
       </div>
     </div>
@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import CountUp from "vue-countup-v2";
 import { getNumberIfValid, isValidNumber } from "../utils";
 import { props } from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
+import Counter from "./Counter.vue";
 
 export default {
   name: "VueEllipseProgress",
-  components: { CircleContainer, CountUp },
+  components: { Counter, CircleContainer },
   data: () => ({}),
   props,
   computed: {

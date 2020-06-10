@@ -43,7 +43,7 @@
         <vue-ellipse-progress
           :loading="loading"
           :no-data="noData"
-          :progress="50"
+          :progress="progress"
           animation="bounce 1000 3000"
           :thickness="30"
           :empty-thickness="50"
@@ -90,7 +90,7 @@ export default {
     determinate: false,
     loading: false,
     noData: false,
-    progress: 45.5,
+    progress: 50,
     timerProgress: 0,
     sec: 0,
     tasks_done: 125,
@@ -187,7 +187,7 @@ export default {
     },
   },
   mounted() {
-    this.runTimer();
+    // this.runTimer();
   },
 };
 </script>
