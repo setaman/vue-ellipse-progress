@@ -3,11 +3,21 @@
 </template>
 
 <script>
+import { animationParser } from "./optionsParser";
+
 export default {
   name: "Counter",
   props: {
     value: {
       type: Number,
+      required: true,
+    },
+    animation: {
+      type: String,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
       required: true,
     },
   },
@@ -17,7 +27,6 @@ export default {
     currentValue: 0,
     raf: null,
     previousCountValue: 0,
-    duration: 1000,
   }),
   watch: {
     value() {
@@ -42,6 +51,12 @@ export default {
     },
     formattedValue() {
       return this.currentValue.toFixed(this.countDecimals);
+    },
+    delay() {
+      return animationParser(this.animation).delay;
+    },
+    duration() {
+      return animationParser(this.animation).duration;
     },
   },
   methods: {
@@ -85,7 +100,13 @@ export default {
     },
   },
   mounted() {
-    this.raf = requestAnimationFrame(this.count);
+    if (!this.loading) {
+      setTimeout(() => {
+        this.raf = requestAnimationFrame(this.count);
+      }, this.delay);
+    } else {
+      this.raf = requestAnimationFrame(this.count);
+    }
   },
 };
 </script>

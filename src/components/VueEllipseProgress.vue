@@ -27,6 +27,8 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
           :value="legendVal"
+          :animation="animation"
+          :loading="loading"
         >
           <slot name="legend-value"></slot>
         </counter>
@@ -45,7 +47,6 @@ import Counter from "./Counter.vue";
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  data: () => ({}),
   props,
   computed: {
     legendVal() {
@@ -61,23 +62,6 @@ export default {
     },
     isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
-    },
-    countDecimals() {
-      if (!this.isDataAvailable || this.legendVal % 1 === 0) return 0;
-      return this.legendVal.toString().split(".")[1].length;
-    },
-    counterOptions() {
-      const durationValue = this.animation.split(" ")[1];
-      const delayValue = this.animation.split(" ")[2];
-      const duration = (isValidNumber(durationValue) ? durationValue : 1000) / 1000;
-      const delay = isValidNumber(delayValue) ? delayValue : 400;
-      return {
-        delay: parseFloat(delay),
-        duration,
-        target: "span",
-        decimalPlaces: this.countDecimals,
-        decimal: ".",
-      };
     },
     isMultiple() {
       return this.data.length > 1;
