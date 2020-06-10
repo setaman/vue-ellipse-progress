@@ -91,7 +91,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
-| **[`legendValue`](#legendvalue)** | Number | any Number |   |
+| **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a "." or "," as decimals delimiter |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
@@ -284,16 +284,26 @@ Is a Boolean. It defines whether the **[`progress`](#progress)** or from you def
 
 Is any number. Use this property if you want to customize the shown progress as the legend of the circle. If defined, `legendValue` will replace **[`progress`](#progress)** as the circle legend!
 
+[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#legend-value) You can set any precision of the decimal numbers. If the value is defined as a string, you can specify the `","` as decimals separator (e.g for german numbers).
+
 ###### Example: :scroll:
 
-Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additional property `legendValue`. Now you can set `legendValue = 3.5` and calculate the progress something like that:
+Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additional property `legendValue`. You can show the product rating like in the following example:
 
 ```js
-this.progress = 3.5 * 100 / 5; // the rating percentage
+<vue-ellipse-progress progress="progress" :legend-value="rating" />
+...
+this.rating = 3.5;
+this.progress = this.rating * 100 / 5; // the rating percentage
 ```
 Now you can display custom progress value that still animated and circle progress fills properly!
 
->:heavy_exclamation_mark: note that `legendValue` excludes **[`progress`](#progress)** but not vice versa.
+```vue
+legend-value="345,12345" // set "," as delimiter defining the value as string
+```
+
+>:heavy_exclamation_mark: note that `legendValue` replaces **[`progress`](#progress)** as circle legend but not vice versa.
+
 
 <br>
 
