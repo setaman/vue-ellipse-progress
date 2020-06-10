@@ -30,9 +30,7 @@
   ],
   "repository": "github:setaman/vue-ellipse-progress",
   "dependencies": {
-    "countup.js": "^2.0.5",
-    "vue": "^2.6.11",
-    "vue-countup-v2": "^4.0.0"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.1",

@@ -53,6 +53,7 @@
           dot="15 yellow"
           :size="600"
           :legend="true"
+          font-size="5rem"
           :legend-value="tasksDoneValue"
           line-mode="in"
         />
