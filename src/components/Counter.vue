@@ -9,7 +9,7 @@ export default {
   name: "Counter",
   props: {
     value: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     animation: {
@@ -50,7 +50,7 @@ export default {
       return coma >= 0 ? "," : ".";
     },
     formattedValue() {
-      return this.currentValue.toFixed(this.countDecimals());
+      return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
     },
     delay() {
       return animationParser(this.animation).delay;

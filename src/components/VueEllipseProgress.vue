@@ -53,9 +53,7 @@ export default {
       if (this.loading || this.noData) {
         return 0;
       }
-      const legendValue = getNumberIfValid(this.legendValue);
-      const progressValue = getNumberIfValid(this.progress) || 0;
-      return isValidNumber(legendValue) ? legendValue : progressValue;
+      return this.legendValue ? this.legendValue : getNumberIfValid(this.progress) || 0;
     },
     shouldHideLegendValue() {
       return !this.isDataAvailable || this.loading;

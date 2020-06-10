@@ -53,7 +53,7 @@
           dot="15 yellow"
           :size="600"
           :legend="true"
-          :legend-value="tasks_done"
+          :legend-value="tasksDoneValue"
           line-mode="in"
         />
       </div>
@@ -77,8 +77,6 @@
 <script>
 import VueEllipseProgress from "./components/VueEllipseProgress.vue";
 
-const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
-
 export default {
   name: "app",
   components: { VueEllipseProgress },
@@ -95,7 +93,8 @@ export default {
     progress: 50,
     timerProgress: 0,
     sec: 0,
-    tasks_done: 125,
+    tasksDone: 125,
+    tasksDoneValue: 0,
     size: 300,
     emptyColorFill: {
       colors: [
@@ -146,25 +145,7 @@ export default {
   }),
   computed: {
     tasksDonePercent() {
-      return (this.tasks_done * 100) / 200;
-    },
-    circlesTest() {
-      const data = [];
-      // generate random test data
-      for (let n = 0; n < 6; n++) {
-        data.push({
-          progress: 25,
-          gap: randomNumberInRange(),
-          thickness: randomNumberInRange(),
-          determinate: this.determinate,
-        });
-      }
-      // some special cases
-      data.push({ progress: 50, color: "red", thickness: 5 });
-      data.push({ progress: 50, gap: 5 });
-      data.push({ progress: 50, gap: 0 });
-      data.push({ progress: 50 });
-      return data;
+      return (this.tasksDone * 100) / 200;
     },
   },
   methods: {
@@ -172,7 +153,8 @@ export default {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
-      this.tasks_done = (Math.random() * 200).toFixed(3);
+      this.tasksDone = parseFloat((Math.random() * 200).toFixed(3));
+      this.tasksDoneValue = this.tasksDone.toString().replace(".", ",");
     },
     runTimer() {
       setInterval(() => {
