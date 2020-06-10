@@ -7,6 +7,7 @@
         </label>
         <input v-model="progress" max="100" min="-10" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
+        <button @click="updateTasksDone">Update Tasks</button>
         <label for="size">
           Size
         </label>
@@ -43,7 +44,7 @@
         <vue-ellipse-progress
           :loading="loading"
           :no-data="noData"
-          :progress="progress"
+          :progress="tasksDonePercent"
           animation="bounce 1000 3000"
           :thickness="30"
           :empty-thickness="50"
@@ -52,6 +53,7 @@
           dot="15 yellow"
           :size="600"
           :legend="true"
+          :legend-value="tasks_done"
           line-mode="in"
         />
       </div>
@@ -170,7 +172,7 @@ export default {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
-      this.tasks_done = Math.floor(Math.random() * 200).toFixed(0);
+      this.tasks_done = (Math.random() * 200).toFixed(3);
     },
     runTimer() {
       setInterval(() => {

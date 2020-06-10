@@ -50,7 +50,7 @@ export default {
       return coma >= 0 ? "," : ".";
     },
     formattedValue() {
-      return this.currentValue.toFixed(this.countDecimals);
+      return this.currentValue.toFixed(this.countDecimals());
     },
     delay() {
       return animationParser(this.animation).delay;
