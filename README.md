@@ -9,7 +9,9 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in a simple to use component with friendly interface. With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
+A dependency-free Vue.js plugin to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in a simple to use component with friendly interface. 
+
+With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
 
 - [Usage](#usage)
 - [Options](#options)
@@ -91,7 +93,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
-| **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a "." or "," as decimals delimiter |   |
+| **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
@@ -116,16 +118,19 @@ This table below provides a quick overview over all available options. To gain m
 
 Is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
-**[`animation.duration`](#animation)** property. The calculation of the progress is up to you. The progress is shown by default as the **legend** in the middle of the circle.
+**[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
 
 ###### Example: :scroll:
 
 ```js
-this.progress = 55.5;
-this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
+<vue-ellipse-progress :progress="myProgress"
+...
+this.myProgress = 55.5;
+this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this value. All values below 0 and above 100 are ignored. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this value. All values below 0 and above 100 are ignored and not valid Numbers always lead to **[`noData`](#noData)** state. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+
 >If **[`legendValue`](#legendvalue)** is defined the progress will **NOT** be displayed as circle legend.
 
 <br>
@@ -134,7 +139,7 @@ this.progress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 
 ###### Animated: :heavy_check_mark: 
 
-Is any number from >=0. It defines the width and height of the circle. The calculation of the circumference of the circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)** and **[`emptyThickness`](#emptythickness)** so the progress circle never exceeds the `size` value! 
+Is any number from >=0. It defines the width and height of the circle. The calculation of the circumference of the circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)**, **[`emptyThickness`](#emptythickness)** and **[`dot`](#dot)**, so the circle never exceeds the `size` value! 
 
 >:heavy_exclamation_mark: Check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
@@ -144,7 +149,7 @@ Is any number from >=0. It defines the width and height of the circle. The calcu
 
 ###### Animated: :heavy_check_mark:
 
-Is a string value from `round | square | butt`. Defines the progress circle line cap. Internally is used the css property `stroke-linecap`.
+Is a string value from `round | square | butt`. Defines the progress circle line cap. Internally is used the CSS property `stroke-linecap`.
 
 ###### Example: :scroll:
 
@@ -156,7 +161,7 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: :heavy_check_mark:
 
-Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internally is used the css property `stroke-width`.
+Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
 
 <br>
 
@@ -284,7 +289,7 @@ Is a Boolean. It defines whether the **[`progress`](#progress)** or from you def
 
 Is any number. Use this property if you want to customize the shown progress as the legend of the circle. If defined, `legendValue` will replace **[`progress`](#progress)** as the circle legend!
 
-[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#legend-value) You can set any precision of the decimal numbers. If the value is defined as a string, you can specify the `","` as decimals separator (e.g for german numbers).
+[![npm](https://img.shields.io/badge/v1.1.1-blue?style=flat-square)](#legendvalue) You can set any precision of the decimal numbers. If the prop is defined as a string, you can specify the `","` as decimals separator (e.g "123,123" for german numbers).
 
 ###### Example: :scroll:
 
