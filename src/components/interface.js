@@ -25,8 +25,9 @@ const props = {
     validator: (val) => val >= 0 && val <= 100,
   },
   legendValue: {
-    type: Number,
+    type: [Number, String],
     required: false,
+    validator: (value) => !Number.isNaN(parseFloat(value.toString().replace(",", "."))),
   },
   size: {
     type: Number,
