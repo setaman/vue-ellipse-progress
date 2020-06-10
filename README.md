@@ -410,7 +410,7 @@ dot="10" // the same as above
 dot="10%" // 10% from the circle size will be converted to pixel
 dot="5% red" // adds red dot
 // defines same dot as above
-:dot="{
+:dot={
   "5%" // required
   "red" // add any inline CSS using Vue syntax,
   "10px" // you can even move the dot, but it is not recommended
