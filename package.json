@@ -29,8 +29,8 @@
     "bar"
   ],
   "repository": "github:setaman/vue-ellipse-progress",
-  "dependencies": {
-    "vue": "^2.6.11"
+  "peerDependencies": {
+    "vue": "^2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.1",
