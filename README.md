@@ -25,11 +25,11 @@ With the available options you can create simple circles very quickly. But playi
 </div>
 
 ## Usage
-Install the library via npm
+Install the library via npm:
 ```
 npm i vue-ellipse-progress
 ```
-The library is provided as a Vue.js plugin. So just initialize it in your ``main.js``:
+The component is provided as a Vue.js plugin. So just initialize it in your ``main.js``:
 ```js
 import VueEllipseProgress from 'vue-ellipse-progress';
 
@@ -37,7 +37,7 @@ Vue.use(VueEllipseProgress);
 
 // Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
-Now use the component
+Now use the component:
 ```html
 <vue-ellipse-progress 
   :data="circles"                    
