@@ -84,8 +84,8 @@ const props = {
     validator: (value) => {
       const config = value.split(" ");
       const isValidType = ["default", "rs", "loop", "reverse", "bounce"].some((val) => val === config[0]);
-      const isValidDuration = config[1] ? parseFloat(config[1]) > 0 : true;
-      const isValidDelay = config[2] ? parseFloat(config[2]) > 0 : true;
+      const isValidDuration = config[1] ? parseFloat(config[1]) >= 0 : true;
+      const isValidDelay = config[2] ? parseFloat(config[2]) >= 0 : true;
       return isValidType && isValidDuration && isValidDelay;
     },
   },
