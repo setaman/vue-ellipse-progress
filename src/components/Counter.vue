@@ -26,7 +26,7 @@ export default {
     startTime: 0,
     currentValue: 0,
     raf: null,
-    previousCountValue: 0,
+    previousCountStepValue: 0,
   }),
   watch: {
     value() {
@@ -85,17 +85,17 @@ export default {
     },
     countDown(elapsed) {
       const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
-      this.currentValue -= decreaseValue - this.previousCountValue;
-      this.previousCountValue = decreaseValue;
+      this.currentValue -= decreaseValue - this.previousCountStepValue;
+      this.previousCountStepValue = decreaseValue;
     },
     countUp(elapsed) {
       const increaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
-      this.currentValue += increaseValue - this.previousCountValue;
-      this.previousCountValue = increaseValue;
+      this.currentValue += increaseValue - this.previousCountStepValue;
+      this.previousCountStepValue = increaseValue;
     },
     reset() {
       this.startTime = 0;
-      this.previousCountValue = 0;
+      this.previousCountStepValue = 0;
       cancelAnimationFrame(this.raf);
     },
   },
