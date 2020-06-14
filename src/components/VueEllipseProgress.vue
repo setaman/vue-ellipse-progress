@@ -23,7 +23,6 @@
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <counter
           v-if="legend && !isMultiple"
-          class="ep-legend--value"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
           :value="legendVal"

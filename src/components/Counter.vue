@@ -1,5 +1,5 @@
 <template>
-  <span>{{ formattedValue }}</span>
+  <span class="ep-legend--value">{{ formattedValue }}</span>
 </template>
 
 <script>
@@ -43,7 +43,7 @@ export default {
       return Math.abs(this.end - this.start);
     },
     oneStepDifference() {
-      return this.difference / this.duration;
+      return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
     delimiter() {
       const coma = this.value.toString().search(",");
@@ -78,18 +78,18 @@ export default {
         cancelAnimationFrame(this.raf);
         this.raf = requestAnimationFrame(this.count);
       }
-      if (elapsed > this.duration) {
+      if (elapsed >= this.duration) {
         this.currentValue = this.end;
         this.reset();
       }
     },
     countDown(elapsed) {
-      const decreaseValue = Math.min(this.oneStepDifference * elapsed, this.difference);
+      const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
       this.currentValue -= decreaseValue - this.previousCountValue;
       this.previousCountValue = decreaseValue;
     },
     countUp(elapsed) {
-      const increaseValue = Math.min(this.oneStepDifference * elapsed, this.difference);
+      const increaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
       this.currentValue += increaseValue - this.previousCountValue;
       this.previousCountValue = increaseValue;
     },

@@ -5,10 +5,17 @@ import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
 import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
 
 const factory = (propsData) => {
-  return shallowMount(VueEllipseProgress, {
+  return mount(VueEllipseProgress, {
     propsData: { progress: 50, ...propsData },
+    stubs: {
+      CircleContainer,
+    },
   });
 };
+
+// https://github.com/vuejs/vue-test-utils/issues/974
+global.requestAnimationFrame = () => {};
+global.cancelAnimationFrame = () => {};
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#size", () => {

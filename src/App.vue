@@ -45,7 +45,7 @@
           :loading="loading"
           :no-data="noData"
           :progress="tasksDonePercent"
-          animation="bounce 1000 3000"
+          animation="bounce 1000 0"
           :thickness="30"
           :empty-thickness="50"
           :empty-color-fill="emptyColorFill"
