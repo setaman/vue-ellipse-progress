@@ -10,7 +10,7 @@ const factory = (propsData) => {
   });
 };
 
-describe("[ EllipseProgressContainer.vue ]", () => {
+describe("[ Counter.vue ]", () => {
   describe("#size", () => {
     const size = 250;
     const wrapper = factory({ size });
@@ -27,9 +27,20 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#progress", () => {
-    const progress = 40;
+    let progress = 40;
     const wrapper = factory({ progress });
 
+    it("counts the decimals correctly", () => {
+      expect(wrapper.vm.countDecimals).to.equal(0);
+
+      progress = 56.34;
+      wrapper.setProps({ progress });
+      expect(wrapper.vm.countDecimals).to.equal(2);
+
+      progress = -45.2456;
+      wrapper.setProps({ progress });
+      expect(wrapper.vm.countDecimals).to.equal(4);
+    });
     it("forces noData state, if invalid", async () => {
       wrapper.setProps({ progress: "notNumber" });
       await Vue.nextTick();
@@ -43,6 +54,17 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const progress = 40;
     const wrapper = factory({ progress });
 
+    it("counts the decimals correctly", () => {
+      expect(wrapper.vm.countDecimals).to.equal(0);
+
+      let legendValue = 124.34;
+      wrapper.setProps({ progress, legendValue });
+      expect(wrapper.vm.countDecimals).to.equal(2);
+
+      legendValue = -435.2456;
+      wrapper.setProps({ progress, legendValue });
+      expect(wrapper.vm.countDecimals).to.equal(4);
+    });
     it("replaces the progress by legendValue as the legend of the circle", () => {
       const legendValue = 324;
       wrapper.setProps({ legendValue });
