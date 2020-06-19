@@ -6,12 +6,6 @@ import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
 import { dotParser } from "../../../src/components/optionsParser";
 
-import "./circle-line.spec";
-import "./circle-thickness.spec";
-import "./circle-animation.spec";
-import "./circle-colors.spec";
-import "./cirlce-dot.spec";
-
 const factory = (propsData, container = Circle) => {
   return mount(container, {
     propsData: {

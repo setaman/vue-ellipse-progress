@@ -1,5 +1,5 @@
 <template>
-  <span>{{ formattedValue }}</span>
+  <span class="ep-legend--value">{{ formattedValue }}</span>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
     startTime: 0,
     currentValue: 0,
     raf: null,
-    previousCountValue: 0,
+    previousCountStepValue: 0,
   }),
   watch: {
     value() {
@@ -43,7 +43,7 @@ export default {
       return Math.abs(this.end - this.start);
     },
     oneStepDifference() {
-      return this.difference / this.duration;
+      return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
     delimiter() {
       const coma = this.value.toString().search(",");
@@ -78,24 +78,24 @@ export default {
         cancelAnimationFrame(this.raf);
         this.raf = requestAnimationFrame(this.count);
       }
-      if (elapsed > this.duration) {
+      if (elapsed >= this.duration) {
         this.currentValue = this.end;
         this.reset();
       }
     },
     countDown(elapsed) {
-      const decreaseValue = Math.min(this.oneStepDifference * elapsed, this.difference);
-      this.currentValue -= decreaseValue - this.previousCountValue;
-      this.previousCountValue = decreaseValue;
+      const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+      this.currentValue -= decreaseValue - this.previousCountStepValue;
+      this.previousCountStepValue = decreaseValue;
     },
     countUp(elapsed) {
-      const increaseValue = Math.min(this.oneStepDifference * elapsed, this.difference);
-      this.currentValue += increaseValue - this.previousCountValue;
-      this.previousCountValue = increaseValue;
+      const increaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+      this.currentValue += increaseValue - this.previousCountStepValue;
+      this.previousCountStepValue = increaseValue;
     },
     reset() {
       this.startTime = 0;
-      this.previousCountValue = 0;
+      this.previousCountStepValue = 0;
       cancelAnimationFrame(this.raf);
     },
   },
