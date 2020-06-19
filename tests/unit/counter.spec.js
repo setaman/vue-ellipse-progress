@@ -30,7 +30,7 @@ describe("[ Counter.vue ]", () => {
       expect(counterWrapper.vm.end).to.equal(parseFloat(value.replace(",", ".")));
     });
 
-    it("shows the start value with right number of decimals places", () => {
+    it("shows the start value with the correct number of decimals places", () => {
       expect(counterWrapper.element.textContent).to.equal("0,00");
     });
 

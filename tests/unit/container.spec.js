@@ -3,6 +3,7 @@ import { shallowMount, mount } from "@vue/test-utils";
 import Vue from "vue";
 import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
 import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
+import Counter from "../../src/components/Counter.vue";
 
 const factory = (propsData) => {
   return mount(VueEllipseProgress, {
@@ -37,6 +38,10 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const progress = 40;
     const wrapper = factory({ progress });
 
+    it("renders the counter component", async () => {
+      expect(wrapper.findComponent(Counter).exists()).to.be.true;
+    });
+
     it("forces noData state, if invalid", async () => {
       wrapper.setProps({ progress: "notNumber" });
       await Vue.nextTick();
@@ -50,7 +55,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const progress = 40;
     const wrapper = factory({ progress });
 
-    it("replaces the progress by legendValue as the legend of the circle", () => {
+    it("replaces the progress as the legend of the circle", () => {
       const legendValue = 324;
       wrapper.setProps({ legendValue });
       expect(wrapper.vm.legendVal).to.equal(legendValue);
