@@ -21,16 +21,15 @@
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
-        <counter
+        <div
+          class="ep-legend--value"
           v-if="legend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
-          :value="legendVal"
-          :animation="animation"
-          :loading="loading"
         >
+          <counter :value="legendVal" :animation="animation" :loading="loading"> </counter>
           <slot name="legend-value"></slot>
-        </counter>
+        </div>
         <slot name="legend-caption"></slot>
       </div>
     </div>
@@ -101,7 +100,6 @@ export default {
 .ep-legend--value {
   transition: 0.3s;
   text-align: center;
-  display: block;
   opacity: 1;
 }
 .ep-hidden {
