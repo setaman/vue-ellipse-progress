@@ -8,7 +8,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
-    "test": "vue-cli-service test:unit --colors"
+    "test": "vue-cli-service test:unit --colors",
+    "publish-beta": "npm run lint && npm run build && npm publish --tag beta"
   },
   "author": {
     "name": "Sergej Atamantschuk",
