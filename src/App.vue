@@ -7,6 +7,7 @@
         </label>
         <input v-model="progress" max="100" min="-10" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
+        <button @click="updateTasksDone">Update Tasks</button>
         <label for="size">
           Size
         </label>
@@ -43,8 +44,8 @@
         <vue-ellipse-progress
           :loading="loading"
           :no-data="noData"
-          :progress="50"
-          animation="bounce 1000 3000"
+          :progress="tasksDonePercent"
+          animation="bounce 1000 500"
           :thickness="30"
           :empty-thickness="50"
           :empty-color-fill="emptyColorFill"
@@ -52,8 +53,13 @@
           dot="15 yellow"
           :size="600"
           :legend="true"
+          font-size="5rem"
+          :legend-value="tasksDone"
           line-mode="in"
-        />
+        >
+          <span slot="legend-value">/200</span>
+          <span slot="legend-caption">Some Caption</span>
+        </vue-ellipse-progress>
       </div>
       <vue-ellipse-progress
         :loading="loading"
@@ -75,8 +81,6 @@
 <script>
 import VueEllipseProgress from "./components/VueEllipseProgress.vue";
 
-const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
-
 export default {
   name: "app",
   components: { VueEllipseProgress },
@@ -90,10 +94,11 @@ export default {
     determinate: false,
     loading: false,
     noData: false,
-    progress: 45.5,
+    progress: 50,
     timerProgress: 0,
     sec: 0,
-    tasks_done: 125,
+    tasksDone: 125,
+    tasksDoneValue: 0,
     size: 300,
     emptyColorFill: {
       colors: [
@@ -144,25 +149,7 @@ export default {
   }),
   computed: {
     tasksDonePercent() {
-      return (this.tasks_done * 100) / 200;
-    },
-    circlesTest() {
-      const data = [];
-      // generate random test data
-      for (let n = 0; n < 6; n++) {
-        data.push({
-          progress: 25,
-          gap: randomNumberInRange(),
-          thickness: randomNumberInRange(),
-          determinate: this.determinate,
-        });
-      }
-      // some special cases
-      data.push({ progress: 50, color: "red", thickness: 5 });
-      data.push({ progress: 50, gap: 5 });
-      data.push({ progress: 50, gap: 0 });
-      data.push({ progress: 50 });
-      return data;
+      return (this.tasksDone * 100) / 200;
     },
   },
   methods: {
@@ -170,7 +157,8 @@ export default {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
-      this.tasks_done = Math.floor(Math.random() * 200).toFixed(0);
+      this.tasksDone = parseFloat((Math.random() * 200).toFixed(0));
+      this.tasksDoneValue = this.tasksDone.toString().replace(".", ",");
     },
     runTimer() {
       setInterval(() => {
@@ -187,7 +175,7 @@ export default {
     },
   },
   mounted() {
-    this.runTimer();
+    // this.runTimer();
   },
 };
 </script>

@@ -21,15 +21,15 @@
       </svg>
 
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
-        <span
-          v-if="legend && !isMultiple"
+        <div
           class="ep-legend--value"
+          v-if="legend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <CountUp ref="count" :endVal="legendVal" :delay="counterOptions.delay" :options="counterOptions"></CountUp>
+          <counter :value="legendVal" :animation="animation" :loading="loading"> </counter>
           <slot name="legend-value"></slot>
-        </span>
+        </div>
         <slot name="legend-caption"></slot>
       </div>
     </div>
@@ -37,47 +37,27 @@
 </template>
 
 <script>
-import CountUp from "vue-countup-v2";
 import { getNumberIfValid, isValidNumber } from "../utils";
 import { props } from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
+import Counter from "./Counter.vue";
 
 export default {
   name: "VueEllipseProgress",
-  components: { CircleContainer, CountUp },
-  data: () => ({}),
+  components: { Counter, CircleContainer },
   props,
   computed: {
     legendVal() {
       if (this.loading || this.noData) {
         return 0;
       }
-      const legendValue = getNumberIfValid(this.legendValue);
-      const progressValue = getNumberIfValid(this.progress) || 0;
-      return isValidNumber(legendValue) ? legendValue : progressValue;
+      return this.legendValue ? this.legendValue : getNumberIfValid(this.progress) || 0;
     },
     shouldHideLegendValue() {
       return !this.isDataAvailable || this.loading;
     },
     isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
-    },
-    countDecimals() {
-      if (!this.isDataAvailable || this.legendVal % 1 === 0) return 0;
-      return this.legendVal.toString().split(".")[1].length;
-    },
-    counterOptions() {
-      const durationValue = this.animation.split(" ")[1];
-      const delayValue = this.animation.split(" ")[2];
-      const duration = (isValidNumber(durationValue) ? durationValue : 1000) / 1000;
-      const delay = isValidNumber(delayValue) ? delayValue : 400;
-      return {
-        delay: parseFloat(delay),
-        duration,
-        target: "span",
-        decimalPlaces: this.countDecimals,
-        decimal: ".",
-      };
     },
     isMultiple() {
       return this.data.length > 1;
@@ -120,7 +100,6 @@ export default {
 .ep-legend--value {
   transition: 0.3s;
   text-align: center;
-  display: block;
   opacity: 1;
 }
 .ep-hidden {
