@@ -44,7 +44,7 @@
         <vue-ellipse-progress
           :loading="loading"
           :no-data="noData"
-          :progress="progress"
+          :progress="tasksDonePercent"
           animation="bounce 1000 500"
           :thickness="30"
           :empty-thickness="50"
@@ -54,7 +54,7 @@
           :size="600"
           :legend="true"
           font-size="5rem"
-          :legend-value="tasksDoneValue"
+          :legend-value="tasksDone"
           line-mode="in"
         >
           <span slot="legend-value">/200</span>
@@ -157,7 +157,7 @@ export default {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
     updateTasksDone() {
-      this.tasksDone = parseFloat((Math.random() * 200).toFixed(3));
+      this.tasksDone = parseFloat((Math.random() * 200).toFixed(0));
       this.tasksDoneValue = this.tasksDone.toString().replace(".", ",");
     },
     runTimer() {
