@@ -223,7 +223,7 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 - `color="#3f79ff"` - as String
 
-- `:color="{...}"` - as Object
+- `:color="{ colors [, radial ]}"` - as Object
   - `radial` - default `false`. Defines whether the gradient is radial or linear
   - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
     
