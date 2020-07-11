@@ -20,7 +20,7 @@
       :loading="loading"
       :no-data="noData"
     >
-      <span slot="legend-value">/200</span>
+      <span slot="legend-value"> / 200</span>
       <span slot="legend-caption">TASKS DONE</span>
     </component>
   </example-card>
