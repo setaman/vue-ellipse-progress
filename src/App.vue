@@ -56,7 +56,10 @@
           font-size="5rem"
           :legend-value="tasksDoneValue"
           line-mode="in"
-        />
+        >
+          <span slot="legend-value">/200</span>
+          <span slot="legend-caption">Some Caption</span>
+        </vue-ellipse-progress>
       </div>
       <vue-ellipse-progress
         :loading="loading"

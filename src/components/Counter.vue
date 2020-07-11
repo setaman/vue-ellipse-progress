@@ -1,5 +1,5 @@
 <template>
-  <span class="ep-legend--value">{{ formattedValue }}</span>
+  <span>{{ formattedValue }}</span>
 </template>
 
 <script>

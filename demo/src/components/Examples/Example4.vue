@@ -16,6 +16,12 @@
       animation="rs 700 1000"
       fontSize="1.5rem"
       half
+      :dot="{
+        size: 5,
+        width: '20px',
+        backgroundColor: 'DEEPSKYBLUE',
+        transitionDuration: '1000ms',
+      }"
       :loading="loading"
       :no-data="noData"
     >

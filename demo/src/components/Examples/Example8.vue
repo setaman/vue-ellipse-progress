@@ -17,6 +17,7 @@
       font-color="white"
       :loading="loading"
       :no-data="noData"
+      :dot="dot"
     >
     </component>
   </example-card>
@@ -37,6 +38,7 @@ export default {
     lineModes: ["normal", "in", "in-over", "out", "out-over", "top", "bottom"],
     thickness: 3,
     emptyThickness: 3,
+    dot: { size: 1, width: "1px" },
     lineMode: "normal 0",
   }),
   computed: {
@@ -52,6 +54,8 @@ export default {
       this.progress = randomNumberInRange(0, 100);
       this.thickness = randomNumberInRange(1, 10);
       this.emptyThickness = randomNumberInRange(1, 10);
+      this.dot.size = randomNumberInRange(1, 20);
+      this.dot.width = `${randomNumberInRange(1, 10)}px`;
     },
   },
   mounted() {
