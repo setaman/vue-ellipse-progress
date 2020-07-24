@@ -1,5 +1,5 @@
 <template>
-  <g class="ep-circle--container">
+  <g class="ep-circle--container" :class="{ 'ep-reverse': reverse }">
     <defs>
       <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
       <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
@@ -70,5 +70,8 @@ export default {
 g.ep-circle--container {
   transition: inherit;
   transform-origin: 50% 50%;
+  &.ep-reverse {
+    transform: scaleX(-1);
+  }
 }
 </style>
