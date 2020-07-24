@@ -79,6 +79,7 @@ export default {
 
 <style scoped lang="scss">
 .ep-container {
+  // transform: scaleX(-1);
   display: inline-block;
   overflow: hidden;
 }

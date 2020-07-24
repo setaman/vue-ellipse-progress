@@ -9,13 +9,12 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-A Vue.js component to create beautiful and animated circular progress bars, implemented with SVG.
-The purpose of this plugin is to combine the best properties of other available libraries and to add unique features,
-delivered in a simple to use component with friendly interface. 
+A dependency-free Vue.js plugin to create beautiful and animated circular progress bars, implemented with SVG. The purpose
+of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in
+a simple to use component with friendly interface.
 
-With the available options you can create simple circles
-very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
-
+With the available options you can create simple circles very quickly. But playing with the combinations of props and
+with a bit  of imagination you can create really exciting things.
 
 :grey_exclamation: Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 

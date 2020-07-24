@@ -123,7 +123,7 @@ percent. `progress` is animated and counts up or down on any value changes with 
 ###### Example: :scroll:
 
 ```js
-<vue-ellipse-progress :progress="myProgress"
+<vue-ellipse-progress :progress="myProgress" />
 ...
 this.myProgress = 55.5;
 this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
@@ -223,13 +223,13 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 - `color="#3f79ff"` - as String
 
-- `:color="{...}"` - as Object
+- `:color="{ colors [, radial ]}"` - as Object
   - `radial` - default `false`. Defines whether the gradient is radial or linear
   - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
     
 ###### Example: :scroll:
 
-Now you are ready for an example.
+Now you are ready for an example:
 
 ```
 :color="gradient"
@@ -249,7 +249,7 @@ gradient: {
     ]
   }
 ```
-<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png">
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-gradient.png" alt="gradient demo">
 
 <br>
 
@@ -399,7 +399,7 @@ Descriptive string in form `"[strict] count spacing"` that adds dashed empty pro
 Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gauge chart. 
 
 ###### Example: :scroll:
-<img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png"/>
+<img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png" alt="half circle example"/>
 
 <br>
 
@@ -426,13 +426,13 @@ dot="10%" // 10% from the circle size will be converted to pixel
 dot="5% red" // adds red dot
 // defines same dot as above
 :dot={
-  "5%" // required
-  "red" // add any inline CSS using Vue syntax,
-  "10px" // you can even move the dot, but it is not recommended
+  size: "5%", // required
+  backgroundColor: "red", // add any inline CSS using Vue syntax
+  left: "10px", // you can even move the dot, but it is not recommended
 }
 ```
 
-<img width="100px" src="https://github.com/setaman/Bilder/blob/master/Anmerkung%202020-05-19%20220917.png"/>
+<img width="100px" src="https://github.com/setaman/Bilder/blob/master/Anmerkung%202020-05-19%20220917.png" alt="dot example"/>
 
 <br>
 
@@ -446,12 +446,12 @@ You can specify 2 or more circles as objects in an array as `data`. For each cir
 
 ```js
 <!-- this props are applied to all circles, if not overwritten in "data"-->
-<vue-ellipse-progres color="blue" animation="loop 500" ...  :data="data"/>
+<vue-ellipse-progress color="blue" animation="loop 500" ...  :data="data"/>
 
 data: [
   { 
     progress: 50, // required for each circle
-    color: "red"  // will overwrite global progress color
+    color: "red",  // will overwrite global progress color
     ...           // other options will be merged with global
   },
   { 
@@ -461,7 +461,7 @@ data: [
 }
 ```
 
-<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.PNG">
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.PNG" alt="multiple circles demo">
 
 <br>
 
@@ -473,8 +473,8 @@ Defines the gap in pixels from one circle to the previous circle. It will be app
 
 ###### Example: :scroll:
 
-```js
-:gap="10"
+```vue
+<vue-ellipse-progress :gap="10"/>
 ```
 
 <br>
@@ -501,7 +501,7 @@ This code ...
 ```
 ... produces following result. The slots are marked corresponding:
 
-<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png">
+<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-slots.png" alt="slot example">
 
 <br>
 

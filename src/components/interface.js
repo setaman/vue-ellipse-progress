@@ -22,7 +22,7 @@ const props = {
   progress: {
     type: Number,
     require: true,
-    validator: (val) => val >= 0 && val <= 100,
+    validator: (val) => val >= -100 && val <= 100,
   },
   legendValue: {
     type: [Number, String],
@@ -154,6 +154,10 @@ const props = {
       }
       return !Number.isNaN(parseFloat(value));
     },
+  },
+  reverse: {
+    type: Boolean,
+    default: false,
   },
 };
 

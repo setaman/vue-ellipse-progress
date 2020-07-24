@@ -5,7 +5,7 @@
         <label for="progress">
           Progress
         </label>
-        <input v-model="progress" max="100" min="-10" type="number" id="progress" />
+        <input v-model="progress" max="100" min="-100" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <button @click="updateTasksDone">Update Tasks</button>
         <label for="size">
@@ -41,22 +41,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress
-          :loading="loading"
-          :no-data="noData"
-          :progress="tasksDonePercent"
-          animation="bounce 1000 500"
-          :thickness="30"
-          :empty-thickness="50"
-          :empty-color-fill="emptyColorFill"
-          :gap="-5"
-          dot="15 yellow"
-          :size="600"
-          :legend="true"
-          font-size="5rem"
-          :legend-value="tasksDone"
-          line-mode="in"
-        >
+        <vue-ellipse-progress :progress="progress" reverse>
           <span slot="legend-value">/200</span>
           <span slot="legend-caption">Some Caption</span>
         </vue-ellipse-progress>
@@ -71,6 +56,7 @@
         dash="strict 60 0.95"
         :empty-thickness="100"
         line="butt"
+        half
         animation="rs 1000"
         :dot="{ size: 100, backgroundColor: 'rgba(100,256,4,1)', width: '2px' }"
         line-mode="in-over"
@@ -87,9 +73,8 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 50, color: "red", animation: "bounce 3000" },
-      { progress: 50, color: "blue", animation: "loop 2000", gap: 10, dot: { size: 4 } },
-      { progress: 50, color: "green", gap: 0, animation: "reverse 5000", dot: { size: "15%" } },
+      { progress: 50, color: "red", half: true },
+      { progress: 50, color: "blue", half: true, angle: 90, gap: -30 },
     ],
     determinate: false,
     loading: false,
