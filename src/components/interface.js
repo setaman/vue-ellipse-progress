@@ -155,6 +155,10 @@ const props = {
       return !Number.isNaN(parseFloat(value));
     },
   },
+  reverse: {
+    type: Boolean,
+    default: false,
+  },
 };
 
 const simplifiedProps = {};
