@@ -65,10 +65,8 @@ export default {
   computed: {
     progressOffset() {
       const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
-      if (offset <= 0) {
-        return 1;
-      }
-      return offset < this.circumference ? offset : this.circumference - 0.5;
+      if (Math.abs(this.circumference - offset) < 1) return this.circumference - 0.5;
+      return offset;
     },
     circumference() {
       return (this.radius * 2 * Math.PI) / 2;
