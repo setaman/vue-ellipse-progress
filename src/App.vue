@@ -41,7 +41,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :progress="progress" reverse>
+        <vue-ellipse-progress :progress="progress">
           <span slot="legend-value">/200</span>
           <span slot="legend-caption">Some Caption</span>
         </vue-ellipse-progress>
