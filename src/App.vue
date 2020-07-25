@@ -41,7 +41,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :progress="progress">
+        <vue-ellipse-progress :progress="progress" reverse :data="circles" :gap="10">
           <span slot="legend-value">/200</span>
           <span slot="legend-caption">Some Caption</span>
         </vue-ellipse-progress>
@@ -73,8 +73,9 @@ export default {
   data: () => ({
     line: "round",
     circles: [
-      { progress: 50, color: "red", half: true },
-      { progress: 50, color: "blue", half: true, angle: 90, gap: -30 },
+      { progress: 50, color: "red" },
+      { progress: 50, color: "red", half: true, angle: -90 },
+      { progress: -50, color: "blue", reverse: false },
     ],
     determinate: false,
     loading: false,
