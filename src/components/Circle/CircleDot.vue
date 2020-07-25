@@ -8,7 +8,7 @@
     :height="dotContainerSize"
     :style="dotContainerStyle"
   >
-    <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
+    <span class="ep-circle--progress__dot" :class="{ 'ep-hidden': isHidden }" :style="dotStyle"> </span>
   </foreignObject>
 </template>
 
@@ -78,10 +78,19 @@ export default {
       return this.half ? this.angle - 90 : this.angle + 90;
     },
     dotEnd() {
-      return this.dotStart + (this.computedProgress * this.dotContainerFullRotationDeg) / 100;
+      const progress = this.calculateProgress();
+      return this.dotStart + (progress * this.dotContainerFullRotationDeg) / 100;
     },
     isHidden() {
       return !this.isInitialized || this.loading || !this.dataIsAvailable;
+    },
+  },
+  methods: {
+    calculateProgress() {
+      if (this.half) {
+        return this.computedProgress < 0 ? this.computedProgress - 100 : this.computedProgress;
+      }
+      return this.computedProgress;
     },
   },
 };
@@ -102,7 +111,7 @@ export default {
   right: 0;
   left: 0;
 
-  &.hidden {
+  &.ep-hidden {
     transform: scale(0);
   }
 }

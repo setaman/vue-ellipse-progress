@@ -42,6 +42,12 @@ export default {
       return parseFloat(this.progress || 0);
     },
 
+    progressOffset() {
+      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
+      if (Math.abs(this.circumference - offset) < 1) return this.circumference - 0.5;
+      return offset;
+    },
+
     radius() {
       const { offset } = this.parsedLineMode;
 

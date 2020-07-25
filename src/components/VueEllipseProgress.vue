@@ -67,7 +67,6 @@ export default {
         return this.data.map((data) => ({
           ...this.$props,
           ...data,
-          // currently the thickness for both lines must be equal
           emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
         }));
       }
@@ -79,7 +78,6 @@ export default {
 
 <style scoped lang="scss">
 .ep-container {
-  // transform: scaleX(-1);
   display: inline-block;
   overflow: hidden;
 }
