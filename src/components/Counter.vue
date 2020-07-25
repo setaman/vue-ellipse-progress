@@ -46,8 +46,7 @@ export default {
       return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
     delimiter() {
-      const coma = this.value.toString().search(",");
-      return coma >= 0 ? "," : ".";
+      return this.value.toString().search(",") >= 0 ? "," : ".";
     },
     formattedValue() {
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);

@@ -8,7 +8,7 @@
     :height="dotContainerSize"
     :style="dotContainerStyle"
   >
-    <span class="ep-circle--progress__dot" :class="{ hidden: isHidden }" :style="dotStyle"> </span>
+    <span class="ep-circle--progress__dot" :class="{ 'ep-hidden': isHidden }" :style="dotStyle"> </span>
   </foreignObject>
 </template>
 
@@ -102,7 +102,7 @@ export default {
   right: 0;
   left: 0;
 
-  &.hidden {
+  &.ep-hidden {
     transform: scale(0);
   }
 }
