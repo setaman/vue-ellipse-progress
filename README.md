@@ -13,6 +13,7 @@ A dependency-free Vue.js plugin to create beautiful and animated circular progre
 
 With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Options](#options)
 - [Compatibility](#compatibility)
@@ -24,7 +25,9 @@ With the available options you can create simple circles very quickly. But playi
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
 </div>
 
-## Usage
+## Installation 
+
+### NPM
 Install the library via npm:
 ```
 npm i vue-ellipse-progress
@@ -37,6 +40,16 @@ Vue.use(VueEllipseProgress);
 
 // Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
+
+### CDN
+You can customize and get the bundled and minified component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
+Just add the following line to your HTML, nothing more is required:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+```
+
+## Usage
 Now use the component:
 ```html
 <vue-ellipse-progress 
