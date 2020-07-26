@@ -513,18 +513,15 @@ The plugin was tested in all major modern mobile and desktop browsers. It should
 | :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:
 
 ## Development
+
+The development always happens in `dev` branch. You'll find all the latest updates there. 
+`dev` will only be merged into the master when all unit tests have been passed, builds are successful, 
+documentation is updated and functionality is verified on the [demo](https://vue-ellipse-progress-demo.netlify.app/#/test) page. 
+Before that all changes remain in beta.
+
+#### Run for local development
+The project was initialized with Vue CLI. Execute the following commands to start development locally:
 ```
 npm i
-```
-
-### Compiles and hot-reloads
-```
 npm run serve
-```
-
-## Build for publishing
-```
-npm run lint
-npm run test:unit
-npm run build
 ```
