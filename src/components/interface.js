@@ -7,7 +7,11 @@ const colorConfig = (defaultColor = "transparent") => ({
       return true;
     }
     if (typeof value === "object" && value.colors) {
-      return value.colors.every((config) => config.hasOwnProperty('color') && config.hasOwnProperty('offset'));
+      return value.colors.every((config) => {
+        let hasColor = Object.prototype.hasOwnProperty.call(config, "color");
+        let hasOffset = Object.prototype.hasOwnProperty.call(config, "offset");
+        return hasColor && hasOffset
+      });
     }
     return false;
   },
