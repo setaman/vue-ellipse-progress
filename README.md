@@ -26,6 +26,7 @@ With the available options you can create simple circles very quickly. But playi
 </div>
 
 ## Installation 
+Use your package manager or CDN to install and initialize the component.
 
 ### NPM
 Install the library via npm:
@@ -42,15 +43,16 @@ Vue.use(VueEllipseProgress);
 ```
 
 ### CDN
-You can customize and get the bundled and minified component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
-Just add the following line to your HTML, nothing more is required:
+Use this option where you have a global Vue.js instance available. You can customize and get the bundled and minified 
+component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
+Just add the following line to your HTML and start using the component, nothing more is required:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
 ```
 
 ## Usage
-Now use the component:
+After you have initialized the component, use it everywhere you want in your application:
 ```html
 <vue-ellipse-progress 
   :data="circles"                    
@@ -238,7 +240,7 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 - `:color="{ colors [, radial ]}"` - as Object
   - `radial` - default `false`. Defines whether the gradient is radial or linear
-  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
+  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: "10%" [, opacity: 1] }`
     
 ###### Example: :scroll:
 
@@ -251,12 +253,12 @@ gradient: {
     colors: [
       {
         color: '#6546f7',
-        offset: 0,
+        offset: "0",
         opacity: '1',
       },
       {
         color: 'lime',
-        offset: 100,
+        offset: "100",
         opacity: '0.6',
       },
     ]
