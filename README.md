@@ -97,7 +97,7 @@ This table below provides a quick overview over all available options. To gain m
 
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
-| **[`progress`](#progress)** | Number | 0 - 100 | 
+| **[`progress`](#progress)** | Number | \[-100, 100] | 
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
@@ -119,9 +119,9 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
+| **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`dot`](#dot)** [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
 | **[`reverse`](#reverse)** [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) | Boolean | | false |
-| **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with all props defined above | |
 
 
@@ -132,9 +132,12 @@ This table below provides a quick overview over all available options. To gain m
 
 ###### Animated: :heavy_check_mark: 
 
-Is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
+Is any Number in range \[-100, 100] (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
+
+[![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#progress) Set a negative value to fill the progress
+counterclockwise. Alternative you can use [`reverse`](#reverse).
 
 ###### Example: :scroll:
 
@@ -419,6 +422,20 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 <br>
 
+- ### `gap`
+
+###### Animated: :heavy_check_mark:
+
+Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
+
+###### Example: :scroll:
+
+```vue
+<vue-ellipse-progress :gap="10"/>
+```
+
+<br>
+
 - ### `dot`
 
 [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) 
@@ -456,7 +473,8 @@ dot="5% red" // adds red dot
 
 [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) 
 
-Is a Boolean. `reverse` prop flips the circle and the progress circle fills counterclockwise. 
+Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternative you can just set 
+a negative value for [`progress`](#progress).
 
 ###### Example: :scroll:
 
@@ -492,20 +510,6 @@ data: [
 ```
 
 <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-data.PNG" alt="multiple circles demo">
-
-<br>
-
-- ### `gap`
-
-###### Animated: :heavy_check_mark:
-
-Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
-
-###### Example: :scroll:
-
-```vue
-<vue-ellipse-progress :gap="10"/>
-```
 
 <br>
 
