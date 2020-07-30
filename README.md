@@ -225,7 +225,7 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 - `:color="{ colors [, radial ]}"` - as Object
   - `radial` - default `false`. Defines whether the gradient is radial or linear
-  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
+  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: "10%" [, opacity: 1] }`
     
 ###### Example: :scroll:
 
@@ -238,12 +238,12 @@ gradient: {
     colors: [
       {
         color: '#6546f7',
-        offset: 0,
+        offset: "0",
         opacity: '1',
       },
       {
         color: 'lime',
-        offset: 100,
+        offset: "100",
         opacity: '0.6',
       },
     ]
