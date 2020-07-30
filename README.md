@@ -77,6 +77,7 @@ After you have initialized the component, use it everywhere you want in your app
   :half="false"
   :gap="10"
   dot="10 blue"
+  reverse
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
@@ -322,7 +323,7 @@ this.progress = this.rating * 100 / 5; // the rating percentage
 ```
 Now you can display custom progress value that still animated and circle progress fills properly!
 
-```vue
+```vuejs
 legend-value="345,12345" // set "," as delimiter defining the value as string
 ```
 
