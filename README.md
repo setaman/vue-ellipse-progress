@@ -13,10 +13,12 @@ A dependency-free Vue.js plugin to create beautiful and animated circular progre
 
 With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Options](#options)
 - [Compatibility](#compatibility)
 - [Development](#development)
+- [Contributing](https://github.com/setaman/vue-ellipse-progress/CONTRIBUTING.md)
 
 :grey_exclamation: Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
@@ -24,7 +26,10 @@ With the available options you can create simple circles very quickly. But playi
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
 </div>
 
-## Usage
+## Installation 
+Use your package manager or CDN to install and initialize the component.
+
+### NPM
 Install the library via npm:
 ```
 npm i vue-ellipse-progress
@@ -37,7 +42,18 @@ Vue.use(VueEllipseProgress);
 
 // Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
-Now use the component:
+
+### CDN
+Use this option where you have a global Vue.js instance available. You can customize and get the bundled and minified 
+component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
+Just add the following line to your HTML and start using the component, nothing more is required:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+```
+
+## Usage
+After you have initialized the component, use it everywhere you want in your application:
 ```html
 <vue-ellipse-progress 
   :data="circles"                    
@@ -62,6 +78,7 @@ Now use the component:
   :half="false"
   :gap="10"
   dot="10 blue"
+  reverse
   fontSize="5rem">
   
   <span slot="legend-value">/200</span>
@@ -82,7 +99,7 @@ This table below provides a quick overview over all available options. To gain m
 
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
-| **[`progress`](#progress)** | Number | 0 - 100 | 
+| **[`progress`](#progress)** | Number | \[-100, 100] | 
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
@@ -104,9 +121,9 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendClass`](#legendclass)** | String | any |  |
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
+| **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`dot`](#dot)** [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
 | **[`reverse`](#reverse)** [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) | Boolean | | false |
-| **[`gap`](#gap)** | Number | defines the gap between multiple circles | 0 |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with all props defined above | |
 
 
@@ -117,9 +134,12 @@ This table below provides a quick overview over all available options. To gain m
 
 ###### Animated: :heavy_check_mark: 
 
-Is any Number from 0 to 100 (including **decimals**). This property defines the filled area from progress circle line in 
+Is any Number in range \[-100, 100] (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
+
+[![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#progress) Set a negative value to fill the progress
+counterclockwise. Alternative you can use [`reverse`](#reverse).
 
 ###### Example: :scroll:
 
@@ -226,7 +246,7 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
 
 - `:color="{ colors [, radial ]}"` - as Object
   - `radial` - default `false`. Defines whether the gradient is radial or linear
-  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: 0 [, opacity: 1] }`
+  - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: "10%" [, opacity: 1] }`
     
 ###### Example: :scroll:
 
@@ -239,12 +259,12 @@ gradient: {
     colors: [
       {
         color: '#6546f7',
-        offset: 0,
+        offset: "0",
         opacity: '1',
       },
       {
         color: 'lime',
-        offset: 100,
+        offset: "100",
         opacity: '0.6',
       },
     ]
@@ -304,7 +324,7 @@ this.progress = this.rating * 100 / 5; // the rating percentage
 ```
 Now you can display custom progress value that still animated and circle progress fills properly!
 
-```vue
+```vuejs
 legend-value="345,12345" // set "," as delimiter defining the value as string
 ```
 
@@ -404,6 +424,20 @@ Boolean value that specifies the type of the circle. If it is set to true, only 
 
 <br>
 
+- ### `gap`
+
+###### Animated: :heavy_check_mark:
+
+Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
+
+###### Example: :scroll:
+
+```vue
+<vue-ellipse-progress :gap="10"/>
+```
+
+<br>
+
 - ### `dot`
 
 [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) 
@@ -441,7 +475,8 @@ dot="5% red" // adds red dot
 
 [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) 
 
-Is a Boolean. `reverse` prop flips the circle and the progress circle fills counterclockwise. 
+Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternative you can just set 
+a negative value for [`progress`](#progress).
 
 ###### Example: :scroll:
 
@@ -480,20 +515,6 @@ data: [
 
 <br>
 
-- ### `gap`
-
-###### Animated: :heavy_check_mark:
-
-Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
-
-###### Example: :scroll:
-
-```vue
-<vue-ellipse-progress :gap="10"/>
-```
-
-<br>
-
 ### Slot options
 
 - #### `legend-value`
@@ -528,18 +549,15 @@ The plugin was tested in all major modern mobile and desktop browsers. It should
 | :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:| :white_check_mark:| :white_check_mark:| :white_check_mark: | :white_check_mark:
 
 ## Development
+
+The development always happens in `dev` branch. You'll find all the latest updates there. 
+`dev` will only be merged into the master when all unit tests have been passed, builds are successful, 
+documentation is updated and functionality is verified on the [demo](https://vue-ellipse-progress-demo.netlify.app/#/test) page. 
+Before that all changes remain in beta.
+
+#### Run for local development
+The project was initialized with Vue CLI. Execute the following commands to start development locally:
 ```
 npm i
-```
-
-### Compiles and hot-reloads
-```
 npm run serve
-```
-
-## Build for publishing
-```
-npm run lint
-npm run test:unit
-npm run build
 ```
