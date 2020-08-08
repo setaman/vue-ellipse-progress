@@ -48,6 +48,14 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
       expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
     });
+    it("applies the progress offset to circle SVG stroke", () => {
+      const radius = size / 2 - thickness / 2;
+      const circumference = radius * 2 * Math.PI;
+      const expectedOffset = circumference - (progress / 100) * circumference;
+      const circleWrapper = wrapper.find(".ep-circle--progress");
+
+      expect(circleWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
+    });
     it("lets progress circle visible for -1 < progress < 1", () => {
       progress = 0;
       wrapper.setProps({ progress });
