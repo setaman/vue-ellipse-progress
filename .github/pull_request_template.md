@@ -4,7 +4,7 @@ By contributing to this project you agree to the [contribution rules](https://gi
 
 Quick checklist for code changes:
 - [ ] Created a new branch based on `dev`
-- [ ] All test passed
+- [ ] All test and checks passed
 - [ ] No linting errors
 - [ ] New tests added (if necessary)
 - [ ] Docs updated (if necessary)
