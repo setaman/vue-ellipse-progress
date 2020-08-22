@@ -26,19 +26,18 @@ describe("#dot", () => {
 
   const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
-  it(`parses property correctly`, () => {
-    const wrapper = factory({ progress, size });
-    let dot = 0;
+  it(`parses property as Number correctly`, () => {
+    const wrapper = factory({ progress, size, dot: 0 });
     expect(wrapper.vm.parsedDot.size).to.equal("0");
     expect(wrapper.vm.parsedDot.color).to.equal("white");
-
-    dot = "5% red";
-    wrapper.setProps({ dot });
+  });
+  it(`parses property as String correctly`, () => {
+    const wrapper = factory({ progress, size, dot: "5% red" });
     expect(wrapper.vm.parsedDot.size).to.equal("5%");
     expect(wrapper.vm.parsedDot.color).to.equal("red");
-
-    dot = { size: 10, backgroundColor: "green" };
-    wrapper.setProps({ dot });
+  });
+  it(`parses property as Object correctly`, () => {
+    const wrapper = factory({ progress, size, dot: { size: 10, backgroundColor: "green" } });
     expect(wrapper.vm.parsedDot.size).to.equal(10);
     expect(wrapper.vm.parsedDot.color).to.equal("white");
     expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
