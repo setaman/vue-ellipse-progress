@@ -1,6 +1,6 @@
 {
   "name": "vue-ellipse-progress",
-  "version": "1.1.1",
+  "version": "1.2.0-beta.1",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
   "main": "./dist/vue-ellipse-progress.umd.min.js",
@@ -34,25 +34,26 @@
     "vue": "^2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-eslint": "^4.4.6",
-    "@vue/cli-plugin-unit-mocha": "^4.4.6",
-    "@vue/cli-service": "^4.4.6",
+    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-eslint": "^4.5.4",
+    "@vue/cli-plugin-unit-mocha": "^4.5.4",
+    "@vue/cli-service": "^4.5.4",
     "@vue/eslint-config-airbnb": "^5.1.0",
-    "@vue/test-utils": "1.0.3",
+    "@vue/test-utils": "1.0.4",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
-    "sass-loader": "^9.0.2",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "sass-loader": "^9.0.3",
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
   },
   "files": [
-    "dist"
+    "dist",
+    "README"
   ]
 }

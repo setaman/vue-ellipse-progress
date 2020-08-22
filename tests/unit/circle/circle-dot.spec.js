@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
-import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
-import Circle from "../../../src/components/Circle/Circle.vue";
-import CircleDot from "../../../src/components/Circle/CircleDot.vue";
-import { dotParser } from "../../../src/components/optionsParser";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import Circle from "@/components/Circle/Circle.vue";
+import CircleDot from "@/components/Circle/CircleDot.vue";
+import { dotParser } from "@/components/optionsParser";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {
@@ -26,19 +26,18 @@ describe("#dot", () => {
 
   const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
-  it(`parses property correctly`, () => {
-    const wrapper = factory({ progress, size });
-    let dot = 0;
+  it(`parses property as Number correctly`, () => {
+    const wrapper = factory({ progress, size, dot: 0 });
     expect(wrapper.vm.parsedDot.size).to.equal("0");
     expect(wrapper.vm.parsedDot.color).to.equal("white");
-
-    dot = "5% red";
-    wrapper.setProps({ dot });
+  });
+  it(`parses property as String correctly`, () => {
+    const wrapper = factory({ progress, size, dot: "5% red" });
     expect(wrapper.vm.parsedDot.size).to.equal("5%");
     expect(wrapper.vm.parsedDot.color).to.equal("red");
-
-    dot = { size: 10, backgroundColor: "green" };
-    wrapper.setProps({ dot });
+  });
+  it(`parses property as Object correctly`, () => {
+    const wrapper = factory({ progress, size, dot: { size: 10, backgroundColor: "green" } });
     expect(wrapper.vm.parsedDot.size).to.equal(10);
     expect(wrapper.vm.parsedDot.color).to.equal("white");
     expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");

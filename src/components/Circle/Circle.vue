@@ -68,13 +68,6 @@ export default {
   components: { FadeInTransition },
   mixins: [CircleMixin],
   computed: {
-    progressOffset() {
-      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
-      if (offset <= 0) {
-        return 0;
-      }
-      return offset < this.circumference ? offset : this.circumference - 0.5;
-    },
     position() {
       return this.size / 2;
     },

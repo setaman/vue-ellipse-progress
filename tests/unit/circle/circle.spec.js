@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import Circle from "../../../src/components/Circle/Circle.vue";
-import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
-import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
-import { dotParser } from "../../../src/components/optionsParser";
+import Circle from "@/components/Circle/Circle.vue";
+import HalfCircle from "@/components/Circle/HalfCircle.vue";
+import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import { dotParser } from "@/components/optionsParser";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {
@@ -21,24 +21,48 @@ const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (m
 
 describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
   describe("#progress", () => {
+    let progress = 60;
+    const size = 200;
+    const thickness = 4;
+
+    const wrapper = factory({
+      size,
+      progress,
+      thickness,
+      emptyThickness: thickness,
+      animation: "default 0 0",
+    });
     it("calculates the progress circle stroke offset correctly", () => {
-      const progress = 60;
-      const size = 200;
-      const thickness = 4;
-
-      const wrapper = factory({
-        size,
-        progress,
-        thickness,
-        emptyThickness: thickness,
-        animation: "default 0 0",
-      });
-
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
       const expectedOffset = circumference - (progress / 100) * circumference;
 
       expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
+    });
+    it("calculates the negative progress circle stroke offset correctly", () => {
+      progress = -50;
+      wrapper.setProps({ progress });
+      const radius = size / 2 - thickness / 2;
+      const circumference = radius * 2 * Math.PI;
+      const expectedOffset = circumference - (progress / 100) * circumference;
+
+      expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
+    });
+    it("applies the progress offset to circle SVG stroke", () => {
+      const radius = size / 2 - thickness / 2;
+      const circumference = radius * 2 * Math.PI;
+      const expectedOffset = circumference - (progress / 100) * circumference;
+      const circleWrapper = wrapper.find(".ep-circle--progress");
+
+      expect(circleWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
+    });
+    it("lets progress circle visible for -1 < progress < 1", () => {
+      progress = 0;
+      wrapper.setProps({ progress });
+      const radius = size / 2 - thickness / 2;
+      const circumference = radius * 2 * Math.PI;
+
+      expect(circumference - wrapper.vm.progressOffset).to.be.above(0);
     });
   });
   describe("#size", () => {

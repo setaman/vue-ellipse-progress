@@ -1,4 +1,4 @@
-import { getNumberIfValid, isValidNumber } from "../utils";
+import { getNumberIfValid, isValidNumber } from "@/utils";
 
 const lineModeParser = (lineMode) => {
   const lineModeConfig = lineMode.trim().split(" ");

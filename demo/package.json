@@ -12,7 +12,7 @@
     "core-js": "^3.6.5",
     "v-clipboard": "^2.2.3",
     "vue": "^2.6.11",
-    "vue-ellipse-progress": "^1.1.0",
+    "vue-ellipse-progress": "^1.1.1",
     "vue-ellipse-progress-test": "npm:vue-ellipse-progress@^1.1.1-beta.2",
     "vue-router": "^3.3.4",
     "vuetify": "^2.3.4",

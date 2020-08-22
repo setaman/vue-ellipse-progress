@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import Circle from "../../../src/components/Circle/Circle.vue";
+import Circle from "@/components/Circle/Circle.vue";
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
