@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
-import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
-import Circle from "../../../src/components/Circle/Circle.vue";
-import CircleDot from "../../../src/components/Circle/CircleDot.vue";
-import { dotParser } from "../../../src/components/optionsParser";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import Circle from "@/components/Circle/Circle.vue";
+import CircleDot from "@/components/Circle/CircleDot.vue";
+import { dotParser } from "@/components/optionsParser";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {

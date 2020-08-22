@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Counter from "../../src/components/Counter.vue";
+import Counter from "@/components/Counter.vue";
 
 const factory = (propsData) => {
   return mount(Counter, {

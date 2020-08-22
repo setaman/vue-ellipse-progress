@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Vue from "vue";
-import Circle from "../../../src/components/Circle/Circle.vue";
-import HalfCircle from "../../../src/components/Circle/HalfCircle.vue";
-import VueEllipseProgress from "../../../src/components/VueEllipseProgress.vue";
-import { dotParser } from "../../../src/components/optionsParser";
+import Circle from "@/components/Circle/Circle.vue";
+import HalfCircle from "@/components/Circle/HalfCircle.vue";
+import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import { dotParser } from "@/components/optionsParser";
 
 const factory = (propsData, container = Circle) => {
   return mount(container, {

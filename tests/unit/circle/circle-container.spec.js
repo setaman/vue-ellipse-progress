@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import CircleContainer from "../../../src/components/Circle/CircleContainer.vue";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
 
 const factory = (propsData) => {
   return mount(CircleContainer, {

@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
 import Vue from "vue";
-import VueEllipseProgress from "../../src/components/VueEllipseProgress.vue";
-import CircleContainer from "../../src/components/Circle/CircleContainer.vue";
-import Counter from "../../src/components/Counter.vue";
+import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import Counter from "@/components/Counter.vue";
 
 const factory = (propsData) => {
   return mount(VueEllipseProgress, {
