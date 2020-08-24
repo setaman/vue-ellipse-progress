@@ -150,7 +150,7 @@ this.myProgress = 55.5;
 this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this value. All values below 0 and above 100 are ignored and not valid Numbers always lead to **[`noData`](#noData)** state. For customization purpose please use **[`legendValue`](#legendvalue)**. 
+>:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this value, it should be always in the range [-100, 100] and not valid Numbers lead to **[`noData`](#noData)** state. For customization purpose please use **[`legendValue`](#legendvalue)**. 
 
 >If **[`legendValue`](#legendvalue)** is defined the progress will **NOT** be displayed as circle legend.
 
