@@ -18,7 +18,7 @@ With the available options you can create simple circles very quickly. But playi
 - [Options](#options)
 - [Compatibility](#compatibility)
 - [Development](#development)
-- [Contributing](https://github.com/setaman/vue-ellipse-progress/CONTRIBUTING.md)
+- [Contributing](https://github.com/setaman/vue-ellipse-progress/blob/master/CONTRIBUTING.md)
 
 :grey_exclamation: Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
 
