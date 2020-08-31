@@ -1,9 +1,12 @@
 <template>
-  <span v-if="legendValueFormatter">
-    <span v-if="isHTML" v-html="customFormattedValue"></span>
-    <span v-else :html="customFormattedValue">{{ customFormattedValue }}</span>
+  <span>
+    <slot> </slot>
+    <span class="ep-legend--value__counter" v-if="legendValueFormatter">
+      <span v-if="isHTML" v-html="customFormattedValue"></span>
+      <span v-else>{{ customFormattedValue }}</span>
+    </span>
+    <span class="ep-legend--value__counter" v-else-if="!$slots.default">{{ formattedValue }}</span>
   </span>
-  <span v-else>{{ formattedValue }}</span>
 </template>
 
 <script>
@@ -33,6 +36,7 @@ export default {
     start: 0,
     startTime: 0,
     currentValue: 0,
+    customFormattedValue: "",
     raf: null,
     previousCountStepValue: 0,
   }),
@@ -59,18 +63,6 @@ export default {
     formattedValue() {
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
     },
-    customFormattedValue() {
-      return this.legendValueFormatter({
-        currentValue: this.currentValue,
-        duration: this.duration,
-        previousCountStepValue: this.previousCountStepValue,
-        start: this.start,
-        end: this.end,
-        difference: this.difference,
-        oneStepDifference: this.oneStepDifference,
-        startTime: this.startTime,
-      });
-    },
     delay() {
       return animationParser(this.animation).delay;
     },
@@ -78,7 +70,21 @@ export default {
       return animationParser(this.animation).duration;
     },
     isHTML() {
-      return this.customFormattedValue.toString().trim().startsWith("<");
+      return /<[a-z/][\s\S]*>/i.test(this.customFormattedValue.toString().trim());
+    },
+    counterProps() {
+      return {
+        currentValue: parseFloat(this.formattedValue),
+        currentRawValue: this.currentValue,
+        duration: this.duration,
+        previousCountStepValue: this.previousCountStepValue,
+        start: this.start,
+        end: this.end,
+        difference: this.difference,
+        oneStepDifference: this.oneStepDifference,
+        startTime: this.startTime,
+        elapsed: undefined,
+      };
     },
   },
   methods: {
@@ -104,6 +110,10 @@ export default {
         this.currentValue = this.end;
         this.reset();
       }
+      this.$emit("counterPropsUpdate", { ...this.counterProps, elapsed });
+      if (this.legendValueFormatter) {
+        this.runCustomFormatter(elapsed);
+      }
     },
     countDown(elapsed) {
       const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
@@ -120,8 +130,17 @@ export default {
       this.previousCountStepValue = 0;
       cancelAnimationFrame(this.raf);
     },
+    runCustomFormatter(elapsed) {
+      this.customFormattedValue =
+        this.legendValueFormatter({
+          ...this.counterProps,
+          elapsed,
+        }) || "";
+    },
   },
   mounted() {
+    if (this.legendValueFormatter) this.runCustomFormatter(0);
+    if (this.$slots.default) this.$emit("counterPropsUpdate", this.counterProps);
     if (!this.loading) {
       setTimeout(() => {
         this.raf = requestAnimationFrame(this.count);

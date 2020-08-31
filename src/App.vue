@@ -41,29 +41,20 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :progress="progress" :legendValue="13145.56" :legend-value-formatter="customFormatter">
-          <span>
-            <span style="font-weight: bold; font-size: 1.6rem;">{{ price.slice(0, price.indexOf(",")) }}</span>
-            <span>{{ price.slice(price.indexOf(","), price.length) }}</span>
-          </span>
-          <span slot="legend-value"></span>
+        <vue-ellipse-progress
+          :size="600"
+          :progress="progress"
+          :legendValue="1315.56"
+          animation="rs 5000 500"
+          :legend-value-formatter="customFormatter"
+        >
+          <!--<template v-slot:default="{ counterProps }">
+            <span style="font-weight: bold; font-size: 1.6rem; color: green;">
+              {{ formattedPrice(counterProps.currentValue) }}
+            </span>
+          </template>-->
         </vue-ellipse-progress>
       </div>
-      <vue-ellipse-progress
-        :loading="loading"
-        :no-data="noData"
-        :progress="progress"
-        :angle="-90"
-        :legend="false"
-        :thickness="100"
-        dash="strict 60 0.95"
-        :empty-thickness="100"
-        line="butt"
-        half
-        animation="rs 1000"
-        :dot="{ size: 100, backgroundColor: 'rgba(100,256,4,1)', width: '2px' }"
-        line-mode="in-over"
-      />
     </div>
   </div>
 </template>
@@ -143,16 +134,17 @@ export default {
     },
   },
   methods: {
-    customFormatter({ currentValue, start, end, startTime, previousCountStepValue }) {
-      this.price = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
-        .format(currentValue)
-        .toString();
-      console.log(this.price, currentValue, previousCountStepValue, start, end, startTime);
-      return `
-        <span>
-          <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
-          <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
-        </span>`;
+    formattedPrice(value) {
+      return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
+    },
+    customFormatter({ currentValue /* start, end, startTime, previousCountStepValue, elapsed, currentRawValue */ }) {
+      this.price = new Intl.NumberFormat("fr-FR").format(currentValue);
+      // console.log(this.price, currentValue, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
+      return `My ${this.price} Format`;
+      /* return `
+        <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
+        <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
+      `; */
     },
     updateProgress() {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
