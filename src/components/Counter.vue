@@ -1,5 +1,8 @@
 <template>
-  <span v-if="legendValueFormatter">{{ customFormattedValue }}</span>
+  <span v-if="legendValueFormatter">
+    <span v-if="isHTML" v-html="customFormattedValue"></span>
+    <span v-else :html="customFormattedValue">{{ customFormattedValue }}</span>
+  </span>
   <span v-else>{{ formattedValue }}</span>
 </template>
 
@@ -64,6 +67,9 @@ export default {
     },
     duration() {
       return animationParser(this.animation).duration;
+    },
+    isHTML() {
+      return this.customFormattedValue.toString().trim().startsWith("<");
     },
   },
   methods: {

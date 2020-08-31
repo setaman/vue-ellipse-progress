@@ -43,12 +43,10 @@
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
           :progress="progress"
-          :legendValue="135.56"
-          reverse
+          :legendValue="13145.56"
           :legend-value-formatter="customFormatter"
         >
-          <span slot="legend-value">/200</span>
-          <span slot="legend-caption">Some Caption</span>
+          <span slot="legend-value"></span>
         </vue-ellipse-progress>
       </div>
       <vue-ellipse-progress
@@ -145,8 +143,15 @@ export default {
   },
   methods: {
     customFormatter({ currentValue }) {
-      console.log(new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue));
-      return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue);
+      const price = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
+        .format(currentValue)
+        .toString();
+      console.log(price);
+      return `
+        <span>
+          <span style="font-weight: bold; font-size: 1.6rem">${price.slice(0, price.indexOf(","))}</span>
+          <span>${price.slice(price.indexOf(","), price.length)}</span>
+        </span>`;
     },
     updateProgress() {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));

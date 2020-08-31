@@ -163,13 +163,6 @@ const props = {
   legendValueFormatter: {
     type: Function,
     required: false,
-    validator: (formatter) => {
-      if (!formatter({ currentValue: 50 })) {
-        console.warn("legendValueFormatter should return a value!");
-        return false;
-      }
-      return true;
-    },
   },
 };
 
