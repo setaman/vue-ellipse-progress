@@ -1,11 +1,11 @@
 <template>
-  <span>
+  <span class="ep-legend--value__counter">
     <slot> </slot>
-    <span class="ep-legend--value__counter" v-if="legendValueFormatter">
+    <span v-if="legendValueFormatter">
       <span v-if="isHTML" v-html="customFormattedValue"></span>
       <span v-else>{{ customFormattedValue }}</span>
     </span>
-    <span class="ep-legend--value__counter" v-else-if="!$slots.default">{{ formattedValue }}</span>
+    <span v-else-if="!$slots.default">{{ formattedValue }}</span>
   </span>
 </template>
 
