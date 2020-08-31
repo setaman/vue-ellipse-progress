@@ -1,5 +1,6 @@
 <template>
-  <span>{{ formattedValue }}</span>
+  <span v-if="legendValueFormatter">{{ customFormattedValue }}</span>
+  <span v-else>{{ formattedValue }}</span>
 </template>
 
 <script>
@@ -11,6 +12,10 @@ export default {
     value: {
       type: [Number, String],
       required: true,
+    },
+    legendValueFormatter: {
+      type: Function,
+      required: false,
     },
     animation: {
       type: String,
@@ -50,6 +55,9 @@ export default {
     },
     formattedValue() {
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
+    },
+    customFormattedValue() {
+      return this.legendValueFormatter({ currentValue: this.currentValue });
     },
     delay() {
       return animationParser(this.animation).delay;

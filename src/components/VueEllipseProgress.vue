@@ -27,7 +27,13 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading"> </counter>
+          <counter
+            :value="legendVal"
+            :animation="animation"
+            :loading="loading"
+            :legend-value-formatter="legendValueFormatter"
+          >
+          </counter>
           <slot name="legend-value"></slot>
         </div>
         <slot name="legend-caption"></slot>

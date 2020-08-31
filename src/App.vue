@@ -41,7 +41,12 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :progress="progress" reverse :data="circles" :gap="10">
+        <vue-ellipse-progress
+          :progress="progress"
+          :legendValue="135.56"
+          reverse
+          :legend-value-formatter="customFormatter"
+        >
           <span slot="legend-value">/200</span>
           <span slot="legend-caption">Some Caption</span>
         </vue-ellipse-progress>
@@ -139,6 +144,10 @@ export default {
     },
   },
   methods: {
+    customFormatter({ currentValue }) {
+      console.log(new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue));
+      return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue);
+    },
     updateProgress() {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },
