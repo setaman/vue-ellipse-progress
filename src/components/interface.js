@@ -157,7 +157,12 @@ const props = {
   },
   reverse: {
     type: Boolean,
+    required: false,
     default: false,
+  },
+  legendValueFormatter: {
+    type: Function,
+    required: false,
   },
 };
 

@@ -27,7 +27,17 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize: fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading"> </counter>
+          <counter
+            :value="legendVal"
+            :animation="animation"
+            :loading="loading"
+            :legend-value-formatter="legendValueFormatter"
+            @counterPropsUpdate="updateCounterProps"
+          >
+            <template>
+              <slot :counterProps="counterProps"></slot>
+            </template>
+          </counter>
           <slot name="legend-value"></slot>
         </div>
         <slot name="legend-caption"></slot>
@@ -46,6 +56,14 @@ export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
   props,
+  data: () => ({
+    counterProps: {},
+  }),
+  methods: {
+    updateCounterProps(counterProps) {
+      this.counterProps = counterProps;
+    },
+  },
   computed: {
     legendVal() {
       if (this.loading || this.noData) {
