@@ -60,7 +60,16 @@ export default {
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
     },
     customFormattedValue() {
-      return this.legendValueFormatter({ currentValue: this.currentValue });
+      return this.legendValueFormatter({
+        currentValue: this.currentValue,
+        duration: this.duration,
+        previousCountStepValue: this.previousCountStepValue,
+        start: this.start,
+        end: this.end,
+        difference: this.difference,
+        oneStepDifference: this.oneStepDifference,
+        startTime: this.startTime,
+      });
     },
     delay() {
       return animationParser(this.animation).delay;

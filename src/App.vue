@@ -41,11 +41,11 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress
-          :progress="progress"
-          :legendValue="13145.56"
-          :legend-value-formatter="customFormatter"
-        >
+        <vue-ellipse-progress :progress="progress" :legendValue="13145.56" :legend-value-formatter="customFormatter">
+          <span>
+            <span style="font-weight: bold; font-size: 1.6rem;">{{ price.slice(0, price.indexOf(",")) }}</span>
+            <span>{{ price.slice(price.indexOf(","), price.length) }}</span>
+          </span>
           <span slot="legend-value"></span>
         </vue-ellipse-progress>
       </div>
@@ -75,6 +75,7 @@ export default {
   components: { VueEllipseProgress },
   data: () => ({
     line: "round",
+    price: "",
     circles: [
       { progress: 50, color: "red" },
       { progress: 50, color: "red", half: true, angle: -90 },
@@ -142,15 +143,15 @@ export default {
     },
   },
   methods: {
-    customFormatter({ currentValue }) {
-      const price = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
+    customFormatter({ currentValue, start, end, startTime, previousCountStepValue }) {
+      this.price = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
         .format(currentValue)
         .toString();
-      console.log(price);
+      console.log(this.price, currentValue, previousCountStepValue, start, end, startTime);
       return `
         <span>
-          <span style="font-weight: bold; font-size: 1.6rem">${price.slice(0, price.indexOf(","))}</span>
-          <span>${price.slice(price.indexOf(","), price.length)}</span>
+          <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
+          <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
         </span>`;
     },
     updateProgress() {

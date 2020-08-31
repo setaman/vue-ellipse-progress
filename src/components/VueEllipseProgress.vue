@@ -28,12 +28,14 @@
           :style="{ fontSize: fontSize, color: fontColor }"
         >
           <counter
+            :class="{ 'ep-d-none': $slots.default }"
             :value="legendVal"
             :animation="animation"
             :loading="loading"
             :legend-value-formatter="legendValueFormatter"
           >
           </counter>
+          <slot></slot>
           <slot name="legend-value"></slot>
         </div>
         <slot name="legend-caption"></slot>
@@ -109,6 +111,9 @@ export default {
 }
 .ep-hidden {
   opacity: 0;
+}
+.ep-d-none {
+  display: none;
 }
 svg.ep-svg-container {
   transition: inherit;
