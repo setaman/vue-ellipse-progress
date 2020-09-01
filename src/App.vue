@@ -58,7 +58,7 @@
       <vue-ellipse-progress
         :size="600"
         :progress="progress"
-        :legend-value-formatter="({ currentValue }) => `My ${currentValue}`"
+        :legend-value-formatter="({ currentValue }) => `My format ${currentValue}`"
       >
       </vue-ellipse-progress>
     </div>

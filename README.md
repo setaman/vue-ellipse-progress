@@ -559,6 +559,22 @@ data: [
 
 ### Slot options
 
+- #### `default`
+
+Use this scope if you want to customize the presentation of the circle legend ad make a use of the counter, so the value 
+still animated. This works similar to the [`legendValueFormatter`](#legendValueFormatter). You can access animated counter
+properties through the scoped slot props and adjust the presentation of the legend to your needs. 
+
+```vue
+<vue-ellipse-progress :progress="50">
+  <template v-slot:default="{ counterProps }">
+    <span style="font-weight: bold; font-size: 1.6rem; color: green;">
+      {{ myFormatter(counterProps.currentValue) }}
+    </span>
+  </template>
+</vue-ellipse-progress>
+```
+
 - #### `legend-value`
 
 In this slot you can put an additional element that you want to display beside the progress
