@@ -60,6 +60,9 @@
         :progress="progress"
         :legend-value-formatter="({ currentValue }) => `My format ${currentValue}`"
       >
+        <template v-slot:legend-caption>
+          <p slot="legend-caption">TASKS DONE</p>
+        </template>
       </vue-ellipse-progress>
     </div>
   </div>

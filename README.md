@@ -588,8 +588,12 @@ This code ...
 ```html
 <vue-ellipse-progress ....>
   
-    <span slot="legend-value">/200</span>
-    <p slot="legend-caption">TASKS DONE</p>
+<template v-slot:legend-value>
+  <span slot="legend-value">/200</span>
+</template>
+<template v-slot:legend-caption>
+  <p slot="legend-caption">TASKS DONE</p>
+</template>
   
 </vue-ellipse-progress>
 ```
