@@ -55,6 +55,12 @@
           </template>-->
         </vue-ellipse-progress>
       </div>
+      <vue-ellipse-progress
+        :size="600"
+        :progress="progress"
+        :legend-value-formatter="({ currentValue }) => `My ${currentValue}`"
+      >
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>

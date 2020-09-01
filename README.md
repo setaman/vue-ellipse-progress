@@ -69,6 +69,7 @@ After you have initialized the component, use it everywhere you want in your app
   lineMode="in 10"
   :legend="true"
   :legendValue="180"
+  :legendValueFormatter="() => new Intl.NumberFormat('de-DE').format(value)"
   legendClass="legend-custom-style"
   dash="60 0.9"
   animation="reverse 700 400"
@@ -111,6 +112,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
 | **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
+| **[`legendValueFormatter`](#legendValueFormatter)** [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendValueFormatter) | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
@@ -330,6 +332,46 @@ legend-value="345,12345" // set "," as delimiter defining the value as string
 
 >:heavy_exclamation_mark: note that `legendValue` replaces **[`progress`](#progress)** as circle legend but not vice versa.
 
+
+<br>
+
+- ### `legendValueFormatter` [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendvalueFormatter)
+
+Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
+is called on every tick of the counter. Here the formatting of [legendValue](#legendValue) or [progress](#progress) 
+is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
+value, even a valid HTML.   
+
+>:heavy_exclamation_mark: alternatively you can use **[`scoped slot`](#slot-options)** for custom formatting.
+
+###### Example: :scroll:
+
+Let's see how it works. The function takes counter properties object as argument that you can use to define custom formatting.
+`currentValue` is the most relevant value, as it is the actual value at specific counter tick. The return value will be 
+displayed as the legend of the circle.
+
+```js
+const myFormatter = ({ currentValue, start, end, startTime, previousCountStepValue, elapsed, currentRawValue }) => {
+  return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue); 
+}
+```
+You can also return HTML:
+```js
+const customFormatter = ({ currentValue }) => {
+     return `
+        <span style="font-weight: bold; font-size: 1.6rem">${new Intl.NumberFormat("de-DE").format(currentValue)}</span>
+        <span>€</span>
+      `;
+    }
+```
+
+Finally set your formatter as prop:
+
+```vue
+<vue-ellipse-progress :legend-value-formatter="myFormatter"/>
+<!-- shorter version if you wish-->
+<vue-ellipse-progress :legend-value-formatter="({ currentValue }) => `My Format ${currentValue}`"/>
+````
 
 <br>
 
