@@ -339,14 +339,16 @@ Now you can display custom progress value that still animated and circle progres
 
 <br>
 
-- ### `legendFormatter` [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter)
+- ### `legendFormatter` 
+
+[![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter)
 
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
 is called on every tick of the counter. Here the formatting of [legendValue](#legendValue) or [progress](#progress) 
 is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
 value, even HTML.   
 
->:heavy_exclamation_mark: alternatively you can use **[`scoped slot`](#slot-options)** for custom formatting.
+>:grey_exclamation: alternatively you can use **[`scoped slot`](#default)** for custom formatting.
 
 ###### Example: :scroll:
 
