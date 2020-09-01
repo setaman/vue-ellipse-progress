@@ -69,7 +69,7 @@ After you have initialized the component, use it everywhere you want in your app
   lineMode="in 10"
   :legend="true"
   :legendValue="180"
-  :legendValueFormatter="() => new Intl.NumberFormat('de-DE').format(value)"
+  :legendFormatter="() => new Intl.NumberFormat('de-DE').format(value)"
   legendClass="legend-custom-style"
   dash="60 0.9"
   animation="reverse 700 400"
@@ -112,7 +112,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
 | **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
-| **[`legendValueFormatter`](#legendValueFormatter)** [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendValueFormatter) | Function | Function that returns formatted value  |   |
+| **[`legendFormatter`](#legendFormatter)** [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendFormatter) | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`determinate`](#determinate)** | Boolean |  |false|
@@ -335,7 +335,7 @@ legend-value="345,12345" // set "," as delimiter defining the value as string
 
 <br>
 
-- ### `legendValueFormatter` [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendvalueFormatter)
+- ### `legendFormatter` [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendFormatter)
 
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
 is called on every tick of the counter. Here the formatting of [legendValue](#legendValue) or [progress](#progress) 
@@ -561,9 +561,10 @@ data: [
 
 - #### `default`
 
-Use this scope if you want to customize the presentation of the circle legend ad make a use of the counter, so the value 
-still animated. This works similar to the [`legendValueFormatter`](#legendValueFormatter). You can access animated counter
-properties through the scoped slot props and adjust the presentation of the legend to your needs. 
+Use this slot, if you want to customize the presentation of the circle legend ad make a use of the animated counter, 
+so your formatting still animated. This works similar to the [`legendFormatter`](#legendFormatter) and is just 
+an alternative way to provide custom format. You can access animated counter properties through the scoped slot 
+props and adjust the presentation of the legend to your needs. 
 
 ```vue
 <vue-ellipse-progress :progress="50">
