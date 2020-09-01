@@ -31,7 +31,7 @@
             :value="legendVal"
             :animation="animation"
             :loading="loading"
-            :legend-value-formatter="legendValueFormatter"
+            :legend-formatter="legendFormatter"
             @counterPropsUpdate="updateCounterProps"
           >
             <template>

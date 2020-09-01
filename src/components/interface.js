@@ -160,7 +160,7 @@ const props = {
     required: false,
     default: false,
   },
-  legendValueFormatter: {
+  legendFormatter: {
     type: Function,
     required: false,
   },

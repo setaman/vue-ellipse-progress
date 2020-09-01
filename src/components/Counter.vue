@@ -1,7 +1,7 @@
 <template>
   <span class="ep-legend--value__counter">
     <slot> </slot>
-    <span v-if="legendValueFormatter">
+    <span v-if="legendFormatter">
       <span v-if="isHTML" v-html="customFormattedValue"></span>
       <span v-else>{{ customFormattedValue }}</span>
     </span>
@@ -19,7 +19,7 @@ export default {
       type: [Number, String],
       required: true,
     },
-    legendValueFormatter: {
+    legendFormatter: {
       type: Function,
       required: false,
     },
@@ -111,7 +111,7 @@ export default {
         this.reset();
       }
       this.$emit("counterPropsUpdate", { ...this.counterProps, elapsed });
-      if (this.legendValueFormatter) {
+      if (this.legendFormatter) {
         this.runCustomFormatter(elapsed);
       }
     },
@@ -132,14 +132,14 @@ export default {
     },
     runCustomFormatter(elapsed) {
       this.customFormattedValue =
-        this.legendValueFormatter({
+        this.legendFormatter({
           ...this.counterProps,
           elapsed,
         }) || "";
     },
   },
   mounted() {
-    if (this.legendValueFormatter) this.runCustomFormatter(0);
+    if (this.legendFormatter) this.runCustomFormatter(0);
     if (this.$slots.default) this.$emit("counterPropsUpdate", this.counterProps);
     if (!this.loading) {
       setTimeout(() => {

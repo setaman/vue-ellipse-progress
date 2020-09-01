@@ -46,7 +46,7 @@
           :progress="progress"
           :legendValue="1315.56"
           animation="rs 5000 500"
-          :legend-value-formatter="customFormatter"
+          :legend-formatter="customFormatter"
         >
           <!--<template v-slot:default="{ counterProps }">
             <span style="font-weight: bold; font-size: 1.6rem; color: green;">
@@ -58,7 +58,7 @@
       <vue-ellipse-progress
         :size="600"
         :progress="progress"
-        :legend-value-formatter="({ currentValue }) => `My format ${currentValue}`"
+        :legend-formatter="({ currentValue }) => `My format ${currentValue}`"
       >
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
