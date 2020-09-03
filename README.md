@@ -346,7 +346,7 @@ Now you can display custom progress value that still animated and circle progres
 [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter)
 
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
-is called on every tick of the counter. Here the formatting of [legendValue](#legendValue) or [progress](#progress) 
+is called on every tick of the counter. Here the formatting of [legendValue](#legendvalue) or [progress](#progress) 
 is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
 value, even HTML.   
 
@@ -365,7 +365,7 @@ const myFormatter = ({ currentValue, currentRawValue, duration, previousCountSte
 ```
 You can also return HTML:
 ```js
-const customFormatter = ({ currentValue }) => {
+const myFormatter = ({ currentValue }) => {
      return `
         <span style="font-weight: bold; font-size: 1.6rem">${new Intl.NumberFormat("de-DE").format(currentValue)}</span>
         <span>€</span>
@@ -570,15 +570,15 @@ data: [
 - #### `default`
 
 Use this slot, if you want to customize the presentation of the circle legend ad make a use of the animated counter, 
-so your formatting still animated. This works similar to the [`legendFormatter`](#legendFormatter) and is just 
-an alternative way to provide custom format. You can access animated counter properties through the scoped slot 
+so your formatting still animated. This works similar to the [`legendFormatter`](#legendformatter) and is just 
+an alternative way to provide a custom format. You can access animated counter properties through the scoped slot 
 props and adjust the presentation of the legend to your needs. 
 
 ```vue
 <vue-ellipse-progress :progress="50">
-  <template v-slot:default="{ counterProps }">
+  <template v-slot:default="{ counterTick }">
     <span style="font-weight: bold; font-size: 1.6rem; color: green;">
-      {{ myFormatter(counterProps.currentValue) }}
+      {{ myFormatter(counterTick .currentValue) }}
     </span>
   </template>
 </vue-ellipse-progress>
