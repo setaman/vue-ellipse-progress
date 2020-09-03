@@ -32,11 +32,10 @@
             :animation="animation"
             :loading="loading"
             :legend-formatter="legendFormatter"
-            :counterProps.sync="counterProps"
-            @counterPropsUpdate="updateCounterProps"
+            :counter-tick.sync="counterTick"
           >
             <template>
-              <slot :counterProps="counterProps"></slot>
+              <slot :counterTick="counterTick"></slot>
             </template>
           </counter>
           <slot name="legend-value"></slot>
@@ -64,13 +63,8 @@ export default {
     },
   },
   data: () => ({
-    counterProps: {},
+    counterTick: {},
   }),
-  methods: {
-    updateCounterProps(counterProps) {
-      this.counterProps = counterProps;
-    },
-  },
   computed: {
     legendVal() {
       if (this.loading || this.noData) {

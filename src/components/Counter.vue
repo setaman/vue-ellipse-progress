@@ -31,6 +31,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    counterTick: {
+      type: Object,
+      required: true,
+    },
   },
   data: () => ({
     start: 0,
@@ -110,7 +114,7 @@ export default {
         this.currentValue = this.end;
         this.reset();
       }
-      this.$emit("counterPropsUpdate", { ...this.counterProps, elapsed });
+      this.$emit("update:counterTick", { ...this.counterProps, elapsed });
       if (this.legendFormatter) {
         this.runCustomFormatter(elapsed);
       }
@@ -140,7 +144,7 @@ export default {
   },
   mounted() {
     if (this.legendFormatter) this.runCustomFormatter(0);
-    if (this.$slots.default) this.$emit("counterPropsUpdate", this.counterProps);
+    if (this.$slots.default) this.$emit("update:counterTick", this.counterProps);
     if (!this.loading) {
       setTimeout(() => {
         this.raf = requestAnimationFrame(this.count);

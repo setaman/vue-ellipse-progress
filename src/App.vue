@@ -41,18 +41,16 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress
-          :size="600"
-          :progress="progress"
-          :legendValue="1315.56"
-          animation="rs 5000 500"
-          :legend-formatter="customFormatter"
-        >
-          <!--<template v-slot:default="{ counterProps }">
-            <span style="font-weight: bold; font-size: 1.6rem; color: green;">
-              {{ formattedPrice(counterProps.currentValue) }}
+        <vue-ellipse-progress :size="600" :progress="progress" :legendValue="1315.56" animation="rs 5000 500">
+          <template v-slot:default="{ counterTick }">
+            <span
+              :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
+                counterTick.currentValue < 600 ? 'red' : 'yellow'
+              };`"
+            >
+              {{ formattedPrice(counterTick.currentValue) }}
             </span>
-          </template>-->
+          </template>
         </vue-ellipse-progress>
       </div>
       <vue-ellipse-progress
