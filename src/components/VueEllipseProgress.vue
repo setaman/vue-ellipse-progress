@@ -25,7 +25,7 @@
           class="ep-legend--value"
           v-if="legend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
-          :style="{ fontSize: fontSize, color: fontColor }"
+          :style="{ fontSize, color: fontColor }"
         >
           <counter
             :value="legendVal"

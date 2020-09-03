@@ -313,14 +313,16 @@ Is a Boolean. It defines whether the **[`progress`](#progress)** or from you def
 ###### Animated: :heavy_check_mark:
 
 Is any Number or String. Use this property if you want to show progress value as the legend of the circle that is not in
-the range [-100, 100]. If defined, `legendValue` will replace **[`progress`](#progress)** as the circle legend!
+the range [-100, 100]. If defined, `legendValue` will replace [`progress`](#progress) as the circle legend!
 You can set any precision of the decimal numbers. If the prop is defined as a string, you can specify the `","` 
 as decimals delimiter (e.g "123,123" for german numbers), apart from this the value must generally be a valid JavaScript Number.
 For more customization possibilities please use [`legendFormatter`](#legendformatter) or [`scoped slot`](#default). 
 
 ###### Example: :scroll:
 
-Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Since **[`progress`](#progress)** can take values only from 0 to 100 your need an additional property `legendValue`. You can show the product rating like in the following example:
+Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Setting the [`progress`](#progress) to 3.5 will 
+fill the circle to 3.5 percent, and this is not what we need, since we want to display the percentage of 5 as progress. 
+At this point we need an additional property `legendValue`. We can show the product rating like in the following example:
 
 ```js
 <vue-ellipse-progress :progress="progress" :legend-value="rating" />
