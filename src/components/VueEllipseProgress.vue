@@ -32,6 +32,7 @@
             :animation="animation"
             :loading="loading"
             :legend-formatter="legendFormatter"
+            :counterProps.sync="counterProps"
             @counterPropsUpdate="updateCounterProps"
           >
             <template>
@@ -55,7 +56,13 @@ import Counter from "./Counter.vue";
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  props,
+  props: {
+    ...props,
+    legendFormatter: {
+      type: Function,
+      required: false,
+    },
+  },
   data: () => ({
     counterProps: {},
   }),

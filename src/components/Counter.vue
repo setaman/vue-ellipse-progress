@@ -83,7 +83,7 @@ export default {
         difference: this.difference,
         oneStepDifference: this.oneStepDifference,
         startTime: this.startTime,
-        elapsed: undefined,
+        elapsed: 0,
       };
     },
   },

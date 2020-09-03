@@ -160,10 +160,6 @@ const props = {
     required: false,
     default: false,
   },
-  legendFormatter: {
-    type: Function,
-    required: false,
-  },
 };
 
 const simplifiedProps = {};
