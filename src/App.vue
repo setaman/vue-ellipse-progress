@@ -41,7 +41,13 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :size="600" :progress="progress" :legendValue="1315.56" animation="rs 5000 500">
+        <vue-ellipse-progress
+          :size="600"
+          :progress="progress"
+          :legendValue="1315.56"
+          animation="rs 5000 500"
+          :loading="loading"
+        >
           <template v-slot:default="{ counterTick }">
             <span
               :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${

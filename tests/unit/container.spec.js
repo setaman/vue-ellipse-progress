@@ -15,8 +15,8 @@ const factory = (propsData) => {
 };
 
 // https://github.com/vuejs/vue-test-utils/issues/974
-global.requestAnimationFrame = () => {};
-global.cancelAnimationFrame = () => {};
+/* global.requestAnimationFrame = () => {};
+global.cancelAnimationFrame = () => {}; */
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#size", () => {
