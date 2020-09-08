@@ -88,4 +88,11 @@ describe("[ Counter.vue ]", () => {
       });
     }
   });
+  describe("#animation", async () => {
+    const counterWrapper = factory({ value: 50, animation: "default 200 300" });
+    it("parses #animation prop correctly", () => {
+      expect(counterWrapper.vm.duration).to.equal(200);
+      expect(counterWrapper.vm.delay).to.equal(300);
+    });
+  });
 });

@@ -90,7 +90,6 @@ export default {
       return /<[a-z/][\s\S]*>/i.test(this.legendFormatter({ currentValue: 0 }).toString().trim());
     },
     circlesData() {
-      console.log(this.$scopedSlots.default);
       if (this.isMultiple) {
         return this.data.map((data) => ({
           ...this.$props,
