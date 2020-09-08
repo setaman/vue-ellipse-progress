@@ -5,9 +5,10 @@ import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 
-const factory = (propsData) => {
+const factory = (propsData, scopedSlots = {}) => {
   return mount(VueEllipseProgress, {
     propsData: { progress: 50, ...propsData },
+    scopedSlots,
     stubs: {
       CircleContainer,
     },
@@ -15,8 +16,18 @@ const factory = (propsData) => {
 };
 
 // https://github.com/vuejs/vue-test-utils/issues/974
-/* global.requestAnimationFrame = () => {};
-global.cancelAnimationFrame = () => {}; */
+// rAF polyfill: https://gist.github.com/paulirish/1579671
+let lastTime = 0;
+global.requestAnimationFrame = (callback) => {
+  const currTime = new Date().getTime();
+  const timeToCall = Math.max(0, 16 - (currTime - lastTime));
+  const id = setTimeout(() => {
+    callback(currTime + timeToCall);
+  }, timeToCall);
+  lastTime = currTime + timeToCall;
+  return id;
+};
+global.cancelAnimationFrame = (id) => clearTimeout(id);
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#size", () => {
@@ -118,6 +129,70 @@ describe("[ EllipseProgressContainer.vue ]", () => {
           },
         });
         expect(wrapper.contains("#my-slot")).to.be.true;
+      });
+    });
+    describe("#legendFormatter", () => {
+      /* it("passes counter tick properties to formatter function", () => {
+        const formatter = (counterTick) => counterTick;
+        const counterWrapper = factory({ value: 50, legendFormatter: formatter });
+        expect(counterWrapper.vm.customFormattedValue).to.be.a("object");
+        expect(counterWrapper.vm.customFormattedValue).to.have.property("currentValue");
+      }); */
+
+      it("renders the custom formatted value", (done) => {
+        const customFormat = (value) => `Formatted: ${value}`;
+        const formatter = ({ currentValue }) => customFormat(currentValue);
+        const wrapper = factory({ legendValue: 135, legendFormatter: formatter, animation: "default 0 0" });
+        setTimeout(() => {
+          expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(135));
+          done();
+        }, 50);
+      });
+
+      describe("custom format via default slot", () => {
+        const wrapper = factory(
+          { progress: 35 },
+          {
+            default: `
+              <v-template v-slot:default="{ counterTick }" >
+                <span class="my-formatter-slot">Formatted {{ counterTick.currentValue }}</span>
+              </v-template>`,
+          }
+        );
+
+        it("renders provided slot", () => {
+          expect(wrapper.find(".my-formatter-slot").exists()).to.be.true;
+        });
+
+        it("renders via provided slot formatted value", () => {
+          expect(wrapper.find(".my-formatter-slot").element.textContent).to.equal("Formatted 35");
+        });
+
+        it("do not renders other elements", () => {
+          expect(wrapper.findAll("span")).to.have.lengthOf(1);
+        });
+      });
+
+      describe("#legendFormatter HTML return value", () => {
+        const customFormat = (value) => `<span class="my-custom-format">Formatted ${value}</span>`;
+        const formatter = ({ currentValue }) => customFormat(currentValue);
+        const counterWrapper = factory({ value: 50, legendFormatter: formatter, animation: "default 0 0" });
+
+        it("recognises HTML formatter return value ", (done) => {
+          setTimeout(() => {
+            expect(counterWrapper.vm.isHTML).to.be.true;
+            done();
+          }, 10);
+        });
+        it("renders the formatter returned HTML", () => {
+          expect(counterWrapper.find(".my-custom-format").exists()).to.be.true;
+        });
+        it("renders the formatter HTML return value ", (done) => {
+          setTimeout(() => {
+            expect(counterWrapper.find(".my-custom-format").element.textContent).to.equal("Formatted 50");
+            done();
+          }, 50);
+        });
       });
     });
   });
