@@ -4,7 +4,7 @@ import Counter from "@/components/Counter.vue";
 
 const factory = (propsData, slots) => {
   return mount(Counter, {
-    propsData: { counterTick: {}, value: 50, loading: false, animation: "default 100 100", ...propsData },
+    propsData: { counterTick: {}, value: 50, loading: false, animation: "default 100 200", ...propsData },
     slots,
   });
 };
@@ -25,18 +25,26 @@ global.cancelAnimationFrame = (id) => clearTimeout(id);
 
 describe("[ Counter.vue ]", () => {
   describe("#value", async () => {
+    it("renders the final value correctly", (done) => {
+      const counterWrapper = factory({ value: 50, animation: `default 0 0` });
+      setTimeout(() => {
+        expect(counterWrapper.element.textContent).to.equal("50");
+      }, 100);
+      done();
+    });
+
     const values = [
       { value: -45.2456, count: 4, start: "0.0000" },
       { value: 56.34, count: 2, start: "0.00" },
       { value: "25,564", count: 3, start: "0,000" },
       { value: "-30,5", count: 1, start: "0,0" },
     ];
-    const animation = { duration: 100, delay: 100 };
+    const animation = { duration: 100, delay: 1000 };
     for (const val of values) {
       const { value, count, start } = val;
       const counterWrapper = factory({ value, animation: `default ${animation.duration} ${animation.delay}` });
 
-      it(`counts the decimals correctly for ${value}`, () => {
+      it("counts the decimals correctly", () => {
         expect(counterWrapper.vm.countDecimals()).to.equal(count);
       });
 
@@ -57,11 +65,6 @@ describe("[ Counter.vue ]", () => {
           expect(counterWrapper.vm.end).to.equal(parseFloat(value.toString().replace(",", ".")));
         });
       }
-
-      it("parses #animation prop correctly", () => {
-        expect(counterWrapper.vm.duration).to.equal(animation.duration);
-        expect(counterWrapper.vm.delay).to.equal(animation.delay);
-      });
 
       it("calculates the difference between the start and end values correctly", () => {
         const endValue = parseFloat(value.toString().replace(",", "."));
@@ -89,10 +92,20 @@ describe("[ Counter.vue ]", () => {
     }
   });
   describe("#animation", async () => {
-    const counterWrapper = factory({ value: 50, animation: "default 200 300" });
     it("parses #animation prop correctly", () => {
+      const counterWrapper = factory({ value: 50, animation: "default 200 300" });
       expect(counterWrapper.vm.duration).to.equal(200);
       expect(counterWrapper.vm.delay).to.equal(300);
+    });
+    it("do not count the value before delay", (done) => {
+      const counterWrapper = factory({ value: 50, animation: "default 200 1000" });
+      expect(counterWrapper.vm.currentValue).to.equal(0);
+      expect(counterWrapper.element.textContent).to.equal("0");
+      setTimeout(() => {
+        expect(counterWrapper.vm.currentValue).to.equal(0);
+        expect(counterWrapper.element.textContent).to.equal("0");
+        done();
+      }, 300);
     });
   });
 });
