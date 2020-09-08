@@ -1,11 +1,6 @@
 <template>
   <span class="ep-legend--value__counter">
-    <slot> </slot>
-    <span v-if="legendFormatter">
-      <span v-if="isHTML" v-html="customFormattedValue"></span>
-      <span v-else>{{ customFormattedValue }}</span>
-    </span>
-    <span v-else-if="!$slots.default">{{ formattedValue }}</span>
+    <slot :counterTick="counterProps"> </slot>
   </span>
 </template>
 
@@ -40,7 +35,6 @@ export default {
     start: 0,
     startTime: 0,
     currentValue: 0,
-    customFormattedValue: "",
     raf: null,
     previousCountStepValue: 0,
   }),
@@ -73,12 +67,10 @@ export default {
     duration() {
       return animationParser(this.animation).duration;
     },
-    isHTML() {
-      return /<[a-z/][\s\S]*>/i.test(this.customFormattedValue.toString().trim());
-    },
     counterProps() {
       return {
         currentValue: parseFloat(this.formattedValue),
+        currentFormattedValue: this.formattedValue,
         currentRawValue: this.currentValue,
         duration: this.duration,
         previousCountStepValue: this.previousCountStepValue,
@@ -114,10 +106,6 @@ export default {
         this.currentValue = this.end;
         this.reset();
       }
-      this.$emit("update:counterTick", { ...this.counterProps, elapsed });
-      if (this.legendFormatter) {
-        this.runCustomFormatter(elapsed);
-      }
     },
     countDown(elapsed) {
       const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
@@ -134,17 +122,8 @@ export default {
       this.previousCountStepValue = 0;
       cancelAnimationFrame(this.raf);
     },
-    runCustomFormatter(elapsed) {
-      this.customFormattedValue =
-        this.legendFormatter({
-          ...this.counterProps,
-          elapsed,
-        }) || "";
-    },
   },
   mounted() {
-    if (this.legendFormatter) this.runCustomFormatter(0);
-    if (this.$slots.default) this.$emit("update:counterTick", this.counterProps);
     if (!this.loading) {
       setTimeout(() => {
         this.raf = requestAnimationFrame(this.count);

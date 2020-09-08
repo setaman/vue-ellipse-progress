@@ -34,8 +34,13 @@
             :legend-formatter="legendFormatter"
             :counter-tick.sync="counterTick"
           >
-            <template>
-              <slot :counterTick="counterTick"></slot>
+            <template v-slot:default="{ counterTick }">
+              <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
+              <span v-if="legendFormatter">
+                <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
+                <span v-else>{{ legendFormatter(counterTick) }}</span>
+              </span>
+              <span v-else-if="!$scopedSlots.default">{{ counterTick.currentFormattedValue }}</span>
             </template>
           </counter>
           <slot name="legend-value"></slot>
@@ -81,7 +86,11 @@ export default {
     isMultiple() {
       return this.data.length > 1;
     },
+    isHTML() {
+      return /<[a-z/][\s\S]*>/i.test(this.legendFormatter({ currentValue: 0 }).toString().trim());
+    },
     circlesData() {
+      console.log(this.$scopedSlots.default);
       if (this.isMultiple) {
         return this.data.map((data) => ({
           ...this.$props,
