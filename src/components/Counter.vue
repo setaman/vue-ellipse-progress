@@ -14,20 +14,12 @@ export default {
       type: [Number, String],
       required: true,
     },
-    legendFormatter: {
-      type: Function,
-      required: false,
-    },
     animation: {
       type: String,
       required: true,
     },
     loading: {
       type: Boolean,
-      required: true,
-    },
-    counterTick: {
-      type: Object,
       required: true,
     },
   },
