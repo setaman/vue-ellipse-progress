@@ -42,7 +42,7 @@ const colorTests = (colorProp, color, selector, fill = false) => {
     });
 
     it("do not renders Gradient component", () => {
-      expect(wrapper.contains(Gradient)).to.be.false;
+      expect(wrapper.findComponent(Gradient).exists()).to.be.false;
     });
 
     it("applies color correctly to SVG stroke", () => {
@@ -64,7 +64,7 @@ const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
       expect(wrapper.vm[`is${type}${fillType}Gradient`]).to.be.true;
     });
     it("renders Gradient component", () => {
-      expect(wrapper.contains(Gradient)).to.be.true;
+      expect(wrapper.findComponent(Gradient).exists()).to.be.true;
     });
     it(`applies gradient URL to SVG ${fill ? "fill" : "stroke"}`, () => {
       expect(circleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(

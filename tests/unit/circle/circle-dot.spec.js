@@ -52,8 +52,8 @@ describe("#dot", () => {
 
   it("applies default value correctly", () => {
     const wrapper = factory({ progress }, VueEllipseProgress);
-    const circleWrapper = wrapper.find(Circle);
-    const circleContainerWrapper = wrapper.find(CircleContainer);
+    const circleWrapper = wrapper.findComponent(Circle);
+    const circleContainerWrapper = wrapper.findComponent(CircleContainer);
 
     expect(wrapper.props("dot")).to.equal(0);
     expect(circleContainerWrapper.props("dot")).to.equal(0);
@@ -64,7 +64,7 @@ describe("#dot", () => {
 
   it(`calculates and applies correct rotation of the dot container depending on progress`, (done) => {
     const wrapper = factory({ progress, dot: 5, animation: "default 0 0" }, CircleContainer);
-    const circleDotWrapper = wrapper.find(CircleDot);
+    const circleDotWrapper = wrapper.findComponent(CircleDot);
     const rotationStart = wrapper.props("angle") + 90;
     const rotation = rotationStart + (progress * 360) / 100;
     setTimeout(() => {
@@ -75,7 +75,7 @@ describe("#dot", () => {
 
   it(`applies correct initial rotation of the dot container`, async () => {
     const wrapper = factory({ progress, dot: 5, animation: "default 0 1000" }, CircleContainer);
-    const circleDotWrapper = wrapper.find(CircleDot);
+    const circleDotWrapper = wrapper.findComponent(CircleDot);
     const angle = wrapper.props("angle");
     const rotationStart = angle + 90;
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotationStart}deg)`);
@@ -102,14 +102,14 @@ describe("#dot", () => {
     const circleData = data[i];
     const wrapper = factory({ size, dot: globalDot, ...circleData }, CircleContainer);
     const circleDotSpanWrapper = wrapper.find("span.ep-circle--progress__dot");
-    const circleDotWrapper = wrapper.find(CircleDot);
-    const circleWrapper = wrapper.find(Circle);
+    const circleDotWrapper = wrapper.findComponent(CircleDot);
+    const circleWrapper = wrapper.findComponent(Circle);
     const parsedDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot);
     const parsedDotSize = parseFloat(calculateThickness(parsedDot.size));
     const parsedDotColor = parsedDot.backgroundColor || parsedDot.background || parsedDot.color;
 
     it(`renders dot component | #dot = ${circleData.dot}`, () => {
-      expect(wrapper.contains(CircleDot)).to.be.true;
+      expect(wrapper.findComponent(CircleDot).exists()).to.be.true;
     });
 
     it(`applies the size of the dot correctly | #dot = ${circleData.dot}`, () => {

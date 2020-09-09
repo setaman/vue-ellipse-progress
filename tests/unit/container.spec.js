@@ -117,7 +117,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-value": '<span id="my-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.contains("#my-slot")).to.be.true;
+        expect(wrapper.get("#my-slot"));
       });
     });
     describe("#legend-caption", () => {
@@ -128,7 +128,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-caption": '<span id="my-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.contains("#my-slot")).to.be.true;
+        expect(wrapper.get("#my-slot"));
       });
     });
     describe("#default", () => {
@@ -169,7 +169,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.find(".ep-legend--value").exists()).to.be.false;
     });
     it(`renders ${data.length} circles`, () => {
-      expect(wrapper.findAll(CircleContainer).length).to.equal(data.length);
+      expect(wrapper.findAllComponents(CircleContainer).length).to.equal(data.length);
     });
     it("merges circles props with the global props", () => {
       const { circlesData } = wrapper.vm;

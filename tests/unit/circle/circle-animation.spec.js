@@ -124,7 +124,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 
 describe("#animation", () => {
   const circleContainerWrapper = factory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
-  const circleDotWrapper = circleContainerWrapper.find(CircleDot);
+  const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
 
   it("it parses the #animation property correctly", () => {
     const wrapper = factory({ animation: "rs 2000 200" });
@@ -170,7 +170,7 @@ describe("#animation", () => {
 
     const progress = 50;
     const wrapper = factory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
-    const cdWrapper = wrapper.find(CircleDot);
+    const cdWrapper = wrapper.findComponent(CircleDot);
     const startRotation = wrapper.props("angle") + 90;
 
     it(`circle dot | do not applies any animation type before delay`, () => {
