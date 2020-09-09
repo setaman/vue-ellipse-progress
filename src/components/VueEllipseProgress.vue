@@ -27,7 +27,7 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading" :counter-tick.sync="counterTick">
+          <counter :value="legendVal" :animation="animation" :loading="loading">
             <template v-slot:default="{ counterTick }">
               <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
               <span v-if="legendFormatter">
