@@ -59,11 +59,7 @@
           </template>
         </vue-ellipse-progress>
       </div>
-      <vue-ellipse-progress
-        :size="600"
-        :progress="progress"
-        :legend-value="125.1"
-      >
+      <vue-ellipse-progress :size="600" :progress="progress" :legend-value="125.1">
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
         </template>

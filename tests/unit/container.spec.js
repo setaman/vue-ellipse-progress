@@ -150,7 +150,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         setTimeout(() => {
           expect(wrapper.find(".my-formatter-slot").element.textContent).to.equal("Formatted 35");
           done();
-        }, 10);
+        }, 100);
       });
 
       it("do not renders other elements", () => {
@@ -194,20 +194,14 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#legendFormatter", () => {
-    /* it("passes counter tick properties to formatter function", () => {
-        const formatter = (counterTick) => counterTick;
-        const counterWrapper = factory({ value: 50, legendFormatter: formatter });
-        expect(counterWrapper.vm.customFormattedValue).to.be.a("object");
-        expect(counterWrapper.vm.customFormattedValue).to.have.property("currentValue");
-      }); */
     it("renders the custom formatted value", (done) => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
-      const wrapper = factory({ legendValue: 135, legendFormatter: formatter, animation: "default 0 0" });
+      const wrapper = factory({ legendValue: 120, legendFormatter: formatter, animation: "default 0 0" });
       setTimeout(() => {
-        expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(135));
+        expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
         done();
-      }, 50);
+      }, 100);
     });
     describe("#legendFormatter HTML return value", () => {
       const customFormat = (value) => `<span class="my-custom-format">Formatted ${value}</span>`;
