@@ -578,7 +578,7 @@ props and adjust the presentation of the legend to your needs.
 <vue-ellipse-progress :progress="50">
   <template v-slot:default="{ counterTick }">
     <span style="font-weight: bold; font-size: 1.6rem; color: green;">
-      {{ myFormatter(counterTick .currentValue) }}
+      {{ myFormatter(counterTick.currentValue) }}
     </span>
   </template>
 </vue-ellipse-progress>
