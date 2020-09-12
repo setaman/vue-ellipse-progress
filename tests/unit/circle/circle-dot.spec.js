@@ -112,7 +112,7 @@ describe("#dot", () => {
       expect(wrapper.findComponent(CircleDot).exists()).to.be.true;
     });
 
-    it(`applies the size of the dot correctly | #dot = ${circleData.dot}`, () => {
+    it(`applies the width of the dot correctly | #dot = ${circleData.dot}`, () => {
       expect(circleDotSpanWrapper.element.style.width).to.equal(`${parsedDotSize}px`);
     });
 
@@ -128,8 +128,8 @@ describe("#dot", () => {
     it(`calculates and applies the size of the dot container correctly | #dot = ${circleData.dot}`, () => {
       const circleRadius = circleWrapper.vm.radius;
       const containerSize = circleRadius * 2 + parsedDotSize;
-      expect(circleDotWrapper.element.getAttribute("width")).to.equal(`${containerSize}`);
-      expect(circleDotWrapper.element.getAttribute("height")).to.equal(`${containerSize}`);
+      expect(circleDotWrapper.element.style.width).to.equal(`${containerSize}px`);
+      expect(circleDotWrapper.element.style.height).to.equal(`${containerSize}px`);
     });
   }
 });
