@@ -47,9 +47,9 @@
           :legendValue="1315.56"
           animation="rs 2000 500"
           :loading="loading"
-          dot="100 red"
+          dot="50 red"
+          :reverse="true"
           line-mode="in"
-          :data="circles"
         >
           <template v-slot:default="{ counterTick }">
             <span

@@ -1,7 +1,7 @@
 <template>
-  <div class="ep-svg-container">
+  <div class="ep-svg-container" :class="{ 'ep-reverse': reverse }">
     <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-      <g class="ep-circle--container" :class="{ 'ep-reverse': reverse }">
+      <g class="ep-circle--container">
         <defs>
           <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
           <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
@@ -76,12 +76,12 @@ export default {
   justify-content: center;
   align-items: center;
   position: absolute;
+  &.ep-reverse {
+    transform: scaleX(-1);
+  }
 }
 g.ep-circle--container {
   transition: inherit;
   transform-origin: 50% 50%;
-  &.ep-reverse {
-    transform: scaleX(-1);
-  }
 }
 </style>
