@@ -86,6 +86,23 @@ describe("#dot", () => {
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${halfRotationStart}deg)`);
   });
 
+  it(`applies custom style to dot`, async () => {
+    const wrapper = factory(
+      { progress, dot: { size: 10, background: "red", border: "2px solid green" }, animation: "default 0 1000" },
+      CircleDot
+    ).find("span.ep-circle--progress__dot");
+    expect(wrapper.element.style.background).to.equal("red");
+    expect(wrapper.element.style.border).to.equal("2px solid green");
+  });
+
+  it(`do not apply custom height to dot`, async () => {
+    const wrapper = factory(
+      { progress, dot: { size: 10, height: "20px" }, animation: "default 0 1000" },
+      CircleDot
+    ).find("span.ep-circle--progress__dot");
+    expect(wrapper.element.style.height).to.equal("10px");
+  });
+
   const data = [
     { progress, thickness, dot: 5 },
     { progress, thickness, dot: "5" },
@@ -110,6 +127,10 @@ describe("#dot", () => {
 
     it(`renders dot component | #dot = ${circleData.dot}`, () => {
       expect(wrapper.findComponent(CircleDot).exists()).to.be.true;
+    });
+
+    it(`applies the height of the dot correctly | #dot = ${circleData.dot}`, () => {
+      expect(circleDotSpanWrapper.element.style.height).to.equal(`${parsedDotSize}px`);
     });
 
     it(`applies the width of the dot correctly | #dot = ${circleData.dot}`, () => {
