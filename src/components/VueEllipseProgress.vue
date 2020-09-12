@@ -2,24 +2,24 @@
   <div
     class="ep-container"
     :style="{
-      maxWidth: `${size}px`,
-      maxHeight: `${size}px`,
+      width: `${size}px`,
+      height: `${size}px`,
     }"
   >
     <div class="ep-content">
-      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <circle-container
-          v-for="(options, i) in circlesData"
-          :key="i"
-          v-bind="options"
-          :multiple="isMultiple"
-          :index="i"
-          :globalThickness="thickness"
-          :globalGap="gap"
-          :globalDot="dot"
-        />
-      </svg>
-
+      <div class="ep-svg-container" v-for="(options, i) in circlesData" :key="i">
+        <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+          <circle-container
+            v-bind="options"
+            :multiple="isMultiple"
+            :index="i"
+            :globalThickness="thickness"
+            :globalGap="gap"
+            :globalDot="dot"
+          />
+        </svg>
+        <circle-dot v-if="options.dot" v-bind="$props" :id="_uid" :index="i" :multiple="isMultiple" />
+      </div>
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import CircleDot from "@/components/Circle/CircleDot.vue";
 import { getNumberIfValid, isValidNumber } from "../utils";
 import { props } from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
@@ -53,7 +54,7 @@ import Counter from "./Counter.vue";
 
 export default {
   name: "VueEllipseProgress",
-  components: { Counter, CircleContainer },
+  components: { CircleDot, Counter, CircleContainer },
   props: {
     ...props,
     legendFormatter: {
@@ -110,6 +111,12 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.ep-svg-container {
+  position: absolute;
 }
 
 .ep-legend--container {
@@ -125,7 +132,7 @@ export default {
 .ep-hidden {
   opacity: 0;
 }
-svg.ep-svg-container {
+svg.ep-svg {
   transition: inherit;
   transform-origin: 50% 50%;
 }

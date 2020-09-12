@@ -7,7 +7,6 @@
       <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
     </defs>
     <component :is="circleType" v-bind="$props" :id="_uid" />
-    <circle-dot v-if="dot" v-bind="$props" :id="_uid" :index="index" :multiple="multiple" />
   </g>
 </template>
 
