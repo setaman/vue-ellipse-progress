@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="ep-circle--progress__dot-container"
-    :class="dotContainerClasses"
-    :width="dotContainerSize"
-    :height="dotContainerSize"
-    :style="dotContainerStyle"
-  >
+  <div class="ep-circle--progress__dot-container" :class="dotContainerClasses" :style="dotContainerStyle">
     <div>
       <span class="ep-circle--progress__dot" :class="{ 'ep-hidden': isHidden }" :style="dotStyle"> </span>
     </div>
@@ -21,9 +15,6 @@ export default {
   name: "CircleDot",
   mixins: [CircleMixin],
   computed: {
-    dotContainerPosition() {
-      return (this.size - this.radius * 2 - this.dotSize) / 2;
-    },
     dotContainerSize() {
       return this.radius * 2 + this.dotSize;
     },

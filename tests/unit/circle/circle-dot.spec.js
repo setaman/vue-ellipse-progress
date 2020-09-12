@@ -125,13 +125,6 @@ describe("#dot", () => {
       }
     });
 
-    it(`calculates and applies the position of the dot container correctly | #dot = ${circleData.dot}`, () => {
-      const circleRadius = circleWrapper.vm.radius;
-      const xAndYPosition = (size - circleRadius * 2) / 2 - parsedDotSize / 2;
-      expect(circleDotWrapper.element.getAttribute("y")).to.equal(`${xAndYPosition}`);
-      expect(circleDotWrapper.element.getAttribute("x")).to.equal(`${xAndYPosition}`);
-    });
-
     it(`calculates and applies the size of the dot container correctly | #dot = ${circleData.dot}`, () => {
       const circleRadius = circleWrapper.vm.radius;
       const containerSize = circleRadius * 2 + parsedDotSize;

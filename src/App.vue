@@ -49,7 +49,8 @@
           :loading="loading"
           dot="50 red"
           :reverse="true"
-          line-mode="in"
+          line-mode="in 10"
+          half
         >
           <template v-slot:default="{ counterTick }">
             <span
