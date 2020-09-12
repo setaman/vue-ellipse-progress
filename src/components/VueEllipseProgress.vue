@@ -7,28 +7,16 @@
     }"
   >
     <div class="ep-content">
-      <div class="ep-svg-container" v-for="(options, i) in circlesData" :key="i">
-        <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-          <circle-container
-            v-bind="options"
-            :multiple="isMultiple"
-            :index="i"
-            :globalThickness="thickness"
-            :globalGap="gap"
-            :globalDot="dot"
-          />
-        </svg>
-        <circle-dot
-          v-if="options.dot"
-          v-bind="options"
-          :id="_uid"
-          :index="i"
-          :multiple="isMultiple"
-          :globalGap="gap"
-          :globalDot="dot"
-          :globalThickness="thickness"
-        />
-      </div>
+      <circle-container
+        v-for="(options, i) in circlesData"
+        :key="i"
+        v-bind="options"
+        :multiple="isMultiple"
+        :index="i"
+        :globalThickness="thickness"
+        :globalGap="gap"
+        :globalDot="dot"
+      />
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
@@ -55,7 +43,6 @@
 </template>
 
 <script>
-import CircleDot from "@/components/Circle/CircleDot.vue";
 import { getNumberIfValid, isValidNumber } from "../utils";
 import { props } from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
@@ -63,7 +50,7 @@ import Counter from "./Counter.vue";
 
 export default {
   name: "VueEllipseProgress",
-  components: { CircleDot, Counter, CircleContainer },
+  components: { Counter, CircleContainer },
   props: {
     ...props,
     legendFormatter: {
@@ -122,13 +109,6 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-}
-
-.ep-svg-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
 }
 
 .ep-legend--container {
