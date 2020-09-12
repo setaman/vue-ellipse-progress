@@ -30,7 +30,8 @@
         </label>
         <label for="determinate">
           Determinate
-          <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
+          <input id="determinate" type="checkbox" v-model="determinate" />
+          <input id="determinate1" type="checkbox" v-model="circles[0].determinate" />
           <input id="determinate2" type="checkbox" v-model="determinate" />
         </label>
       </div>
@@ -42,15 +43,15 @@
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
         <vue-ellipse-progress
-          :size="600"
+          :size="200"
           :progress="progress"
           :legendValue="1315.56"
           animation="rs 2000 500"
           :loading="loading"
           dot="50 red"
           :reverse="true"
-          line-mode="in 10"
-          half
+          line-mode="out"
+          :determinate="determinate"
         >
           <template v-slot:default="{ counterTick }">
             <span
@@ -63,7 +64,7 @@
           </template>
         </vue-ellipse-progress>
       </div>
-      <vue-ellipse-progress :size="600" :progress="progress" :legend-value="125.1">
+      <vue-ellipse-progress dot="20 green" :loading="loading" :size="200" :progress="progress" :legend-value="125.1">
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
         </template>
