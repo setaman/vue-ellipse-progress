@@ -45,9 +45,11 @@
           :size="600"
           :progress="progress"
           :legendValue="1315.56"
-          animation="rs 5000 500"
+          animation="rs 2000 500"
           :loading="loading"
-          dot="20 red"
+          dot="100 red"
+          line-mode="in"
+          :data="circles"
         >
           <template v-slot:default="{ counterTick }">
             <span
@@ -78,9 +80,9 @@ export default {
     line: "round",
     price: "",
     circles: [
-      { progress: 50, color: "red" },
-      { progress: 50, color: "red", half: true, angle: -90 },
-      { progress: -50, color: "blue", reverse: false },
+      { progress: 50, color: "red", dot: "20 yellow" },
+      { progress: 50, color: "red", half: true, angle: -90, dot: "10 green" },
+      { progress: 50, color: "blue", reverse: false },
     ],
     determinate: false,
     loading: false,

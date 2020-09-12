@@ -18,7 +18,16 @@
             :globalDot="dot"
           />
         </svg>
-        <circle-dot v-if="options.dot" v-bind="$props" :id="_uid" :index="i" :multiple="isMultiple" />
+        <circle-dot
+          v-if="options.dot"
+          v-bind="options"
+          :id="_uid"
+          :index="i"
+          :multiple="isMultiple"
+          :globalGap="gap"
+          :globalDot="dot"
+          :globalThickness="thickness"
+        />
       </div>
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
@@ -116,6 +125,9 @@ export default {
 }
 
 .ep-svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
 }
 
