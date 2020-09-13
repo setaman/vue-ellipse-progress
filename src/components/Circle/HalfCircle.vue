@@ -24,24 +24,25 @@
     </path>
     <fade-in-transition>
       <g v-if="isLoading">
-        <path
-          :stroke-width="computedThickness"
-          class="ep-half-circle--loading animation__loading"
-          :d="path"
-          :fill="computedColorFill"
-          :stroke="computedColor"
-          :stroke-dasharray="circumference"
-          :stroke-linecap="line"
-          :style="{
-            opacity: `${loading ? 1 : 0.45}`,
-            transitionTimingFunction: styles.transitionTimingFunction,
-            transformOrigin: styles.transformOrigin,
-            '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
-            '--ep-circumference': styles['--ep-circumference'],
-            '--ep-negative-circumference': styles['--ep-negative-circumference'],
-          }"
-        >
-        </path>
+        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
+          <path
+            :stroke-width="computedThickness"
+            class="ep-half-circle--loading animation__loading"
+            :d="path"
+            :fill="computedColorFill"
+            :stroke="computedColor"
+            :stroke-dasharray="circumference"
+            :stroke-linecap="line"
+            :style="{
+              transitionTimingFunction: styles.transitionTimingFunction,
+              transformOrigin: styles.transformOrigin,
+              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+              '--ep-circumference': styles['--ep-circumference'],
+              '--ep-negative-circumference': styles['--ep-negative-circumference'],
+            }"
+          >
+          </path>
+        </g>
       </g>
     </fade-in-transition>
 
