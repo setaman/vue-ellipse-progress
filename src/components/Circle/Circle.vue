@@ -36,7 +36,12 @@
             :stroke-width="computedThickness"
             :stroke-linecap="line"
             :stroke-dasharray="circumference"
-            :style="styles"
+            :style="{
+              transitionTimingFunction: styles.transitionTimingFunction,
+              transformOrigin: styles.transformOrigin,
+              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+              '--ep-circumference': styles['--ep-circumference'],
+            }"
           >
           </circle>
         </g>

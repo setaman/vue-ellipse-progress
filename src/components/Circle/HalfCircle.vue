@@ -33,7 +33,13 @@
             :stroke="computedColor"
             :stroke-dasharray="circumference"
             :stroke-linecap="line"
-            :style="styles"
+            :style="{
+              transitionTimingFunction: styles.transitionTimingFunction,
+              transformOrigin: styles.transformOrigin,
+              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+              '--ep-circumference': styles['--ep-circumference'],
+              '--ep-negative-circumference': styles['--ep-negative-circumference'],
+            }"
           >
           </path>
         </g>
