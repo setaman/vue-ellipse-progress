@@ -24,10 +24,10 @@
     >
     </circle>
     <fade-in-transition>
-      <g v-if="showDeterminate">
-        <g style="opacity: 0.45;">
+      <g v-if="isLoading">
+        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
           <circle
-            class="ep-circle--determinate animation__loading"
+            class="ep-circle--loading animation__loading"
             :r="radius"
             :cx="position"
             :cy="position"

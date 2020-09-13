@@ -23,11 +23,11 @@
     >
     </path>
     <fade-in-transition>
-      <g v-if="showDeterminate">
-        <g style="opacity: 0.6;">
+      <g v-if="isLoading">
+        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
           <path
             :stroke-width="computedThickness"
-            class="ep-half-circle--determinate animation__loading"
+            class="ep-half-circle--loading animation__loading"
             :d="path"
             :fill="computedColorFill"
             :stroke="computedColor"
