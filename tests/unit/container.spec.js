@@ -34,8 +34,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     const size = 250;
     const wrapper = factory({ size });
     it("sets the size of the container correctly", () => {
-      expect(wrapper.element.style.maxWidth).to.equal(`${size}px`);
-      expect(wrapper.element.style.maxHeight).to.equal(`${size}px`);
+      expect(wrapper.element.style.width).to.equal(`${size}px`);
+      expect(wrapper.element.style.height).to.equal(`${size}px`);
     });
 
     it("sets the size of the svg container correctly", () => {

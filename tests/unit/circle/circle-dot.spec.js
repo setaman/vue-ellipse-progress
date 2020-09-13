@@ -86,6 +86,23 @@ describe("#dot", () => {
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${halfRotationStart}deg)`);
   });
 
+  it(`applies custom style to dot`, async () => {
+    const wrapper = factory(
+      { progress, dot: { size: 10, background: "red", border: "2px solid green" }, animation: "default 0 1000" },
+      CircleDot
+    ).find("span.ep-circle--progress__dot");
+    expect(wrapper.element.style.background).to.equal("red");
+    expect(wrapper.element.style.border).to.equal("2px solid green");
+  });
+
+  it(`do not apply custom height to dot`, async () => {
+    const wrapper = factory(
+      { progress, dot: { size: 10, height: "20px" }, animation: "default 0 1000" },
+      CircleDot
+    ).find("span.ep-circle--progress__dot");
+    expect(wrapper.element.style.height).to.equal("10px");
+  });
+
   const data = [
     { progress, thickness, dot: 5 },
     { progress, thickness, dot: "5" },
@@ -112,7 +129,11 @@ describe("#dot", () => {
       expect(wrapper.findComponent(CircleDot).exists()).to.be.true;
     });
 
-    it(`applies the size of the dot correctly | #dot = ${circleData.dot}`, () => {
+    it(`applies the height of the dot correctly | #dot = ${circleData.dot}`, () => {
+      expect(circleDotSpanWrapper.element.style.height).to.equal(`${parsedDotSize}px`);
+    });
+
+    it(`applies the width of the dot correctly | #dot = ${circleData.dot}`, () => {
       expect(circleDotSpanWrapper.element.style.width).to.equal(`${parsedDotSize}px`);
     });
 
@@ -125,18 +146,11 @@ describe("#dot", () => {
       }
     });
 
-    it(`calculates and applies the position of the dot container correctly | #dot = ${circleData.dot}`, () => {
-      const circleRadius = circleWrapper.vm.radius;
-      const xAndYPosition = (size - circleRadius * 2) / 2 - parsedDotSize / 2;
-      expect(circleDotWrapper.element.getAttribute("y")).to.equal(`${xAndYPosition}`);
-      expect(circleDotWrapper.element.getAttribute("x")).to.equal(`${xAndYPosition}`);
-    });
-
     it(`calculates and applies the size of the dot container correctly | #dot = ${circleData.dot}`, () => {
       const circleRadius = circleWrapper.vm.radius;
       const containerSize = circleRadius * 2 + parsedDotSize;
-      expect(circleDotWrapper.element.getAttribute("width")).to.equal(`${containerSize}`);
-      expect(circleDotWrapper.element.getAttribute("height")).to.equal(`${containerSize}`);
+      expect(circleDotWrapper.element.style.width).to.equal(`${containerSize}px`);
+      expect(circleDotWrapper.element.style.height).to.equal(`${containerSize}px`);
     });
   }
 });

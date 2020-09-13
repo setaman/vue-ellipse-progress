@@ -2,24 +2,21 @@
   <div
     class="ep-container"
     :style="{
-      maxWidth: `${size}px`,
-      maxHeight: `${size}px`,
+      width: `${size}px`,
+      height: `${size}px`,
     }"
   >
     <div class="ep-content">
-      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <circle-container
-          v-for="(options, i) in circlesData"
-          :key="i"
-          v-bind="options"
-          :multiple="isMultiple"
-          :index="i"
-          :globalThickness="thickness"
-          :globalGap="gap"
-          :globalDot="dot"
-        />
-      </svg>
-
+      <circle-container
+        v-for="(options, i) in circlesData"
+        :key="i"
+        v-bind="options"
+        :multiple="isMultiple"
+        :index="i"
+        :globalThickness="thickness"
+        :globalGap="gap"
+        :globalDot="dot"
+      />
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
@@ -110,6 +107,8 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .ep-legend--container {
@@ -125,7 +124,7 @@ export default {
 .ep-hidden {
   opacity: 0;
 }
-svg.ep-svg-container {
+svg.ep-svg {
   transition: inherit;
   transform-origin: 50% 50%;
 }
