@@ -48,9 +48,10 @@
           :legendValue="1315.56"
           animation="rs 2000 500"
           :loading="loading"
-          dot="50 red"
+          dot="30 red"
           :reverse="true"
-          line-mode="out"
+          line-mode="out 10"
+          :no-data="noData"
           :determinate="determinate"
         >
           <template v-slot:default="{ counterTick }">
@@ -64,7 +65,17 @@
           </template>
         </vue-ellipse-progress>
       </div>
-      <vue-ellipse-progress dot="20 green" :loading="loading" :size="200" :progress="progress" :legend-value="125.1">
+      <vue-ellipse-progress
+        dot="20 green"
+        :loading="loading"
+        :size="200"
+        :progress="progress"
+        :legend-value="125.1"
+        half
+        line-mode="out 20"
+        :no-data="noData"
+        :determinate="determinate"
+      >
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
         </template>

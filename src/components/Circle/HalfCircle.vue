@@ -16,7 +16,7 @@
       :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
       :style="{
-        transitionDuration: styles.transitionDuration,
+        transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"

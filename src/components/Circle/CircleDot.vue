@@ -32,7 +32,7 @@ export default {
         width: `${this.dotContainerSize}px`,
         height: `${this.dotContainerSize}px`,
         transform: `rotate(${this.dotContainerRotation}deg)`,
-        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         "animation-duration": this.animationDuration,
         "--ep-dot-start": `${this.dotStart}deg`,
@@ -63,7 +63,7 @@ export default {
         width: `${this.dotSize}px`,
         backgroundColor: this.dotColor,
         ...this.dot,
-        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         height: `${this.dotSize}px`,
       };
     },

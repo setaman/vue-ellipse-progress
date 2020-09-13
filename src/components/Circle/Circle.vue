@@ -17,7 +17,7 @@
       :fill="computedEmptyColorFill"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
       :style="{
-        transitionDuration: styles.transitionDuration,
+        transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
       :stroke-width="computedEmptyThickness"

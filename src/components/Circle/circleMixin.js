@@ -236,10 +236,9 @@ export default {
       return {
         transition: `${this.animationDuration}, opacity 0.3s`,
         strokeDashoffset: this.strokeDashOffset,
-        /* transitionDuration: this.animationDuration, */
         transitionTimingFunction: "ease-in-out",
         transformOrigin: this.transformOrigin,
-        opacity: this.loading ? 0 : 1,
+        opacity: this.loading || !this.dataIsAvailable ? 0 : 1,
         "--ep-circumference": this.circumference,
         "--ep-negative-circumference": this.getNegativeCircumference(),
         "--ep-double-circumference": this.getDoubleCircumference(),
