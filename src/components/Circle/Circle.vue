@@ -25,26 +25,25 @@
     </circle>
     <fade-in-transition>
       <g v-if="isLoading">
-        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
-          <circle
-            class="ep-circle--loading animation__loading"
-            :r="radius"
-            :cx="position"
-            :cy="position"
-            fill="transparent"
-            :stroke="computedColor"
-            :stroke-width="computedThickness"
-            :stroke-linecap="line"
-            :stroke-dasharray="circumference"
-            :style="{
-              transitionTimingFunction: styles.transitionTimingFunction,
-              transformOrigin: styles.transformOrigin,
-              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
-              '--ep-circumference': styles['--ep-circumference'],
-            }"
-          >
-          </circle>
-        </g>
+        <circle
+          class="ep-circle--loading animation__loading"
+          :r="radius"
+          :cx="position"
+          :cy="position"
+          fill="transparent"
+          :stroke="computedColor"
+          :stroke-width="computedThickness"
+          :stroke-linecap="line"
+          :stroke-dasharray="circumference"
+          :style="{
+            opacity: `${loading ? 1 : 0.45}`,
+            transitionTimingFunction: styles.transitionTimingFunction,
+            transformOrigin: styles.transformOrigin,
+            '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+            '--ep-circumference': styles['--ep-circumference'],
+          }"
+        >
+        </circle>
       </g>
     </fade-in-transition>
     <circle
