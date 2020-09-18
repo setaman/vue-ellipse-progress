@@ -143,7 +143,6 @@ export default {
         `animation__${
           !this.loading && this.dataIsAvailable && this.isInitialized ? this.parsedAnimation.type : "none"
         }`,
-        `${this.loading ? "animation__loading" : ""}`,
       ];
     },
     animationDuration() {
@@ -235,10 +234,11 @@ export default {
 
     styles() {
       return {
+        transition: `${this.animationDuration}, opacity 0.3s`,
         strokeDashoffset: this.strokeDashOffset,
-        transitionDuration: this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         transformOrigin: this.transformOrigin,
+        opacity: this.loading || !this.dataIsAvailable ? 0 : 1,
         "--ep-circumference": this.circumference,
         "--ep-negative-circumference": this.getNegativeCircumference(),
         "--ep-double-circumference": this.getDoubleCircumference(),
@@ -252,8 +252,8 @@ export default {
       };
     },
 
-    showDeterminate() {
-      return this.determinate && !this.loading && this.dataIsAvailable;
+    isLoading() {
+      return (this.determinate || this.loading) && this.dataIsAvailable;
     },
   },
   methods: {

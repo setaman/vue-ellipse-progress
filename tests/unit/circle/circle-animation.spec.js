@@ -64,19 +64,19 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
   it(`${prefix} applies default @1000 duration value as transition and animation duration`, () => {
     const circleProgressWrapper = factory({}, container).find(circleClass);
 
-    expect(circleProgressWrapper.element.style.transitionDuration).to.equal("1000ms");
+    expect(circleProgressWrapper.element.style.transition).to.include("1000ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("1000ms");
   });
   it(`${prefix} applies provided duration value as transition and animation duration`, () => {
     const circleProgressWrapper = factory({ animation: "rs 500" }, container).find(circleClass);
 
-    expect(circleProgressWrapper.element.style.transitionDuration).to.equal("500ms");
+    expect(circleProgressWrapper.element.style.transition).to.include("500ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("500ms");
   });
   it(`${prefix} applies @0 duration value as transition and animation duration`, () => {
     const circleProgressWrapper = factory({ animation: "rs 0" }, container).find(circleClass);
 
-    expect(circleProgressWrapper.element.style.transitionDuration).to.equal("0ms");
+    expect(circleProgressWrapper.element.style.transition).to.include("0ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("0ms");
   });
 };

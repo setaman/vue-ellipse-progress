@@ -17,17 +17,17 @@
       :fill="computedEmptyColorFill"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
       :style="{
-        transitionDuration: styles.transitionDuration,
+        transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
       :stroke-width="computedEmptyThickness"
     >
     </circle>
     <fade-in-transition>
-      <g v-if="showDeterminate">
-        <g style="opacity: 0.45;">
+      <g v-if="isLoading">
+        <g class="ep-circle--loading__container" :style="{ opacity: `${loading ? 1 : 0.45}` }">
           <circle
-            class="ep-circle--determinate animation__loading"
+            class="ep-circle--loading animation__loading"
             :r="radius"
             :cx="position"
             :cy="position"
@@ -36,7 +36,12 @@
             :stroke-width="computedThickness"
             :stroke-linecap="line"
             :stroke-dasharray="circumference"
-            :style="styles"
+            :style="{
+              transitionTimingFunction: styles.transitionTimingFunction,
+              transformOrigin: styles.transformOrigin,
+              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+              '--ep-circumference': styles['--ep-circumference'],
+            }"
           >
           </circle>
         </g>

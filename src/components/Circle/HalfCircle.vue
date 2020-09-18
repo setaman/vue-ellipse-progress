@@ -16,24 +16,30 @@
       :stroke-linecap="line"
       :stroke-dasharray="emptyDasharray"
       :style="{
-        transitionDuration: styles.transitionDuration,
+        transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
     <fade-in-transition>
-      <g v-if="showDeterminate">
-        <g style="opacity: 0.6;">
+      <g v-if="isLoading">
+        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
           <path
             :stroke-width="computedThickness"
-            class="ep-half-circle--determinate animation__loading"
+            class="ep-half-circle--loading animation__loading"
             :d="path"
             :fill="computedColorFill"
             :stroke="computedColor"
             :stroke-dasharray="circumference"
             :stroke-linecap="line"
-            :style="styles"
+            :style="{
+              transitionTimingFunction: styles.transitionTimingFunction,
+              transformOrigin: styles.transformOrigin,
+              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
+              '--ep-circumference': styles['--ep-circumference'],
+              '--ep-negative-circumference': styles['--ep-negative-circumference'],
+            }"
           >
           </path>
         </g>

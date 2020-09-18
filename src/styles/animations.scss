@@ -15,7 +15,7 @@
   }
 }
 
-@mixin ep-half-progress--loading ($offset, $circumference, $double_circumference) {
+/*@mixin ep-half-progress--loading ($circumference, $double_circumference) {
   @keyframes ep-half-progress--loading {
     0% {
       opacity: 0.5;
@@ -31,6 +31,23 @@
     }
     75% {
       opacity: 0.5;
+      stroke-dashoffset: 0;
+    }
+    100% {
+      opacity: 0.5;
+      stroke-dashoffset: $circumference;
+    }
+  }
+}*/
+
+@mixin ep-half-progress--loading ($circumference) {
+  @keyframes ep-half-progress--loading {
+    0% {
+      opacity: 0.5;
+      stroke-dashoffset: $circumference;
+    }
+    50% {
+      opacity: 0.8;
       stroke-dashoffset: 0;
     }
     100% {

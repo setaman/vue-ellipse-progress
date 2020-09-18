@@ -17,7 +17,7 @@
   }
 }
 
-.ep-circle--progress, .ep-circle--determinate {
+.ep-circle--loading {
   &.animation__loading {
     animation-name: ep-progress--loading, ep-progress--loading__rotation;
     animation-iteration-count: infinite !important;
@@ -26,7 +26,7 @@
   }
 }
 
-.ep-half-circle--progress, .ep-half-circle--determinate {
+.ep-half-circle--loading {
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;
@@ -87,7 +87,6 @@
                 var(--ep-negative-circumference)
 );
 @include ep-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference));
-@include ep-half-progress--loading(var(--ep-loading-stroke-offset), var(--ep-circumference),
-                var(--ep-negative-circumference));
+@include ep-half-progress--loading(var(--ep-circumference));
 @include ep-progress--loading__rotation();
 @include ep-dot--init__rs(var(--ep-dot-start), var(--ep-dot-end), var(--ep-dot-360));
