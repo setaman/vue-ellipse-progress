@@ -25,7 +25,7 @@
     </circle>
     <fade-in-transition>
       <g v-if="isLoading">
-        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
+        <g class="ep-circle--loading__container" :style="{ opacity: `${loading ? 1 : 0.45}` }">
           <circle
             class="ep-circle--loading animation__loading"
             :r="radius"
