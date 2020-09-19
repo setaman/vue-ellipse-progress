@@ -569,7 +569,7 @@ data: [
 
 - #### `default`
 
-Use this slot, if you want to customize the presentation of the circle legend ad make a use of the animated counter, 
+Use this slot, if you want to customize the presentation of the circle legend and make a use of the animated counter, 
 so your formatting still animated. This works similar to the [`legendFormatter`](#legendformatter) and is just 
 an alternative way to provide a custom format. You can access animated counter properties through the scoped slot 
 props and adjust the presentation of the legend to your needs. 
