@@ -2,15 +2,11 @@
   <div id="app">
     <div class="ep-test-card" :style="{ maxHeight: size.height + 2000 + 'px' }">
       <div>
-        <label for="progress">
-          Progress
-        </label>
+        <label for="progress"> Progress </label>
         <input v-model="progress" max="100" min="-100" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <button @click="updateTasksDone">Update Tasks</button>
-        <label for="size">
-          Size
-        </label>
+        <label for="size"> Size </label>
         <input v-model="size" type="number" id="size" />
         <label for="load">
           LOADING
@@ -41,7 +37,7 @@
         <input type="checkbox" v-model="circles[2].loading" />
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
-      <div style="border: 1px solid red; display: inline-block;">
+      <div style="border: 1px solid red; display: inline-block">
         <vue-ellipse-progress
           :size="200"
           :progress="progress"

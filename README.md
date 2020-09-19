@@ -124,7 +124,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
 | **[`gap`](#gap)** | Number | any Number that defines the gap between multiple circles in pixel | 0 |
-| **[`dot`](#dot)** [![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
+| **[`dot`](#dot)** | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
 | **[`reverse`](#reverse)** [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) | Boolean | | false |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with almost all props defined above | |
 
@@ -489,8 +489,6 @@ Defines the gap in pixels from one circle to the previous circle. It will be app
 <br>
 
 - ### `dot`
-
-[![npm](https://img.shields.io/badge/v1.1.0-blue?style=flat-square)](#dot) 
 
 ###### Animated: :heavy_check_mark:
 
