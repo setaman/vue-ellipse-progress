@@ -1,14 +1,18 @@
 <template>
-  <g class="ep-circle--container" :class="{ 'ep-reverse': reverse }">
-    <defs>
-      <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
-      <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
-      <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="_uid" />
-      <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
-    </defs>
-    <component :is="circleType" v-bind="$props" :id="_uid" />
-    <circle-dot v-if="dot" v-bind="$props" :id="_uid" :index="index" :multiple="multiple" />
-  </g>
+  <div class="ep-svg-container" :class="{ 'ep-reverse': reverse }">
+    <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+      <g class="ep-circle--container">
+        <defs>
+          <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
+          <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
+          <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="_uid" />
+          <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
+        </defs>
+        <component :is="circleType" v-bind="$props" :id="_uid" />
+      </g>
+    </svg>
+    <circle-dot v-if="dot" v-bind="$props" :id="_uid" />
+  </div>
 </template>
 
 <script>
@@ -67,11 +71,17 @@ export default {
 <style lang="scss">
 @import "~@/styles/animations.scss";
 @import "~@/styles/animationsUsage.scss";
-g.ep-circle--container {
-  transition: inherit;
-  transform-origin: 50% 50%;
+.ep-svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
   &.ep-reverse {
     transform: scaleX(-1);
   }
+}
+g.ep-circle--container {
+  transition: inherit;
+  transform-origin: 50% 50%;
 }
 </style>

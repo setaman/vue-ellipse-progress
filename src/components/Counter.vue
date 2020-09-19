@@ -1,5 +1,8 @@
 <template>
-  <span>{{ formattedValue }}</span>
+  <span class="ep-legend--value__counter">
+    <slot :counterTick="counterProps"> </slot>
+    <span v-if="!$scopedSlots.default">{{ formattedValue }}</span>
+  </span>
 </template>
 
 <script>
@@ -56,6 +59,21 @@ export default {
     },
     duration() {
       return animationParser(this.animation).duration;
+    },
+    counterProps() {
+      return {
+        currentValue: parseFloat(this.formattedValue),
+        currentFormattedValue: this.formattedValue,
+        currentRawValue: this.currentValue,
+        duration: this.duration,
+        previousCountStepValue: this.previousCountStepValue,
+        start: this.start,
+        end: this.end,
+        difference: this.difference,
+        oneStepDifference: this.oneStepDifference,
+        startTime: this.startTime,
+        elapsed: 0,
+      };
     },
   },
   methods: {

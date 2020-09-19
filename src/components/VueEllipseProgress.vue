@@ -2,32 +2,38 @@
   <div
     class="ep-container"
     :style="{
-      maxWidth: `${size}px`,
-      maxHeight: `${size}px`,
+      width: `${size}px`,
+      height: `${size}px`,
     }"
   >
     <div class="ep-content">
-      <svg class="ep-svg-container" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
-        <circle-container
-          v-for="(options, i) in circlesData"
-          :key="i"
-          v-bind="options"
-          :multiple="isMultiple"
-          :index="i"
-          :globalThickness="thickness"
-          :globalGap="gap"
-          :globalDot="dot"
-        />
-      </svg>
-
+      <circle-container
+        v-for="(options, i) in circlesData"
+        :key="i"
+        v-bind="options"
+        :multiple="isMultiple"
+        :index="i"
+        :globalThickness="thickness"
+        :globalGap="gap"
+        :globalDot="dot"
+      />
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
           v-if="legend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
-          :style="{ fontSize: fontSize, color: fontColor }"
+          :style="{ fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading"> </counter>
+          <counter :value="legendVal" :animation="animation" :loading="loading">
+            <template v-slot:default="{ counterTick }">
+              <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
+              <span v-if="legendFormatter">
+                <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
+                <span v-else>{{ legendFormatter(counterTick) }}</span>
+              </span>
+              <span v-else-if="!$scopedSlots.default">{{ counterTick.currentFormattedValue }}</span>
+            </template>
+          </counter>
           <slot name="legend-value"></slot>
         </div>
         <slot name="legend-caption"></slot>
@@ -45,7 +51,16 @@ import Counter from "./Counter.vue";
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  props,
+  props: {
+    ...props,
+    legendFormatter: {
+      type: Function,
+      required: false,
+    },
+  },
+  data: () => ({
+    counterTick: {},
+  }),
   computed: {
     legendVal() {
       if (this.loading || this.noData) {
@@ -61,6 +76,9 @@ export default {
     },
     isMultiple() {
       return this.data.length > 1;
+    },
+    isHTML() {
+      return /<[a-z/][\s\S]*>/i.test(this.legendFormatter({ currentValue: 0 }).toString().trim());
     },
     circlesData() {
       if (this.isMultiple) {
@@ -89,6 +107,8 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .ep-legend--container {
@@ -104,7 +124,7 @@ export default {
 .ep-hidden {
   opacity: 0;
 }
-svg.ep-svg-container {
+svg.ep-svg {
   transition: inherit;
   transform-origin: 50% 50%;
 }

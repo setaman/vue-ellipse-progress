@@ -30,7 +30,8 @@
         </label>
         <label for="determinate">
           Determinate
-          <input id="determinate" type="checkbox" v-model="circles[0].determinate" />
+          <input id="determinate" type="checkbox" v-model="determinate" />
+          <input id="determinate1" type="checkbox" v-model="circles[0].determinate" />
           <input id="determinate2" type="checkbox" v-model="determinate" />
         </label>
       </div>
@@ -41,26 +42,44 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block;">
-        <vue-ellipse-progress :progress="progress" reverse :data="circles" :gap="10">
-          <span slot="legend-value">/200</span>
-          <span slot="legend-caption">Some Caption</span>
+        <vue-ellipse-progress
+          :size="200"
+          :progress="progress"
+          :legendValue="1315.56"
+          animation="rs 2000 500"
+          :loading="loading"
+          dot="30 red"
+          :reverse="true"
+          line-mode="out 10"
+          :no-data="noData"
+          :determinate="determinate"
+        >
+          <template v-slot:default="{ counterTick }">
+            <span
+              :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
+                counterTick.currentValue < 600 ? 'red' : 'yellow'
+              };`"
+            >
+              {{ formattedPrice(counterTick.currentValue) }}
+            </span>
+          </template>
         </vue-ellipse-progress>
       </div>
       <vue-ellipse-progress
+        dot="20 green"
         :loading="loading"
-        :no-data="noData"
+        :size="200"
         :progress="progress"
-        :angle="-90"
-        :legend="false"
-        :thickness="100"
-        dash="strict 60 0.95"
-        :empty-thickness="100"
-        line="butt"
+        :legend-value="125.1"
         half
-        animation="rs 1000"
-        :dot="{ size: 100, backgroundColor: 'rgba(100,256,4,1)', width: '2px' }"
-        line-mode="in-over"
-      />
+        line-mode="out 20"
+        :no-data="noData"
+        :determinate="determinate"
+      >
+        <template v-slot:legend-caption>
+          <p slot="legend-caption">TASKS DONE</p>
+        </template>
+      </vue-ellipse-progress>
     </div>
   </div>
 </template>
@@ -72,10 +91,11 @@ export default {
   components: { VueEllipseProgress },
   data: () => ({
     line: "round",
+    price: "",
     circles: [
-      { progress: 50, color: "red" },
-      { progress: 50, color: "red", half: true, angle: -90 },
-      { progress: -50, color: "blue", reverse: false },
+      { progress: 50, color: "red", dot: "20 yellow" },
+      { progress: 50, color: "red", half: true, angle: -90, dot: "10 green" },
+      { progress: 50, color: "blue", reverse: false },
     ],
     determinate: false,
     loading: false,
@@ -139,6 +159,18 @@ export default {
     },
   },
   methods: {
+    formattedPrice(value) {
+      return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
+    },
+    customFormatter({ currentValue /* start, end, startTime, previousCountStepValue, elapsed, currentRawValue */ }) {
+      this.price = new Intl.NumberFormat("fr-FR").format(currentValue);
+      // console.log(this.price, currentValue, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
+      return `My ${this.price} Format`;
+      /* return `
+        <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
+        <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
+      `; */
+    },
     updateProgress() {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
     },

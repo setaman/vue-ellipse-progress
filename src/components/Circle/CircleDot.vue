@@ -1,15 +1,9 @@
 <template>
-  <foreignObject
-    :x="dotContainerPosition"
-    :y="dotContainerPosition"
-    class="ep-circle--progress__dot-container"
-    :class="dotContainerClasses"
-    :width="dotContainerSize"
-    :height="dotContainerSize"
-    :style="dotContainerStyle"
-  >
-    <span class="ep-circle--progress__dot" :class="{ 'ep-hidden': isHidden }" :style="dotStyle"> </span>
-  </foreignObject>
+  <div class="ep-circle--progress__dot-container" :class="dotContainerClasses" :style="dotContainerStyle">
+    <div>
+      <span class="ep-circle--progress__dot" :class="{ 'ep-hidden': isHidden }" :style="dotStyle"> </span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,9 +15,6 @@ export default {
   name: "CircleDot",
   mixins: [CircleMixin],
   computed: {
-    dotContainerPosition() {
-      return (this.size - this.radius * 2 - this.dotSize) / 2;
-    },
     dotContainerSize() {
       return this.radius * 2 + this.dotSize;
     },
@@ -38,8 +29,10 @@ export default {
     },
     dotContainerStyle() {
       return {
+        width: `${this.dotContainerSize}px`,
+        height: `${this.dotContainerSize}px`,
         transform: `rotate(${this.dotContainerRotation}deg)`,
-        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         "animation-duration": this.animationDuration,
         "--ep-dot-start": `${this.dotStart}deg`,
@@ -70,7 +63,7 @@ export default {
         width: `${this.dotSize}px`,
         backgroundColor: this.dotColor,
         ...this.dot,
-        transitionDuration: this.loading ? "0s" : this.animationDuration,
+        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         height: `${this.dotSize}px`,
       };
     },
@@ -98,9 +91,13 @@ export default {
 
 <style scoped lang="scss">
 .ep-circle--progress__dot-container {
+  position: absolute;
   transform-origin: center center;
   &.hidden {
     transition-duration: 0s;
+  }
+  & > div {
+    position: relative;
   }
 }
 .ep-circle--progress__dot {

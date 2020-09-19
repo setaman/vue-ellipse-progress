@@ -5,9 +5,10 @@ import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 
-const factory = (propsData) => {
+const factory = (propsData, scopedSlots = {}) => {
   return mount(VueEllipseProgress, {
     propsData: { progress: 50, ...propsData },
+    scopedSlots,
     stubs: {
       CircleContainer,
     },
@@ -15,16 +16,26 @@ const factory = (propsData) => {
 };
 
 // https://github.com/vuejs/vue-test-utils/issues/974
-global.requestAnimationFrame = () => {};
-global.cancelAnimationFrame = () => {};
+// rAF polyfill: https://gist.github.com/paulirish/1579671
+let lastTime = 0;
+global.requestAnimationFrame = (callback) => {
+  const currTime = new Date().getTime();
+  const timeToCall = Math.max(0, 16 - (currTime - lastTime));
+  const id = setTimeout(() => {
+    callback(currTime + timeToCall);
+  }, timeToCall);
+  lastTime = currTime + timeToCall;
+  return id;
+};
+global.cancelAnimationFrame = (id) => clearTimeout(id);
 
 describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#size", () => {
     const size = 250;
     const wrapper = factory({ size });
     it("sets the size of the container correctly", () => {
-      expect(wrapper.element.style.maxWidth).to.equal(`${size}px`);
-      expect(wrapper.element.style.maxHeight).to.equal(`${size}px`);
+      expect(wrapper.element.style.width).to.equal(`${size}px`);
+      expect(wrapper.element.style.height).to.equal(`${size}px`);
     });
 
     it("sets the size of the svg container correctly", () => {
@@ -106,7 +117,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-value": '<span id="my-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.contains("#my-slot")).to.be.true;
+        expect(wrapper.get("#my-slot"));
       });
     });
     describe("#legend-caption", () => {
@@ -117,7 +128,33 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-caption": '<span id="my-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.contains("#my-slot")).to.be.true;
+        expect(wrapper.get("#my-slot"));
+      });
+    });
+    describe("#default", () => {
+      const wrapper = factory(
+        { progress: 35, animation: "default 0 0" },
+        {
+          default: `
+              <template v-slot:default="{ counterTick }" >
+                <span class="my-formatter-slot">Formatted {{ counterTick.currentValue }}</span>
+              </template>`,
+        }
+      );
+
+      it("renders provided slot", () => {
+        expect(wrapper.find(".my-formatter-slot").exists()).to.be.true;
+      });
+
+      it("renders via provided slot formatted value", (done) => {
+        setTimeout(() => {
+          expect(wrapper.find(".my-formatter-slot").element.textContent).to.equal("Formatted 35");
+          done();
+        }, 100);
+      });
+
+      it("do not renders other elements", () => {
+        expect(wrapper.findComponent(Counter).findAll("span")).to.have.lengthOf(2);
       });
     });
   });
@@ -132,7 +169,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(wrapper.find(".ep-legend--value").exists()).to.be.false;
     });
     it(`renders ${data.length} circles`, () => {
-      expect(wrapper.findAll(CircleContainer).length).to.equal(data.length);
+      expect(wrapper.findAllComponents(CircleContainer).length).to.equal(data.length);
     });
     it("merges circles props with the global props", () => {
       const { circlesData } = wrapper.vm;
@@ -154,6 +191,38 @@ describe("[ EllipseProgressContainer.vue ]", () => {
           expect(circlesData[i][prop]).to.equal(data[i][prop]);
         }
       }
+    });
+  });
+  describe("#legendFormatter", () => {
+    it("renders the custom formatted value", (done) => {
+      const customFormat = (value) => `Formatted: ${value}`;
+      const formatter = ({ currentValue }) => customFormat(currentValue);
+      const wrapper = factory({ legendValue: 120, legendFormatter: formatter, animation: "default 0 0" });
+      setTimeout(() => {
+        expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
+        done();
+      }, 100);
+    });
+    describe("#legendFormatter HTML return value", () => {
+      const customFormat = (value) => `<span class="my-custom-format">Formatted ${value}</span>`;
+      const formatter = ({ currentValue }) => customFormat(currentValue);
+      const counterWrapper = factory({ value: 50, legendFormatter: formatter, animation: "default 0 0" });
+
+      it("recognises HTML formatter return value ", (done) => {
+        setTimeout(() => {
+          expect(counterWrapper.vm.isHTML).to.be.true;
+          done();
+        }, 10);
+      });
+      it("renders the formatter returned HTML", () => {
+        expect(counterWrapper.find(".my-custom-format").exists()).to.be.true;
+      });
+      it("renders the formatter HTML return value ", (done) => {
+        setTimeout(() => {
+          expect(counterWrapper.find(".my-custom-format").element.textContent).to.equal("Formatted 50");
+          done();
+        }, 50);
+      });
     });
   });
 });

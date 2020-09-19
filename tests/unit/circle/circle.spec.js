@@ -128,10 +128,10 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const circleEmptyWrapper = wrapper.find(".ep-half-circle--empty");
 
     it("renders half progress circle SVG path", () => {
-      expect(wrapper.contains("path.ep-half-circle--progress.ep-circle--progress")).to.be.true;
+      expect(wrapper.find("path.ep-half-circle--progress.ep-circle--progress").exists()).to.be.true;
     });
     it("renders half empty circle SVG path", () => {
-      expect(wrapper.contains("path.ep-half-circle--empty")).to.be.true;
+      expect(wrapper.find("path.ep-half-circle--empty").exists()).to.be.true;
     });
 
     it("calculates and sets the position of the half circles correctly", () => {
@@ -192,6 +192,9 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("resets the progress circle animation class", () => {
       expect(circleProgressWrapper.classes()).to.not.include("animation__default");
     });
+    it("applies 0 opacity to progress circle", () => {
+      expect(circleProgressWrapper.element.style.opacity).to.equal("0");
+    });
   });
   describe("#loading", () => {
     const progress = 60;
@@ -208,8 +211,15 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
     });
-    it("adds .animation__loading class to progress circle", () => {
-      expect(circleProgressWrapper.classes()).to.include("animation__loading");
+    it("applies 0 opacity to progress circle", () => {
+      expect(circleProgressWrapper.element.style.opacity).to.equal("0");
+    });
+    it("applies 1 opacity to loading circle container", () => {
+      const determinateCircleWrapper = wrapper.find(".ep-circle--loading__container");
+      expect(determinateCircleWrapper.element.style.opacity).to.equal("1");
+    });
+    it("renders the loading circle", () => {
+      expect(wrapper.find(".ep-circle--loading").exists()).to.be.true;
     });
   });
   describe("#determinate", () => {
@@ -223,14 +233,18 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       determinate: true,
     });
 
-    it("shows the determinate loading circle", () => {
-      expect(wrapper.contains(".ep-circle--determinate")).to.be.true;
+    it("shows the loading circle", () => {
+      expect(wrapper.find(".animation__loading").exists()).to.be.true;
     });
-    it("applies same styles to determinate circle as to progress circle", () => {
-      const determinateCircleWrapper = wrapper.find(".ep-circle--determinate");
+    it("applies same styles to loading circle as to progress circle", () => {
+      const determinateCircleWrapper = wrapper.find(".animation__loading");
       expect(determinateCircleWrapper.element.getAttribute("stroke")).to.equal(`${color}`);
       expect(determinateCircleWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
       expect(determinateCircleWrapper.element.getAttribute("fill")).to.equal("transparent");
+    });
+    it("applies 0.45 opacity to loading circle container", () => {
+      const determinateCircleWrapper = wrapper.find(".ep-circle--loading__container");
+      expect(determinateCircleWrapper.element.style.opacity).to.equal("0.45");
     });
   });
   describe("#angle", () => {
@@ -281,7 +295,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       { data, gap: globalGap, thickness: globalThickness, size, dot: globalDot },
       VueEllipseProgress
     );
-    const circleWrappers = wrapper.findAll(Circle);
+    const circleWrappers = wrapper.findAllComponents(Circle);
 
     const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
