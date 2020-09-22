@@ -3,15 +3,15 @@
     <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
       <g class="ep-circle--container">
         <defs>
-          <gradient v-if="isColorGradient" :color="color" type="progress" :id="_uid" />
-          <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="_uid" />
-          <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="_uid" />
-          <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="_uid" />
+          <gradient v-if="isColorGradient" :color="color" type="progress" :id="id" />
+          <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="id" />
+          <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="id" />
+          <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="id" />
         </defs>
-        <component :is="circleType" v-bind="$props" :id="_uid" />
+        <component :is="circleType" v-bind="$props" :id="id" />
       </g>
     </svg>
-    <circle-dot v-if="dot" v-bind="$props" :id="_uid" />
+    <circle-dot v-if="dot" v-bind="$props" :id="id" />
   </div>
 </template>
 
@@ -48,6 +48,8 @@ export default {
       type: [Number, String, Object],
       required: false,
     },
+    // Temp Fix
+    id: Number,
   },
   computed: {
     circleType() {

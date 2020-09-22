@@ -38,7 +38,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <vue-ellipse-progress
+        <!--<vue-ellipse-progress
           :size="200"
           :progress="progress"
           :legendValue="1315.56"
@@ -59,7 +59,7 @@
               {{ formattedPrice(counterTick.currentValue) }}
             </span>
           </template>
-        </vue-ellipse-progress>
+        </vue-ellipse-progress>-->
       </div>
       <vue-ellipse-progress
         dot="20 green"

@@ -62,7 +62,9 @@ export default {
         borderRadius: `${this.dotSize / 2}px`,
         width: `${this.dotSize}px`,
         backgroundColor: this.dotColor,
-        ...this.dot,
+        // eslint-disable-next-line max-len
+        // FIXME: this is passed as String (e.g "20 green") and destructed ({0:2, 0:0...}), causing CSSStyleDeclaration Error
+        // ...this.dot,
         transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         height: `${this.dotSize}px`,
       };

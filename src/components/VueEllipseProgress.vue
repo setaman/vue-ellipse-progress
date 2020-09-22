@@ -10,6 +10,7 @@
       <circle-container
         v-for="(options, i) in circlesData"
         :key="i"
+        :id="i"
         v-bind="options"
         :multiple="isMultiple"
         :index="i"
@@ -25,14 +26,15 @@
           :style="{ fontSize, color: fontColor }"
         >
           <counter :value="legendVal" :animation="animation" :loading="loading">
-            <template v-slot:default="{ counterTick }">
+            <!--FIXME: This is completely broken in Vue 3-->
+            <!--<template v-slot:default="{ counterTick }">
               <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
               <span v-if="legendFormatter">
                 <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
                 <span v-else>{{ legendFormatter(counterTick) }}</span>
               </span>
               <span v-else-if="!$scopedSlots.default">{{ counterTick.currentFormattedValue }}</span>
-            </template>
+            </template>-->
           </counter>
           <slot name="legend-value"></slot>
         </div>
@@ -91,6 +93,9 @@ export default {
       return [this.$props];
     },
   },
+  beforeCreate() {
+    console.log(this)
+  }
 };
 </script>
 
