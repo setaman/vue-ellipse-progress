@@ -1,11 +1,9 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import VueEllipseProgress from "@/plugin";
 import App from "./App.vue";
 
-Vue.use(VueEllipseProgress);
+const app = createApp(App);
 
-Vue.config.productionTip = false;
+app.use(VueEllipseProgress);
 
-new Vue({
-  render: (h) => h(App),
-}).$mount("#app");
+app.mount("#app");
