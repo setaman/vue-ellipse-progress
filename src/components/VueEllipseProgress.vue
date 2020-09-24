@@ -36,7 +36,7 @@
 
 <script>
 import { getNumberIfValid, isValidNumber } from "../utils";
-import { props } from "./interface";
+import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
 import parseOptions from "./optionsParser";
@@ -44,13 +44,7 @@ import parseOptions from "./optionsParser";
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  props: {
-    ...props,
-    legendFormatter: {
-      type: Function,
-      required: false,
-    },
-  },
+  props,
   data: () => ({
     counterTick: {},
   }),
@@ -75,10 +69,10 @@ export default {
     },
     circlesData() {
       if (this.isMultiple) {
-        return this.data.map((data) => ({
+        return this.data.map((options) => ({
           ...this.$props,
-          ...data,
-          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
+          ...options,
+          emptyThickness: isValidNumber(options.thickness) ? options.thickness : this.$props.thickness,
           data: undefined, // do not pass data prop
         }));
       }
@@ -106,9 +100,6 @@ export default {
       }
       return normalizedCircles;
     },
-  },
-  beforeCreate() {
-    console.log(this);
   },
 };
 </script>
