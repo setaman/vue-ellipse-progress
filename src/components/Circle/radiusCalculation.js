@@ -28,6 +28,38 @@ const radiusBottomOrTopMode = (options) => {
   return emptyRadius - half(options.emptyThickness) + half(options.thickness);
 };
 
+const emptyRadiusNormalMode = (options) => normalLineModeRadius(options);
+const emptyRadiusInMode = (options) => {
+  const dotSizeLimit = half(options.thickness) + options.emptyThickness + options.lineMode.offset;
+  if (half(options.dot.size) > dotSizeLimit) {
+    return emptyBaseRadius(options) - (half(options.dot.size) - dotSizeLimit);
+  }
+  return emptyBaseRadius;
+};
+const emptyRadiusInOverMode = (options) => {
+  const dotToThicknessDifference = options.dot.size - options.thickness;
+  if (dotToThicknessDifference > 0) {
+    return emptyBaseRadius - half(dotToThicknessDifference);
+  }
+  return emptyBaseRadius;
+};
+const emptyRadiusOutMode = (options) =>
+  baseRadius - (half(options.thickness) + half(options.emptyThickness) + options.lineMode.offset);
+
+const emptyRadiusOutOverMode = (options) => {
+  if (options.emptyThickness <= options.thickness) {
+    return baseRadius - half(options.thickness) + half(options.emptyThickness);
+  }
+  return emptyBaseRadius;
+};
+const emptyRadiusBottomMode = (options) => {
+  if (options.emptyThickness < half(thicknessWithDot(options))) {
+    return emptyBaseRadius - (half(thicknessWithDot(options)) - options.emptyThickness);
+  }
+  return emptyBaseRadius;
+};
+const emptyRadiusTopMode = (options) => emptyBaseRadius(options) - half(thicknessWithDot(options));
+
 export const radius = (options) => {
   const modes = {
     normal: () => radiusNormalMode(options),
@@ -41,53 +73,15 @@ export const radius = (options) => {
 };
 
 export const emptyRadius = (options) => {
-  const { offset } = options.lineMode;
-
-  if (options.options.multiple) {
-    return options.baseRadius - options.previousCirclesThickness;
-  }
-
   const modes = {
-    normal: () => normalLineModeRadius(options),
-    in: () => normalLineModeRadius(options),
-    "in-over": () => normalLineModeRadius(options),
-    out: () => normalLineModeRadius(options),
-    "out-over": () => normalLineModeRadius(options),
-    bottom: () => normalLineModeRadius(options),
-    top: () => normalLineModeRadius(options),
+    normal: () => emptyRadiusNormalMode(options),
+    in: () => emptyRadiusInMode(options),
+    "in-over": () => emptyRadiusInOverMode(options),
+    out: () => emptyRadiusOutMode(options),
+    "out-over": () => emptyRadiusOutOverMode(options),
+    bottom: () => emptyRadiusBottomMode(options),
+    top: () => emptyRadiusTopMode(options),
   };
-
-  /* switch (options.lineMode.mode) {
-    case "normal":
-      return options.normalLineModeRadius;
-    case "in":
-      const dotSizeLimit = options.thickness / 2 + options.emptyThickness + offset;
-      if (options.dotSize / 2 > dotSizeLimit) {
-        return options.emptyBaseRadius - (options.dotSize / 2 - dotSizeLimit);
-      }
-      return options.emptyBaseRadius;
-    case "in-over":
-      if (options.dotToThicknessDifference > 0) {
-        return options.emptyBaseRadius - options.dotToThicknessDifference / 2;
-      }
-      return options.emptyBaseRadius;
-    case "out":
-      return options.baseRadius - (options.thickness / 2 + options.emptyThickness / 2 + offset);
-    case "out-over":
-      if (options.emptyThickness <= options.thickness) {
-        return options.baseRadius - options.thickness / 2 + options.emptyThickness / 2;
-      }
-      return options.emptyBaseRadius;
-    case "bottom":
-      if (options.emptyThickness < options.thicknessWithDot / 2) {
-        return options.emptyBaseRadius - (options.thicknessWithDot / 2 - options.emptyThickness);
-      }
-      return options.emptyBaseRadius;
-    case "top":
-      return options.emptyBaseRadius - options.thicknessWithDot / 2;
-    default:
-      return options.emptyBaseRadius;
-  } */
   const modeHandler = modes[options.lineMode.mode];
-  return modeHandler ? modeHandler() : "";
+  return modeHandler ? modeHandler() : emptyRadius(options);
 };
