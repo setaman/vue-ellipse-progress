@@ -44,9 +44,9 @@
           :legendValue="1315.56"
           animation="rs 2000 500"
           :loading="loading"
-          dot="30 red"
+          dot="20 red"
           :reverse="true"
-          line-mode="out-over"
+          line-mode="in-over"
           :no-data="noData"
           :determinate="determinate"
         >

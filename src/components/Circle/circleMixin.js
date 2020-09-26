@@ -45,10 +45,8 @@ export default {
             return this.baseRadius;
           }
           return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
-        case "bottom":
+        case "bottom" || "top":
           return this.emptyRadius - this.emptyThickness / 2;
-        case "top":
-          return this.emptyRadius + this.emptyThickness / 2;
         default:
           return this.baseRadius;
       }
