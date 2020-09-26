@@ -46,7 +46,7 @@
           :loading="loading"
           dot="20 red"
           :reverse="true"
-          line-mode="in-over"
+          line-mode="normal"
           :no-data="noData"
           :determinate="determinate"
         >
