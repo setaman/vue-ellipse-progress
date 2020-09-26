@@ -7,11 +7,9 @@
 </template>
 
 <script>
-import { simplifiedProps } from "../interface";
 import CircleMixin from "./circleMixin";
 
 export default {
-  props: { ...simplifiedProps },
   name: "CircleDot",
   mixins: [CircleMixin],
   computed: {
@@ -19,20 +17,20 @@ export default {
       return this.radius * 2 + this.dotSize;
     },
     dotContainerRotation() {
-      if (this.isInitialized && !this.loading && this.dataIsAvailable) {
+      if (this.isInitialized && !this.options.loading && this.dataIsAvailable) {
         return this.dotEnd;
       }
       return this.dotStart;
     },
     dotContainerFullRotationDeg() {
-      return this.half ? 180 : 360;
+      return this.options.half ? 180 : 360;
     },
     dotContainerStyle() {
       return {
         width: `${this.dotContainerSize}px`,
         height: `${this.dotContainerSize}px`,
         transform: `rotate(${this.dotContainerRotation}deg)`,
-        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
+        transitionDuration: this.options.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         transitionTimingFunction: "ease-in-out",
         "animation-duration": this.animationDuration,
         "--ep-dot-start": `${this.dotStart}deg`,
@@ -42,47 +40,45 @@ export default {
       };
     },
     dotContainerClasses() {
-      return [this.animationClass, !this.half || "ep-half-circle-progress__dot"];
+      return [this.animationClass, !this.options.half || "ep-half-circle-progress__dot"];
     },
     dotContainerAnimationStyle() {
       const styles = {
         loop: {
-          opacity: this.half ? 0 : 1,
+          opacity: this.options.half ? 0 : 1,
           "--ep-dot-loop-end": `${this.dotStart + this.dotContainerFullRotationDeg + this.dotEnd}deg`,
         },
         bounce: {
           opacity: 0,
-          "animation-duration": `${this.parsedAnimation.duration + 500}ms`,
+          "animation-duration": `${this.animationDuration + 500}ms`,
         },
       };
-      return styles[this.parsedAnimation.type];
+      return styles[this.animation.type];
     },
     dotStyle() {
       return {
         borderRadius: `${this.dotSize / 2}px`,
         width: `${this.dotSize}px`,
         backgroundColor: this.dotColor,
-        // eslint-disable-next-line max-len
-        // FIXME: this is passed as String (e.g "20 green") and destructed ({0:2, 0:0...}), causing CSSStyleDeclaration Error
-        // ...this.dot,
-        transitionDuration: this.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
+        ...this.options.dot,
+        transitionDuration: this.options.loading || !this.dataIsAvailable ? "0s" : this.animationDuration,
         height: `${this.dotSize}px`,
       };
     },
     dotStart() {
-      return this.half ? this.angle - 90 : this.angle + 90;
+      return this.options.half ? this.angle - 90 : this.angle + 90;
     },
     dotEnd() {
       const progress = this.calculateProgress();
       return this.dotStart + (progress * this.dotContainerFullRotationDeg) / 100;
     },
     isHidden() {
-      return !this.isInitialized || this.loading || !this.dataIsAvailable;
+      return !this.isInitialized || this.options.loading || !this.dataIsAvailable;
     },
   },
   methods: {
     calculateProgress() {
-      if (this.half) {
+      if (this.options.half) {
         return this.computedProgress < 0 ? this.computedProgress - 100 : this.computedProgress;
       }
       return this.computedProgress;

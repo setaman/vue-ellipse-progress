@@ -7,17 +7,7 @@
     }"
   >
     <div class="ep-content">
-      <circle-container
-        v-for="(options, i) in circlesData"
-        :key="i"
-        :id="i"
-        v-bind="options"
-        :multiple="isMultiple"
-        :index="i"
-        :globalThickness="thickness"
-        :globalGap="gap"
-        :globalDot="dot"
-      />
+      <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options" />
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
@@ -25,7 +15,7 @@
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading">
+          <counter :value="legendVal" :animation="normalizedCircles[0].animation" :loading="loading">
             <!--FIXME: This is completely broken in Vue 3-->
             <!--<template v-slot:default="{ counterTick }">
               <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
@@ -46,20 +36,15 @@
 
 <script>
 import { getNumberIfValid, isValidNumber } from "../utils";
-import { props } from "./interface";
+import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
+import parseOptions from "./optionsParser";
 
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  props: {
-    ...props,
-    legendFormatter: {
-      type: Function,
-      required: false,
-    },
-  },
+  props,
   data: () => ({
     counterTick: {},
   }),
@@ -84,18 +69,38 @@ export default {
     },
     circlesData() {
       if (this.isMultiple) {
-        return this.data.map((data) => ({
+        return this.data.map((options) => ({
           ...this.$props,
-          ...data,
-          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
+          ...options,
+          emptyThickness: isValidNumber(options.thickness) ? options.thickness : this.$props.thickness,
+          data: undefined, // do not pass data prop
         }));
       }
       return [this.$props];
     },
+    normalizedCircles() {
+      const normalizedCircles = [];
+      const previousCircles = [];
+      for (let i = 0; i < this.circlesData.length; i++) {
+        const options = this.circlesData[i];
+        normalizedCircles.push({
+          ...parseOptions({
+            index: i,
+            id: i,
+            ...options,
+            globalDot: this.dot,
+            globalGap: this.gap,
+            globalThickness: this.thickness,
+            multiple: this.isMultiple,
+            previousCircles,
+          }),
+        });
+        const { gap, thickness, dot } = normalizedCircles[i];
+        previousCircles.push({ gap, thickness, dot });
+      }
+      return normalizedCircles;
+    },
   },
-  beforeCreate() {
-    console.log(this)
-  }
 };
 </script>
 
@@ -121,14 +126,17 @@ export default {
   position: absolute;
   text-align: center;
 }
+
 .ep-legend--value {
   transition: 0.3s;
   text-align: center;
   opacity: 1;
 }
+
 .ep-hidden {
   opacity: 0;
 }
+
 svg.ep-svg {
   transition: inherit;
   transform-origin: 50% 50%;

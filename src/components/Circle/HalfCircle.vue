@@ -4,16 +4,16 @@
     :style="{
       transitionDuration: styles.transitionDuration,
       transitionTimingFunction: styles.transitionTimingFunction,
-      transform: `rotate(${computedAngle}deg)`,
+      transform: `rotate(${angle}deg)`,
     }"
   >
     <path
-      :stroke-width="computedEmptyThickness"
+      :stroke-width="emptyThickness"
       :fill="computedColorFill"
       :stroke="computedEmptyColor"
       class="ep-half-circle--empty"
       :d="emptyPath"
-      :stroke-linecap="line"
+      :stroke-linecap="options.line"
       :stroke-dasharray="emptyDasharray"
       :style="{
         transitionDuration: animationDuration,
@@ -24,15 +24,15 @@
     </path>
     <fade-in-transition>
       <g v-if="isLoading">
-        <g :style="{ opacity: `${loading ? 1 : 0.45}` }">
+        <g :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
           <path
-            :stroke-width="computedThickness"
+            :stroke-width="thickness"
             class="ep-half-circle--loading animation__loading"
             :d="path"
             :fill="computedColorFill"
             :stroke="computedColor"
             :stroke-dasharray="circumference"
-            :stroke-linecap="line"
+            :stroke-linecap="options.line"
             :style="{
               transitionTimingFunction: styles.transitionTimingFunction,
               transformOrigin: styles.transformOrigin,
@@ -47,14 +47,14 @@
     </fade-in-transition>
 
     <path
-      :stroke-width="computedThickness"
+      :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
       :d="path"
       :fill="computedColorFill"
       :stroke="computedColor"
       :stroke-dasharray="circumference"
-      :stroke-linecap="line"
+      :stroke-linecap="options.line"
       :style="styles"
     >
     </path>
@@ -73,18 +73,18 @@ export default {
       return (this.radius * 2 * Math.PI) / 2;
     },
     path() {
-      return ` M ${this.position}, ${this.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
+      return ` M ${this.position}, ${this.options.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
     },
     emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
+      return ` M ${this.emptyPosition}, ${this.options.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
         this.emptyRadius * 2
       },0`;
     },
     position() {
-      return this.size / 2 - this.radius;
+      return this.options.size / 2 - this.radius;
     },
     emptyPosition() {
-      return this.size / 2 - this.emptyRadius;
+      return this.options.size / 2 - this.emptyRadius;
     },
   },
 };

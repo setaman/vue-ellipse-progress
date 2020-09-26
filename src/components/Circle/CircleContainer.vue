@@ -1,17 +1,22 @@
 <template>
-  <div class="ep-svg-container" :class="{ 'ep-reverse': reverse }">
-    <svg class="ep-svg" :height="size" :width="size" xmlns="http://www.w3.org/2000/svg">
+  <div class="ep-svg-container" :class="{ 'ep-reverse': options.reverse }">
+    <svg class="ep-svg" :height="options.size" :width="options.size" xmlns="http://www.w3.org/2000/svg">
       <g class="ep-circle--container">
         <defs>
-          <gradient v-if="isColorGradient" :color="color" type="progress" :id="id" />
-          <gradient v-if="isColorFillGradient" :color="colorFill" type="progress-fill" :id="id" />
-          <gradient v-if="isEmptyColorGradient" :color="emptyColor" type="empty" :id="id" />
-          <gradient v-if="isEmptyColorFillGradient" :color="emptyColorFill" type="empty-fill" :id="id" />
+          <gradient v-if="isColorGradient" :color="options.color" type="progress" :id="options.id" />
+          <gradient v-if="isColorFillGradient" :color="options.colorFill" type="progress-fill" :id="options.id" />
+          <gradient v-if="isEmptyColorGradient" :color="options.emptyColor" type="empty" :id="options.id" />
+          <gradient
+            v-if="isEmptyColorFillGradient"
+            :color="options.emptyColorFill"
+            type="empty-fill"
+            :id="options.id"
+          />
         </defs>
-        <component :is="circleType" v-bind="$props" :id="id" />
+        <component :is="circleType" :options="options" :id="options.id" />
       </g>
     </svg>
-    <circle-dot v-if="dot" v-bind="$props" :id="id" />
+    <circle-dot v-if="options.dot" :options="options" :id="options.id" />
   </div>
 </template>
 
@@ -19,53 +24,32 @@
 import Gradient from "../Gradient.vue";
 import HalfCircleProgress from "./HalfCircle.vue";
 import CircleProgress from "./Circle.vue";
-import { simplifiedProps } from "../interface";
 import CircleDot from "./CircleDot.vue";
 
 export default {
   name: "EpCircleContainer",
   components: { CircleDot, CircleProgress, HalfCircleProgress, Gradient },
   props: {
-    ...simplifiedProps,
-    index: {
-      type: Number,
+    options: {
+      type: Object,
       required: true,
     },
-    multiple: {
-      type: Boolean,
-      required: true,
-    },
-    globalThickness: {
-      type: [Number, String],
-      required: false,
-      default: "5%",
-    },
-    globalGap: {
-      type: Number,
-      required: false,
-    },
-    globalDot: {
-      type: [Number, String, Object],
-      required: false,
-    },
-    // Temp Fix
-    id: Number,
   },
   computed: {
     circleType() {
-      return this.half ? "half-circle-progress" : "circle-progress";
+      return this.options.half ? "half-circle-progress" : "circle-progress";
     },
     isColorGradient() {
-      return Array.isArray(this.color.colors);
+      return Array.isArray(this.options.color.colors);
     },
     isColorFillGradient() {
-      return Array.isArray(this.colorFill.colors);
+      return Array.isArray(this.options.colorFill.colors);
     },
     isEmptyColorGradient() {
-      return Array.isArray(this.emptyColor.colors);
+      return Array.isArray(this.options.emptyColor.colors);
     },
     isEmptyColorFillGradient() {
-      return Array.isArray(this.emptyColorFill.colors);
+      return Array.isArray(this.options.emptyColorFill.colors);
     },
   },
 };

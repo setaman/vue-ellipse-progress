@@ -4,7 +4,7 @@
     :style="{
       transitionDuration: styles.transitionDuration,
       transitionTimingFunction: styles.transitionTimingFunction,
-      transform: `rotate(${computedAngle}deg)`,
+      transform: `rotate(${angle}deg)`,
     }"
   >
     <circle
@@ -20,12 +20,12 @@
         transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
-      :stroke-width="computedEmptyThickness"
+      :stroke-width="emptyThickness"
     >
     </circle>
     <fade-in-transition>
       <g v-if="isLoading">
-        <g class="ep-circle--loading__container" :style="{ opacity: `${loading ? 1 : 0.45}` }">
+        <g class="ep-circle--loading__container" :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
           <circle
             class="ep-circle--loading animation__loading"
             :r="radius"
@@ -33,8 +33,8 @@
             :cy="position"
             fill="transparent"
             :stroke="computedColor"
-            :stroke-width="computedThickness"
-            :stroke-linecap="line"
+            :stroke-width="thickness"
+            :stroke-linecap="options.line"
             :stroke-dasharray="circumference"
             :style="{
               transitionTimingFunction: styles.transitionTimingFunction,
@@ -55,8 +55,8 @@
       :cy="position"
       :fill="computedColorFill"
       :stroke="computedColor"
-      :stroke-width="computedThickness"
-      :stroke-linecap="line"
+      :stroke-width="thickness"
+      :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="styles"
     >
@@ -74,7 +74,7 @@ export default {
   mixins: [CircleMixin],
   computed: {
     position() {
-      return this.size / 2;
+      return this.options.size / 2;
     },
     circumference() {
       return this.radius * 2 * Math.PI;

@@ -48,4 +48,24 @@ const dotParser = (dot) => {
   };
 };
 
-export { lineModeParser, animationParser, dashParser, dotParser };
+const calcThickness = (thickness, size) => {
+  const value = parseFloat(thickness);
+  switch (true) {
+    case thickness.toString().includes("%"):
+      return (value * size) / 100;
+    default:
+      return value;
+  }
+};
+
+export default (options) => ({
+  ...options,
+  thickness: calcThickness(options.thickness, options.size),
+  emptyThickness: calcThickness(options.emptyThickness, options.size),
+  globalThickness: calcThickness(options.thickness, options.size),
+  dot: { ...dotParser(options.dot), size: calcThickness(dotParser(options.dot).size, options.size) },
+  globalDot: { ...dotParser(options.globalDot), size: calcThickness(dotParser(options.globalDot).size, options.size) },
+  dash: dashParser(options.dash),
+  lineMode: lineModeParser(options.lineMode),
+  animation: animationParser(options.animation),
+});

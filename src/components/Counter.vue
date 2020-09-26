@@ -6,8 +6,6 @@
 </template>
 
 <script>
-import { animationParser } from "./optionsParser";
-
 export default {
   name: "Counter",
   props: {
@@ -16,7 +14,7 @@ export default {
       required: true,
     },
     animation: {
-      type: String,
+      type: Object,
       required: true,
     },
     loading: {
@@ -55,10 +53,10 @@ export default {
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
     },
     delay() {
-      return animationParser(this.animation).delay;
+      return this.animation.delay;
     },
     duration() {
-      return animationParser(this.animation).duration;
+      return this.animation.duration;
     },
     counterProps() {
       return {
