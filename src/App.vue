@@ -46,10 +46,9 @@
           :loading="loading"
           dot="30 red"
           :reverse="true"
-          line-mode="out 10"
+          line-mode="out-over"
           :no-data="noData"
           :determinate="determinate"
-          :data="circles"
         >
           <template v-slot:default="{ counterTick }">
             <span

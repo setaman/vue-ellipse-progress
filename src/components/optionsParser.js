@@ -50,12 +50,7 @@ const dotParser = (dot) => {
 
 const calcThickness = (thickness, size) => {
   const value = parseFloat(thickness);
-  switch (true) {
-    case thickness.toString().includes("%"):
-      return (value * size) / 100;
-    default:
-      return value;
-  }
+  return thickness.toString().includes("%") ? (value * size) / 100 : value;
 };
 
 export default (options) => ({
