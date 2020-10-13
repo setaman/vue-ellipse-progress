@@ -1,9 +1,10 @@
 import { getNumberIfValid, isValidNumber } from "@/utils";
 
-const lineModeParser = (lineMode) => {
-  const lineModeConfig = lineMode.trim().split(" ");
+const lineModeParser = (options) => {
+  const lineModeConfig = options.lineMode.trim().split(" ");
+  const mode = options.multiple ? "multiple" : lineModeConfig[0];
   return {
-    mode: lineModeConfig[0],
+    mode,
     offset: getNumberIfValid(lineModeConfig[1]) || 0,
   };
 };
@@ -61,6 +62,6 @@ export default (options) => ({
   dot: { ...dotParser(options.dot), size: calcThickness(dotParser(options.dot).size, options.size) },
   globalDot: { ...dotParser(options.globalDot), size: calcThickness(dotParser(options.globalDot).size, options.size) },
   dash: dashParser(options.dash),
-  lineMode: options.multiple ? "multiple" : lineModeParser(options.lineMode),
+  lineMode: lineModeParser(options),
   animation: animationParser(options.animation),
 });
