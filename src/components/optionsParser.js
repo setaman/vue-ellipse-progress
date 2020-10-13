@@ -61,6 +61,6 @@ export default (options) => ({
   dot: { ...dotParser(options.dot), size: calcThickness(dotParser(options.dot).size, options.size) },
   globalDot: { ...dotParser(options.globalDot), size: calcThickness(dotParser(options.globalDot).size, options.size) },
   dash: dashParser(options.dash),
-  lineMode: lineModeParser(options.lineMode),
+  lineMode: options.isMultiple ? "multiple" : lineModeParser(options.lineMode),
   animation: animationParser(options.animation),
 });

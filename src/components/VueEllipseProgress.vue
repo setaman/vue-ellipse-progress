@@ -92,7 +92,7 @@ export default {
             globalGap: this.gap,
             globalThickness: this.thickness,
             multiple: this.isMultiple,
-            previousCircles,
+            previousCircles: [...previousCircles],
           }),
         });
         const { gap, thickness, dot } = normalizedCircles[i];

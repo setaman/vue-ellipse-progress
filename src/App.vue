@@ -48,6 +48,7 @@
           :reverse="true"
           line-mode="normal"
           :no-data="noData"
+          :data="circles"
           :determinate="determinate"
         >
           <template v-slot:default="{ counterTick }">
