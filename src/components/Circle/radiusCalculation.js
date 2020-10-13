@@ -23,8 +23,8 @@ const previousCirclesThickness = (options) => {
   if (options.index === 0) return 0;
   const currentCircleGap = isValidNumber(options.gap) ? options.gap : options.globalGap;
   const preCirclesThickness = [];
-  for (let i = 0; i < options.options.previousCircles.length; i++) {
-    const data = options.options.previousCircles[i];
+  for (let i = 0; i < options.previousCircles.length; i++) {
+    const data = options.previousCircles[i];
     const dot = data.dot ? data.dot.size : options.globalDot.size;
     const thickness = isValidNumber(data.thickness) ? data.thickness : options.globalThickness;
     const gap = isValidNumber(data.gap) ? data.gap : options.globalGap;

@@ -91,7 +91,7 @@ export default {
     price: "",
     circles: [
       { progress: 50, color: "red", dot: "20 yellow" },
-      { progress: 50, color: "red", half: true, angle: -90, dot: "10 green" },
+      { progress: 50, color: "yellow", half: true, angle: -90, dot: "10 green" },
       { progress: 50, color: "blue", reverse: false },
     ],
     determinate: false,

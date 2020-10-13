@@ -72,6 +72,7 @@ export default {
         return this.data.map((options) => ({
           ...this.$props,
           ...options,
+          multiple: true,
           emptyThickness: isValidNumber(options.thickness) ? options.thickness : this.$props.thickness,
           data: undefined, // do not pass data prop
         }));
@@ -91,7 +92,6 @@ export default {
             globalDot: this.dot,
             globalGap: this.gap,
             globalThickness: this.thickness,
-            multiple: this.isMultiple,
             previousCircles: [...previousCircles],
           }),
         });
