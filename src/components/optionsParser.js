@@ -54,14 +54,18 @@ const calcThickness = (thickness, size) => {
   return thickness.toString().includes("%") ? (value * size) / 100 : value;
 };
 
-export default (options) => ({
-  ...options,
-  thickness: calcThickness(options.thickness, options.size),
-  emptyThickness: calcThickness(options.emptyThickness, options.size),
-  globalThickness: calcThickness(options.thickness, options.size),
-  dot: { ...dotParser(options.dot), size: calcThickness(dotParser(options.dot).size, options.size) },
-  globalDot: { ...dotParser(options.globalDot), size: calcThickness(dotParser(options.globalDot).size, options.size) },
-  dash: dashParser(options.dash),
-  lineMode: lineModeParser(options),
-  animation: animationParser(options.animation),
-});
+export default (options) => {
+  const dot = dotParser(options.dot);
+  const globalDot = dotParser(options.globalDot);
+  return {
+    ...options,
+    thickness: calcThickness(options.thickness, options.size),
+    emptyThickness: calcThickness(options.emptyThickness, options.size),
+    globalThickness: calcThickness(options.globalThickness, options.size),
+    dot: { ...dot, size: calcThickness(dot.size, options.size) },
+    globalDot: { ...globalDot, size: calcThickness(globalDot.size, options.size) },
+    dash: dashParser(options.dash),
+    lineMode: lineModeParser(options),
+    animation: animationParser(options.animation),
+  };
+};

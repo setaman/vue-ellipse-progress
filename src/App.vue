@@ -90,7 +90,7 @@ export default {
     line: "round",
     price: "",
     circles: [
-      { progress: 50, color: "red", dot: "50 green" },
+      { progress: 50, color: "red" },
       { progress: 50, color: "yellow" /* half: true, angle: -90, dot: "10 green" */ },
       { progress: 50, color: "blue", reverse: false },
     ],

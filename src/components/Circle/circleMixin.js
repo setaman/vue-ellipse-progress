@@ -118,6 +118,7 @@ export default {
     globalGap() {
       return this.options.globalGap;
     },
+
     dotSize() {
       return this.options.dot.size;
     },
