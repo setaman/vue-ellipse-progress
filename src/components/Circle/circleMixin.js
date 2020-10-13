@@ -1,3 +1,4 @@
+import { emptyRadius, radius } from "@/components/Circle/radiusCalculation";
 import { isValidNumber } from "../../utils";
 
 const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -29,80 +30,10 @@ export default {
     },
 
     radius() {
-      const { offset } = this.lineMode;
-
-      if (this.options.multiple) {
-        return this.baseRadius - this.previousCirclesThickness;
-      }
-
-      switch (this.lineMode.mode) {
-        case "normal":
-          return this.normalLineModeRadius;
-        case "in":
-          return this.emptyRadius - (this.emptyThickness / 2 + this.thickness / 2 + offset);
-        case "out-over":
-          if (this.emptyThickness <= this.thickness) {
-            return this.baseRadius;
-          }
-          return this.emptyRadius - this.emptyThickness / 2 + this.thickness / 2;
-        case "bottom":
-          return this.emptyRadius - this.emptyThickness / 2;
-        case "top":
-          return this.emptyRadius + this.emptyThickness / 2;
-        default:
-          return this.baseRadius;
-      }
+      return radius(this.options);
     },
     emptyRadius() {
-      const { offset } = this.lineMode;
-
-      if (this.options.multiple) {
-        return this.baseRadius - this.previousCirclesThickness;
-      }
-
-      switch (this.lineMode.mode) {
-        case "normal":
-          return this.normalLineModeRadius;
-        case "in":
-          const dotSizeLimit = this.thickness / 2 + this.emptyThickness + offset;
-          if (this.dotSize / 2 > dotSizeLimit) {
-            return this.emptyBaseRadius - (this.dotSize / 2 - dotSizeLimit);
-          }
-          return this.emptyBaseRadius;
-        case "in-over":
-          if (this.dotToThicknessDifference > 0) {
-            return this.emptyBaseRadius - this.dotToThicknessDifference / 2;
-          }
-          return this.emptyBaseRadius;
-        case "out":
-          return this.baseRadius - (this.thickness / 2 + this.emptyThickness / 2 + offset);
-        case "out-over":
-          if (this.emptyThickness <= this.thickness) {
-            return this.baseRadius - this.thickness / 2 + this.emptyThickness / 2;
-          }
-          return this.emptyBaseRadius;
-        case "bottom":
-          if (this.emptyThickness < this.thicknessWithDot / 2) {
-            return this.emptyBaseRadius - (this.thicknessWithDot / 2 - this.emptyThickness);
-          }
-          return this.emptyBaseRadius;
-        case "top":
-          return this.emptyBaseRadius - this.thicknessWithDot / 2;
-        default:
-          return this.emptyBaseRadius;
-      }
-    },
-    baseRadius() {
-      return this.options.size / 2 - this.thicknessWithDot / 2;
-    },
-    emptyBaseRadius() {
-      return this.options.size / 2 - this.emptyThickness / 2;
-    },
-    normalLineModeRadius() {
-      if (this.thicknessWithDot < this.emptyThickness) {
-        return this.emptyBaseRadius;
-      }
-      return this.baseRadius;
+      return emptyRadius(this.options);
     },
 
     dataIsAvailable() {
@@ -148,10 +79,6 @@ export default {
       return this.options.thickness;
     },
 
-    thicknessWithDot() {
-      return this.thickness < this.dotSize ? this.dotSize : this.thickness;
-    },
-
     globalThickness() {
       return this.options.globalThickness;
     },
@@ -192,28 +119,11 @@ export default {
       return this.options.globalGap;
     },
 
-    previousCirclesThickness() {
-      if (this.options.index === 0) return 0;
-      const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
-      const previousCirclesThickness = [];
-      for (let i = 0; i < this.options.index; i++) {
-        const data = this.options.previousCircles[i];
-        const dot = data.dot ? data.dot.size : this.globalDotSize;
-        const thickness = isValidNumber(data.thickness) ? data.thickness : this.globalThickness;
-        const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-        const completeThickness = Math.max(dot, thickness);
-        previousCirclesThickness.push(i > 0 ? completeThickness + gap : completeThickness);
-      }
-      return previousCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
-    },
     dotSize() {
       return this.options.dot.size;
     },
     dotColor() {
       return this.options.dot.color;
-    },
-    dotToThicknessDifference() {
-      return this.dotSize - this.thickness;
     },
     globalDotSize() {
       return this.globalDot.size;

@@ -1,9 +1,10 @@
 import { getNumberIfValid, isValidNumber } from "@/utils";
 
-const lineModeParser = (lineMode) => {
-  const lineModeConfig = lineMode.trim().split(" ");
+const lineModeParser = (options) => {
+  const lineModeConfig = options.lineMode.trim().split(" ");
+  const mode = options.multiple ? "multiple" : lineModeConfig[0];
   return {
-    mode: lineModeConfig[0],
+    mode,
     offset: getNumberIfValid(lineModeConfig[1]) || 0,
   };
 };
@@ -50,22 +51,21 @@ const dotParser = (dot) => {
 
 const calcThickness = (thickness, size) => {
   const value = parseFloat(thickness);
-  switch (true) {
-    case thickness.toString().includes("%"):
-      return (value * size) / 100;
-    default:
-      return value;
-  }
+  return thickness.toString().includes("%") ? (value * size) / 100 : value;
 };
 
-export default (options) => ({
-  ...options,
-  thickness: calcThickness(options.thickness, options.size),
-  emptyThickness: calcThickness(options.emptyThickness, options.size),
-  globalThickness: calcThickness(options.thickness, options.size),
-  dot: { ...dotParser(options.dot), size: calcThickness(dotParser(options.dot).size, options.size) },
-  globalDot: { ...dotParser(options.globalDot), size: calcThickness(dotParser(options.globalDot).size, options.size) },
-  dash: dashParser(options.dash),
-  lineMode: lineModeParser(options.lineMode),
-  animation: animationParser(options.animation),
-});
+export default (options) => {
+  const dot = dotParser(options.dot);
+  const globalDot = dotParser(options.globalDot);
+  return {
+    ...options,
+    thickness: calcThickness(options.thickness, options.size),
+    emptyThickness: calcThickness(options.emptyThickness, options.size),
+    globalThickness: calcThickness(options.globalThickness, options.size),
+    dot: { ...dot, size: calcThickness(dot.size, options.size) },
+    globalDot: { ...globalDot, size: calcThickness(globalDot.size, options.size) },
+    dash: dashParser(options.dash),
+    lineMode: lineModeParser(options),
+    animation: animationParser(options.animation),
+  };
+};

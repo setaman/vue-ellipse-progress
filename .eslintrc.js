@@ -15,6 +15,7 @@ module.exports = {
     "no-restricted-syntax": "off",
     "guard-for-in": "off",
     "no-case-declarations": "off",
+    "no-use-before-define": "off",
   },
   parserOptions: {
     parser: "babel-eslint",
