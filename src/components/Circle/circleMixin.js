@@ -30,22 +30,10 @@ export default {
     },
 
     radius() {
-      if (this.options.multiple) {
-        return this.baseRadius - this.previousCirclesThickness;
-      }
       return radius(this.options);
     },
     emptyRadius() {
-      if (this.options.multiple) {
-        return this.baseRadius - this.previousCirclesThickness;
-      }
       return emptyRadius(this.options);
-    },
-    baseRadius() {
-      return this.options.size / 2 - this.thicknessWithDot / 2;
-    },
-    emptyBaseRadius() {
-      return this.options.size / 2 - this.emptyThickness / 2;
     },
 
     dataIsAvailable() {
@@ -129,21 +117,6 @@ export default {
 
     globalGap() {
       return this.options.globalGap;
-    },
-
-    previousCirclesThickness() {
-      if (this.options.index === 0) return 0;
-      const currentCircleGap = isValidNumber(this.gap) ? this.gap : this.globalGap;
-      const previousCirclesThickness = [];
-      for (let i = 0; i < this.options.index; i++) {
-        const data = this.options.previousCircles[i];
-        const dot = data.dot ? data.dot.size : this.globalDotSize;
-        const thickness = isValidNumber(data.thickness) ? data.thickness : this.globalThickness;
-        const gap = isValidNumber(data.gap) ? data.gap : this.globalGap;
-        const completeThickness = Math.max(dot, thickness);
-        previousCirclesThickness.push(i > 0 ? completeThickness + gap : completeThickness);
-      }
-      return previousCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
     },
     dotSize() {
       return this.options.dot.size;
