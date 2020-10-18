@@ -38,12 +38,8 @@ const radiusNormalMode = (options) => normalLineModeRadius(options);
 const radiusInMode = (options) =>
   emptyRadius(options) - half(options.emptyThickness + half(options.thickness) + options.lineMode.offset);
 const radiusOutOverMode = (options) => emptyRadius(options) - half(options.emptyThickness);
-const radiusBottomOrTopMode = (options) => {
-  if (options.emptyThickness <= options.thickness) {
-    return baseRadius(options);
-  }
-  return emptyRadius(options) - half(options.emptyThickness) + half(options.thickness);
-};
+const radiusTopMode = (options) => emptyRadius(options) + half(options.emptyThickness);
+const radiusBottomMode = (options) => emptyRadius(options) - half(options.emptyThickness);
 
 const emptyRadiusNormalMode = (options) => normalLineModeRadius(options);
 const emptyRadiusInMode = (options) => {
@@ -83,8 +79,8 @@ export const radius = (options) => {
     normal: () => radiusNormalMode(options),
     in: () => radiusInMode(options),
     "out-over": () => radiusOutOverMode(options),
-    bottom: () => radiusBottomOrTopMode(options),
-    top: () => radiusBottomOrTopMode(options),
+    bottom: () => radiusBottomMode(options),
+    top: () => radiusTopMode(options),
   };
   const modeHandler = modes[options.lineMode.mode];
   return modeHandler ? modeHandler() : baseRadius(options);
