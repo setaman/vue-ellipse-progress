@@ -412,12 +412,12 @@ Forces loading state. The component provides an indeterminate loading state for 
 
 With this option defined as Object you can customize the loading circle that is shown in the states 
 [loading](#loading) and [determinate](#determinate). Accepted properties are [`color`](#color), [`thickness`](#thickness), [`line`](#line),
-[`lineMode`](#linemode) and `opactity`. `opacity` is specific for loading circle and can be any valid CSS opacity value.
+[`lineMode`](#linemode) and `opactity`. `opacity` is specific for loading circle and can be any valid CSS opacity value. If the option is not specified, the loading circle replicates the progress circle with a 0.55 default value for `opacity`.
 
 ###### Example: :scroll:
 
 ```vue
-<vue-ellipse-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.5' }" />
+<vue-ellipse-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
 
 ```
 
