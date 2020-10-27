@@ -1,6 +1,6 @@
 import { getNumberIfValid, isValidNumber } from "@/utils";
 
-const lineModeParser = (options) => {
+export const lineModeParser = (options) => {
   const lineModeConfig = options.lineMode.trim().split(" ");
   const mode = options.multiple ? "multiple" : lineModeConfig[0];
   return {
@@ -49,12 +49,12 @@ const dotParser = (dot) => {
   };
 };
 
-const calcThickness = (thickness, size) => {
+export const calcThickness = (thickness, size) => {
   const value = parseFloat(thickness);
   return thickness.toString().includes("%") ? (value * size) / 100 : value;
 };
 
-export default (options) => {
+export const parseOptions = (options) => {
   const dot = dotParser(options.dot);
   const globalDot = dotParser(options.globalDot);
   return {
