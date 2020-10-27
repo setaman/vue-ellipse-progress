@@ -27,7 +27,7 @@ import CircleProgress from "./Circle.vue";
 import CircleDot from "./CircleDot.vue";
 
 export default {
-  name: "EpCircleContainer",
+  name: "CircleContainer",
   components: { CircleDot, CircleProgress, HalfCircleProgress, Gradient },
   props: {
     options: {
