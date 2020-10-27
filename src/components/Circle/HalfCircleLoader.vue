@@ -2,7 +2,7 @@
   <g :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
     <path
       :stroke-width="thickness"
-      class="ep-half-circle--loading animation__loading"
+      class="ep-half-circle--loader animation__loading"
       :d="path"
       :fill="computedColorFill"
       :stroke="computedColor"
