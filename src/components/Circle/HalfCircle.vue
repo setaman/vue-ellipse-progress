@@ -24,25 +24,7 @@
     </path>
     <fade-in-transition>
       <g v-if="isLoading">
-        <g :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
-          <path
-            :stroke-width="thickness"
-            class="ep-half-circle--loading animation__loading"
-            :d="path"
-            :fill="computedColorFill"
-            :stroke="computedColor"
-            :stroke-dasharray="circumference"
-            :stroke-linecap="options.line"
-            :style="{
-              transitionTimingFunction: styles.transitionTimingFunction,
-              transformOrigin: styles.transformOrigin,
-              '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
-              '--ep-circumference': styles['--ep-circumference'],
-              '--ep-negative-circumference': styles['--ep-negative-circumference'],
-            }"
-          >
-          </path>
-        </g>
+        <half-circle-loader :options="options.loader" />
       </g>
     </fade-in-transition>
 
@@ -63,10 +45,11 @@
 <script>
 import CircleMixin from "./circleMixin";
 import FadeInTransition from "../FadeInTransition.vue";
+import HalfCircleLoader from "./HalfCircleLoader.vue";
 
 export default {
   name: "HalfCircleProgress",
-  components: { FadeInTransition },
+  components: { HalfCircleLoader, FadeInTransition },
   mixins: [CircleMixin],
   computed: {
     circumference() {

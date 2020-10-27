@@ -74,6 +74,7 @@
         line-mode="out 20"
         :no-data="noData"
         :determinate="determinate"
+        :loader="{ thickness: 40, color: 'red' }"
       >
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
