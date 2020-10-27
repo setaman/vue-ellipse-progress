@@ -1,7 +1,7 @@
 <template>
-  <g class="ep-circle--loading__container" :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
+  <g class="ep-circle--loader__container" :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
     <circle
-      class="ep-circle--loading animation__loading"
+      class="ep-circle--loader animation__loading"
       :r="radius"
       :cx="position"
       :cy="position"
@@ -25,7 +25,7 @@
 import CircleMixin from "./circleMixin";
 
 export default {
-  name: "CircleProgress",
+  name: "CircleLoader",
   mixins: [CircleMixin],
   computed: {
     position() {

@@ -17,7 +17,7 @@
   }
 }
 
-.ep-circle--loading {
+.ep-circle--loader {
   &.animation__loading {
     animation-name: ep-progress--loading, ep-progress--loading__rotation;
     animation-iteration-count: infinite !important;
