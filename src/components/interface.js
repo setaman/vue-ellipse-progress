@@ -164,4 +164,9 @@ export default {
     type: Function,
     required: false,
   },
+  loader: {
+    type: Object,
+    required: false,
+    default: {},
+  },
 };
