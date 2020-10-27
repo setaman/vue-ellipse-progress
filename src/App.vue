@@ -48,7 +48,7 @@
           :thickness="20"
           :empty-thickness="10"
           dot="10 red"
-          :loader="{ thickness: 40, color: 'red' }"
+          :loader="{ thickness: 10, color: 'blue' }"
           line-mode="bottom"
           :no-data="noData"
           :determinate="determinate"

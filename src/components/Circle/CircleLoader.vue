@@ -1,5 +1,5 @@
 <template>
-  <g class="ep-circle--loader__container" :style="{ opacity: `${options.loading ? 1 : 0.45}` }">
+  <g class="ep-circle--loader__container" :style="{ opacity: opacity }">
     <circle
       class="ep-circle--loader animation__loading"
       :r="radius"
@@ -33,6 +33,9 @@ export default {
     },
     circumference() {
       return this.radius * 2 * Math.PI;
+    },
+    opacity() {
+      return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
     },
   },
 };
