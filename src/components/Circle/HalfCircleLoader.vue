@@ -1,5 +1,5 @@
 <template>
-  <g :style="{ opacity: options.opacity }">
+  <g :style="{ opacity: opacity }">
     <path
       :stroke-width="thickness"
       class="ep-half-circle--loader animation__loading"
@@ -42,6 +42,9 @@ export default {
     },
     emptyPosition() {
       return this.options.size / 2 - this.emptyRadius;
+    },
+    opacity() {
+      return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
     },
   },
 };
