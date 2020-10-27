@@ -48,7 +48,7 @@
           :thickness="20"
           :empty-thickness="10"
           dot="10 red"
-          line-mode="in"
+          line-mode="bottom"
           :no-data="noData"
           :determinate="determinate"
         >
