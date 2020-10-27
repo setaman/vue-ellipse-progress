@@ -45,9 +45,10 @@
           animation="rs 2000 500"
           :loading="loading"
           :reverse="true"
-          :thickness="20"
-          dot="30"
-          line-mode="bottom"
+          :thickness="5"
+          :empty-thickness="50"
+          dot="50"
+          line-mode="out-over"
           :no-data="noData"
           :determinate="determinate"
         >

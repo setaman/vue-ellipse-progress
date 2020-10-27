@@ -37,7 +37,12 @@ const previousCirclesThickness = (options) => {
 const radiusNormalMode = (options) => normalLineModeRadius(options);
 const radiusInMode = (options) =>
   emptyRadius(options) - half(options.emptyThickness + half(options.thickness) + options.lineMode.offset);
-const radiusOutOverMode = (options) => emptyRadius(options) - half(options.emptyThickness);
+const radiusOutOverMode = (options) => {
+  if (options.emptyThickness <= options.thickness) {
+    return baseRadius(options);
+  }
+  return emptyBaseRadius(options) - half(options.emptyThickness) + half(options.thickness);
+};
 const radiusTopMode = (options) => emptyRadius(options) + half(options.emptyThickness);
 const radiusBottomMode = (options) => emptyRadius(options) - half(options.emptyThickness);
 
