@@ -1,6 +1,6 @@
 <template>
   <span class="ep-legend--value__counter">
-    <slot :counterTick="counterProps"> </slot>
+    <slot :counterTick="counterProps"></slot>
     <!--<span v-if="!$scopedSlots.default">{{ formattedValue }}</span>-->
   </span>
 </template>

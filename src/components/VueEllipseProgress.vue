@@ -16,15 +16,15 @@
           :style="{ fontSize, color: fontColor }"
         >
           <counter :value="legendVal" :animation="normalizedCircles[0].animation" :loading="loading">
-            <!--FIXME: This is completely broken in Vue 3-->
-            <!--<template v-slot:default="{ counterTick }">
-              <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
+            <template v-slot:default="{ counterTick }">
               <span v-if="legendFormatter">
                 <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
                 <span v-else>{{ legendFormatter(counterTick) }}</span>
               </span>
-              <span v-else-if="!$scopedSlots.default">{{ counterTick.currentFormattedValue }}</span>
-            </template>-->
+              <slot v-else :counterTick="counterTick">
+                <span>{{ counterTick.currentFormattedValue }}</span>
+              </slot>
+            </template>
           </counter>
           <slot name="legend-value"></slot>
         </div>
