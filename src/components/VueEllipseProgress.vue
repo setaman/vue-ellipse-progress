@@ -39,7 +39,7 @@ import { getNumberIfValid, isValidNumber } from "../utils";
 import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
-import parseOptions from "./optionsParser";
+import { parseOptions, calcThickness, lineModeParser } from "./optionsParser";
 
 export default {
   name: "VueEllipseProgress",
@@ -84,17 +84,19 @@ export default {
       const previousCircles = [];
       for (let i = 0; i < this.circlesData.length; i++) {
         const options = this.circlesData[i];
-        normalizedCircles.push({
-          ...parseOptions({
-            index: i,
-            id: i,
-            ...options,
-            globalDot: this.dot,
-            globalGap: this.gap,
-            globalThickness: this.thickness,
-            previousCircles: [...previousCircles],
-          }),
+        const parsedOptions = parseOptions({
+          index: i,
+          id: i,
+          ...options,
+          globalDot: this.dot,
+          globalGap: this.gap,
+          globalThickness: this.thickness,
+          previousCircles: [...previousCircles],
         });
+        const loaderOptions = { ...parsedOptions, ...parsedOptions.loader };
+        loaderOptions.thickness = calcThickness(loaderOptions.thickness, parsedOptions.size);
+        loaderOptions.lineMode = parsedOptions.loader.lineMode ? lineModeParser(loaderOptions) : parsedOptions.lineMode;
+        normalizedCircles.push({ ...parsedOptions, loader: loaderOptions });
         const { gap, thickness, dot } = normalizedCircles[i];
         previousCircles.push({ gap, thickness, dot });
       }

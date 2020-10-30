@@ -13,7 +13,10 @@ const colorConfig = (defaultColor = "transparent") => ({
   },
 });
 
-export default {
+const validateLoaderProps = (loaderOptions) =>
+  Object.keys(loaderOptions).every((p) => options[p].validator(loaderOptions[p]));
+
+const options = {
   data: {
     type: Array,
     required: false,
@@ -164,4 +167,20 @@ export default {
     type: Function,
     required: false,
   },
+  loader: {
+    type: Object,
+    required: false,
+    default: () => ({}),
+    validator: (value) => {
+      const propsAllowed = Object.keys(value).every((prop) =>
+        ["thickness", "color", "lineMode", "line", "opacity"].includes(prop)
+      );
+      if (propsAllowed) {
+        return validateLoaderProps(value);
+      }
+      return false;
+    },
+  },
 };
+
+export default options;

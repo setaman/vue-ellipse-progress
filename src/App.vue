@@ -48,6 +48,7 @@
           :thickness="20"
           :empty-thickness="10"
           dot="10 red"
+          :loader="{ thickness: 40, color: 'red' }"
           line-mode="bottom"
           :no-data="noData"
           :determinate="determinate"
@@ -73,6 +74,7 @@
         line-mode="out 20"
         :no-data="noData"
         :determinate="determinate"
+        :loader="{ thickness: 40, color: 'red' }"
       >
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>

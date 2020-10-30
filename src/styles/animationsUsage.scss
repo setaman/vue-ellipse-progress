@@ -17,7 +17,7 @@
   }
 }
 
-.ep-circle--loading {
+.ep-circle--loader {
   &.animation__loading {
     animation-name: ep-progress--loading, ep-progress--loading__rotation;
     animation-iteration-count: infinite !important;
@@ -26,7 +26,7 @@
   }
 }
 
-.ep-half-circle--loading {
+.ep-half-circle--loader {
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;

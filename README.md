@@ -74,7 +74,8 @@ After you have initialized the component, use it everywhere you want in your app
   dash="60 0.9"
   animation="reverse 700 400"
   :noData="false"
-  :loading="false"                      
+  :loading="false"  
+  :loader="{ color: 'green' }"                    
   fontColor="white"
   :half="false"
   :gap="10"
@@ -115,6 +116,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendFormatter`](#legendformatter)** [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter) | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
+| **[`loader`](#loading)** | Object | { [thickness, color, lineMode, line, opacity ]} |  |
 | **[`determinate`](#determinate)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any Number |-90|
@@ -403,6 +405,21 @@ animation="bounce 1000"
 - ### `loading`
 
 Forces loading state. The component provides an indeterminate loading state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
+
+<br>
+
+- ### `loader`
+
+With this option defined as Object you can customize the loading circle that is shown in the states 
+[loading](#loading) and [determinate](#determinate). Accepted properties are [`color`](#color), [`thickness`](#thickness), [`line`](#line),
+[`lineMode`](#linemode) and `opactity`. `opacity` is specific for loading circle and can be any valid CSS opacity value. If the option is not specified, the loading circle replicates the progress circle with a 0.55 default value for `opacity`.
+
+###### Example: :scroll:
+
+```vue
+<vue-ellipse-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
+
+```
 
 <br>
 
