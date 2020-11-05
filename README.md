@@ -36,11 +36,10 @@ npm i vue-ellipse-progress
 ```
 The component is provided as a Vue.js plugin. So just initialize it in your ``main.js``:
 ```js
+import { createApp } from "vue";
 import VueEllipseProgress from 'vue-ellipse-progress';
-
-Vue.use(VueEllipseProgress);
-
-// Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
+createApp(App).use(VueEllipseProgress);
+// createApp(App).use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
 
 ### CDN
