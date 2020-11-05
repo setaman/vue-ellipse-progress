@@ -112,7 +112,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`legend`](#legend)** | Boolean | |  true |
 | **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
-| **[`legendFormatter`](#legendformatter)** [![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter) | Function | Function that returns formatted value  |   |
+| **[`legendFormatter`](#legendformatter)** | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
 | **[`loader`](#loading)** | Object | { [thickness, color, lineMode, line, opacity ]} |  |
@@ -126,7 +126,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`half`](#half)** | Boolean |  | false |
 | **[`gap`](#gap)** | Number | any Number that defines the gap between multiple circles in pixel | 0 |
 | **[`dot`](#dot)** | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
-| **[`reverse`](#reverse)** [![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) | Boolean | | false |
+| **[`reverse`](#reverse)** | Boolean | | false |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with almost all props defined above | |
 
 
@@ -140,9 +140,7 @@ This table below provides a quick overview over all available options. To gain m
 Is any Number in range \[-100, 100] (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
-
-[![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#progress) Set a negative value to fill the progress
-counterclockwise. Alternative you can use [`reverse`](#reverse).
+Set a negative value to fill the progress counterclockwise. Alternative you can use [`reverse`](#reverse).
 
 ###### Example: :scroll:
 
@@ -344,8 +342,6 @@ Now you can display custom progress value that still animated and circle progres
 
 - ### `legendFormatter` 
 
-[![npm](https://img.shields.io/badge/v1.3.0-blue?style=flat-square)](#legendformatter)
-
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
 is called on every tick of the counter. Here the formatting of [legendValue](#legendvalue) or [progress](#progress) 
 is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
@@ -536,8 +532,6 @@ dot="5% red" // adds red dot
 <br>
 
 - ### `reverse`
-
-[![npm](https://img.shields.io/badge/v1.2.0-blue?style=flat-square)](#reverse) 
 
 Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternative you can just set 
 a negative value for [`progress`](#progress).
