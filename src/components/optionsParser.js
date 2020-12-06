@@ -30,7 +30,7 @@ const dashParser = (dash) => {
   };
 };
 
-const dotParser = (dot) => {
+export const dotParser = (dot) => {
   let dotSize = 0;
   let dotColor = "white";
   let styles = {};
