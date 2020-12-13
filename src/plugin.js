@@ -1,3 +1,5 @@
-import VueEllipseProgress from "./components/VueEllipseProgress.vue";
+import VeProgress from "./components/VueEllipseProgress.vue";
 
-export default (app, name = "vue-ellipse-progress") => app.component(name, VueEllipseProgress);
+const install = (app, name = "ve-progress") => app.component(name, VeProgress);
+export default install;
+export { VeProgress, install };

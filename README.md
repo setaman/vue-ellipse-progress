@@ -34,27 +34,38 @@ Install the library via npm:
 ```
 npm i vue-ellipse-progress
 ```
-The component is provided as a Vue.js plugin. So just initialize it in your ``main.js``:
+You can initialize the component globally as a plugin or import it in a specific component of your app.
+
+#### Initialize as Plugin 
+Import and initialize the component in your `main.js`. After initialization, the component is available as `<ve-progress/>`.
+You can also assign a custom name to the component:
 ```js
 import { createApp } from "vue";
-import VueEllipseProgress from 'vue-ellipse-progress';
-createApp(App).use(VueEllipseProgress);
-// createApp(App).use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
+import veProgress from "vue-ellipse-progress";
+createApp(App).use(veProgress);
+// createApp(App).use(veProgress, "vep"); define custom name
+```
+
+#### Import component
+You also have the option to import the component directly:
+```js
+import { VeProgress } from "vue-ellipse-progress";
 ```
 
 ### CDN
-Use this option where you have a global Vue.js instance available. You can customize and get the bundled and minified 
+You can customize and get the bundled and minified 
 component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
-Just add the following line to your HTML and start using the component, nothing more is required:
-
+Just add the following line to your HTML and initialize the component as plugin:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+...
+createApp(App).use(veprogress);
 ```
 
 ## Usage
-After you have initialized the component, use it everywhere you want in your application:
+After you have initialized the component, you are ready to create your circles:
 ```html
-<vue-ellipse-progress 
+<ve-progress 
   :data="circles"                    
   :progress="progress"
   :angle="-90"
@@ -85,12 +96,12 @@ After you have initialized the component, use it everywhere you want in your app
   <span slot="legend-value">/200</span>
   <p slot="legend-caption">GOOD JOB</p>
   
-</vue-ellipse-progress>
+</ve-progress>
 ``` 
 ## Options
 You are ready to go with just following line:
 ```html
-<vue-ellipse-progress :progress="progress"/>
+<ve-progress :progress="progress"/>
 ```
 The **[`progress`](#progress)** is the only required property. However, in order to create unique circles that match your design needs, you can use all the properties explained below.
 

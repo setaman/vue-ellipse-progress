@@ -38,7 +38,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <vue-ellipse-progress
+        <ve-progress
           :size="200"
           :progress="progress"
           :legendValue="1315.56"
@@ -62,9 +62,9 @@
               {{ formattedPrice(counterTick.currentValue) }}
             </span>
           </template>
-        </vue-ellipse-progress>
+        </ve-progress>
       </div>
-      <vue-ellipse-progress
+      <ve-progress
         dot="20 green"
         :loading="loading"
         :size="200"
@@ -79,16 +79,16 @@
         <template v-slot:legend-caption>
           <p slot="legend-caption">TASKS DONE</p>
         </template>
-      </vue-ellipse-progress>
+      </ve-progress>
     </div>
   </div>
 </template>
 <script>
-import VueEllipseProgress from "./components/VueEllipseProgress.vue";
+// import { VeProgress } from "@/plugin";
 
 export default {
   name: "app",
-  components: { VueEllipseProgress },
+  // components: { VeProgress },
   data: () => ({
     line: "round",
     price: "",
