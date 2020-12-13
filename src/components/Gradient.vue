@@ -1,7 +1,7 @@
 <template>
   <component
     :is="gradientComponent"
-    :id="\`ep-${type}-gradient-${id}`"
+    :id="`ep-${type}-gradient-${id}`"
     x1="0%"
     y1="100%"
     x2="0%"
