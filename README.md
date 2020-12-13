@@ -34,10 +34,10 @@ Install the library via npm:
 ```
 npm i vue-ellipse-progress
 ```
-You can initialize the component globally as a plugin or import it a specific component of your app.
+You can initialize the component globally as a plugin or import it in a specific component of your app.
 
 #### Initialize as Plugin 
-Import and initialize the component in your `main.js`. After initialization, the component is available under `<ve-progress/>`.
+Import and initialize the component in your `main.js`. After initialization, the component is available as `<ve-progress/>`.
 You can also assign a custom name to the component:
 ```js
 import { createApp } from "vue";
@@ -47,21 +47,23 @@ createApp(App).use(veProgress);
 ```
 
 #### Import component
+You also have the option to import the component directly:
 ```js
 import { VeProgress } from 'vue-ellipse-progress';
 ```
 
 ### CDN
-Use this option where you have a global Vue.js instance available. You can customize and get the bundled and minified 
+You can customize and get the bundled and minified 
 component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
-Just add the following line to your HTML and start using the component, nothing more is required:
-
+Just add the following line to your HTML and initialize the component as plugin:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+...
+createApp(App).use(veprogress);
 ```
 
 ## Usage
-After you have initialized the component, use it everywhere you want in your application:
+After you have initialized the component, you are ready to create your circles:
 ```html
 <ve-progress 
   :data="circles"                    

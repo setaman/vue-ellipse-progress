@@ -3,10 +3,10 @@
   "version": "2.0.0-alpha.5",
   "private": false,
   "description": "A Vue.js component to create beautiful animated circular progress bars",
-  "main": "./dist/ve-progress.umd.min.js",
+  "main": "./dist/veprogress.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --formats umd-min --name ve-progress ./src/plugin.js",
+    "build": "vue-cli-service build --target lib --formats umd-min --name veprogress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "test": "vue-cli-service test:unit --colors",
     "publish-beta": "npm run lint && npm run build && npm publish --tag beta"
