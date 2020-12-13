@@ -41,7 +41,7 @@ Import and initialize the component in your `main.js`. After initialization, the
 You can also assign a custom name to the component:
 ```js
 import { createApp } from "vue";
-import veProgress from 'vue-ellipse-progress';
+import veProgress from "vue-ellipse-progress";
 createApp(App).use(veProgress);
 // createApp(App).use(veProgress, "vep"); define custom name
 ```
@@ -49,7 +49,7 @@ createApp(App).use(veProgress);
 #### Import component
 You also have the option to import the component directly:
 ```js
-import { VeProgress } from 'vue-ellipse-progress';
+import { VeProgress } from "vue-ellipse-progress";
 ```
 
 ### CDN
