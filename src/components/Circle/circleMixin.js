@@ -1,4 +1,4 @@
-import { emptyRadius, radius } from "@/components/Circle/radiusCalculation";
+import { emptyRadius, fillRadius, radius } from "@/components/Circle/radiusCalculation";
 import { isValidNumber } from "../../utils";
 
 const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -33,23 +33,13 @@ export default {
       return radius(this.options);
     },
     fillRadius() {
-      const { offset, position } = this.options.linePosition;
-      if (position === "center") {
-        return this.radius;
-      }
-      return position === "out" ? this.radius - offset - this.thickness / 2 : this.radius + this.thickness / 2;
+      return fillRadius(this.options.linePosition, this.thickness, this.radius);
     },
     emptyRadius() {
       return emptyRadius(this.options);
     },
     emptyFillRadius() {
-      const { offset, position } = this.options.emptyLinePosition;
-      if (position === "center") {
-        return this.emptyRadius;
-      }
-      return position === "out"
-        ? this.emptyRadius - offset - this.emptyThickness / 2
-        : this.emptyRadius + this.emptyThickness / 2;
+      return fillRadius(this.options.emptyLinePosition, this.emptyThickness, this.emptyRadius);
     },
 
     dataIsAvailable() {

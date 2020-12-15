@@ -40,13 +40,12 @@
       <div style="border: 1px solid red; display: inline-block">
         <ve-progress
           :size="600"
-          half
           :angle="0"
-          line-position="out 70"
+          line-position="out 26"
           empty-line-position="out 20"
           empty-color-fill="red"
-          color-fill="green"
-          empty-color="transparent"
+          color-fill="#273266"
+          empty-color="blue"
           :progress="progress"
           :no-data="noData"
         >
