@@ -68,6 +68,18 @@ const options = {
       return isValidType && isValidOffset;
     },
   },
+  linePosition: {
+    type: String,
+    required: false,
+    default: "center",
+    validator: (value) => ["center", "out", "in"].includes(value),
+  },
+  emptyLinePosition: {
+    type: String,
+    required: false,
+    default: "center",
+    validator: (value) => ["center", "out", "in"].includes(value),
+  },
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
   colorFill: colorConfig(),
