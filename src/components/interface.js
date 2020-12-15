@@ -14,7 +14,18 @@ const colorConfig = (defaultColor = "transparent") => ({
 });
 
 const validateLoaderProps = (loaderOptions) =>
-  Object.keys(loaderOptions).every((p) => options[p].validator(loaderOptions[p]));
+  Object.keys(loaderOptions).every((option) => options[option].validator(loaderOptions[option]));
+
+const linePosition = {
+  type: String,
+  required: false,
+  default: "center",
+  validator: (value) => {
+    const [position, offset] = value.toString().split(" ");
+    const isValidOffset = offset ? !Number.isNaN(parseFloat(offset)) : true;
+    return ["center", "out", "in"].includes(position) && isValidOffset;
+  },
+};
 
 const options = {
   data: {
@@ -68,18 +79,8 @@ const options = {
       return isValidType && isValidOffset;
     },
   },
-  linePosition: {
-    type: String,
-    required: false,
-    default: "center",
-    validator: (value) => ["center", "out", "in"].includes(value),
-  },
-  emptyLinePosition: {
-    type: String,
-    required: false,
-    default: "center",
-    validator: (value) => ["center", "out", "in"].includes(value),
-  },
+  linePosition,
+  emptyLinePosition: linePosition,
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
   colorFill: colorConfig(),
