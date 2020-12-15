@@ -43,9 +43,8 @@
           :angle="0"
           line-position="out 26"
           empty-line-position="out 20"
-          empty-color-fill="red"
-          color-fill="#273266"
-          empty-color="blue"
+          empty-color-fill="transparent"
+          color-fill="red"
           :progress="progress"
           :no-data="noData"
         >
