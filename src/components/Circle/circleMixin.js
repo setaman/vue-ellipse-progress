@@ -42,6 +42,15 @@ export default {
     emptyRadius() {
       return emptyRadius(this.options);
     },
+    emptyFillRadius() {
+      const { offset, position } = this.options.emptyLinePosition;
+      if (position === "center") {
+        return this.emptyRadius;
+      }
+      return position === "out"
+        ? this.emptyRadius - offset - this.emptyThickness / 2
+        : this.emptyRadius + this.emptyThickness / 2;
+    },
 
     dataIsAvailable() {
       return isValidNumber(this.computedProgress) && !this.options.noData;
