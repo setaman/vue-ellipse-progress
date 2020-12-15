@@ -66,34 +66,24 @@ export default {
       return (this.radius * 2 * Math.PI) / 2;
     },
     path() {
-      return ` M ${this.position}, ${this.options.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
+      return this.getPath(this.radius);
     },
     fillPath() {
-      return ` M ${this.fillPosition}, ${this.options.size / 2} a ${this.fillRadius},${this.fillRadius} 0 1,1 ${
-        this.fillRadius * 2
-      },0`;
+      return this.getPath(this.fillRadius);
     },
     emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.options.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
-        this.emptyRadius * 2
-      },0`;
+      return this.getPath(this.emptyRadius);
     },
     emptyFillPath() {
-      return ` M ${this.emptyFillPosition}, ${this.options.size / 2} a ${this.emptyFillRadius},${
-        this.emptyFillRadius
-      } 0 1,1 ${this.emptyFillRadius * 2},0`;
+      return this.getPath(this.emptyFillRadius);
     },
-    position() {
-      return this.options.size / 2 - this.radius;
+  },
+  methods: {
+    getPosition(radius) {
+      return this.options.size / 2 - radius;
     },
-    fillPosition() {
-      return this.options.size / 2 - this.fillRadius;
-    },
-    emptyPosition() {
-      return this.options.size / 2 - this.emptyRadius;
-    },
-    emptyFillPosition() {
-      return this.options.size / 2 - this.emptyFillRadius;
+    getPath(radius) {
+      return ` M ${this.getPosition(radius)}, ${this.options.size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
     },
   },
 };

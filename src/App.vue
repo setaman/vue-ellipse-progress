@@ -42,8 +42,8 @@
           :size="600"
           half
           :angle="0"
-          line-position="out 50"
-          empty-line-position="out 0"
+          line-position="out 40"
+          empty-line-position="out 20"
           empty-color-fill="red"
           color-fill="green"
           empty-color="transparent"
