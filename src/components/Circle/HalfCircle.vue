@@ -9,7 +9,7 @@
   >
     <path
       :stroke-width="emptyThickness"
-      :fill="computedColorFill"
+      :fill="computedEmptyColorFill"
       :stroke="computedEmptyColor"
       class="ep-half-circle--empty"
       :d="emptyPath"
