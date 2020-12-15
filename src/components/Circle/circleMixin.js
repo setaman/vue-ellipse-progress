@@ -32,6 +32,13 @@ export default {
     radius() {
       return radius(this.options);
     },
+    fillRadius() {
+      const { offset, position } = this.options.linePosition;
+      if (position === "center") {
+        return this.radius;
+      }
+      return position === "out" ? this.radius - offset - this.thickness / 2 : this.radius + this.thickness / 2;
+    },
     emptyRadius() {
       return emptyRadius(this.options);
     },

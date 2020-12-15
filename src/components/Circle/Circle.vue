@@ -31,7 +31,7 @@
     <circle
       class="ep-circle--progress__fill"
       :class="animationClass"
-      :r="radius"
+      :r="fillRadius"
       :cx="position"
       :cy="position"
       :fill="computedColorFill"
