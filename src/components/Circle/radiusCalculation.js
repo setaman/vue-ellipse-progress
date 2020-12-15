@@ -105,3 +105,11 @@ export const emptyRadius = (options) => {
   const modeHandler = modes[options.lineMode.mode];
   return modeHandler ? modeHandler() : emptyBaseRadius(options);
 };
+
+export const fillRadius = (linePosition, thickness, lineCircleRadius) => {
+  const { position, offset } = linePosition;
+  if (position === "center") {
+    return lineCircleRadius;
+  }
+  return position === "out" ? lineCircleRadius - offset - thickness / 2 : lineCircleRadius + thickness / 2;
+};
