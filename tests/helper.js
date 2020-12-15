@@ -1,23 +1,40 @@
 import { mount } from "@vue/test-utils";
 
-export const circleMockProps = {
+const mockProps = {
+  id: 0,
+  index: 0,
+  multiple: false,
   data: [],
   progress: 50,
   legendValue: null,
   size: 200,
-  thickness: "5%",
-  emptyThickness: "5%",
-  line: "ropund",
-  lineMode: "normal",
-  linePosition: "center",
-  emptyLinePosition: "center",
+  thickness: 10,
+  globalThickness: 10,
+  emptyThickness: 10,
+  line: "round",
+  lineMode: {
+    mode: "normal",
+    offset: 0,
+  },
+  linePosition: {
+    position: "center",
+    offset: 0,
+  },
+  emptyLinePosition: {
+    position: "center",
+    offset: 0,
+  },
   color: "#3f79ff",
   emptyColor: "#e6e9f0",
   colorFill: "transparent",
   emptyColorFill: "transparent",
   fontSize: null,
   fontColor: null,
-  animation: "default 1000 400",
+  animation: {
+    type: "default",
+    duration: "1000",
+    delay: "400",
+  },
   legend: true,
   legendClass: "",
   angle: -90,
@@ -26,15 +43,25 @@ export const circleMockProps = {
   dash: "",
   half: false,
   gap: 0,
+  globalGap: 0,
   determinate: false,
-  dot: 0,
+  dot: {
+    size: 0,
+  },
+  globalDot: {
+    size: 0,
+  },
   reverse: false,
   legendFormatter: null,
   loader: {},
+  previousCircles: [],
+  loaderOptions: this,
 };
+mockProps.loaderOptions = mockProps;
 
+export { mockProps };
 export const factory = ({ container, props = {}, isCircleFactory = true }) => {
-  const propsData = isCircleFactory ? { options: { ...circleMockProps, ...props } } : props;
+  const propsData = isCircleFactory ? { options: { ...mockProps, ...props } } : props;
   return mount(container, {
     propsData,
   });
