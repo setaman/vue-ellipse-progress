@@ -41,10 +41,12 @@
         <ve-progress
           :size="600"
           half
-          line-position="out"
-          empty-line-position="out"
+          :angle="0"
+          line-position="out 50"
+          empty-line-position="out 0"
           empty-color-fill="red"
           color-fill="green"
+          empty-color="transparent"
           :progress="progress"
           :no-data="noData"
         >

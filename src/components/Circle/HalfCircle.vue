@@ -8,8 +8,17 @@
     }"
   >
     <path
-      :stroke-width="emptyThickness"
       :fill="computedEmptyColorFill"
+      :d="emptyFillPath"
+      :style="{
+        transition: styles.transition,
+      }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+    >
+    </path>
+    <path
+      :stroke-width="emptyThickness"
+      fill="transparent"
       :stroke="computedEmptyColor"
       class="ep-half-circle--empty"
       :d="emptyPath"
@@ -28,12 +37,13 @@
       </g>
     </fade-in-transition>
 
+    <path class="ep-half-circle--progress__fill" :d="fillPath" :fill="computedColorFill"> </path>
     <path
       :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
       :d="path"
-      :fill="computedColorFill"
+      fill="transparent"
       :stroke="computedColor"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
@@ -58,16 +68,32 @@ export default {
     path() {
       return ` M ${this.position}, ${this.options.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
     },
+    fillPath() {
+      return ` M ${this.fillPosition}, ${this.options.size / 2} a ${this.fillRadius},${this.fillRadius} 0 1,1 ${
+        this.fillRadius * 2
+      },0`;
+    },
     emptyPath() {
       return ` M ${this.emptyPosition}, ${this.options.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
         this.emptyRadius * 2
       },0`;
     },
+    emptyFillPath() {
+      return ` M ${this.emptyFillPosition}, ${this.options.size / 2} a ${this.emptyFillRadius},${
+        this.emptyFillRadius
+      } 0 1,1 ${this.emptyFillRadius * 2},0`;
+    },
     position() {
       return this.options.size / 2 - this.radius;
     },
+    fillPosition() {
+      return this.options.size / 2 - this.fillRadius;
+    },
     emptyPosition() {
       return this.options.size / 2 - this.emptyRadius;
+    },
+    emptyFillPosition() {
+      return this.options.size / 2 - this.emptyFillRadius;
     },
   },
 };
