@@ -37,7 +37,13 @@
       </g>
     </fade-in-transition>
 
-    <path class="ep-half-circle--progress__fill" :d="fillPath" :fill="computedColorFill"> </path>
+    <path
+      class="ep-half-circle--progress__fill"
+      :d="fillPath"
+      :fill="computedColorFill"
+      :style="{ transition: styles.transition }"
+    >
+    </path>
     <path
       :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
