@@ -29,12 +29,22 @@
       </g>
     </fade-in-transition>
     <circle
-      class="ep-circle--progress"
+      class="ep-circle--progress__fill"
       :class="animationClass"
       :r="radius"
       :cx="position"
       :cy="position"
       :fill="computedColorFill"
+      :style="{ transition: styles.transition }"
+    >
+    </circle>
+    <circle
+      class="ep-circle--progress"
+      :class="animationClass"
+      :r="radius"
+      :cx="position"
+      :cy="position"
+      fill="transparent"
       :stroke="computedColor"
       :stroke-width="thickness"
       :stroke-linecap="options.line"
