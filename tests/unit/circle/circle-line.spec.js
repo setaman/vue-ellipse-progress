@@ -1,7 +1,9 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
+import { factory } from "@/../tests/helper";
+
+const localFactory = (props) => factory({ container: Circle, props });
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
@@ -18,24 +20,11 @@ const progress = 50;
 const size = 200;
 const baseRadius = size / 2;
 
-const factory = (propsData) => {
-  return mount(Circle, {
-    propsData: {
-      ...propsData,
-      progress,
-      size,
-      id: 1,
-      index: 0,
-      multiple: false,
-    },
-  });
-};
-
 describe("#line", () => {
   it("renders line type correctly", async () => {
     let line = "round";
 
-    const wrapper = factory({ line });
+    const wrapper = localFactory({ line });
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
 
@@ -52,13 +41,13 @@ describe("#line", () => {
 });
 describe("#lineMode", () => {
   it("it parses the #lineMode property correctly", () => {
-    const wrapper = factory({ lineMode: "normal 10" });
+    const wrapper = localFactory({ lineMode: "normal 10" });
 
     expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
     expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
   });
   it("it applies default value correctly", () => {
-    const wrapper = factory({ lineMode: "normal 10" });
+    const wrapper = localFactory({ lineMode: "normal 10" });
 
     expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
     expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
@@ -67,7 +56,7 @@ describe("#lineMode", () => {
     describe("#lineMode.mode.normal", () => {
       let thickness = 20;
       let emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: "normal",
@@ -136,7 +125,7 @@ describe("#lineMode", () => {
       const offset = 10;
       const thickness = 20;
       const emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: `in ${offset}`,
@@ -152,7 +141,7 @@ describe("#lineMode", () => {
       const offset = 10; // must be ignored in this mode
       const thickness = 20;
       const emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: `in-over ${offset}`,
@@ -168,7 +157,7 @@ describe("#lineMode", () => {
       const offset = 10;
       const thickness = 10;
       const emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         progress,
         thickness,
         emptyThickness,
@@ -185,7 +174,7 @@ describe("#lineMode", () => {
       const offset = 10; // must be ignored in this mode
       let thickness = 20;
       let emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: `out-over ${offset}`,
@@ -223,7 +212,7 @@ describe("#lineMode", () => {
       const offset = 10; // must be ignored in this mode
       const thickness = 20;
       const emptyThickness = 20;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: `top ${offset}`,
@@ -239,7 +228,7 @@ describe("#lineMode", () => {
       const offset = 10; // must be ignored in this mode
       let thickness = 40;
       let emptyThickness = 10;
-      const wrapper = factory({
+      const wrapper = localFactory({
         thickness,
         emptyThickness,
         lineMode: `bottom ${offset}`,

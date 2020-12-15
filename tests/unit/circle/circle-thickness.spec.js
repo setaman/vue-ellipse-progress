@@ -1,24 +1,14 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import Circle from "@/components/Circle/Circle.vue";
+import { factory } from "@/../tests/helper";
 
-const factory = (propsData) => {
-  return mount(Circle, {
-    propsData: {
-      progress: 50,
-      multiple: true,
-      id: 1,
-      index: 0,
-      ...propsData,
-    },
-  });
-};
+const localFactory = (props) => factory({ container: Circle, props });
 
 describe("#thickness", () => {
   it("renders the progress circle line stroke thickness correctly", () => {
     const thickness = 4;
 
-    const wrapper = factory({ thickness });
+    const wrapper = localFactory({ thickness });
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
     expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
@@ -28,7 +18,7 @@ describe("#thickness", () => {
     const thickness = "5%";
     const relativeThickness = (parseInt(thickness, 10) * size) / 100;
 
-    const wrapper = factory({ thickness });
+    const wrapper = localFactory({ thickness });
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
     expect(wrapper.vm.computedThickness).to.equal(relativeThickness);
@@ -39,7 +29,7 @@ describe("#emptyTthickness", () => {
   it("renders the empty circle line stroke thickness correctly", () => {
     const emptyThickness = 4;
 
-    const wrapper = factory({ emptyThickness });
+    const wrapper = localFactory({ emptyThickness });
     const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
 
     expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${emptyThickness}`);
@@ -49,7 +39,7 @@ describe("#emptyTthickness", () => {
     const emptyThickness = "5%";
     const relativeThickness = (parseInt(emptyThickness, 10) * size) / 100;
 
-    const wrapper = factory({ emptyThickness });
+    const wrapper = localFactory({ emptyThickness });
     const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
 
     expect(wrapper.vm.computedEmptyThickness).to.equal(relativeThickness);

@@ -1,27 +1,19 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
+import { factory } from "@/../tests/helper";
 
-const factory = (propsData, container = Circle) => {
-  return mount(container, {
-    propsData: {
-      index: 1,
-      id: 2,
-      multiple: false,
-      progress: 50,
-      ...propsData,
-    },
-  });
+const localFactory = (props, container = Circle) => {
+  return factory({ container, props });
 };
 
 const animationTypeTests = (container, circleClass, prefix = "circle |") => {
-  const wrapper = factory({}, container);
+  const wrapper = localFactory({}, container);
   const circleProgressWrapper = wrapper.find(circleClass);
-  it(`${prefix} do not applies any animation type before delay`, () => {
+  it(`${prefix} does not apply any animation type before delay`, () => {
     expect(circleProgressWrapper.classes())
       .to.be.an("array")
       .that.not.include([
@@ -62,19 +54,19 @@ const animationTypeTests = (container, circleClass, prefix = "circle |") => {
 };
 const animationDurationTests = (container, circleClass, prefix = "circle | ") => {
   it(`${prefix} applies default @1000 duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = factory({}, container).find(circleClass);
+    const circleProgressWrapper = localFactory({}, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("1000ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("1000ms");
   });
   it(`${prefix} applies provided duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = factory({ animation: "rs 500" }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: "rs 500" }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("500ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("500ms");
   });
   it(`${prefix} applies @0 duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = factory({ animation: "rs 0" }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: "rs 0" }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("0ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("0ms");
@@ -82,10 +74,10 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
 };
 const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   it(`${prefix} applies default @400 delay value as initial animation delay`, () => {
-    expect(factory({}, container).vm.parsedAnimation.delay).to.equal(400);
+    expect(localFactory({}, container).vm.parsedAnimation.delay).to.equal(400);
   });
   it(`${prefix} applies @0 delay value as animation-delay`, () => {
-    expect(factory({ animation: "rs 0 0" }, container).vm.parsedAnimation.delay).to.equal(0);
+    expect(localFactory({ animation: "rs 0 0" }, container).vm.parsedAnimation.delay).to.equal(0);
   });
 
   const progress = 60;
@@ -100,7 +92,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   const expectedOffset = circumference - (progress / 100) * circumference;
 
   it(`${prefix} don not applies progress before delay`, () => {
-    const wrapper = factory(
+    const wrapper = localFactory(
       { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
       container
     );
@@ -109,7 +101,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
     expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${circumference}`);
   });
   it(`${prefix} applies the progress after delay`, (done) => {
-    const wrapper = factory(
+    const wrapper = localFactory(
       { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
       container
     );
@@ -123,11 +115,11 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 };
 
 describe("#animation", () => {
-  const circleContainerWrapper = factory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
+  const circleContainerWrapper = localFactory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
   const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
 
   it("it parses the #animation property correctly", () => {
-    const wrapper = factory({ animation: "rs 2000 200" });
+    const wrapper = localFactory({ animation: "rs 2000 200" });
 
     expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
     expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
@@ -169,7 +161,7 @@ describe("#animation", () => {
     animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
 
     const progress = 50;
-    const wrapper = factory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
+    const wrapper = localFactory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
     const cdWrapper = wrapper.findComponent(CircleDot);
     const startRotation = wrapper.props("angle") + 90;
 

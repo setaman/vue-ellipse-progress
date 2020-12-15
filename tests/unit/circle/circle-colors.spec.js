@@ -1,18 +1,9 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Gradient from "@/components/Gradient.vue";
+import { factory } from "@/../tests/helper";
 
-const factory = (colorObject = {}) => {
-  return mount(CircleContainer, {
-    propsData: {
-      progress: 50,
-      index: 0,
-      multiple: false,
-      ...colorObject,
-    },
-  });
-};
+const localFactory = (colorObject) => factory({ container: CircleContainer, props: colorObject });
 
 const gradientColor = {
   radial: false,
@@ -32,7 +23,7 @@ const gradientColor = {
 
 const colorTests = (colorProp, color, selector, fill = false) => {
   describe("applies color as string", () => {
-    const wrapper = factory({ ...colorProp });
+    const wrapper = localFactory({ ...colorProp });
     const circleProgressWrapper = wrapper.find(selector);
 
     it("do not recognize gradient colors", () => {
@@ -53,7 +44,7 @@ const colorTests = (colorProp, color, selector, fill = false) => {
 
 const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
   describe("applies gradient color correctly", () => {
-    const wrapper = factory(colorProp);
+    const wrapper = localFactory(colorProp);
     const circleWrapper = wrapper.find(selector);
     const id = wrapper.vm._uid;
     const stopColorWrappers = wrapper.findAll("stop");

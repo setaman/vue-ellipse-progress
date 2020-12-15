@@ -40,6 +40,11 @@ export default {
       return this.options.half ? "half-circle-progress" : "circle-progress";
     },
     isColorGradient() {
+      console.log(this.options.color);
+      // eslint-disable-next-line no-unused-vars
+      const that = this.options;
+      debugger;
+      if (!this.options.color) console.log(this.options);
       return Array.isArray(this.options.color.colors);
     },
     isColorFillGradient() {

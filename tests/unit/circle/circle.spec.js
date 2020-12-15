@@ -1,21 +1,12 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import { dotParser } from "@/components/optionsParser";
+import { factory } from "@/../tests/helper";
 
-const factory = (propsData, container = Circle) => {
-  return mount(container, {
-    propsData: {
-      index: 0,
-      id: 123,
-      multiple: false,
-      ...propsData,
-    },
-  });
-};
+const localFactory = (props, container = Circle) => factory({ container, props });
 
 const randomNumberInRange = (min = 0, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -25,7 +16,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 200;
     const thickness = 4;
 
-    const wrapper = factory({
+    const wrapper = localFactory({
       size,
       progress,
       thickness,
@@ -71,7 +62,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const size = 200;
       const position = 200 / 2;
 
-      const wrapper = factory({
+      const wrapper = localFactory({
         progress,
         size,
       });
@@ -94,7 +85,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
-      const wrapper = factory({
+      const wrapper = localFactory({
         size,
         progress,
         thickness,
@@ -109,7 +100,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 200;
     const thickness = 10;
 
-    const wrapper = factory(
+    const wrapper = localFactory(
       {
         progress,
         thickness,
@@ -151,7 +142,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
   describe("#dash", () => {
     it("applies the #dash value as string correctly", () => {
       const dash = "10 10";
-      const wrapper = factory({
+      const wrapper = localFactory({
         progress: 50,
         dash,
       });
@@ -162,7 +153,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
     it("applies the #dash value with #dash.spacing and #dash.count in strict mode correctly", () => {
       const dash = "strict 60 0.5";
-      const wrapper = factory({
+      const wrapper = localFactory({
         progress: 50,
         dash,
       });
@@ -176,7 +167,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 200;
     const thickness = 10;
 
-    const wrapper = factory({ noData: true, progress, size });
+    const wrapper = localFactory({ noData: true, progress, size });
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
     const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
 
@@ -201,7 +192,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 200;
     const thickness = 10;
 
-    const wrapper = factory({ loading: true, progress, size });
+    const wrapper = localFactory({ loading: true, progress, size });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 
@@ -226,7 +217,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const progress = 60;
     const color = "gray";
     const thickness = 15;
-    const wrapper = factory({
+    const wrapper = localFactory({
       progress,
       color,
       thickness,
@@ -248,7 +239,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   describe("#angle", () => {
-    const circleWrapper = factory({ progress: 50 });
+    const circleWrapper = localFactory({ progress: 50 });
     it("sets the rotation of the svg container to default, if not defined", () => {
       expect(circleWrapper.element.style.transform).to.equal("rotate(-90deg)");
     });
@@ -291,7 +282,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     data.push({ progress: 50, gap: 0 });
     data.push({ progress: 50 });
 
-    const wrapper = factory(
+    const wrapper = localFactory(
       { data, gap: globalGap, thickness: globalThickness, size, dot: globalDot },
       VueEllipseProgress
     );
