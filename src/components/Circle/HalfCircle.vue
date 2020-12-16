@@ -8,8 +8,17 @@
     }"
   >
     <path
+      :fill="computedEmptyColorFill"
+      :d="emptyFillPath"
+      :style="{
+        transition: styles.transition,
+      }"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+    >
+    </path>
+    <path
       :stroke-width="emptyThickness"
-      :fill="computedColorFill"
+      fill="transparent"
       :stroke="computedEmptyColor"
       class="ep-half-circle--empty"
       :d="emptyPath"
@@ -29,11 +38,18 @@
     </fade-in-transition>
 
     <path
+      class="ep-half-circle--progress__fill"
+      :d="fillPath"
+      :fill="computedColorFill"
+      :style="{ transition: styles.transition }"
+    >
+    </path>
+    <path
       :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
       :d="path"
-      :fill="computedColorFill"
+      fill="transparent"
       :stroke="computedColor"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
@@ -56,18 +72,24 @@ export default {
       return (this.radius * 2 * Math.PI) / 2;
     },
     path() {
-      return ` M ${this.position}, ${this.options.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
+      return this.getPath(this.radius);
+    },
+    fillPath() {
+      return this.getPath(this.fillRadius);
     },
     emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.options.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
-        this.emptyRadius * 2
-      },0`;
+      return this.getPath(this.emptyRadius);
     },
-    position() {
-      return this.options.size / 2 - this.radius;
+    emptyFillPath() {
+      return this.getPath(this.emptyFillRadius);
     },
-    emptyPosition() {
-      return this.options.size / 2 - this.emptyRadius;
+  },
+  methods: {
+    getPosition(radius) {
+      return this.options.size / 2 - radius;
+    },
+    getPath(radius) {
+      return ` M ${this.getPosition(radius)}, ${this.options.size / 2} a ${radius},${radius} 0 1,1 ${radius * 2},0`;
     },
   },
 };

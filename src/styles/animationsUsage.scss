@@ -35,7 +35,7 @@
   }
 }
 
-.ep-half-circle--empty, .ep-circle--empty {
+.ep-half-circle--empty, .ep-half-circle--empty__fill, .ep-circle--empty, .ep-circle--empty__fill {
   &.ep-circle--nodata {
     opacity: 0.5;
   }

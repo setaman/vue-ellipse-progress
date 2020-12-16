@@ -54,6 +54,14 @@ export const calcThickness = (thickness, size) => {
   return thickness.toString().includes("%") ? (value * size) / 100 : value;
 };
 
+const parseLinePosition = (linePosition) => {
+  const [position, offset] = linePosition.toString().split(" ");
+  return {
+    position,
+    offset: offset || 0,
+  };
+};
+
 export const parseOptions = (options) => {
   const dot = dotParser(options.dot);
   const globalDot = dotParser(options.globalDot);
@@ -66,6 +74,8 @@ export const parseOptions = (options) => {
     globalDot: { ...globalDot, size: calcThickness(globalDot.size, options.size) },
     dash: dashParser(options.dash),
     lineMode: lineModeParser(options),
+    linePosition: parseLinePosition(options.linePosition),
+    emptyLinePosition: parseLinePosition(options.emptyLinePosition),
     animation: animationParser(options.animation),
   };
 };

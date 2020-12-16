@@ -8,13 +8,26 @@
     }"
   >
     <circle
+      class="ep-circle--empty__fill"
+      :r="emptyFillRadius"
+      :cx="position"
+      :cy="position"
+      :fill="computedEmptyColorFill"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+      :style="{
+        transitionDuration: animationDuration,
+        transitionTimingFunction: styles.transitionTimingFunction,
+      }"
+    >
+    </circle>
+    <circle
       class="ep-circle--empty"
       :r="emptyRadius"
       :cx="position"
       :cy="position"
       :stroke="computedEmptyColor"
       :stroke-dasharray="emptyDasharray"
-      :fill="computedEmptyColorFill"
+      fill="transparent"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
       :style="{
         transitionDuration: animationDuration,
@@ -29,12 +42,22 @@
       </g>
     </fade-in-transition>
     <circle
+      class="ep-circle--progress__fill"
+      :r="fillRadius"
+      :cx="position"
+      :cy="position"
+      :fill="computedColorFill"
+      :class="{ 'ep-circle--nodata': !dataIsAvailable }"
+      :style="{ transition: styles.transition }"
+    >
+    </circle>
+    <circle
       class="ep-circle--progress"
       :class="animationClass"
       :r="radius"
       :cx="position"
       :cy="position"
-      :fill="computedColorFill"
+      fill="transparent"
       :stroke="computedColor"
       :stroke-width="thickness"
       :stroke-linecap="options.line"
