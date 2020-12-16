@@ -55,7 +55,6 @@ const mockProps = {
   legendFormatter: null,
   loader: {},
   previousCircles: [],
-  loaderOptions: this,
 };
 mockProps.loaderOptions = mockProps;
 
