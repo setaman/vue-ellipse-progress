@@ -92,7 +92,7 @@ const options = {
       return isValidType && isValidDuration && isValidDelay;
     },
   },
-  legend: {
+  hideLegend: {
     type: Boolean,
     required: false,
     default: true,
