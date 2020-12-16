@@ -27,7 +27,7 @@ const options = {
     require: true,
     validator: (val) => val >= -100 && val <= 100,
   },
-  legendValue: {
+  legend: {
     type: [Number, String],
     required: false,
     validator: (value) => !Number.isNaN(parseFloat(value.toString().replace(",", "."))),
