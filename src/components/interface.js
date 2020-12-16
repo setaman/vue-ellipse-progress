@@ -95,7 +95,7 @@ const options = {
   hideLegend: {
     type: Boolean,
     required: false,
-    default: true,
+    default: false,
   },
   legendClass: {
     type: String,

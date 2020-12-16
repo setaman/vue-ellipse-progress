@@ -69,7 +69,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     it("replaces the progress as the legend of the circle", () => {
       const legendValue = 324;
       wrapper.setProps({ legendValue });
-      expect(wrapper.vm.legendVal).to.equal(legendValue);
+      expect(wrapper.vm.computedLegend).to.equal(legendValue);
       expect(wrapper.vm.progress).to.equal(progress);
     });
   });
