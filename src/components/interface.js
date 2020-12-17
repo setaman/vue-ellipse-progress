@@ -38,7 +38,7 @@ const options = {
     require: true,
     validator: (val) => val >= -100 && val <= 100,
   },
-  legendValue: {
+  legend: {
     type: [Number, String],
     required: false,
     validator: (value) => !Number.isNaN(parseFloat(value.toString().replace(",", "."))),
@@ -105,10 +105,10 @@ const options = {
       return isValidType && isValidDuration && isValidDelay;
     },
   },
-  legend: {
+  hideLegend: {
     type: Boolean,
     required: false,
-    default: true,
+    default: false,
   },
   legendClass: {
     type: String,

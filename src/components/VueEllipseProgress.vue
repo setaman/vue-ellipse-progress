@@ -11,11 +11,11 @@
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           class="ep-legend--value"
-          v-if="legend && !isMultiple"
+          v-if="!hideLegend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
           :style="{ fontSize, color: fontColor }"
         >
-          <counter :value="legendVal" :animation="normalizedCircles[0].animation" :loading="loading">
+          <counter :value="computedLegend" :animation="normalizedCircles[0].animation" :loading="loading">
             <template v-slot:default="{ counterTick }">
               <span v-if="legendFormatter">
                 <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
@@ -49,11 +49,11 @@ export default {
     counterTick: {},
   }),
   computed: {
-    legendVal() {
+    computedLegend() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return this.legendValue ? this.legendValue : getNumberIfValid(this.progress) || 0;
+      return this.legend ? this.legend : getNumberIfValid(this.progress) || 0;
     },
     shouldHideLegendValue() {
       return !this.isDataAvailable || this.loading;
