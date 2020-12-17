@@ -39,15 +39,29 @@
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
         <ve-progress
-          :size="600"
-          :angle="0"
-          line-position="out 26"
-          empty-line-position="out 20"
-          empty-color-fill="transparent"
-          color-fill="red"
+          :size="200"
           :progress="progress"
+          :legend="1315.56"
+          animation="rs 2000 500"
+          :loading="loading"
+          :reverse="true"
+          :thickness="20"
+          :empty-thickness="10"
+          dot="10 red"
+          :loader="{ thickness: 40, color: 'red' }"
+          line-mode="bottom"
           :no-data="noData"
+          :determinate="determinate"
         >
+          <template v-slot:default="{ counterTick }">
+            <span
+              :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
+                counterTick.currentValue < 600 ? 'red' : 'yellow'
+              };`"
+            >
+              {{ formattedPrice(counterTick.currentValue) }}
+            </span>
+          </template>
         </ve-progress>
       </div>
       <ve-progress
