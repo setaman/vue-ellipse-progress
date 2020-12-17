@@ -32,22 +32,22 @@ const animationTypeTests = (container, circleClass, prefix = "circle |") => {
     }, 250);
   });
   it(`${prefix} applies @bounce animation class correctly`, async () => {
-    wrapper.setProps({ animation: "bounce 500 500" });
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "bounce 500 500" } });
     await Vue.nextTick();
     expect(circleProgressWrapper.classes()).to.include("animation__bounce");
   });
   it(`${prefix} applies @loop animation class correctly`, async () => {
-    wrapper.setProps({ animation: "loop 500 500" });
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "loop 500 500" } });
     await Vue.nextTick();
     expect(circleProgressWrapper.classes()).to.include("animation__loop");
   });
   it(`${prefix} applies @reverse animation class correctly`, async () => {
-    wrapper.setProps({ animation: "reverse 500 500" });
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "reverse 500 500" } });
     await Vue.nextTick();
     expect(circleProgressWrapper.classes()).to.include("animation__reverse");
   });
   it(`${prefix} applies @rs animation class correctly`, async () => {
-    wrapper.setProps({ animation: "rs 500 500" });
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "rs 500 500" } });
     await Vue.nextTick();
     expect(circleProgressWrapper.classes()).to.include("animation__rs");
   });

@@ -29,12 +29,12 @@ describe("#line", () => {
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
 
     line = "butt";
-    wrapper.setProps({ line });
+    await wrapper.setProps({ options: { ...wrapper.props().options, line } });
     await Vue.nextTick();
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
 
     line = "square";
-    wrapper.setProps({ line });
+    await wrapper.setProps({ options: { ...wrapper.props().options, line } });
     await Vue.nextTick();
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
   });
@@ -71,7 +71,8 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
+
           await Vue.nextTick();
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
@@ -80,7 +81,7 @@ describe("#lineMode", () => {
         });
         it("in case #thickness >= #emptyThickness and #lineMode.offset = 10", async () => {
           // offset must be ignored in this mode
-          wrapper.setProps({ lineMode: "normal 10" });
+          await wrapper.setProps({ options: { ...wrapper.props().options, lineMode: "normal 10" } });
           await Vue.nextTick();
 
           let expectedProgressCircleRadius = baseRadius - thickness / 2;
@@ -89,7 +90,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
@@ -100,7 +101,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
@@ -112,7 +113,9 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          wrapper.setProps({ thickness, emptyThickness, lineMode: "normal 10" });
+          await wrapper.setProps({
+            options: { ...wrapper.props().options, thickness, emptyThickness, lineMode: "normal 10" },
+          });
           await Vue.nextTick();
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
@@ -188,7 +191,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
@@ -199,7 +202,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
@@ -244,7 +247,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           let expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
@@ -253,7 +256,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 20;
 
-          wrapper.setProps({ thickness, emptyThickness });
+          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
           await Vue.nextTick();
 
           expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;

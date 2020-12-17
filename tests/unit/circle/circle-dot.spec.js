@@ -1,8 +1,7 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
-import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+// import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import Circle from "@/components/Circle/Circle.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
 import { dotParser } from "@/components/optionsParser";
@@ -73,7 +72,7 @@ describe("#dot", () => {
     const rotationStart = angle + 90;
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotationStart}deg)`);
 
-    wrapper.setProps({ half: true });
+    await wrapper.setProps({ options: { ...wrapper.props().options, half: true } });
     const halfRotationStart = angle - 90;
     await Vue.nextTick();
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${halfRotationStart}deg)`);
