@@ -4,7 +4,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 // import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import Circle from "@/components/Circle/Circle.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
-import { dotParser } from "@/components/optionsParser";
+import { animationParser, dotParser } from "@/components/optionsParser";
 import { factory } from "@/../tests/helper";
 
 const localFactory = (props, container = Circle) => factory({ container, props });
@@ -17,18 +17,19 @@ describe("#dot", () => {
 
   const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
-  it(`parses property as Number correctly`, () => {
-    const wrapper = localFactory({ progress, size, dot: 0 });
+  // TODO: move to container
+  /* it(`parses property as Number correctly`, () => {
+    const wrapper = localFactory({ progress, size, dot: dotParser(0) });
     expect(wrapper.vm.parsedDot.size).to.equal("0");
     expect(wrapper.vm.parsedDot.color).to.equal("white");
   });
   it(`parses property as String correctly`, () => {
-    const wrapper = localFactory({ progress, size, dot: "5% red" });
+    const wrapper = localFactory({ progress, size, dot: dotParser("5% red") });
     expect(wrapper.vm.parsedDot.size).to.equal("5%");
     expect(wrapper.vm.parsedDot.color).to.equal("red");
   });
   it(`parses property as Object correctly`, () => {
-    const wrapper = localFactory({ progress, size, dot: { size: 10, backgroundColor: "green" } });
+    const wrapper = localFactory({ progress, size, dot: dotParser({ size: 10, backgroundColor: "green" }) });
     expect(wrapper.vm.parsedDot.size).to.equal(10);
     expect(wrapper.vm.parsedDot.color).to.equal("white");
     expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
@@ -36,13 +37,11 @@ describe("#dot", () => {
 
   it(`converts the size percent value to pixel correctly`, () => {
     const dot = "5%";
-    const wrapper = localFactory({ progress, size, dot });
+    const wrapper = localFactory({ progress, size, dot: dotParser(dot) });
     const dotPixelSize = calculateThickness(dot);
     expect(wrapper.vm.dotSize).to.equal(dotPixelSize);
   });
-
-  // TODO: move to container specs
-  /* it("applies default value correctly", () => {
+  it("applies default value correctly", () => {
     const wrapper = factory({ progress }, VueEllipseProgress);
     const circleWrapper = wrapper.findComponent(Circle);
     const circleContainerWrapper = wrapper.findComponent(CircleContainer);
@@ -55,9 +54,12 @@ describe("#dot", () => {
   }); */
 
   it(`calculates and applies correct rotation of the dot container depending on progress`, (done) => {
-    const wrapper = localFactory({ progress, dot: 5, animation: "default 0 0" }, CircleContainer);
+    const wrapper = localFactory(
+      { progress, dot: dotParser(5), animation: animationParser("default 0 0") },
+      CircleContainer
+    );
     const circleDotWrapper = wrapper.findComponent(CircleDot);
-    const rotationStart = wrapper.props("angle") + 90;
+    const rotationStart = wrapper.props("options").angle + 90;
     const rotation = rotationStart + (progress * 360) / 100;
     setTimeout(() => {
       expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotation}deg)`);
@@ -66,21 +68,27 @@ describe("#dot", () => {
   });
 
   it(`applies correct initial rotation of the dot container`, async () => {
-    const wrapper = localFactory({ progress, dot: 5, animation: "default 0 1000" }, CircleContainer);
+    const wrapper = localFactory(
+      { progress, dot: dotParser(5), animation: animationParser("default 0 1000") },
+      CircleContainer
+    );
     const circleDotWrapper = wrapper.findComponent(CircleDot);
-    const angle = wrapper.props("angle");
+    const angle = wrapper.props("options").angle;
     const rotationStart = angle + 90;
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${rotationStart}deg)`);
 
     await wrapper.setProps({ options: { ...wrapper.props().options, half: true } });
     const halfRotationStart = angle - 90;
-    await Vue.nextTick();
     expect(circleDotWrapper.element.style.transform).to.equal(`rotate(${halfRotationStart}deg)`);
   });
 
   it(`applies custom style to dot`, async () => {
     const wrapper = localFactory(
-      { progress, dot: { size: 10, background: "red", border: "2px solid green" }, animation: "default 0 1000" },
+      {
+        progress,
+        dot: dotParser({ size: 10, background: "red", border: "2px solid green" }),
+        animation: animationParser("default 0 1000"),
+      },
       CircleDot
     ).find("span.ep-circle--progress__dot");
     expect(wrapper.element.style.background).to.equal("red");
@@ -89,7 +97,7 @@ describe("#dot", () => {
 
   it(`do not apply custom height to dot`, async () => {
     const wrapper = localFactory(
-      { progress, dot: { size: 10, height: "20px" }, animation: "default 0 1000" },
+      { progress, dot: dotParser({ size: 10, height: "20px" }), animation: animationParser("default 0 1000") },
       CircleDot
     ).find("span.ep-circle--progress__dot");
     expect(wrapper.element.style.height).to.equal("10px");
@@ -109,7 +117,7 @@ describe("#dot", () => {
 
   for (let i = 0; i < data.length; i++) {
     const circleData = data[i];
-    const wrapper = localFactory({ size, dot: globalDot, ...circleData }, CircleContainer);
+    const wrapper = localFactory({ size, dot: dotParser(globalDot), ...circleData }, CircleContainer);
     const circleDotSpanWrapper = wrapper.find("span.ep-circle--progress__dot");
     const circleDotWrapper = wrapper.findComponent(CircleDot);
     const circleWrapper = wrapper.findComponent(Circle);
