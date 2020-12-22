@@ -38,21 +38,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress
-          :size="200"
-          progress="progress"
-          :legend="1315.56"
-          animation="rs 2000 500"
-          :loading="loading"
-          :reverse="true"
-          :thickness="20"
-          :empty-thickness="10"
-          dot="10 red"
-          :loader="{ thickness: 40, color: 'red' }"
-          line-mode="bottom"
-          :no-data="noData"
-          :determinate="determinate"
-        >
+        <ve-progress :size="200" :progress="progress" dot="20 red">
           <template v-slot:default="{ counterTick }">
             <span
               :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
