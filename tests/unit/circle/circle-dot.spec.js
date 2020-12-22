@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import Vue from "vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 // import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import Circle from "@/components/Circle/Circle.vue";
@@ -14,8 +13,6 @@ describe("#dot", () => {
   const thickness = 5;
   const size = 500;
   const globalDot = "5%";
-
-  const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
   // TODO: move to container
   /* it(`parses property as Number correctly`, () => {
@@ -55,7 +52,7 @@ describe("#dot", () => {
 
   it(`calculates and applies correct rotation of the dot container depending on progress`, (done) => {
     const wrapper = localFactory(
-      { progress, dot: dotParser(5), animation: animationParser("default 0 0") },
+      { progress, dot: dotParser(5, size), animation: animationParser("default 0 0") },
       CircleContainer
     );
     const circleDotWrapper = wrapper.findComponent(CircleDot);
@@ -69,7 +66,7 @@ describe("#dot", () => {
 
   it(`applies correct initial rotation of the dot container`, async () => {
     const wrapper = localFactory(
-      { progress, dot: dotParser(5), animation: animationParser("default 0 1000") },
+      { progress, dot: dotParser(5, size), animation: animationParser("default 0 1000") },
       CircleContainer
     );
     const circleDotWrapper = wrapper.findComponent(CircleDot);
@@ -86,7 +83,7 @@ describe("#dot", () => {
     const wrapper = localFactory(
       {
         progress,
-        dot: dotParser({ size: 10, background: "red", border: "2px solid green" }),
+        dot: dotParser({ size: 10, background: "red", border: "2px solid green" }, size),
         animation: animationParser("default 0 1000"),
       },
       CircleDot
@@ -97,7 +94,7 @@ describe("#dot", () => {
 
   it(`do not apply custom height to dot`, async () => {
     const wrapper = localFactory(
-      { progress, dot: dotParser({ size: 10, height: "20px" }), animation: animationParser("default 0 1000") },
+      { progress, dot: dotParser({ size: 10, height: "20px" }, size), animation: animationParser("default 0 1000") },
       CircleDot
     ).find("span.ep-circle--progress__dot");
     expect(wrapper.element.style.height).to.equal("10px");
@@ -117,16 +114,20 @@ describe("#dot", () => {
 
   for (let i = 0; i < data.length; i++) {
     const circleData = data[i];
-    const wrapper = localFactory({ size, dot: dotParser(globalDot), ...circleData }, CircleContainer);
+    const wrapper = localFactory({ ...circleData, size, dot: dotParser(circleData.dot, size) }, CircleContainer);
     const circleDotSpanWrapper = wrapper.find("span.ep-circle--progress__dot");
     const circleDotWrapper = wrapper.findComponent(CircleDot);
     const circleWrapper = wrapper.findComponent(Circle);
-    const parsedDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot);
-    const parsedDotSize = parseFloat(calculateThickness(parsedDot.size));
+    const parsedDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot, size);
+    const parsedDotSize = parsedDot.size;
     const parsedDotColor = parsedDot.backgroundColor || parsedDot.background || parsedDot.color;
 
     it(`renders dot component | #dot = ${circleData.dot}`, () => {
       expect(wrapper.findComponent(CircleDot).exists()).to.be.true;
+    });
+
+    it(`renders dot span element | #dot = ${circleData.dot}`, () => {
+      expect(wrapper.find("span.ep-circle--progress__dot").exists()).to.be.true;
     });
 
     it(`applies the height of the dot correctly | #dot = ${circleData.dot}`, () => {
