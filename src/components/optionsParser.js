@@ -9,7 +9,7 @@ export const lineModeParser = (options) => {
   };
 };
 
-const animationParser = (animation) => {
+export const animationParser = (animation) => {
   const animationConfig = animation.trim().split(" ");
   return {
     type: animationConfig[0],

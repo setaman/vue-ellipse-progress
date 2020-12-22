@@ -1,10 +1,10 @@
 import { expect } from "chai";
-import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
 import { factory } from "@/../tests/helper";
+import { animationParser } from "@/components/optionsParser";
 
 const localFactory = (props, container = Circle) => {
   return factory({ container, props });
@@ -32,23 +32,19 @@ const animationTypeTests = (container, circleClass, prefix = "circle |") => {
     }, 250);
   });
   it(`${prefix} applies @bounce animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "bounce 500 500" } });
-    await Vue.nextTick();
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("bounce 500 500") } });
     expect(circleProgressWrapper.classes()).to.include("animation__bounce");
   });
   it(`${prefix} applies @loop animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "loop 500 500" } });
-    await Vue.nextTick();
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("loop 500 500") } });
     expect(circleProgressWrapper.classes()).to.include("animation__loop");
   });
   it(`${prefix} applies @reverse animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "reverse 500 500" } });
-    await Vue.nextTick();
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("reverse 500 500") } });
     expect(circleProgressWrapper.classes()).to.include("animation__reverse");
   });
   it(`${prefix} applies @rs animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: "rs 500 500" } });
-    await Vue.nextTick();
+    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("rs 500 500") } });
     expect(circleProgressWrapper.classes()).to.include("animation__rs");
   });
 };
@@ -60,13 +56,13 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("1000ms");
   });
   it(`${prefix} applies provided duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = localFactory({ animation: "rs 500" }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: animationParser("rs 500") }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("500ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("500ms");
   });
   it(`${prefix} applies @0 duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = localFactory({ animation: "rs 0" }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: animationParser("rs 0") }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("0ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("0ms");
@@ -77,7 +73,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
     expect(localFactory({}, container).vm.parsedAnimation.delay).to.equal(400);
   });
   it(`${prefix} applies @0 delay value as animation-delay`, () => {
-    expect(localFactory({ animation: "rs 0 0" }, container).vm.parsedAnimation.delay).to.equal(0);
+    expect(localFactory({ animation: animationParser("rs 0 0") }, container).vm.parsedAnimation.delay).to.equal(0);
   });
 
   const progress = 60;
@@ -93,7 +89,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 
   it(`${prefix} don not applies progress before delay`, () => {
     const wrapper = localFactory(
-      { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
+      { progress, size, thickness, emptyThickness: thickness, animation: animationParser("rs 500 100") },
       container
     );
     const circleProgressWrapper = wrapper.find(circleClass);
@@ -102,7 +98,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   });
   it(`${prefix} applies the progress after delay`, (done) => {
     const wrapper = localFactory(
-      { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
+      { progress, size, thickness, emptyThickness: thickness, animation: animationParser("rs 500 100") },
       container
     );
     const circleProgressWrapper = wrapper.find(circleClass);
@@ -115,11 +111,14 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 };
 
 describe("#animation", () => {
-  const circleContainerWrapper = localFactory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
+  const circleContainerWrapper = localFactory(
+    { progress: 50, dot: 5, animation: animationParser("rs 500 5") },
+    CircleContainer
+  );
   const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
 
   it("it parses the #animation property correctly", () => {
-    const wrapper = localFactory({ animation: "rs 2000 200" });
+    const wrapper = localFactory({ animation: animationParser("rs 2000 200") });
 
     expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
     expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
@@ -161,7 +160,7 @@ describe("#animation", () => {
     animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
 
     const progress = 50;
-    const wrapper = localFactory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
+    const wrapper = localFactory({ dot: 5, animation: animationParser("rs 500 50") }, CircleContainer);
     const cdWrapper = wrapper.findComponent(CircleDot);
     const startRotation = wrapper.props("angle") + 90;
 
