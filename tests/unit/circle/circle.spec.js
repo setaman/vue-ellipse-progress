@@ -187,7 +187,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleProgressWrapper.element.style.opacity).to.equal("0");
     });
   });
-  describe("#loading", () => {
+  /* describe("#loading", () => {
     const progress = 60;
     const size = 200;
     const thickness = 10;
@@ -212,8 +212,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("renders the loading circle", () => {
       expect(wrapper.find(".ep-circle--loading").exists()).to.be.true;
     });
-  });
-  describe("#determinate", () => {
+  }); */
+  /* describe("#determinate", () => {
     const progress = 60;
     const color = "gray";
     const thickness = 15;
@@ -237,7 +237,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const determinateCircleWrapper = wrapper.find(".ep-circle--loading__container");
       expect(determinateCircleWrapper.element.style.opacity).to.equal("0.45");
     });
-  });
+  }); */
   describe("#angle", () => {
     const circleWrapper = localFactory({ progress: 50 });
     it("sets the rotation of the svg container to default, if not defined", () => {

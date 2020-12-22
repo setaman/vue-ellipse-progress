@@ -40,7 +40,7 @@
       <div style="border: 1px solid red; display: inline-block">
         <ve-progress
           :size="200"
-          :progress="progress"
+          progress="progress"
           :legend="1315.56"
           animation="rs 2000 500"
           :loading="loading"

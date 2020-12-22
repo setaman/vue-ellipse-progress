@@ -1,10 +1,17 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Counter from "@/components/Counter.vue";
+import { animationParser } from "@/components/optionsParser";
 
 const factory = (propsData, slots) => {
   return mount(Counter, {
-    propsData: { counterTick: {}, value: 50, loading: false, animation: "default 100 200", ...propsData },
+    propsData: {
+      counterTick: {},
+      value: 50,
+      loading: false,
+      animation: animationParser("default 100 200"),
+      ...propsData,
+    },
     slots,
   });
 };
@@ -26,7 +33,7 @@ global.cancelAnimationFrame = (id) => clearTimeout(id);
 describe("[ Counter.vue ]", () => {
   describe("#value", async () => {
     it("renders the final value correctly", (done) => {
-      const counterWrapper = factory({ value: 50, animation: `default 0 0` });
+      const counterWrapper = factory({ value: 50, animation: animationParser(`default 0 0`) });
       setTimeout(() => {
         expect(counterWrapper.element.textContent).to.equal("50");
       }, 100);
@@ -42,7 +49,10 @@ describe("[ Counter.vue ]", () => {
     const animation = { duration: 100, delay: 1000 };
     for (const val of values) {
       const { value, count, start } = val;
-      const counterWrapper = factory({ value, animation: `default ${animation.duration} ${animation.delay}` });
+      const counterWrapper = factory({
+        value,
+        animation: animationParser(`default ${animation.duration} ${animation.delay}`),
+      });
 
       it("counts the decimals correctly", () => {
         expect(counterWrapper.vm.countDecimals()).to.equal(count);
@@ -82,8 +92,8 @@ describe("[ Counter.vue ]", () => {
         expect(counterWrapper.vm.oneStepDifference).to.equal(oneStepCountValue);
       });
 
-      it("calculates the one step count value correctly with 0 duration", () => {
-        counterWrapper.setProps({ animation: "default 0 0" });
+      it("calculates the one step count value correctly with 0 duration", async () => {
+        await counterWrapper.setProps({ animation: animationParser("default 0 0") });
         const endValue = parseFloat(value.toString().replace(",", "."));
         const startValue = 0;
         const diff = Math.abs(endValue - startValue);
@@ -93,12 +103,12 @@ describe("[ Counter.vue ]", () => {
   });
   describe("#animation", async () => {
     it("parses #animation prop correctly", () => {
-      const counterWrapper = factory({ value: 50, animation: "default 200 300" });
+      const counterWrapper = factory({ value: 50, animation: animationParser("default 200 300") });
       expect(counterWrapper.vm.duration).to.equal(200);
       expect(counterWrapper.vm.delay).to.equal(300);
     });
     it("do not count the value before delay", (done) => {
-      const counterWrapper = factory({ value: 50, animation: "default 200 1000" });
+      const counterWrapper = factory({ value: 50, animation: animationParser("default 200 1000") });
       expect(counterWrapper.vm.currentValue).to.equal(0);
       expect(counterWrapper.element.textContent).to.equal("0");
       setTimeout(() => {

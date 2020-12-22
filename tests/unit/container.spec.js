@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { shallowMount, mount } from "@vue/test-utils";
-import Vue from "vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
@@ -54,22 +53,21 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
 
     it("forces noData state, if invalid", async () => {
-      wrapper.setProps({ progress: "notNumber" });
-      await Vue.nextTick();
+      await wrapper.setProps({ progress: "notNumber" });
 
       const spanWrapper = wrapper.find(".ep-legend--value");
       expect(spanWrapper.classes()).to.include("ep-hidden");
       expect(wrapper.vm.isDataAvailable).to.equal(false);
     });
   });
-  describe("#legendValue", () => {
+  describe("#legend", () => {
     const progress = 40;
     const wrapper = factory({ progress });
 
-    it("replaces the progress as the legend of the circle", () => {
-      const legendValue = 324;
-      wrapper.setProps({ legendValue });
-      expect(wrapper.vm.computedLegend).to.equal(legendValue);
+    it("replaces the progress as the legend of the circle", async () => {
+      const legend = 324;
+      await wrapper.setProps({ legend });
+      expect(wrapper.vm.computedLegend).to.equal(legend);
       expect(wrapper.vm.progress).to.equal(progress);
     });
   });
@@ -128,6 +126,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-caption": '<span id="my-slot">Hello Circle</span>',
           },
         });
+        console.log(wrapper.html());
         expect(wrapper.get("#my-slot"));
       });
     });
