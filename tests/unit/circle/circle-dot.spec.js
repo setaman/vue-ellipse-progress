@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
-// import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import Circle from "@/components/Circle/Circle.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
 import { animationParser, dotParser } from "@/components/optionsParser";
