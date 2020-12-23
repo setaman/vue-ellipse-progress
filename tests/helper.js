@@ -59,6 +59,10 @@ const mockProps = {
 mockProps.loaderOptions = mockProps;
 
 export { mockProps };
+
+export const setCircleProps = async (wrapper, props = {}) => {
+  return wrapper.setProps({ options: { ...wrapper.props("options"), ...props } });
+};
 export const factory = ({ container, props = {}, isCircleFactory = true }) => {
   const propsData = isCircleFactory ? { options: { ...mockProps, ...props } } : props;
   return mount(container, {

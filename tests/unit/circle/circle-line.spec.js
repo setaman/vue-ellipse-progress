@@ -1,9 +1,10 @@
 import { expect } from "chai";
-import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
-import { factory } from "@/../tests/helper";
+import { factory, setCircleProps } from "@/../tests/helper";
+import { lineModeParser, animationParser } from "@/components/optionsParser";
 
 const localFactory = (props) => factory({ container: Circle, props });
+const localLineModeParser = (lineMode) => lineModeParser({ lineMode, multiple: false });
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
@@ -29,29 +30,15 @@ describe("#line", () => {
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
 
     line = "butt";
-    await wrapper.setProps({ options: { ...wrapper.props().options, line } });
-    await Vue.nextTick();
+    await setCircleProps(wrapper, { line });
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
 
     line = "square";
-    await wrapper.setProps({ options: { ...wrapper.props().options, line } });
-    await Vue.nextTick();
+    await setCircleProps(wrapper, { line });
     expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
   });
 });
 describe("#lineMode", () => {
-  it("it parses the #lineMode property correctly", () => {
-    const wrapper = localFactory({ lineMode: "normal 10" });
-
-    expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
-    expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
-  });
-  it("it applies default value correctly", () => {
-    const wrapper = localFactory({ lineMode: "normal 10" });
-
-    expect(wrapper.vm.parsedLineMode.mode).to.equal("normal");
-    expect(wrapper.vm.parsedLineMode.offset).to.equal(10);
-  });
   describe("#lineMode.mode", () => {
     describe("#lineMode.mode.normal", () => {
       let thickness = 20;
@@ -59,8 +46,8 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: "normal",
-        animation: "default 0 0",
+        lineMode: localLineModeParser("normal"),
+        animation: animationParser("default 0 0"),
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -71,9 +58,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
           expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -81,8 +66,7 @@ describe("#lineMode", () => {
         });
         it("in case #thickness >= #emptyThickness and #lineMode.offset = 10", async () => {
           // offset must be ignored in this mode
-          await wrapper.setProps({ options: { ...wrapper.props().options, lineMode: "normal 10" } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { lineMode: localLineModeParser("normal 10") });
 
           let expectedProgressCircleRadius = baseRadius - thickness / 2;
           let expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -91,7 +75,6 @@ describe("#lineMode", () => {
           thickness = emptyThickness = 10;
 
           await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
           expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -101,8 +84,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = expectedEmptyCircleRadius;
@@ -113,10 +95,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          await wrapper.setProps({
-            options: { ...wrapper.props().options, thickness, emptyThickness, lineMode: "normal 10" },
-          });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness, lineMode: localLineModeParser("normal 10") });
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = expectedEmptyCircleRadius;
@@ -131,7 +110,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: `in ${offset}`,
+        lineMode: localLineModeParser(`in ${offset}`),
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -147,7 +126,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: `in-over ${offset}`,
+        lineMode: localLineModeParser(`in-over ${offset}`),
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -164,7 +143,7 @@ describe("#lineMode", () => {
         progress,
         thickness,
         emptyThickness,
-        lineMode: `out ${offset}`,
+        lineMode: localLineModeParser(`out ${offset}`),
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -180,7 +159,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: `out-over ${offset}`,
+        lineMode: localLineModeParser(`out-over ${offset}`),
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -191,8 +170,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
           expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -202,8 +180,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2 + thickness / 2;
@@ -218,7 +195,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: `top ${offset}`,
+        lineMode: localLineModeParser(`top ${offset}`),
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -234,7 +211,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: `bottom ${offset}`,
+        lineMode: localLineModeParser(`bottom ${offset}`),
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -247,8 +224,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           let expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           let expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
@@ -256,8 +232,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 20;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
-          await Vue.nextTick();
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           expectedProgressCircleRadius = expectedEmptyCircleRadius - emptyThickness / 2;
