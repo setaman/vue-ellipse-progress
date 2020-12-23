@@ -32,8 +32,8 @@ const mockProps = {
   fontColor: null,
   animation: {
     type: "default",
-    duration: "1000",
-    delay: "400",
+    duration: 1000,
+    delay: 400,
   },
   legend: true,
   legendClass: "",
@@ -59,6 +59,8 @@ const mockProps = {
 mockProps.loaderOptions = mockProps;
 
 export { mockProps };
+
+export const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 export const setCircleProps = async (wrapper, props = {}) => {
   return wrapper.setProps({ options: { ...wrapper.props("options"), ...props } });

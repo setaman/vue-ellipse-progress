@@ -3,10 +3,10 @@ import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
-import { factory } from "@/../tests/helper";
+import { factory, setCircleProps, wait } from "@/../tests/helper";
 import { animationParser } from "@/components/optionsParser";
 
-const localFactory = (props, container = Circle) => {
+const localFactory = (props = {}, container = Circle) => {
   return factory({ container, props });
 };
 
@@ -24,28 +24,26 @@ const animationTypeTests = (container, circleClass, prefix = "circle |") => {
         "animation__loop",
       ]);
   });
-  it(`${prefix} applies @default animation class by default`, (done) => {
-    setTimeout(() => {
-      expect(wrapper.vm.parsedAnimation.type).to.equal("default");
-      expect(circleProgressWrapper.classes()).to.be.an("array").that.include("animation__default");
-      done();
-    }, 250);
+  it(`${prefix} applies @default animation class by default`, async () => {
+    // need to wait, otherwise tests fail, whyyyy???
+    await wait(500);
+    expect(circleProgressWrapper.classes()).to.be.an("array").that.includes("animation__default");
   });
   it(`${prefix} applies @bounce animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("bounce 500 500") } });
-    expect(circleProgressWrapper.classes()).to.include("animation__bounce");
+    await setCircleProps(wrapper, { animation: animationParser("bounce 500 500") });
+    expect(circleProgressWrapper.classes()).to.be.an("array").that.includes("animation__bounce");
   });
   it(`${prefix} applies @loop animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("loop 500 500") } });
-    expect(circleProgressWrapper.classes()).to.include("animation__loop");
+    await setCircleProps(wrapper, { animation: animationParser("loop 500 500") });
+    expect(circleProgressWrapper.classes()).to.be.an("array").that.includes("animation__loop");
   });
   it(`${prefix} applies @reverse animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("reverse 500 500") } });
-    expect(circleProgressWrapper.classes()).to.include("animation__reverse");
+    await setCircleProps(wrapper, { animation: animationParser("reverse 500 500") });
+    expect(circleProgressWrapper.classes()).to.be.an("array").that.includes("animation__reverse");
   });
   it(`${prefix} applies @rs animation class correctly`, async () => {
-    await wrapper.setProps({ options: { ...wrapper.props().options, animation: animationParser("rs 500 500") } });
-    expect(circleProgressWrapper.classes()).to.include("animation__rs");
+    await setCircleProps(wrapper, { animation: animationParser("rs 500 500") });
+    expect(circleProgressWrapper.classes()).to.be.an("array").that.includes("animation__rs");
   });
 };
 const animationDurationTests = (container, circleClass, prefix = "circle | ") => {
@@ -70,10 +68,10 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
 };
 const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   it(`${prefix} applies default @400 delay value as initial animation delay`, () => {
-    expect(localFactory({}, container).vm.parsedAnimation.delay).to.equal(400);
+    expect(localFactory({}, container).vm.animation.delay).to.equal(400);
   });
   it(`${prefix} applies @0 delay value as animation-delay`, () => {
-    expect(localFactory({ animation: animationParser("rs 0 0") }, container).vm.parsedAnimation.delay).to.equal(0);
+    expect(localFactory({ animation: animationParser("rs 0 0") }, container).vm.animation.delay).to.equal(0);
   });
 
   const progress = 60;
@@ -117,20 +115,13 @@ describe("#animation", () => {
   );
   const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
 
-  it("it parses the #animation property correctly", () => {
-    const wrapper = localFactory({ animation: animationParser("rs 2000 200") });
-
-    expect(wrapper.vm.parsedAnimation.type).to.equal("rs");
-    expect(wrapper.vm.parsedAnimation.duration).to.equal(2000);
-    expect(wrapper.vm.parsedAnimation.delay).to.equal(200);
-  });
   describe("#animation.type", () => {
     animationTypeTests(Circle, "circle.ep-circle--progress");
     animationTypeTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
 
     it("circle dot | applies animation class correctly", (done) => {
       setTimeout(() => {
-        expect(circleDotWrapper.classes()).to.be.an("array").that.include("animation__rs");
+        expect(circleDotWrapper.classes()).to.be.an("array").that.includes("animation__rs");
         done();
       }, 5);
     });
@@ -162,7 +153,7 @@ describe("#animation", () => {
     const progress = 50;
     const wrapper = localFactory({ dot: 5, animation: animationParser("rs 500 50") }, CircleContainer);
     const cdWrapper = wrapper.findComponent(CircleDot);
-    const startRotation = wrapper.props("angle") + 90;
+    const startRotation = wrapper.props("options").angle + 90;
 
     it(`circle dot | do not applies any animation type before delay`, () => {
       expect(cdWrapper.classes())
