@@ -150,17 +150,6 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
       expect(circleEmptyWrapper.element.getAttribute("stroke-dasharray")).to.equal(`${dash}`);
     });
-
-    it("applies the #dash value with #dash.spacing and #dash.count in strict mode correctly", () => {
-      const dash = "strict 60 0.5";
-      const wrapper = localFactory({
-        progress: 50,
-        dash,
-      });
-
-      expect(wrapper.vm.parsedDash.count).to.equal(60);
-      expect(wrapper.vm.parsedDash.spacing).to.equal(0.5);
-    });
   });
   describe("#noData", () => {
     const progress = 60;
