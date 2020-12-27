@@ -42,8 +42,9 @@
           :size="200"
           :progress="progress"
           :thickness="10"
+          :loading="loading"
           :color-fill="emptyColorFill"
-          dash="strict 60 0.5"
+          :loader="{ opacity: '1' }"
           :empty-thickness="10"
         >
           <template v-slot:default="{ counterTick }">
