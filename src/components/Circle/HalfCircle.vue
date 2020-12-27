@@ -8,6 +8,7 @@
     }"
   >
     <path
+      v-if="options.emptyColorFill"
       :fill="computedEmptyColorFill"
       :d="emptyFillPath"
       :style="{
@@ -38,6 +39,7 @@
     </fade-in-transition>
 
     <path
+      v-if="options.colorFill"
       class="ep-half-circle--progress__fill"
       :d="fillPath"
       :fill="computedColorFill"

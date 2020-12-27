@@ -8,6 +8,7 @@
     }"
   >
     <circle
+      v-if="options.emptyColorFill"
       class="ep-circle--empty__fill"
       :r="emptyFillRadius"
       :cx="position"
@@ -42,6 +43,7 @@
       </g>
     </fade-in-transition>
     <circle
+      v-if="options.colorFill"
       class="ep-circle--progress__fill"
       :r="fillRadius"
       :cx="position"

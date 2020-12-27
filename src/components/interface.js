@@ -83,8 +83,8 @@ const options = {
   emptyLinePosition: linePosition,
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
-  colorFill: colorConfig(),
-  emptyColorFill: colorConfig(),
+  colorFill: colorConfig(""),
+  emptyColorFill: colorConfig(""),
   fontSize: {
     type: String,
     required: false,

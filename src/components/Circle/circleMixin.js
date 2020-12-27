@@ -1,5 +1,5 @@
 import { emptyRadius, fillRadius, radius } from "@/components/Circle/radiusCalculation";
-import { isValidNumber } from "../../utils";
+import { isValidNumber } from "@/utils";
 
 const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
@@ -104,7 +104,6 @@ export default {
       return this.options.dash;
     },
     emptyDasharray() {
-      debugger;
       if (!this.dash.count || !this.dash.spacing) {
         return this.dash;
       }
