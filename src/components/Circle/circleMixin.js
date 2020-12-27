@@ -101,9 +101,10 @@ export default {
     },
 
     dash() {
-      return this.options.dot;
+      return this.options.dash;
     },
     emptyDasharray() {
+      debugger;
       if (!this.dash.count || !this.dash.spacing) {
         return this.dash;
       }

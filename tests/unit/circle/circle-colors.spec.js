@@ -46,7 +46,7 @@ const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
   describe("applies gradient color correctly", () => {
     const wrapper = localFactory(colorProp);
     const circleWrapper = wrapper.find(selector);
-    const id = wrapper.vm._uid;
+    const id = 0;
     const stopColorWrappers = wrapper.findAll("stop");
 
     it("recognizes gradient colors", () => {
@@ -67,15 +67,15 @@ const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
     });
     for (let i = 0; i < stopColorWrappers.length; i++) {
       it("applies opacity correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers.at(i).element.getAttribute("stop-opacity")).to.equal(
+        expect(stopColorWrappers[i].element.getAttribute("stop-opacity")).to.equal(
           `${gradientColor.colors[i].opacity}`
         );
       });
       it("applies color correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers.at(i).element.getAttribute("stop-color")).to.equal(`${gradientColor.colors[i].color}`);
+        expect(stopColorWrappers[i].element.getAttribute("stop-color")).to.equal(`${gradientColor.colors[i].color}`);
       });
       it("applies offset correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers.at(i).element.getAttribute("offset")).to.equal(`${gradientColor.colors[i].offset}%`);
+        expect(stopColorWrappers[i].element.getAttribute("offset")).to.equal(`${gradientColor.colors[i].offset}%`);
       });
     }
   });
