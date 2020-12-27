@@ -175,8 +175,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       const globalProps = wrapper.props();
       for (const circleProps of circlesData) {
         for (const prop of Object.keys(circleProps)) {
-          // this must be overwritten
-          if (prop === "progress" || prop === "color" || prop === "loading") {
+          // this must be overwritten, omitted or are circle specific
+          if (["progress", "color", "loading", "data", "multiple"].includes(prop)) {
             continue;
           }
           expect(circleProps[prop]).to.equal(globalProps[prop]);
