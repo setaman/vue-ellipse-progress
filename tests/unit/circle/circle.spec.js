@@ -1,10 +1,9 @@
 import { expect } from "chai";
-import Vue from "vue";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
-import { dotParser } from "@/components/optionsParser";
-import { factory } from "@/../tests/helper";
+import { dotParser, calcThickness } from "@/components/optionsParser";
+import { factory, setCircleProps } from "@/../tests/helper";
 
 const localFactory = (props, container = Circle) => factory({ container, props });
 
@@ -50,6 +49,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("lets progress circle visible for -1 < progress < 1", async () => {
       progress = 0;
       await wrapper.setProps({ options: { ...wrapper.props().options, half: true } });
+      await setCircleProps(wrapper, { half: true });
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
@@ -126,16 +126,12 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
 
     it("calculates and sets the position of the half circles correctly", () => {
-      expect(wrapper.vm.position).to.equal(position);
-      expect(wrapper.vm.path).to.equal(expectedPath);
-
       expect(circleProgressWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
       expect(circleEmptyWrapper.element.getAttribute("d")).to.equal(`${expectedPath}`);
     });
     it("calculates the progress circle stroke offset correctly", async () => {
       const circumference = (radius * 2 * Math.PI) / 2;
       const expectedOffset = circumference - (progress / 100) * circumference;
-      expect(wrapper.vm.progressOffset).to.equal(expectedOffset);
       expect(circleProgressWrapper.element.style.strokeDashoffset).to.equal(`${expectedOffset}`);
     });
   });
@@ -235,13 +231,11 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("sets the rotation of the svg container correctly", async () => {
       const angle = 80;
       await circleWrapper.setProps({ options: { ...circleWrapper.props().options, angle } });
-      await Vue.nextTick();
       expect(circleWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
     it("sets @0 value as the rotation of the svg container correctly", async () => {
       const angle = 0;
       await circleWrapper.setProps({ options: { ...circleWrapper.props().options, angle } });
-      await Vue.nextTick();
       expect(circleWrapper.element.style.transform).to.equal(`rotate(${angle}deg)`);
     });
   });
@@ -249,7 +243,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     const size = 600;
     const globalThickness = 5;
     const globalGap = 5;
-    const globalDot = "2%";
+    const globalDot = dotParser("2%", size);
 
     const data = [];
     // generate random test data
@@ -273,22 +267,29 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
 
     const wrapper = factory({
       container: VueEllipseProgress,
-      props: { data, gap: globalGap, thickness: globalThickness, size, dot: globalDot },
+      props: {
+        data,
+        gap: globalGap,
+        thickness: globalThickness,
+        size,
+        dot: globalDot,
+      },
       isCircleFactory: false,
     });
     const circleWrappers = wrapper.findAllComponents(Circle);
 
-    const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
+    // const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
 
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       it(`calculates the radius of circle #${i} correctly
         #thickness ${circleData.thickness} | #gap ${circleData.gap} | #dot ${circleData.dot} `, () => {
         const circleGap = circleData.gap !== undefined ? circleData.gap : globalGap;
-        const circleThickness = calculateThickness(
-          circleData.thickness !== undefined ? circleData.thickness : globalThickness
+        const circleThickness = calcThickness(
+          circleData.thickness !== undefined ? circleData.thickness : globalThickness,
+          size
         );
-        const circleDot = calculateThickness(dotParser(circleData.dot !== undefined ? circleData.dot : globalDot).size);
+        const circleDot = dotParser(circleData.dot !== undefined ? circleData.dot : globalDot, size).size;
 
         let radius;
         const baseRadius = size / 2 - Math.max(circleThickness, circleDot) / 2;
@@ -297,8 +298,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
           const previousCirclesThickness = previousCirclesData
             .map(({ gap, thickness, dot }, n) => {
               const g = gap !== undefined ? gap : globalGap;
-              const t = calculateThickness(thickness !== undefined ? thickness : globalThickness);
-              const d = calculateThickness(dotParser(dot !== undefined ? dot : globalDot).size);
+              const t = calcThickness(thickness !== undefined ? thickness : globalThickness, size);
+              const d = dotParser(dot !== undefined ? dot : globalDot, size).size;
               const thicknessWithDot = Math.max(t, d);
               return n > 0 ? g + thicknessWithDot : thicknessWithDot;
             })
@@ -308,8 +309,8 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         } else {
           radius = baseRadius;
         }
-        const circleProgressWrapper = circleWrappers.at(i).find("circle.ep-circle--progress");
-        const circleEmptyWrapper = circleWrappers.at(i).find("circle.ep-circle--empty");
+        const circleProgressWrapper = circleWrappers[i].find("circle.ep-circle--progress");
+        const circleEmptyWrapper = circleWrappers[i].find("circle.ep-circle--empty");
         expect(circleProgressWrapper.element.getAttribute("r")).to.equal(`${radius}`);
         expect(circleEmptyWrapper.element.getAttribute("r")).to.equal(`${radius}`);
       });

@@ -60,13 +60,12 @@
         </ve-progress>
       </div>
       <ve-progress
-        dot="20 green"
         :loading="loading"
         :size="200"
-        :progress="progress"
+        :thickness="10"
+        :progress="50"
         :legend-value="125.1"
         half
-        line-mode="out 20"
         :no-data="noData"
         :determinate="determinate"
         :loader="{ thickness: 40, color: 'red' }"
