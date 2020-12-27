@@ -196,7 +196,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     it("renders the custom formatted value", (done) => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
-      const wrapper = factory({ legendValue: 120, legendFormatter: formatter, animation: "default 0 0" });
+      const wrapper = factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
       setTimeout(() => {
         expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
         done();
