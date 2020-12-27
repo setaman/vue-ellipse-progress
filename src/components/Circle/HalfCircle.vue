@@ -10,6 +10,7 @@
     <path
       v-if="options.emptyColorFill !== 'transparent'"
       :fill="computedEmptyColorFill"
+      class="ep-half-circle--empty__fill"
       :d="emptyFillPath"
       :style="{
         transition: styles.transition,

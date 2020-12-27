@@ -21,10 +21,10 @@ const gradientColor = {
   ],
 };
 
-const colorTests = (colorProp, color, selector, fill = false) => {
+const colorAsStringTests = (colorProp, color, selector, fill = false) => {
   describe("applies color as string", () => {
     const wrapper = localFactory({ ...colorProp });
-    const circleProgressWrapper = wrapper.find(selector);
+    const circleWrapper = wrapper.find(selector);
 
     it("do not recognize gradient colors", () => {
       const type = selector.includes("empty") ? "EmptyColor" : "Color";
@@ -37,12 +37,12 @@ const colorTests = (colorProp, color, selector, fill = false) => {
     });
 
     it("applies color correctly to SVG stroke", () => {
-      expect(circleProgressWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(`${color}`);
+      expect(circleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(`${color}`);
     });
   });
 };
 
-const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
+const gradientColorTests = (colorProp, selector, gradientURLPrefix, fill = false) => {
   describe("applies gradient color correctly", () => {
     const wrapper = localFactory(colorProp);
     const circleWrapper = wrapper.find(selector);
@@ -59,7 +59,7 @@ const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
     });
     it(`applies gradient URL to SVG ${fill ? "fill" : "stroke"}`, () => {
       expect(circleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(
-        `url(#${urlPrefix}-gradient-${id})`
+        `url(#${gradientURLPrefix}-gradient-${id})`
       );
     });
     it("renders corresponding amount of stop colors SVG elements", () => {
@@ -81,23 +81,73 @@ const gradientColorTests = (colorProp, selector, urlPrefix, fill = false) => {
   });
 };
 
-describe("#color", () => {
+const colorTests = (colorProp, half = false, empty = false, gradientURLPrefix) => {
+  const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
+  const circleClassPostfix = `${empty ? "empty" : "progress"}`;
+  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
+
   const color = "#ff0020";
-  colorTests({ color }, color, "circle.ep-circle--progress");
-  gradientColorTests({ color: gradientColor }, "circle.ep-circle--progress", "ep-progress");
-});
-describe("#emptyColor", () => {
-  const emptyColor = "#a617ff";
-  colorTests({ emptyColor }, emptyColor, "circle.ep-circle--empty");
-  gradientColorTests({ emptyColor: gradientColor }, "circle.ep-circle--empty", "ep-empty");
-});
-describe("#colorFill", () => {
-  const colorFill = "#fff149";
-  colorTests({ colorFill }, colorFill, "circle.ep-circle--progress", true);
-  gradientColorTests({ colorFill: gradientColor }, "circle.ep-circle--progress", "ep-progress-fill", true);
-});
-describe("#emptyColorFill", () => {
-  const emptyColorFill = "#3f79ff";
-  colorTests({ emptyColorFill }, emptyColorFill, "circle.ep-circle--empty", true);
-  gradientColorTests({ emptyColorFill: gradientColor }, "circle.ep-circle--empty", "ep-empty-fill", true);
+
+  it("does not render fill circle", () => {
+    expect(
+      localFactory({ [colorProp]: color })
+        .find(`.ep-${half ? "half-" : ""}circle--${empty ? "empty" : "progress"}__fill`)
+        .exists()
+    ).to.be.false;
+  });
+
+  colorAsStringTests({ [colorProp]: color }, color, circleSelector, false);
+  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, false);
+};
+
+const colorFillTests = (colorProp, half = false, empty = false, gradientURLPrefix) => {
+  const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
+  const circleClassPostfix = `${empty ? "empty" : "progress"}__fill`;
+  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
+
+  const color = "#ff0020";
+
+  it("renders fill circle", () => {
+    expect(
+      localFactory({ [colorProp]: color })
+        .find(circleSelector)
+        .exists()
+    ).to.be.true;
+  });
+
+  colorAsStringTests({ [colorProp]: color }, color, circleSelector, true);
+  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, true);
+};
+
+describe("Colors", () => {
+  describe("Circle", () => {
+    const half = false;
+    describe("#color", () => {
+      colorTests("color", half, false, "ep-progress");
+    });
+    describe("#emptyColor", () => {
+      colorTests("emptyColor", half, true, "ep-empty");
+    });
+    describe("#colorFill", () => {
+      colorFillTests("colorFill", half, false, "ep-progress-fill");
+    });
+    describe("#emptyColorFill", () => {
+      colorFillTests("emptyColorFill", half, true, "ep-empty-fill");
+    });
+  });
+  describe("Half Circle", () => {
+    const half = true;
+    describe("#color", () => {
+      colorTests("color", half, false, "ep-progress");
+    });
+    describe("#emptyColor", () => {
+      colorTests("emptyColor", half, true, "ep-empty");
+    });
+    describe("#colorFill", () => {
+      colorFillTests("colorFill", half, false, "ep-progress-fill");
+    });
+    describe("#emptyColorFill", () => {
+      colorFillTests("emptyColorFill", half, true, "ep-empty-fill");
+    });
+  });
 });
