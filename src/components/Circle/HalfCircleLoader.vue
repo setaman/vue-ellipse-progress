@@ -4,7 +4,7 @@
       :stroke-width="thickness"
       class="ep-half-circle--loader animation__loading"
       :d="path"
-      :fill="computedColorFill"
+      fill="transparent"
       :stroke="computedColor"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
