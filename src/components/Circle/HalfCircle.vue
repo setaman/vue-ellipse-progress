@@ -32,12 +32,6 @@
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
-    <fade-in-transition>
-      <g v-if="isLoading">
-        <half-circle-loader :options="options.loader" />
-      </g>
-    </fade-in-transition>
-
     <path
       v-if="options.colorFill !== 'transparent'"
       class="ep-half-circle--progress__fill"
@@ -46,6 +40,11 @@
       :style="{ transition: styles.transition }"
     >
     </path>
+    <fade-in-transition>
+      <g v-if="isLoading">
+        <half-circle-loader :options="options.loader" />
+      </g>
+    </fade-in-transition>
     <path
       :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
