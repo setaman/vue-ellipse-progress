@@ -8,7 +8,7 @@
     }"
   >
     <circle
-      v-if="options.emptyColorFill"
+      v-if="options.emptyColorFill !== 'transparent'"
       class="ep-circle--empty__fill"
       :r="emptyFillRadius"
       :cx="position"
@@ -37,13 +37,8 @@
       :stroke-width="emptyThickness"
     >
     </circle>
-    <fade-in-transition>
-      <g v-if="isLoading">
-        <circle-loader :options="options.loader" />
-      </g>
-    </fade-in-transition>
     <circle
-      v-if="options.colorFill"
+      v-if="options.colorFill !== 'transparent'"
       class="ep-circle--progress__fill"
       :r="fillRadius"
       :cx="position"
@@ -53,6 +48,11 @@
       :style="{ transition: styles.transition }"
     >
     </circle>
+    <fade-in-transition>
+      <g v-if="isLoading">
+        <circle-loader :options="options.loader" />
+      </g>
+    </fade-in-transition>
     <circle
       class="ep-circle--progress"
       :class="animationClass"

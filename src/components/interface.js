@@ -5,8 +5,8 @@ const colorConfig = (defaultColor = "transparent") => ({
   required: false,
   default: defaultColor,
   validator: (value) => {
-    if (typeof value === "string" && value) {
-      return true;
+    if (typeof value === "string") {
+      return value;
     }
     if (typeof value === "object" && value.colors) {
       return value.colors.every((config) => config.color && config.offset);
@@ -18,7 +18,7 @@ const colorConfig = (defaultColor = "transparent") => ({
 const validateLoaderProps = (loaderOptions) =>
   Object.keys(loaderOptions).every((option) => {
     if (option === "opacity") {
-      return isValidNumber(loaderOptions[option] && loaderOptions[option] >= 0);
+      return isValidNumber(loaderOptions[option]) && loaderOptions[option] >= 0;
     }
     return options[option].validator(loaderOptions[option]);
   });
@@ -90,8 +90,8 @@ const options = {
   emptyLinePosition: linePosition,
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
-  colorFill: colorConfig(""),
-  emptyColorFill: colorConfig(""),
+  colorFill: colorConfig(),
+  emptyColorFill: colorConfig(),
   fontSize: {
     type: String,
     required: false,

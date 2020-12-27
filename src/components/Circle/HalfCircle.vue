@@ -8,7 +8,7 @@
     }"
   >
     <path
-      v-if="options.emptyColorFill"
+      v-if="options.emptyColorFill !== 'transparent'"
       :fill="computedEmptyColorFill"
       :d="emptyFillPath"
       :style="{
@@ -39,7 +39,7 @@
     </fade-in-transition>
 
     <path
-      v-if="options.colorFill"
+      v-if="options.colorFill !== 'transparent'"
       class="ep-half-circle--progress__fill"
       :d="fillPath"
       :fill="computedColorFill"

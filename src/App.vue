@@ -43,8 +43,9 @@
           :progress="progress"
           :thickness="10"
           :loading="loading"
-          :color-fill="emptyColorFill"
+          color-fill="yellow"
           :loader="{ opacity: '1' }"
+          line-position="out 20"
           :empty-thickness="10"
         >
           <template v-slot:default="{ counterTick }">
