@@ -105,7 +105,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
         thickness,
         size,
         half: true,
-        animation: "default 0 0",
+        animation: animationParser("default 0 0"),
       },
       HalfCircle
     );
