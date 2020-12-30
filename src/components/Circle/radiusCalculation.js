@@ -87,11 +87,7 @@ export const radius = (options) => {
     bottom: () => radiusBottomMode(options),
     top: () => radiusTopMode(options),
   };
-  if (!options.lineMode) {
-    console.log("");
-  }
   const modeHandler = modes[options.lineMode.mode];
-
   return modeHandler ? modeHandler() : baseRadius(options);
 };
 

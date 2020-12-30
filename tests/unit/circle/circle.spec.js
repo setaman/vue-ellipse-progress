@@ -173,11 +173,10 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
   });
   /* describe("#loading", () => {
-    const progress = 60;
     const size = 200;
     const thickness = 10;
 
-    const wrapper = localFactory({ loading: true, progress, size });
+    const wrapper = localFactory({ loading: true });
 
     const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
 

@@ -38,26 +38,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress
-          :size="200"
-          :progress="progress"
-          :thickness="10"
-          :loading="loading"
-          color-fill="yellow"
-          :loader="{ opacity: '1' }"
-          line-position="out 20"
-          :empty-thickness="10"
-        >
-          <template v-slot:default="{ counterTick }">
-            <span
-              :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
-                counterTick.currentValue < 600 ? 'red' : 'yellow'
-              };`"
-            >
-              {{ formattedPrice(counterTick.currentValue) }}
-            </span>
-          </template>
-        </ve-progress>
+        <ve-progress :size="200" loading :progress="progress" legend="345,12345"> </ve-progress>
       </div>
       <ve-progress
         :loading="loading"
