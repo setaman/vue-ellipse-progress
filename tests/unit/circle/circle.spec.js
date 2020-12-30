@@ -2,7 +2,7 @@ import { expect } from "chai";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
-import { dotParser, calcThickness } from "@/components/optionsParser";
+import { dotParser, calcThickness, animationParser } from "@/components/optionsParser";
 import { factory, setCircleProps } from "@/../tests/helper";
 
 const localFactory = (props, container = Circle) => factory({ container, props });
@@ -20,7 +20,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       progress,
       thickness,
       emptyThickness: thickness,
-      animation: "default 0 0",
+      animation: animationParser("default 0 0"),
     });
     it("calculates the progress circle stroke offset correctly", () => {
       const radius = size / 2 - thickness / 2;
@@ -31,7 +31,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
     it("calculates the negative progress circle stroke offset correctly", async () => {
       progress = -50;
-      await wrapper.setProps({ options: { ...wrapper.props().options, progress } });
+      await setCircleProps(wrapper, { progress });
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
       const expectedOffset = circumference - (progress / 100) * circumference;
@@ -48,8 +48,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
     it("lets progress circle visible for -1 < progress < 1", async () => {
       progress = 0;
-      await wrapper.setProps({ options: { ...wrapper.props().options, half: true } });
-      await setCircleProps(wrapper, { half: true });
+      await setCircleProps(wrapper, { progress, half: true });
       const radius = size / 2 - thickness / 2;
       const circumference = radius * 2 * Math.PI;
 
