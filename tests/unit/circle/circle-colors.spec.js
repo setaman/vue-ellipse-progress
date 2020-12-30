@@ -3,7 +3,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Gradient from "@/components/Gradient.vue";
 import { factory } from "@/../tests/helper";
 
-const localFactory = (colorObject) => factory({ container: CircleContainer, props: colorObject });
+const localFactory = (props) => factory({ container: CircleContainer, props });
 
 const gradientColor = {
   radial: false,
@@ -21,9 +21,9 @@ const gradientColor = {
   ],
 };
 
-const colorAsStringTests = (colorProp, color, selector, fill = false) => {
+const colorAsStringTests = (colorProp, color, selector, fill = false, half) => {
   describe("applies color as string", () => {
-    const wrapper = localFactory({ ...colorProp });
+    const wrapper = localFactory({ ...colorProp, half });
     const circleWrapper = wrapper.find(selector);
 
     it("do not recognize gradient colors", () => {
@@ -42,9 +42,9 @@ const colorAsStringTests = (colorProp, color, selector, fill = false) => {
   });
 };
 
-const gradientColorTests = (colorProp, selector, gradientURLPrefix, fill = false) => {
+const gradientColorTests = (colorProp, selector, gradientURLPrefix, fill = false, half) => {
   describe("applies gradient color correctly", () => {
-    const wrapper = localFactory(colorProp);
+    const wrapper = localFactory({ ...colorProp, half });
     const circleWrapper = wrapper.find(selector);
     const id = 0;
     const stopColorWrappers = wrapper.findAll("stop");
@@ -90,14 +90,14 @@ const colorTests = (colorProp, half = false, empty = false, gradientURLPrefix) =
 
   it("does not render fill circle", () => {
     expect(
-      localFactory({ [colorProp]: color })
+      localFactory({ [colorProp]: color, half })
         .find(`.ep-${half ? "half-" : ""}circle--${empty ? "empty" : "progress"}__fill`)
         .exists()
     ).to.be.false;
   });
 
-  colorAsStringTests({ [colorProp]: color }, color, circleSelector, false);
-  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, false);
+  colorAsStringTests({ [colorProp]: color }, color, circleSelector, false, half);
+  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, false, half);
 };
 
 const colorFillTests = (colorProp, half = false, empty = false, gradientURLPrefix) => {
@@ -109,14 +109,14 @@ const colorFillTests = (colorProp, half = false, empty = false, gradientURLPrefi
 
   it("renders fill circle", () => {
     expect(
-      localFactory({ [colorProp]: color })
+      localFactory({ [colorProp]: color, half })
         .find(circleSelector)
         .exists()
     ).to.be.true;
   });
 
-  colorAsStringTests({ [colorProp]: color }, color, circleSelector, true);
-  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, true);
+  colorAsStringTests({ [colorProp]: color }, color, circleSelector, true, half);
+  gradientColorTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, true, half);
 };
 
 describe("Colors", () => {

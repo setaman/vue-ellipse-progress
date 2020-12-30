@@ -126,7 +126,6 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             "legend-caption": '<span id="my-slot">Hello Circle</span>',
           },
         });
-        console.log(wrapper.html());
         expect(wrapper.get("#my-slot"));
       });
     });
