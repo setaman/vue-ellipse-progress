@@ -47,9 +47,11 @@ const mockProps = {
   determinate: false,
   dot: {
     size: 0,
+    color: "white",
   },
   globalDot: {
     size: 0,
+    color: "white",
   },
   reverse: false,
   legendFormatter: null,

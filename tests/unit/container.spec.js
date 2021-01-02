@@ -106,7 +106,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
-  describe("#slots", () => {
+  /* describe("#slots", () => {
     describe("#legend-value", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
@@ -155,7 +155,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(wrapper.findComponent(Counter).findAll("span")).to.have.lengthOf(2);
       });
     });
-  });
+  }); */
   describe("#data", () => {
     const data = [
       { progress: 25, color: "red" },
@@ -220,6 +220,44 @@ describe("[ EllipseProgressContainer.vue ]", () => {
           expect(counterWrapper.find(".my-custom-format").element.textContent).to.equal("Formatted 50");
           done();
         }, 50);
+      });
+    });
+  });
+  describe("Options parsers", () => {
+    describe("#dot parser", () => {
+      it(`parses property as Number correctly`, () => {
+        const parsedDot = dotParser(0);
+        expect(parsedDot.size).to.equal("0");
+        expect(parsedDot.color).to.equal("white");
+      });
+      it(`parses property as String correctly`, () => {
+        const wrapper = localFactory({ progress, size, dot: dotParser("5% red") });
+        expect(wrapper.vm.parsedDot.size).to.equal("5%");
+        expect(wrapper.vm.parsedDot.color).to.equal("red");
+      });
+      it(`parses property as Object correctly`, () => {
+        const wrapper = localFactory({ progress, size, dot: dotParser({ size: 10, backgroundColor: "green" }) });
+        expect(wrapper.vm.parsedDot.size).to.equal(10);
+        expect(wrapper.vm.parsedDot.color).to.equal("white");
+        expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
+      });
+
+      it(`converts the size percent value to pixel correctly`, () => {
+        const dot = "5%";
+        const wrapper = localFactory({ progress, size, dot: dotParser(dot) });
+        const dotPixelSize = calculateThickness(dot);
+        expect(wrapper.vm.dotSize).to.equal(dotPixelSize);
+      });
+      it("applies default value correctly", () => {
+        const wrapper = factory({ progress }, VueEllipseProgress);
+        const circleWrapper = wrapper.findComponent(Circle);
+        const circleContainerWrapper = wrapper.findComponent(CircleContainer);
+
+        expect(wrapper.props("dot")).to.equal(0);
+        expect(circleContainerWrapper.props("dot")).to.equal(0);
+        expect(circleWrapper.vm.parsedDot.size).to.equal("0");
+        expect(circleWrapper.vm.parsedDot.color).to.equal("white");
+        expect(circleWrapper.vm.dotSize).to.equal(0);
       });
     });
   });
