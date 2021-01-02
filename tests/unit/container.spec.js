@@ -3,6 +3,7 @@ import { shallowMount, mount } from "@vue/test-utils";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
+import { dotParser } from "@/components/optionsParser";
 
 const factory = (propsData, slots = {}) => {
   return mount(VueEllipseProgress, {
@@ -225,39 +226,43 @@ describe("[ EllipseProgressContainer.vue ]", () => {
   });
   describe("Options parsers", () => {
     describe("#dot parser", () => {
+      const circleSize = 200;
+      it("applies default value correctly", () => {
+        const { size, color } = dotParser(0, circleSize);
+        expect(size).to.equal(0);
+        expect(color).to.equal("white");
+      });
       it(`parses property as Number correctly`, () => {
-        const parsedDot = dotParser(0);
-        expect(parsedDot.size).to.equal("0");
-        expect(parsedDot.color).to.equal("white");
+        const { size, color } = dotParser(5, circleSize);
+        expect(size).to.equal(5);
+        expect(color).to.equal("white");
       });
       it(`parses property as String correctly`, () => {
-        const wrapper = localFactory({ progress, size, dot: dotParser("5% red") });
-        expect(wrapper.vm.parsedDot.size).to.equal("5%");
-        expect(wrapper.vm.parsedDot.color).to.equal("red");
+        const { size, color } = dotParser("20 red", circleSize);
+        expect(size).to.equal(20);
+        expect(color).to.equal("red");
       });
       it(`parses property as Object correctly`, () => {
-        const wrapper = localFactory({ progress, size, dot: dotParser({ size: 10, backgroundColor: "green" }) });
-        expect(wrapper.vm.parsedDot.size).to.equal(10);
-        expect(wrapper.vm.parsedDot.color).to.equal("white");
-        expect(wrapper.vm.parsedDot.backgroundColor).to.equal("green");
+        const { size, backgroundColor } = dotParser({ size: 10, backgroundColor: "green" }, circleSize);
+        expect(size).to.equal(10);
+        expect(backgroundColor).to.equal("green");
       });
 
       it(`converts the size percent value to pixel correctly`, () => {
-        const dot = "5%";
-        const wrapper = localFactory({ progress, size, dot: dotParser(dot) });
-        const dotPixelSize = calculateThickness(dot);
-        expect(wrapper.vm.dotSize).to.equal(dotPixelSize);
+        const { size } = dotParser("5%", circleSize);
+        const dotPixelSize = (5 * circleSize) / 100;
+        expect(size).to.equal(dotPixelSize);
       });
-      it("applies default value correctly", () => {
-        const wrapper = factory({ progress }, VueEllipseProgress);
-        const circleWrapper = wrapper.findComponent(Circle);
-        const circleContainerWrapper = wrapper.findComponent(CircleContainer);
-
-        expect(wrapper.props("dot")).to.equal(0);
-        expect(circleContainerWrapper.props("dot")).to.equal(0);
-        expect(circleWrapper.vm.parsedDot.size).to.equal("0");
-        expect(circleWrapper.vm.parsedDot.color).to.equal("white");
-        expect(circleWrapper.vm.dotSize).to.equal(0);
+      it("parses custom styles correctly", () => {
+        const dot = {
+          size: 10,
+          backgroundColor: "yellow",
+          width: "15px",
+        };
+        const { size, width, backgroundColor } = dotParser(dot, circleSize);
+        expect(size).to.equal(dot.size);
+        expect(backgroundColor).to.equal(dot.backgroundColor);
+        expect(width).to.equal(dot.width);
       });
     });
   });
