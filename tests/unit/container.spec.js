@@ -4,10 +4,10 @@ import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 
-const factory = (propsData, scopedSlots = {}) => {
+const factory = (propsData, slots = {}) => {
   return mount(VueEllipseProgress, {
-    propsData: { progress: 50, ...propsData },
-    scopedSlots,
+    props: { progress: 50, ...propsData },
+    slots,
     stubs: {
       CircleContainer,
     },
@@ -109,8 +109,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
   describe("#slots", () => {
     describe("#legend-value", () => {
       it("renders provided slot content", () => {
-        const wrapper = shallowMount(VueEllipseProgress, {
-          propsData: { progress: 50 },
+        const wrapper = mount(VueEllipseProgress, {
+          props: { progress: 50 },
           slots: {
             "legend-value": '<span id="my-slot">Hello Circle</span>',
           },
@@ -120,8 +120,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
     describe("#legend-caption", () => {
       it("renders provided slot content", () => {
-        const wrapper = shallowMount(VueEllipseProgress, {
-          propsData: { progress: 50 },
+        const wrapper = mount(VueEllipseProgress, {
+          props: { progress: 50 },
           slots: {
             "legend-caption": '<span id="my-slot">Hello Circle</span>',
           },
@@ -134,8 +134,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         { progress: 35, animation: "default 0 0" },
         {
           default: `
-              <template v-slot:default="{ counterTick }" >
-                <span class="my-formatter-slot">Formatted {{ counterTick.currentValue }}</span>
+              <template #default="counterParams" >
+                <span class="my-formatter-slot">Formatted {{ counterParams.counterTick.currentValue }}</span>
               </template>`,
         }
       );
