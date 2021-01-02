@@ -323,14 +323,29 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       });
     });
     describe("#lineMode parser", () => {
-      it("should ", () => {
+      it("parses default value correctly", () => {
         const defaultLineMode = {
           mode: "normal",
           offset: 0,
         };
-        const { mode, offset } = lineModeParser(props.lineMode.default);
+        const { mode, offset } = lineModeParser(props.lineMode.default, false);
         expect(mode).to.equal(defaultLineMode.mode);
         expect(offset).to.equal(defaultLineMode.offset);
+      });
+      it("parses value correctly", () => {
+        const { mode, offset } = lineModeParser("in 10", false);
+        expect(mode).to.equal("in");
+        expect(offset).to.equal(10);
+      });
+      it("applies default offset correctly", () => {
+        const { mode, offset } = lineModeParser("out", false);
+        expect(mode).to.equal("out");
+        expect(offset).to.equal(0);
+      });
+      it("applies special multiple mode for multiple circles", () => {
+        const { mode, offset } = lineModeParser("out", true);
+        expect(mode).to.equal("multiple");
+        expect(offset).to.equal(0);
       });
     });
   });

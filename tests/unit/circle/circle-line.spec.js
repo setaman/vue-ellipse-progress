@@ -4,7 +4,7 @@ import { factory, setCircleProps } from "@/../tests/helper";
 import { lineModeParser, animationParser } from "@/components/optionsParser";
 
 const localFactory = (props) => factory({ container: Circle, props });
-const localLineModeParser = (lineMode) => lineModeParser({ lineMode, multiple: false });
+const localLineModeParser = (lineMode) => lineModeParser(lineMode, false);
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
   const circleProgressWrapper = circleWrapper.find("circle.ep-circle--progress");
