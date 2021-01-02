@@ -364,7 +364,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(offset).to.equal(10);
       });
       it("applies default offset correctly", () => {
-        const { position, offset } = lineModeParser("out");
+        const { position, offset } = linePositionParser("out");
         expect(position).to.equal("out");
         expect(offset).to.equal(0);
       });

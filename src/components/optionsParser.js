@@ -58,7 +58,7 @@ export const linePositionParser = (linePosition) => {
   const [position, offset] = linePosition.toString().split(" ");
   return {
     position,
-    offset: offset || 0,
+    offset: parseFloat(offset) || 0,
   };
 };
 
