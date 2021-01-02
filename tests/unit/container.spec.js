@@ -1,9 +1,10 @@
 import { expect } from "chai";
-import { shallowMount, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
-import { dotParser } from "@/components/optionsParser";
+import { animationParser, dotParser } from "@/components/optionsParser";
+import props from "@/components/interface";
 
 const factory = (propsData, slots = {}) => {
   return mount(VueEllipseProgress, {
@@ -263,6 +264,47 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(size).to.equal(dot.size);
         expect(backgroundColor).to.equal(dot.backgroundColor);
         expect(width).to.equal(dot.width);
+      });
+    });
+    describe("#animation parser", () => {
+      it("applies default #animation value", () => {
+        const defaultAnimation = {
+          type: "default",
+          duration: 1000,
+          delay: 400,
+        };
+        const parsedAnimation = animationParser(props.animation.default);
+        for (const prop in defaultAnimation) {
+          expect(parsedAnimation[prop]).to.equal(defaultAnimation[prop]);
+        }
+      });
+      it("parses #animation correctly", () => {
+        const { type, duration, delay } = animationParser("rs 500 300");
+        expect(type).to.equal("rs");
+        expect(duration).to.equal(500);
+        expect(delay).to.equal(300);
+      });
+      it("parses #animation correctly with default duration", () => {
+        const { type, duration } = animationParser("bounce");
+        expect(type).to.equal("bounce");
+        expect(duration).to.equal(animationParser(props.animation.default).duration);
+      });
+      it("parses #animation correctly with default delay", () => {
+        const { type, duration, delay } = animationParser("bounce 2000");
+        expect(type).to.equal("bounce");
+        expect(duration).to.equal(2000);
+        expect(delay).to.equal(animationParser(props.animation.default).delay);
+      });
+      it("parses #animation incorrectly with wrong arguments order", () => {
+        const { type, duration, delay } = animationParser("300 rs 2000");
+        expect(type).to.not.equal("rs");
+        expect(duration).to.not.equal(300);
+        expect(delay).to.equal(2000);
+      });
+      it("applies default values for duration and delay if invalid values provided", () => {
+        const { duration, delay } = animationParser("loop 20%0 sdf");
+        expect(duration).to.not.equal(animationParser(props.animation.default).duration);
+        expect(delay).to.equal(animationParser(props.animation.default).delay);
       });
     });
   });
