@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
-import { animationParser, dotParser, dashParser } from "@/components/optionsParser";
+import { animationParser, dotParser, dashParser, lineModeParser } from "@/components/optionsParser";
 import props from "@/components/interface";
 
 const factory = (propsData, slots = {}) => {
@@ -320,6 +320,17 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       });
       it("parses default value correctly", () => {
         expect(dashParser(props.dash.default)).to.equal("");
+      });
+    });
+    describe("#lineMode parser", () => {
+      it("should ", () => {
+        const defaultLineMode = {
+          mode: "normal",
+          offset: 0,
+        };
+        const { mode, offset } = lineModeParser(props.lineMode.default);
+        expect(mode).to.equal(defaultLineMode.mode);
+        expect(offset).to.equal(defaultLineMode.offset);
       });
     });
   });
