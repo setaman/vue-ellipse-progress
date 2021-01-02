@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
-import { animationParser, dotParser } from "@/components/optionsParser";
+import { animationParser, dotParser, dashParser } from "@/components/optionsParser";
 import props from "@/components/interface";
 
 const factory = (propsData, slots = {}) => {
@@ -305,6 +305,21 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const { duration, delay } = animationParser("loop 20%0 sdf");
         expect(duration).to.not.equal(animationParser(props.animation.default).duration);
         expect(delay).to.equal(animationParser(props.animation.default).delay);
+      });
+    });
+    describe("#dash parser", () => {
+      it("returns the value as without strict mode", () => {
+        const dash = "10 20";
+        expect(dashParser(dash)).to.equal(dash);
+      });
+      it("parses the value correctly is strict mode", () => {
+        const dash = "strict 50 0.5";
+        const { count, spacing } = dashParser(dash);
+        expect(count).to.equal(50);
+        expect(spacing).to.equal(0.5);
+      });
+      it("parses default value correctly", () => {
+        expect(dashParser(props.dash.default)).to.equal("");
       });
     });
   });

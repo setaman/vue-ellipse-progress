@@ -18,7 +18,7 @@ export const animationParser = (animation) => {
   };
 };
 
-const dashParser = (dash) => {
+export const dashParser = (dash) => {
   const dashConfig = dash.trim().split(" ");
   const isStrict = dashConfig[0] === "strict";
   if (!isStrict) {
