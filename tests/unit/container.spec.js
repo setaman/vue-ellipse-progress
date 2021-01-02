@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
-import { animationParser, dotParser, dashParser, lineModeParser } from "@/components/optionsParser";
+import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
 
 const factory = (propsData, slots = {}) => {
@@ -345,6 +345,27 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       it("applies special multiple mode for multiple circles", () => {
         const { mode, offset } = lineModeParser("out", true);
         expect(mode).to.equal("multiple");
+        expect(offset).to.equal(0);
+      });
+    });
+    describe("#linePosition parser", () => {
+      it("parses default value correctly", () => {
+        const defaultLineMode = {
+          position: "center",
+          offset: 0,
+        };
+        const { position, offset } = linePositionParser(props.linePosition.default);
+        expect(position).to.equal(defaultLineMode.position);
+        expect(offset).to.equal(defaultLineMode.offset);
+      });
+      it("parses value correctly", () => {
+        const { position, offset } = linePositionParser("in 10");
+        expect(position).to.equal("in");
+        expect(offset).to.equal(10);
+      });
+      it("applies default offset correctly", () => {
+        const { position, offset } = lineModeParser("out");
+        expect(position).to.equal("out");
         expect(offset).to.equal(0);
       });
     });

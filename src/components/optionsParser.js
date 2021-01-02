@@ -54,7 +54,7 @@ export const calcThickness = (thickness, circleSize) => {
   return thickness.toString().includes("%") ? (value * circleSize) / 100 : value;
 };
 
-const parseLinePosition = (linePosition) => {
+export const linePositionParser = (linePosition) => {
   const [position, offset] = linePosition.toString().split(" ");
   return {
     position,
@@ -71,7 +71,7 @@ export const parseOptions = (options) => ({
   globalDot: dotParser(options.globalDot, options.size),
   dash: dashParser(options.dash),
   lineMode: lineModeParser(options.lineMode, options.multiple),
-  linePosition: parseLinePosition(options.linePosition),
-  emptyLinePosition: parseLinePosition(options.emptyLinePosition),
+  linePosition: linePositionParser(options.linePosition),
+  emptyLinePosition: linePositionParser(options.emptyLinePosition),
   animation: animationParser(options.animation),
 });
