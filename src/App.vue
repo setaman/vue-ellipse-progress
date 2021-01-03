@@ -51,6 +51,9 @@
         :determinate="determinate"
         :loader="{ thickness: 40, color: 'red' }"
       >
+        <template #legend>
+          <span>/ hey</span>
+        </template>
         <template v-slot:legend-caption>
           <p id="slot-id" slot="legend-caption">TASKS DONE</p>
         </template>

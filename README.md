@@ -77,8 +77,8 @@ After you have initialized the component, you are ready to create your circles:
   :thickness="10"
   emptyThickness="10%"
   lineMode="in 10"
-  :legend="true"
-  :legendValue="180"
+  :hideLegend="false"
+  :legend="180"
   :legendFormatter="({currentValue}) => new Intl.NumberFormat('de-DE').format(currentValue)"
   legendClass="legend-custom-style"
   dash="60 0.9"
@@ -121,8 +121,8 @@ This table below provides a quick overview over all available options. To gain m
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
-| **[`legend`](#legend)** | Boolean | |  true |
-| **[`legendValue`](#legendvalue)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
+| **[`hideLegend`](#hideLegend)** | Boolean | |  true |
+| **[`legend`](#legend)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
 | **[`legendFormatter`](#legendformatter)** | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
@@ -164,9 +164,9 @@ this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tas
 
 >:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this 
 >value, it should be always in the range [-100, 100] and not valid Numbers lead to **[`noData`](#noData)** state. 
->For customization purpose please use **[`legendValue`](#legendvalue)** and take a look at **[`legendFormatter`](#legendformatter)**. 
+>For customization purpose please use **[`legend`](#legend)** and take a look at **[`legendFormatter`](#legendformatter)**. 
 
->If **[`legendValue`](#legendvalue)** is defined the progress will **NOT** be displayed as circle legend.
+>If **[`legend`](#legend)** is defined the progress will **NOT** be displayed as circle legend.
 
 <br>
 
@@ -312,18 +312,18 @@ Defines the fill color of the empty circle. Takes the same value as **[`color`](
 
 <br>
 
-- ### `legend`
+- ### `hideLegend`
 
-Is a Boolean. It defines whether the **[`progress`](#progress)** or from you defined  **[`legendValue`](#legendvalue)** is displayed as the legend of the circle.
+Boolean value that defines whether the **[`progress`](#progress)** or from you defined  **[`legend`](#legend)** is displayed as the legend of the circle.
 
 <br>
 
-- ### `legendValue`
+- ### `legend`
 
 ###### Animated: :heavy_check_mark:
 
 Is any Number or String. Use this property if you want to show progress value as the legend of the circle that is not in
-the range [-100, 100]. If defined, `legendValue` will replace [`progress`](#progress) as the circle legend!
+the range [-100, 100]. If defined, `legend` will replace [`progress`](#progress) as the circle legend!
 You can set any precision of the decimal numbers. If the prop is defined as a string, you can specify the `","` 
 as decimals delimiter (e.g "123,123" for german numbers), apart from this the value must generally be a valid JavaScript Number.
 For more customization possibilities please use [`legendFormatter`](#legendformatter) or [`scoped slot`](#default). 
@@ -332,10 +332,10 @@ For more customization possibilities please use [`legendFormatter`](#legendforma
 
 Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Setting the [`progress`](#progress) to 3.5 will 
 fill the circle to 3.5 percent, and this is not what we need, since we want to display the percentage of 5 as progress. 
-At this point we need an additional property `legendValue`. We can show the product rating like in the following example:
+At this point we need an additional property `legend`. We can show the product rating like in the following example:
 
 ```js
-<vue-ellipse-progress :progress="progress" :legend-value="rating" />
+<vue-ellipse-progress :progress="progress" :legend="rating" />
 ...
 this.rating = 3.5;
 this.progress = this.rating * 100 / 5; // the rating percentage
@@ -343,10 +343,10 @@ this.progress = this.rating * 100 / 5; // the rating percentage
 Now you can display custom progress value that still animated and circle progress fills properly!
 
 ```vue
-<vue-ellipse-progress legend-value="345,12345" /> // set "," as delimiter defining the value as string
+<vue-ellipse-progress legend="345,12345" /> // set "," as delimiter defining the value as string
 ```
 
->:heavy_exclamation_mark: note that `legendValue` replaces **[`progress`](#progress)** as circle legend but not vice versa.
+>:heavy_exclamation_mark: note that `legend` replaces **[`progress`](#progress)** as circle legend but not vice versa.
 
 
 <br>
@@ -354,7 +354,7 @@ Now you can display custom progress value that still animated and circle progres
 - ### `legendFormatter` 
 
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
-is called on every tick of the counter. Here the formatting of [legendValue](#legendvalue) or [progress](#progress) 
+is called on every tick of the counter. Here the formatting of [legend](#legend) or [progress](#progress) 
 is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
 value, even HTML.   
 
