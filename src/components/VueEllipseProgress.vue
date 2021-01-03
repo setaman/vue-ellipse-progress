@@ -26,7 +26,7 @@
               </slot>
             </template>
           </counter>
-          <slot name="legend-value"></slot>
+          <slot name="legend"></slot>
         </div>
         <slot name="legend-caption"></slot>
       </div>
