@@ -108,16 +108,18 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
+  // FIXME: blocked by vue-test-utils v2 beta
   /* describe("#slots", () => {
     describe("#legend-value", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            "legend-value": '<span id="my-slot">Hello Circle</span>',
+            legendValue: '<span id="my-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.get("#my-slot"));
+        const c = wrapper.vm.$slots;
+        expect(wrapper.find("#my-slot").exists()).to.be.true;
       });
     });
     describe("#legend-caption", () => {
@@ -125,22 +127,22 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            "legend-caption": '<span id="my-slot">Hello Circle</span>',
+            "legend-caption": '<span id="my-caption-slot">Hello Circle</span>',
           },
         });
-        expect(wrapper.get("#my-slot"));
+        expect(wrapper.get("#my-caption-slot"));
       });
     });
     describe("#default", () => {
-      const wrapper = factory(
-        { progress: 35, animation: "default 0 0" },
-        {
-          default: `
+      const wrapper = mount(VueEllipseProgress, {
+        props: { progress: 35, animation: "default 0 0" },
+        slots: {
+          scoped: `
               <template #default="counterParams" >
                 <span class="my-formatter-slot">Formatted {{ counterParams.counterTick.currentValue }}</span>
               </template>`,
-        }
-      );
+        },
+      });
 
       it("renders provided slot", () => {
         expect(wrapper.find(".my-formatter-slot").exists()).to.be.true;

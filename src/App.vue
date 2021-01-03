@@ -52,7 +52,7 @@
         :loader="{ thickness: 40, color: 'red' }"
       >
         <template v-slot:legend-caption>
-          <p slot="legend-caption">TASKS DONE</p>
+          <p id="slot-id" slot="legend-caption">TASKS DONE</p>
         </template>
       </ve-progress>
     </div>
