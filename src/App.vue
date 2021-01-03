@@ -38,46 +38,21 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress
-          :size="200"
-          :progress="progress"
-          :legend="1315.56"
-          animation="rs 2000 500"
-          :loading="loading"
-          :reverse="true"
-          :thickness="20"
-          :empty-thickness="10"
-          dot="10 red"
-          :loader="{ thickness: 40, color: 'red' }"
-          line-mode="bottom"
-          :no-data="noData"
-          :determinate="determinate"
-        >
-          <template v-slot:default="{ counterTick }">
-            <span
-              :style="` transition: 0.5s; font-weight: bold; font-size: 1.6rem; color: ${
-                counterTick.currentValue < 600 ? 'red' : 'yellow'
-              };`"
-            >
-              {{ formattedPrice(counterTick.currentValue) }}
-            </span>
-          </template>
-        </ve-progress>
+        <ve-progress :size="200" loading :progress="progress" legend="345,12345"> </ve-progress>
       </div>
       <ve-progress
-        dot="20 green"
         :loading="loading"
         :size="200"
-        :progress="progress"
+        :thickness="10"
+        :progress="50"
         :legend-value="125.1"
         half
-        line-mode="out 20"
         :no-data="noData"
         :determinate="determinate"
         :loader="{ thickness: 40, color: 'red' }"
       >
         <template v-slot:legend-caption>
-          <p slot="legend-caption">TASKS DONE</p>
+          <p id="slot-id" slot="legend-caption">TASKS DONE</p>
         </template>
       </ve-progress>
     </div>

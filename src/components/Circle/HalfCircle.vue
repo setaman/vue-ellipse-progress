@@ -8,7 +8,9 @@
     }"
   >
     <path
+      v-if="options.emptyColorFill !== 'transparent'"
       :fill="computedEmptyColorFill"
+      class="ep-half-circle--empty__fill"
       :d="emptyFillPath"
       :style="{
         transition: styles.transition,
@@ -31,19 +33,19 @@
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
     >
     </path>
-    <fade-in-transition>
-      <g v-if="isLoading">
-        <half-circle-loader :options="options.loader" />
-      </g>
-    </fade-in-transition>
-
     <path
+      v-if="options.colorFill !== 'transparent'"
       class="ep-half-circle--progress__fill"
       :d="fillPath"
       :fill="computedColorFill"
       :style="{ transition: styles.transition }"
     >
     </path>
+    <fade-in-transition>
+      <g v-if="isLoading">
+        <half-circle-loader :options="options.loader" />
+      </g>
+    </fade-in-transition>
     <path
       :stroke-width="thickness"
       class="ep-half-circle--progress ep-circle--progress"
