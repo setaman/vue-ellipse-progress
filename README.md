@@ -4,7 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 ![Travis (.org)](https://img.shields.io/travis/setaman/vue-ellipse-progress?style=for-the-badge)
 
-A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circular progress bars, implemented with SVG. 
+A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circle progress bars, implemented with SVG. 
 
 Start creating circles in three simple steps:
 ```js
@@ -632,7 +632,7 @@ props and adjust the presentation of the legend to your needs.
 
 ```vue
 <vue-ellipse-progress :progress="50">
-  <template v-slot:default="{ counterTick }">
+  <template #default="{ counterTick }">
     <span style="font-weight: bold; font-size: 1.6rem; color: green;">
       {{ myFormatter(counterTick.currentValue) }}
     </span>
@@ -640,7 +640,7 @@ props and adjust the presentation of the legend to your needs.
 </vue-ellipse-progress>
 ```
 
-- #### `legend-value`
+- #### `legend`
 
 In this slot you can put an additional element that you want to display beside the progress
 
@@ -653,10 +653,10 @@ This code ...
 ```html
 <vue-ellipse-progress ....>
   
-<template v-slot:legend-value>
+<template #legend>
   <span slot="legend-value">/200</span>
 </template>
-<template v-slot:legend-caption>
+<template #legend-caption>
   <p slot="legend-caption">TASKS DONE</p>
 </template>
   
@@ -669,7 +669,9 @@ This code ...
 <br>
 
 ## Compatibility
-The plugin was tested in all major modern mobile and desktop browsers. It should also work properly in older browsers. In old browsers issues can arise by animations since they are implemented using CSS custom properties. Basic SVG renders even in IE 11. 
+The plugin was tested in all major modern mobile and desktop browsers. It should also work properly in older browsers.
+In old browsers issues can arise by animations since they are implemented using CSS custom properties. 
+Basic SVG renders even in IE 11. 
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
 | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
