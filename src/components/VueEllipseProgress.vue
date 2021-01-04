@@ -45,9 +45,6 @@ export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
   props,
-  data: () => ({
-    counterTick: {},
-  }),
   computed: {
     computedLegend() {
       if (this.loading || this.noData) {
