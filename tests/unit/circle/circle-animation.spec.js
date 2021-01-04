@@ -67,11 +67,10 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
   });
 };
 const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
-  it(`${prefix} applies default @400 delay value as initial animation delay`, () => {
-    expect(localFactory({}, container).vm.animation.delay).to.equal(400);
-  });
-  it(`${prefix} applies @0 delay value as animation-delay`, () => {
-    expect(localFactory({ animation: animationParser("rs 0 0") }, container).vm.animation.delay).to.equal(0);
+  it(`${prefix} awaits default @400ms on initialization`, async () => {
+    const wrapper = localFactory({}, container);
+    await wait(390);
+    expect(wrapper.vm.isInitialized).to.be.false;
   });
 
   const progress = 60;
