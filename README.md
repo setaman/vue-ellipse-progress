@@ -16,7 +16,7 @@ createApp(App).use(veProgress);
 // use
 <ve-progress :progress="50"/>
 ```
-- [Installation](#installation)
+- [Installation](#installation-options)
 - [Usage](#usage)
 - [Options](#options)
 - [Compatibility](#compatibility)
@@ -29,7 +29,7 @@ createApp(App).use(veProgress);
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
 </div>
 
-## Installation 
+## Installation options
 Use your package manager or CDN to install and initialize the component.
 
 ### NPM
@@ -37,11 +37,13 @@ Install the library via npm:
 ```
 npm i vue-ellipse-progress
 ```
-You can initialize the component globally as a plugin or import it in a specific component of your app.
+After the installation you have the choice to initialize the component as a plugin or to import it directly.
 
 #### Initialize as Plugin 
+
 Import and initialize the component in your `main.js`. After initialization, the component is available as `<ve-progress/>`.
-You can also assign a custom name to the component:
+You can also define a custom name:
+
 ```js
 import { createApp } from "vue";
 import veProgress from "vue-ellipse-progress";
@@ -56,11 +58,11 @@ import { VeProgress } from "vue-ellipse-progress";
 ```
 
 ### CDN
-You can customize and get the bundled and minified 
-component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
+To use the component without a build tool you can customize and get the bundled and minified
+`veprogress.umd.min.js` from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
 Just add the following line to your HTML and initialize the component as plugin:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/veprogress.umd.min.js"></script>
 ...
 createApp(App).use(veprogress);
 ```
