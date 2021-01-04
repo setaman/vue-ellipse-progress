@@ -6,7 +6,7 @@
 
 A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circle progress bars, implemented with SVG. 
 
-Start creating circles in three simple steps:
+Start creating circles in three steps:
 ```js
 // install
 npm i vue-ellipse-progress@beta
@@ -669,9 +669,8 @@ This code ...
 <br>
 
 ## Compatibility
-The plugin was tested in all major modern mobile and desktop browsers. It should also work properly in older browsers.
-In old browsers issues can arise by animations since they are implemented using CSS custom properties. 
-Basic SVG renders even in IE 11. 
+This project targets modern browsers, platforms and Vue frameworks. The SVG Circles should be displayed without problems
+also in older browsers. The experience with some animations or transitions may vary slightly in different browsers.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
 | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
