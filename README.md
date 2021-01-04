@@ -58,8 +58,7 @@ import { VeProgress } from "vue-ellipse-progress";
 ```
 
 ### CDN
-To use the component without a build tool you can customize and get the bundled and minified
-`veprogress.umd.min.js` from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
+To use the component without a build tool you can customize and get the `veprogress.umd.min.js` file from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
 Just add the following line to your HTML and initialize the component as plugin:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/veprogress.umd.min.js"></script>
