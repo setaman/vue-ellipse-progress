@@ -1,11 +1,11 @@
 <template>
   <g :style="{ opacity: opacity }">
     <path
-      :stroke-width="thickness"
+      :stroke-width="options.thickness"
       class="ep-half-circle--loader animation__loading"
       :d="path"
       fill="transparent"
-      :stroke="computedColor"
+      :stroke="color"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
       :style="{

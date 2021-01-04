@@ -25,6 +25,15 @@ export default {
     dotContainerFullRotationDeg() {
       return this.options.half ? 180 : 360;
     },
+    dotSize() {
+      return this.options.dot.size;
+    },
+    dotColor() {
+      return this.options.dot.color;
+    },
+    globalDotSize() {
+      return this.globalDot.size;
+    },
     dotContainerStyle() {
       return {
         width: `${this.dotContainerSize}px`,
@@ -53,7 +62,7 @@ export default {
           "animation-duration": `${this.animationDuration + 500}ms`,
         },
       };
-      return styles[this.animation.type];
+      return styles[this.options.animation.type];
     },
     dotStyle() {
       return {
@@ -79,9 +88,9 @@ export default {
   methods: {
     calculateProgress() {
       if (this.options.half) {
-        return this.computedProgress < 0 ? this.computedProgress - 100 : this.computedProgress;
+        return this.progress < 0 ? this.progress - 100 : this.progress;
       }
-      return this.computedProgress;
+      return this.progress;
     },
   },
 };

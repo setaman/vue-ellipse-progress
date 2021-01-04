@@ -9,7 +9,7 @@
   >
     <path
       v-if="options.emptyColorFill !== 'transparent'"
-      :fill="computedEmptyColorFill"
+      :fill="emptyColorFill"
       class="ep-half-circle--empty__fill"
       :d="emptyFillPath"
       :style="{
@@ -19,9 +19,9 @@
     >
     </path>
     <path
-      :stroke-width="emptyThickness"
+      :stroke-width="options.emptyThickness"
       fill="transparent"
-      :stroke="computedEmptyColor"
+      :stroke="emptyColor"
       class="ep-half-circle--empty"
       :d="emptyPath"
       :stroke-linecap="options.line"
@@ -37,7 +37,7 @@
       v-if="options.colorFill !== 'transparent'"
       class="ep-half-circle--progress__fill"
       :d="fillPath"
-      :fill="computedColorFill"
+      :fill="colorFill"
       :style="{ transition: styles.transition }"
     >
     </path>
@@ -47,12 +47,12 @@
       </g>
     </fade-in-transition>
     <path
-      :stroke-width="thickness"
+      :stroke-width="options.thickness"
       class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
       :d="path"
       fill="transparent"
-      :stroke="computedColor"
+      :stroke="color"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
       :style="styles"

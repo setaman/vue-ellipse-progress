@@ -15,81 +15,63 @@ export default {
     isInitialized: false,
   }),
   computed: {
-    computedProgress() {
+    progress() {
       return parseFloat(this.options.progress || 0);
     },
 
     progressOffset() {
-      const offset = this.circumference - (this.computedProgress / 100) * this.circumference;
+      const offset = this.circumference - (this.progress / 100) * this.circumference;
       if (Math.abs(this.circumference - offset) < 1) return this.circumference - 0.5;
       return offset;
-    },
-
-    lineMode() {
-      return this.options.lineMode;
     },
 
     radius() {
       return radius(this.options);
     },
     fillRadius() {
-      return fillRadius(this.options.linePosition, this.thickness, this.radius);
+      return fillRadius(this.options.linePosition, this.options.thickness, this.radius);
     },
     emptyRadius() {
       return emptyRadius(this.options);
     },
     emptyFillRadius() {
-      return fillRadius(this.options.emptyLinePosition, this.emptyThickness, this.emptyRadius);
+      return fillRadius(this.options.emptyLinePosition, this.options.emptyThickness, this.emptyRadius);
     },
 
     dataIsAvailable() {
-      return isValidNumber(this.computedProgress) && !this.options.noData;
+      return isValidNumber(this.progress) && !this.options.noData;
     },
 
     animationClass() {
       return [
         `animation__${
-          !this.options.loading && this.dataIsAvailable && this.isInitialized ? this.animation.type : "none"
+          !this.options.loading && this.dataIsAvailable && this.isInitialized ? this.options.animation.type : "none"
         }`,
       ];
     },
-    animation() {
-      return this.options.animation;
-    },
     animationDuration() {
-      return `${this.animation.duration}ms`;
+      return `${this.options.animation.duration}ms`;
     },
 
-    computedColor() {
+    color() {
       return Array.isArray(this.options.color.colors)
         ? `url(#ep-progress-gradient-${this.options.id})`
         : this.options.color;
     },
-    computedEmptyColor() {
+    emptyColor() {
       return Array.isArray(this.options.emptyColor.colors)
         ? `url(#ep-empty-gradient-${this.options.id})`
         : this.options.emptyColor;
     },
-    computedColorFill() {
+    colorFill() {
       return Array.isArray(this.options.colorFill.colors)
         ? `url(#ep-progress-fill-gradient-${this.options.id})`
         : this.options.colorFill;
     },
-    computedEmptyColorFill() {
+    emptyColorFill() {
       return Array.isArray(this.options.emptyColorFill.colors)
         ? `url(#ep-empty-fill-gradient-${this.options.id})`
         : this.options.emptyColorFill;
-    },
-
-    thickness() {
-      return this.options.thickness;
-    },
-
-    globalThickness() {
-      return this.options.globalThickness;
-    },
-    emptyThickness() {
-      return this.options.emptyThickness;
     },
 
     angle() {
@@ -100,12 +82,9 @@ export default {
       return "50% 50%";
     },
 
-    dash() {
-      return this.options.dash;
-    },
     emptyDasharray() {
-      if (!this.dash.count || !this.dash.spacing) {
-        return this.dash;
+      if (!this.options.dash.count || !this.options.dash.spacing) {
+        return this.options.dash;
       }
       return `${2 * Math.PI * this.emptyRadius * this.getDashPercent()},
               ${2 * Math.PI * this.emptyRadius * this.getDashSpacingPercent()}`.trim();
@@ -115,24 +94,6 @@ export default {
       return this.dataIsAvailable && !this.options.loading && this.isInitialized
         ? this.progressOffset
         : this.circumference;
-    },
-
-    gap() {
-      return this.options.gap;
-    },
-
-    globalGap() {
-      return this.options.globalGap;
-    },
-
-    dotSize() {
-      return this.options.dot.size;
-    },
-    dotColor() {
-      return this.options.dot.color;
-    },
-    globalDotSize() {
-      return this.globalDot.size;
     },
 
     styles() {
@@ -189,7 +150,7 @@ export default {
   async mounted() {
     if (!this.options.loading) {
       // await initial delay before applying animations
-      await wait(this.animation.delay);
+      await wait(this.options.animation.delay);
     }
     this.isInitialized = true;
   },

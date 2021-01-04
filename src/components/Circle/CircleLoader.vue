@@ -6,8 +6,8 @@
       :cx="position"
       :cy="position"
       fill="transparent"
-      :stroke="computedColor"
-      :stroke-width="thickness"
+      :stroke="color"
+      :stroke-width="options.thickness"
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="{

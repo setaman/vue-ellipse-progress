@@ -13,7 +13,7 @@
       :r="emptyFillRadius"
       :cx="position"
       :cy="position"
-      :fill="computedEmptyColorFill"
+      :fill="emptyColorFill"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
       :style="{
         transitionDuration: animationDuration,
@@ -26,7 +26,7 @@
       :r="emptyRadius"
       :cx="position"
       :cy="position"
-      :stroke="computedEmptyColor"
+      :stroke="emptyColor"
       :stroke-dasharray="emptyDasharray"
       fill="transparent"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
@@ -34,7 +34,7 @@
         transitionDuration: animationDuration,
         transitionTimingFunction: styles.transitionTimingFunction,
       }"
-      :stroke-width="emptyThickness"
+      :stroke-width="options.emptyThickness"
     >
     </circle>
     <circle
@@ -43,7 +43,7 @@
       :r="fillRadius"
       :cx="position"
       :cy="position"
-      :fill="computedColorFill"
+      :fill="colorFill"
       :class="{ 'ep-circle--nodata': !dataIsAvailable }"
       :style="{ transition: styles.transition }"
     >
@@ -60,8 +60,8 @@
       :cx="position"
       :cy="position"
       fill="transparent"
-      :stroke="computedColor"
-      :stroke-width="thickness"
+      :stroke="color"
+      :stroke-width="options.thickness"
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="styles"
