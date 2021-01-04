@@ -70,28 +70,30 @@ After you have initialized the component, you are ready to create your circles:
   :progress="progress"
   :angle="-90"
   color="blue"
-  :colorFill="colorFillGradient"
-  emptyColor="#8ec5fc"
-  :emptyColorFill="emptyColorFillGradient"                      
+  :color-fill="colorFillGradient"
+  empty-color="#8ec5fc"
+  :empty-color-fill="emptyColorFillGradient"                      
   :size="300"
   :thickness="10"
-  emptyThickness="10%"
-  lineMode="in 10"
-  :hideLegend="false"
+  empty-thickness="10%"
+  line-mode="in 10"
+  line-position="out 10"
+  empty-line-position="in"
+  :hide-legend="false"
   :legend="180"
-  :legendFormatter="({currentValue}) => new Intl.NumberFormat('de-DE').format(currentValue)"
-  legendClass="legend-custom-style"
+  :legend-formatter="({currentValue}) => new Intl.NumberFormat('de-DE').format(currentValue)"
+  legend-class="legend-custom-style"
   dash="60 0.9"
   animation="reverse 700 400"
   :noData="false"
   :loading="false"  
   :loader="{ color: 'green' }"                    
-  fontColor="white"
+  font-color="white"
   :half="false"
   :gap="10"
   dot="10 blue"
   reverse
-  fontSize="5rem">
+  font-size="5rem">
   
   <span slot="legend-value">/200</span>
   <p slot="legend-caption">GOOD JOB</p>
@@ -116,6 +118,8 @@ This table below provides a quick overview over all available options. To gain m
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
 | **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| bottom [offset]" | "normal 0" |   
+| **[`linePosition`](#lineposition)** | String | "center \| out \| in [offset]" | "center" |   
+| **[`emptyLinePosition`](#emptylineposition)** | String | "center \| out \| in [offset]" | "center" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
 | **[`color`](#color)** | String \| Object | any color as String or Object to specify gradient (see details) |  "#3f79ff" |   
 | **[`colorFill`](#colorfill)** | String \| Object | same as `color` |  "transparent" |
@@ -126,7 +130,7 @@ This table below provides a quick overview over all available options. To gain m
 | **[`legendFormatter`](#legendformatter)** | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
-| **[`loader`](#loading)** | Object | { [thickness, color, lineMode, line, opacity ]} |  |
+| **[`loader`](#loader)** | Object | { [thickness, color, lineMode, line, opacity ]} |  |
 | **[`determinate`](#determinate)** | Boolean |  |false|
 | **[`noData`](#nodata)** | Boolean |  |false|
 | **[`angle`](#angle)** | Number | any Number |-90|
@@ -239,6 +243,34 @@ Let's take a look at few examples
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
 As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achieve the same result. But the provided modes like a presets take care about annoying calculations and do the job for you.
+
+<br>
+
+
+- ### `linePosition`
+
+###### Animated: :heavy_check_mark:
+
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the fill area. 
+Available modes are  `center`, `in` and `out`. Additionally, with the `out` mode you can provide an `offset` value as any Number.
+In general, this prop makes it possible to mimic the SVG2 `stroke-aligment`, which is currently not supported in any browser.
+
+###### Example: :scroll:
+
+The following examples visualize the modes differences:
+
+| `line-position="center"`  | `line-position="out"`   | `line-position="out 20"`  | `line-position="in"` |
+|----------|--------|---------|---------|
+| <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/e-lineMode-1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/e-lineMode-2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/e-lineMode-3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/e-lineMode-4.png"> |
+
+<br>
+
+- ### `emptyLinePosition`
+
+###### Animated: :heavy_check_mark:
+
+Descriptive string in form `"mode [offset]"` that defines how the empty line is aligned in relation to the empty circle fill area.
+The usage is similar to [linePosition](#lineposition).
 
 <br>
 

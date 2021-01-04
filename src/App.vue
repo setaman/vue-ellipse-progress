@@ -38,7 +38,53 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress :size="200" loading :progress="progress" legend="345,12345"> </ve-progress>
+        <ve-progress
+          :loading="loading"
+          style="padding-right: 10px"
+          :size="200"
+          :progress="progress"
+          hide-legend
+          :thickness="15"
+          :empty-thickness="15"
+          line-position="center"
+          color-fill="red"
+        >
+        </ve-progress>
+        <ve-progress
+          :loading="loading"
+          style="padding-right: 10px"
+          :size="200"
+          :thickness="15"
+          :empty-thickness="15"
+          :progress="progress"
+          hide-legend
+          line-position="out"
+          color-fill="red"
+        >
+        </ve-progress>
+        <ve-progress
+          :loading="loading"
+          style="padding-right: 10px"
+          :size="200"
+          :thickness="15"
+          :empty-thickness="15"
+          :progress="progress"
+          hide-legend
+          line-position="out -30"
+          color-fill="red"
+        >
+        </ve-progress>
+        <ve-progress
+          :size="200"
+          :loading="loading"
+          :thickness="15"
+          :empty-thickness="15"
+          :progress="progress"
+          hide-legend
+          line-position="in"
+          color-fill="red"
+        >
+        </ve-progress>
       </div>
       <ve-progress
         :loading="loading"
