@@ -4,10 +4,18 @@
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 ![Travis (.org)](https://img.shields.io/travis/setaman/vue-ellipse-progress?style=for-the-badge)
 
-A dependency-free Vue.js plugin to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in a simple to use component with friendly interface. 
+A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circular progress bars, implemented with SVG. 
 
-With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit  of imagination you can create really exciting things.
-
+Start creating circles in three simple steps:
+```js
+// install
+npm i vue-ellipse-progress@beta
+// initialize
+import veProgress from "vue-ellipse-progress";
+createApp(App).use(veProgress);
+// use
+<ve-progress :progress="50"/>
+```
 - [Installation](#installation)
 - [Usage](#usage)
 - [Options](#options)
