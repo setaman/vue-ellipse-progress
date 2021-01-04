@@ -1,6 +1,6 @@
 # Thanks for your contribution!
 
-By contributing to this project you agree to the [contribution rules](https://github.com/setaman/vue-ellipse-progress/CONTRIBUTING.md).
+By contributing to this project you agree to the [contribution rules](https://github.com/setaman/vue-ellipse-progress/blob/master/CONTRIBUTING.md).
 
 Quick checklist for code changes:
 - [ ] Created a new branch based on `dev`
