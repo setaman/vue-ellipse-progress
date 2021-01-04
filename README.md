@@ -23,7 +23,7 @@ createApp(App).use(veProgress);
 - [Development](#development)
 - [Contributing](https://github.com/setaman/vue-ellipse-progress/blob/master/CONTRIBUTING.md)
 
-:grey_exclamation: Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) :grey_exclamation:
+❕ Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) ❕
 
 <div align="center" style="text-align: center;">
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
@@ -71,8 +71,8 @@ createApp(App).use(veprogress);
 After you have initialized the component, you are ready to create your circles:
 ```html
 <ve-progress 
-  :data="circles"                    
   :progress="progress"
+  :data="circles"
   :angle="-90"
   color="blue"
   :color-fill="colorFillGradient"
@@ -106,15 +106,13 @@ After you have initialized the component, you are ready to create your circles:
 </ve-progress>
 ``` 
 ## Options
-You are ready to go with just following line:
+The **[`progress`](#progress)** is the only required property and you are ready to go with just following line:
 ```html
 <ve-progress :progress="progress"/>
 ```
-The **[`progress`](#progress)** is the only required property. However, in order to create unique circles that match your design needs, you can use all the properties explained below.
-
 This table below provides a quick overview over all available options. To gain more information in general and concerning the creation of exclusive circles please read below the table.
 
-> :grey_exclamation: Also make sure to check **[slot options](#slot-options)** 
+> Also make sure to check **[slot options](#slot-options)** 
 
 | Prop     | Type   | Values  | Default |
 |----------|--------|---------|---------|
@@ -155,14 +153,14 @@ This table below provides a quick overview over all available options. To gain m
 
 - ### `progress`
 
-###### Animated: :heavy_check_mark: 
+###### Animated: ✔️ 
 
 Is any Number in range \[-100, 100] (including **decimals**). This property defines the filled area from progress circle line in 
 percent. `progress` is animated and counts up or down on any value changes with duration defined in 
 **[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
 Set a negative value to fill the progress counterclockwise. Alternative you can use [`reverse`](#reverse).
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```js
 <vue-ellipse-progress :progress="myProgress" />
@@ -171,31 +169,31 @@ this.myProgress = 55.5;
 this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->:heavy_exclamation_mark: The `progress` is always used to fill the progress circle line. So you cannot customize this 
+>❗ The `progress` is always used to fill the progress circle line. So you cannot customize this 
 >value, it should be always in the range [-100, 100] and not valid Numbers lead to **[`noData`](#noData)** state. 
 >For customization purpose please use **[`legend`](#legend)** and take a look at **[`legendFormatter`](#legendformatter)**. 
 
->If **[`legend`](#legend)** is defined the progress will **NOT** be displayed as circle legend.
+>❗ If **[`legend`](#legend)** is defined the progress will **NOT** be displayed as circle legend.
 
 <br>
 
 - ### `size` 
 
-###### Animated: :heavy_check_mark: 
+###### Animated: ✔️ 
 
 Is any number from >=0. It defines the width and height of the circle. The calculation of the circumference of the circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)**, **[`emptyThickness`](#emptythickness)** and **[`dot`](#dot)**, so the circle never exceeds the `size` value! 
 
->:heavy_exclamation_mark: Check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
+>❗ Check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
 <br>
 
 - ### `line` 
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is a string value from `round | square | butt`. Defines the progress circle line cap. Internally is used the CSS property `stroke-linecap`.
 
-###### Example: :scroll:
+###### Example: 📜
 
 `line="round"`
 
@@ -203,7 +201,7 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 - ### `thickness` 
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
 
@@ -211,7 +209,7 @@ Is any number or percent value >=0. It defines the progress circle line thicknes
 
 - ### `lineMode` 
 
-###### Animated: :heavy_check_mark: 
+###### Animated: ✔️ 
 
 Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional second is the `offset`. You can understand the modes as the presets that help you to align lines as you want to. 
 
@@ -239,7 +237,7 @@ Descriptive string in form `"mode [offset]"` that defines how the progress line 
 
 - `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combined with the `in` and `out` modes
 
-###### Example: :scroll:
+###### Example: 📜
 
 Let's take a look at few examples
 
@@ -254,13 +252,13 @@ As you can see the second and fourth examples are similar to the modes `bottom` 
 
 - ### `linePosition`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the fill area. 
 Available modes are  `center`, `in` and `out`. Additionally, with the `out` mode you can provide an `offset` value as any Number.
 In general, this prop makes it possible to mimic the SVG2 `stroke-aligment`, which is currently not supported in any browser.
 
-###### Example: :scroll:
+###### Example: 📜
 
 The following examples visualize the modes differences:
 
@@ -272,7 +270,7 @@ The following examples visualize the modes differences:
 
 - ### `emptyLinePosition`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Descriptive string in form `"mode [offset]"` that defines how the empty line is aligned in relation to the empty circle fill area.
 The usage is similar to [linePosition](#lineposition).
@@ -281,7 +279,7 @@ The usage is similar to [linePosition](#lineposition).
 
 - ### `emptyThickness` 
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any number or percent value >=0. It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
 
@@ -289,7 +287,7 @@ Is any number or percent value >=0. It defines the empty circle line thickness. 
 
 - ### `color`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
@@ -299,12 +297,13 @@ Defines the color of progress circle **line**. Is any CSS color like `#123` or `
   - `radial` - default `false`. Defines whether the gradient is radial or linear
   - `colors` - Array that contains the gradient colors as objects `{ color: "#6546f7", offset: "10%" [, opacity: 1] }`
     
-###### Example: :scroll:
+###### Example: 📜
 
 Now you are ready for an example:
 
-```
-:color="gradient"
+```js
+<ve-progress :color="gradient" />
+
 gradient: {
     radial: false,
     colors: [
@@ -327,7 +326,7 @@ gradient: {
 
 - ### `colorFill`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Defines the fill color of the progress circle. Takes the same value as **[`color`](#color)**
 
@@ -335,7 +334,7 @@ Defines the fill color of the progress circle. Takes the same value as **[`color
 
 - ### `emptyColor`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Defines the color of the empty circle **line**. Takes the same value as **[`color`](#color)**
 
@@ -343,7 +342,7 @@ Defines the color of the empty circle **line**. Takes the same value as **[`colo
 
 - ### `emptyColorFill`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Defines the fill color of the empty circle. Takes the same value as **[`color`](#color)**
 
@@ -357,7 +356,7 @@ Boolean value that defines whether the **[`progress`](#progress)** or from you d
 
 - ### `legend`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any Number or String. Use this property if you want to show progress value as the legend of the circle that is not in
 the range [-100, 100]. If defined, `legend` will replace [`progress`](#progress) as the circle legend!
@@ -365,7 +364,7 @@ You can set any precision of the decimal numbers. If the prop is defined as a st
 as decimals delimiter (e.g "123,123" for german numbers), apart from this the value must generally be a valid JavaScript Number.
 For more customization possibilities please use [`legendFormatter`](#legendformatter) or [`scoped slot`](#default). 
 
-###### Example: :scroll:
+###### Example: 📜
 
 Let's say you need to display a rating from 0 to 5 of a product with 3.5 stars. Setting the [`progress`](#progress) to 3.5 will 
 fill the circle to 3.5 percent, and this is not what we need, since we want to display the percentage of 5 as progress. 
@@ -383,7 +382,7 @@ Now you can display custom progress value that still animated and circle progres
 <vue-ellipse-progress legend="345,12345" /> // set "," as delimiter defining the value as string
 ```
 
->:heavy_exclamation_mark: note that `legend` replaces **[`progress`](#progress)** as circle legend but not vice versa.
+>❗ note that `legend` replaces **[`progress`](#progress)** as circle legend.
 
 
 <br>
@@ -395,9 +394,9 @@ is called on every tick of the counter. Here the formatting of [legend](#legend)
 is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
 value, even HTML.   
 
->:grey_exclamation: alternatively you can use **[`scoped slot`](#default)** for custom formatting.
+>❕ alternatively you can use **[`scoped slot`](#default)** for custom formatting.
 
-###### Example: :scroll:
+###### Example: 📜
 
 Let's see how it works. The function takes counter properties object as argument that you can use to define custom formatting.
 `currentValue` is the most relevant value, as it is the actual value at specific counter tick. The return value will be 
@@ -436,7 +435,7 @@ Descriptive string in form `"type [duration delay]"` that defines the initial an
 - `duration` - number in milliseconds, default `1000`
 - `delay` - number in milliseconds, default `400`
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```js
 animation="rs 700 200"
@@ -457,11 +456,10 @@ With this option defined as Object you can customize the loading circle that is 
 [loading](#loading) and [determinate](#determinate). Accepted properties are [`color`](#color), [`thickness`](#thickness), [`line`](#line),
 [`lineMode`](#linemode) and `opactity`. `opacity` is specific for loading circle and can be any valid CSS opacity value. If the option is not specified, the loading circle replicates the progress circle with a 0.55 default value for `opacity`.
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```vue
 <vue-ellipse-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
-
 ```
 
 <br>
@@ -474,17 +472,17 @@ Provides a determinate loading state that indicates that your data loading is st
 
 - ### `noData`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Forces no data state. The component provides a no data state for the case that your data is not available. The circle progress is still empty.
 
->:heavy_exclamation_mark: The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
+>❗ The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
 
 <br>
 
 - ### `angle`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any number. It defines the starting point of the progress circle line. 
 
@@ -492,7 +490,7 @@ Is any number. It defines the starting point of the progress circle line.
 
 - ### `fontSize`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any valid CSS size value. It defines the font size of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles.
 
@@ -500,7 +498,7 @@ Is any valid CSS size value. It defines the font size of the circle legend. You 
 
 - ### `fontColor`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Is any valid CSS color value. It defines the color of the circle legend. You will have to use **[`legendClass`](#legendClass)** if you want to apply more specific styles.
 
@@ -514,11 +512,11 @@ Adds class to the circles legend to give you the possibility to style it.
 
 - ### `dash` 
 
-###### Animated: :heavy_check_mark: 
+###### Animated: ✔️ 
 
 Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` with the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
-###### Example: :scroll:
+###### Example: 📜
 `dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
 
 `dash="10 10"` - 10 pixels big dashes with 10 pixels spacing, the number of dashes depends on the empty circle circumference
@@ -529,18 +527,18 @@ Descriptive string in form `"[strict] count spacing"` that adds dashed empty pro
 
 Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gauge chart. 
 
-###### Example: :scroll:
+###### Example: 📜
 <img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png" alt="half circle example"/>
 
 <br>
 
 - ### `gap`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 Defines the gap in pixels from one circle to the previous circle. It will be applied only if [`data`](#data) prop is used.
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```vue
 <vue-ellipse-progress :gap="10"/>
@@ -550,7 +548,7 @@ Defines the gap in pixels from one circle to the previous circle. It will be app
 
 - ### `dot`
 
-###### Animated: :heavy_check_mark:
+###### Animated: ✔️
 
 The dot property lets you define a point indicator at the end of the progress line. You have a lot of freedom to customize the dot using a Number, descriptive String, or an Object to inject any CSS styles.   
 
@@ -560,7 +558,7 @@ The dot property lets you define a point indicator at the end of the progress li
 
 **Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely break the positioning of the dot, if you need. You cannot override the `height` of the dot since it is important for internal calculation and must be controllable. 
 
-###### Example: :scroll:
+###### Example: 📜
 The examples will provide more clarity
 ```javascript
 :dot="10" // just a Number defining size in pixel
@@ -584,7 +582,7 @@ dot="5% red" // adds red dot
 Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternative you can just set 
 a negative value for [`progress`](#progress).
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```vue
 <vue-ellipse-progress reverse />
@@ -596,9 +594,9 @@ a negative value for [`progress`](#progress).
 
 You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
->:heavy_exclamation_mark: Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. These properties will be ignored, if `data` is specified. The legend of this circle is also not shown. 
+>❗ Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. These properties will be ignored, if `data` is specified. The legend of this circle is also not shown. 
 
-###### Example: :scroll:
+###### Example: 📜
 
 ```js
 <!-- this props are applied to all circles, if not overwritten in "data"-->
@@ -625,7 +623,7 @@ data: [
 
 - #### `default`
 
-Use this slot, if you want to customize the presentation of the circle legend and make a use of the animated counter, 
+Use this scoped slot, if you want to customize the presentation of the circle legend and make a use of the animated counter, 
 so your formatting still animated. This works similar to the [`legendFormatter`](#legendformatter) and is just 
 an alternative way to provide a custom format. You can access animated counter properties through the scoped slot 
 props and adjust the presentation of the legend to your needs. 
@@ -647,7 +645,7 @@ In this slot you can put an additional element that you want to display beside t
 - #### `legend-caption`
 In this slot you can put any HTML and style it on your own. This slot is aligned below the progress. 
 
-###### Example: :scroll:
+###### Example: 📜
 
 This code ...
 ```html
@@ -669,7 +667,7 @@ This code ...
 <br>
 
 ## Compatibility
-This project targets modern browsers, platforms and Vue frameworks. The SVG Circles should be displayed without problems
+This project targets modern browsers, platforms and Vue frameworks. The SVG circles should be displayed without problems
 also in older browsers. The experience with some animations or transitions may vary slightly in different browsers.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br> Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron | <img src="https://camo.githubusercontent.com/06b2f979b4fbab8f1822cab69783700f0afa1f90/68747470733a2f2f6e7578746a732e6f72672f6d6574615f3430302e706e67" alt="Nuxt.js" width="24px" height="24px" /><br>Nuxt.js
@@ -681,7 +679,7 @@ also in older browsers. The experience with some animations or transitions may v
 The development always happens in `dev` branch. You'll find all the latest updates there. 
 `dev` will only be merged into the master when all unit tests have been passed, builds are successful, 
 documentation is updated and functionality is verified on the [demo](https://vue-ellipse-progress-demo.netlify.app/#/test) page. 
-Before that all changes remain in beta.
+Before all that, changes remain in beta.
 
 #### Run for local development
 The project was initialized with Vue CLI. Execute the following commands to start development locally:
