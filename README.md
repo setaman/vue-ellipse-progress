@@ -110,8 +110,6 @@ The **[`progress`](#progress)** is the only required property and you are ready 
 ```html
 <ve-progress :progress="progress"/>
 ```
-This table below provides a quick overview over all available options. To gain more information in general and concerning the creation of exclusive circles please read below the table.
-
 > Also make sure to check **[slot options](#slot-options)** 
 
 | Prop     | Type   | Values  | Default |
@@ -163,7 +161,7 @@ Set a negative value to fill the progress counterclockwise. Alternative you can 
 ###### Example: 📜
 
 ```js
-<vue-ellipse-progress :progress="myProgress" />
+<ve-progress :progress="myProgress" />
 ...
 this.myProgress = 55.5;
 this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
@@ -181,7 +179,9 @@ this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tas
 
 ###### Animated: ✔️ 
 
-Is any number from >=0. It defines the width and height of the circle. The calculation of the circumference of the circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)**, **[`emptyThickness`](#emptythickness)** and **[`dot`](#dot)**, so the circle never exceeds the `size` value! 
+Is any number >=0. It defines the width and height of the circle in pixel. The calculation of the circumference of the 
+circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#thickness)**, 
+**[`emptyThickness`](#emptythickness)** and **[`dot`](#dot)**, so the circle never exceeds the `size` value! 
 
 >❗ Check **[`lineMode`](#linemode)** property to understand how the progress circle behaves depending on the line mode and offset.
 
@@ -195,7 +195,9 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Example: 📜
 
-`line="round"`
+```vue
+<ve-progress line="round" />
+```
 
 <br>
 
@@ -203,7 +205,24 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: ✔️
 
-Is any number or percent value >=0. It defines the progress circle line thickness. If you define the value in percent, the thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
+Is a number >=0 or a string to define a percent value. It defines the progress line thickness. 
+If you set the value in percent as string, the thickness will be calculated in relation to **[`size`](#size)**.
+
+###### Example: 📜
+
+```vue
+<ve-progress :thickness="10" />
+<ve-progress thickness="5%" />
+```
+
+<br>
+
+- ### `emptyThickness`
+
+###### Animated: ✔️
+
+Is a number >=0 or a string to define a percent value.
+It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**.
 
 <br>
 
@@ -211,35 +230,37 @@ Is any number or percent value >=0. It defines the progress circle line thicknes
 
 ###### Animated: ✔️ 
 
-Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. The first value ist the `mode` and the optional second is the `offset`. You can understand the modes as the presets that help you to align lines as you want to. 
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. 
+The first value ist the `mode` and the optional second is the `offset`. You can understand the modes as the presets that
+help you to align lines as you want to. 
 
 - `mode`:
   - `normal`: this is the default value and both lines are aligned at the base line (centered).
   <img width="100" height="50" src="https://github.com/setaman/Bilder/blob/master/ellipse-normal.png">
   
-  - `in`: the progress line is inside the empty circle
+  - `in`: the progress line is inside the empty line
   <img width="100" height="40" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.png">
   
-   - `in-over`: the progress line is both inside the empty circle and overlaps the empty circle 
+   - `in-over`: the progress line is both inside the empty circle and overlaps the empty line 
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-in.over.png">
   
-  - `out`: the progress line is outside the empty circle
+  - `out`: the progress line is outside the empty line
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out.png">
   
-  - `out-over`: the progress line is both outside the empty circle and overlaps the empty circle
+  - `out-over`: the progress line is both outside the empty circle and overlaps the empty line
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-out-over.png">
   
-  - `bottom`: the progress line is aligned at the bottom of the empty circle
+  - `bottom`: the progress line is aligned at the bottom of the empty line
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-bottom.png">
   
-  - `top`: the progress line is aligned at the top of the empty circle
+  - `top`: the progress line is aligned at the top of the empty line
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-top.png">
 
 - `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combined with the `in` and `out` modes
 
 ###### Example: 📜
 
-Let's take a look at few examples
+Let's take a look at few examples:
 
 | `line-mode="in 10"`  | `line-mode="in 10"`   | `line-mode="out 10"`  | `line-mode="out 15"` |
 |----------|--------|---------|---------|
@@ -274,14 +295,6 @@ The following examples visualize the modes differences:
 
 Descriptive string in form `"mode [offset]"` that defines how the empty line is aligned in relation to the empty circle fill area.
 The usage is similar to [linePosition](#lineposition).
-
-<br>
-
-- ### `emptyThickness` 
-
-###### Animated: ✔️
-
-Is any number or percent value >=0. It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**. Internally is used the CSS property `stroke-width`.
 
 <br>
 
@@ -371,7 +384,7 @@ fill the circle to 3.5 percent, and this is not what we need, since we want to d
 At this point we need an additional property `legend`. We can show the product rating like in the following example:
 
 ```js
-<vue-ellipse-progress :progress="progress" :legend="rating" />
+<ve-progress :progress="progress" :legend="rating" />
 ...
 this.rating = 3.5;
 this.progress = this.rating * 100 / 5; // the rating percentage
@@ -379,7 +392,7 @@ this.progress = this.rating * 100 / 5; // the rating percentage
 Now you can display custom progress value that still animated and circle progress fills properly!
 
 ```vue
-<vue-ellipse-progress legend="345,12345" /> // set "," as delimiter defining the value as string
+<ve-progress legend="345,12345" /> // set "," as delimiter defining the value as string
 ```
 
 >❗ note that `legend` replaces **[`progress`](#progress)** as circle legend.
@@ -420,9 +433,9 @@ const myFormatter = ({ currentValue }) => {
 Finally, set your formatter as prop:
 
 ```vue
-<vue-ellipse-progress :legend-formatter="myFormatter"/>
+<ve-progress :legend-formatter="myFormatter"/>
 <!-- shorter version if you wish-->
-<vue-ellipse-progress :legend-formatter="({ currentValue }) => `My Format ${currentValue}`"/>
+<ve-progress :legend-formatter="({ currentValue }) => `My Format ${currentValue}`"/>
 ````
 
 <br>
@@ -459,7 +472,7 @@ With this option defined as Object you can customize the loading circle that is 
 ###### Example: 📜
 
 ```vue
-<vue-ellipse-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
+<ve-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
 ```
 
 <br>
@@ -525,9 +538,12 @@ Descriptive string in form `"[strict] count spacing"` that adds dashed empty pro
 
 - ### `half` 
 
-Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn like a gauge chart. 
+Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn.
 
 ###### Example: 📜
+```vue
+<ve-progress half />
+```
 <img width="350px" src="https://github.com/setaman/Bilder/blob/master/ep_half_example.png" alt="half circle example"/>
 
 <br>
@@ -541,7 +557,7 @@ Defines the gap in pixels from one circle to the previous circle. It will be app
 ###### Example: 📜
 
 ```vue
-<vue-ellipse-progress :gap="10"/>
+<ve-progress :gap="10"/>
 ```
 
 <br>
@@ -585,7 +601,7 @@ a negative value for [`progress`](#progress).
 ###### Example: 📜
 
 ```vue
-<vue-ellipse-progress reverse />
+<ve-progress reverse />
 ```
 
 <br>
@@ -600,7 +616,7 @@ You can specify 2 or more circles as objects in an array as `data`. For each cir
 
 ```js
 <!-- this props are applied to all circles, if not overwritten in "data"-->
-<vue-ellipse-progress color="blue" animation="loop 500" ...  :data="data"/>
+<ve-progress color="blue" animation="loop 500" ...  :data="data"/>
 
 data: [
   { 
@@ -629,13 +645,13 @@ an alternative way to provide a custom format. You can access animated counter p
 props and adjust the presentation of the legend to your needs. 
 
 ```vue
-<vue-ellipse-progress :progress="50">
+<ve-progress :progress="50">
   <template #default="{ counterTick }">
     <span style="font-weight: bold; font-size: 1.6rem; color: green;">
       {{ myFormatter(counterTick.currentValue) }}
     </span>
   </template>
-</vue-ellipse-progress>
+</ve-progress>
 ```
 
 - #### `legend`
@@ -649,7 +665,7 @@ In this slot you can put any HTML and style it on your own. This slot is aligned
 
 This code ...
 ```html
-<vue-ellipse-progress ....>
+<ve-progress ....>
   
 <template #legend>
   <span slot="legend-value">/200</span>
@@ -658,7 +674,7 @@ This code ...
   <p slot="legend-caption">TASKS DONE</p>
 </template>
   
-</vue-ellipse-progress>
+</ve-progress>
 ```
 ... produces following result. The slots are marked corresponding:
 
