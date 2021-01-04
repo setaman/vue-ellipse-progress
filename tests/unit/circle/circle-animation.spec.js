@@ -69,7 +69,7 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
 const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   it(`${prefix} awaits default @400ms on initialization`, async () => {
     const wrapper = localFactory({}, container);
-    await wait(390);
+    await wait(350);
     expect(wrapper.vm.isInitialized).to.be.false;
   });
 

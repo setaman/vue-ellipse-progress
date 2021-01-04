@@ -304,9 +304,17 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(delay).to.equal(2000);
       });
       it("applies default values for duration and delay if invalid values provided", () => {
-        const { duration, delay } = animationParser("loop 20%0 sdf");
-        expect(duration).to.not.equal(animationParser(props.animation.default).duration);
+        const { duration, delay } = animationParser("loop f20%0 sdf");
+        expect(duration).to.equal(animationParser(props.animation.default).duration);
         expect(delay).to.equal(animationParser(props.animation.default).delay);
+      });
+      it("applies 0 as duration", () => {
+        const { duration } = animationParser("loop 0");
+        expect(duration).to.equal(0);
+      });
+      it("applies 0 as delay", () => {
+        const { delay } = animationParser("loop 0 0");
+        expect(delay).to.equal(0);
       });
     });
     describe("#dash parser", () => {
