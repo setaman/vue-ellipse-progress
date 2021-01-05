@@ -44,25 +44,8 @@
           determinate
           :thickness="10"
           :empty-thickness="10"
-          line-mode="center"
-          :color="{
-            colors: [
-              { color: 'red', offset: '0' },
-              { color: 'green', offset: '50' },
-              { color: 'blue', offset: '100' },
-            ],
-          }"
-          :loader="{
-            color: {
-              colors: [
-                { color: 'yellow', offset: '0' },
-                { color: 'black', offset: '100' },
-              ],
-            },
-            thickness: 10,
-            lineMode: 'out-over',
-            opacity: 1,
-          }"
+          line-mode="out"
+          :loader="{ lineMode: 'in ', opacity: 0.5 }"
         >
         </ve-progress>
       </div>

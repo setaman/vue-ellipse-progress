@@ -62,10 +62,12 @@ export const linePositionParser = (linePosition) => {
   };
 };
 
-export const loaderParser = (loader, circleLineMode, circleThickness, circleSize) => ({
+export const loaderParser = (loader, options) => ({
   ...loader,
-  lineMode: lineModeParser(loader.lineMode || circleLineMode, false),
-  thickness: calcThickness(loader.thickness || circleThickness, circleSize),
+  color: loader.color || options.color,
+  line: loader.line || options.line,
+  lineMode: lineModeParser(loader.lineMode || options.lineMode, false),
+  thickness: calcThickness(loader.thickness || options.thickness, options.size),
 });
 
 export const parseOptions = (options) => ({
@@ -80,5 +82,5 @@ export const parseOptions = (options) => ({
   linePosition: linePositionParser(options.linePosition),
   emptyLinePosition: linePositionParser(options.emptyLinePosition),
   animation: animationParser(options.animation),
-  loader: loaderParser(options.loader, options.lineMode, options.thickness, options.size),
+  loader: loaderParser(options.loader, options),
 });
