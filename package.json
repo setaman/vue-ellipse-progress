@@ -9,7 +9,7 @@
     "build": "vue-cli-service build --target lib --formats umd-min --name veprogress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "test": "vue-cli-service test:unit --colors",
-    "publish-beta": "npm run lint && npm run build && npm publish --tag beta"
+    "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta"
   },
   "author": {
     "name": "Sergej Atamantschuk",
@@ -45,8 +45,8 @@
     "chai": "^4.2.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-vue": "^7.4.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.4.1",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "sass-loader": "^10.1.0",
@@ -54,6 +54,6 @@
     "vue-loader": "^16.1.0"
   },
   "files": [
-    "dist",
+    "dist"
   ]
 }
