@@ -62,10 +62,10 @@ export const linePositionParser = (linePosition) => {
   };
 };
 
-export const loaderParser = (loader) => ({
+export const loaderParser = (loader, circleLineMode, circleThickness, circleSize) => ({
   ...loader,
-  lineMode: loader.lineMode ? lineModeParser(loader.lineMode) : undefined,
-  thickness: loader.thickness ? calcThickness(loader.thickness) : undefined,
+  lineMode: lineModeParser(loader.lineMode || circleLineMode, false),
+  thickness: calcThickness(loader.thickness || circleThickness, circleSize),
 });
 
 export const parseOptions = (options) => ({
@@ -80,5 +80,5 @@ export const parseOptions = (options) => ({
   linePosition: linePositionParser(options.linePosition),
   emptyLinePosition: linePositionParser(options.emptyLinePosition),
   animation: animationParser(options.animation),
-  loader: loaderParser(options.loader),
+  loader: loaderParser(options.loader, options.lineMode, options.thickness, options.size),
 });
