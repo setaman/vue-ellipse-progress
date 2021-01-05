@@ -40,13 +40,13 @@ describe("#line", () => {
 });
 describe("#lineMode", () => {
   describe("#lineMode.mode", () => {
-    describe("#lineMode.mode.normal", () => {
+    describe("#lineMode.mode.center", () => {
       let thickness = 20;
       let emptyThickness = 10;
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser("normal"),
+        lineMode: localLineModeParser("center"),
         animation: animationParser("default 0 0"),
       });
 
@@ -66,7 +66,7 @@ describe("#lineMode", () => {
         });
         it("in case #thickness >= #emptyThickness and #lineMode.offset = 10", async () => {
           // offset must be ignored in this mode
-          await setCircleProps(wrapper, { lineMode: localLineModeParser("normal 10") });
+          await setCircleProps(wrapper, { lineMode: localLineModeParser("center 10") });
 
           let expectedProgressCircleRadius = baseRadius - thickness / 2;
           let expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -74,7 +74,7 @@ describe("#lineMode", () => {
 
           thickness = emptyThickness = 10;
 
-          await wrapper.setProps({ options: { ...wrapper.props().options, thickness, emptyThickness } });
+          await setCircleProps(wrapper, { thickness, emptyThickness });
 
           expectedProgressCircleRadius = baseRadius - thickness / 2;
           expectedEmptyCircleRadius = expectedProgressCircleRadius;
@@ -95,7 +95,7 @@ describe("#lineMode", () => {
           thickness = 10;
           emptyThickness = 20;
 
-          await setCircleProps(wrapper, { thickness, emptyThickness, lineMode: localLineModeParser("normal 10") });
+          await setCircleProps(wrapper, { thickness, emptyThickness, lineMode: localLineModeParser("center 10") });
 
           const expectedEmptyCircleRadius = baseRadius - emptyThickness / 2;
           const expectedProgressCircleRadius = expectedEmptyCircleRadius;

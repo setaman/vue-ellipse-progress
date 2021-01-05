@@ -77,10 +77,10 @@ const options = {
   lineMode: {
     type: String,
     required: false,
-    default: "normal",
+    default: "center",
     validator: (value) => {
       const lineModeConfig = value.split(" ");
-      const isValidType = ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
+      const isValidType = ["center", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
       const isValidOffset = lineModeConfig[1] ? !Number.isNaN(parseFloat(lineModeConfig[1])) : true;
 
       return isValidType && isValidOffset;

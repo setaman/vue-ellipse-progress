@@ -12,7 +12,7 @@ const baseRadius = (options) => {
 const emptyBaseRadius = ({ size, emptyThickness }) => {
   return half(size) - half(emptyThickness);
 };
-const normalLineModeRadius = (options) => {
+const centerLineModeRadius = (options) => {
   if (thicknessWithDot(options) < options.emptyThickness) {
     return emptyBaseRadius(options);
   }
@@ -34,7 +34,7 @@ const previousCirclesThickness = (options) => {
   return preCirclesThickness.reduce((acc, current) => acc + current) + currentCircleGap;
 };
 
-const radiusNormalMode = (options) => normalLineModeRadius(options);
+const radiusCenterMode = (options) => centerLineModeRadius(options);
 const radiusInMode = (options) =>
   emptyRadius(options) - (half(options.emptyThickness) + half(options.thickness) + options.lineMode.offset);
 const radiusOutOverMode = (options) => {
@@ -46,7 +46,7 @@ const radiusOutOverMode = (options) => {
 const radiusTopMode = (options) => emptyRadius(options) + half(options.emptyThickness);
 const radiusBottomMode = (options) => emptyRadius(options) - half(options.emptyThickness);
 
-const emptyRadiusNormalMode = (options) => normalLineModeRadius(options);
+const emptyRadiusCenterMode = (options) => centerLineModeRadius(options);
 const emptyRadiusInMode = (options) => {
   const dotSizeLimit = half(options.thickness) + options.emptyThickness + options.lineMode.offset;
   if (half(options.dot.size) > dotSizeLimit) {
@@ -81,7 +81,7 @@ const emptyRadiusTopMode = (options) => emptyBaseRadius(options) - half(thicknes
 export const radius = (options) => {
   const modes = {
     multiple: () => baseRadius(options) - previousCirclesThickness(options),
-    normal: () => radiusNormalMode(options),
+    center: () => radiusCenterMode(options),
     in: () => radiusInMode(options),
     "out-over": () => radiusOutOverMode(options),
     bottom: () => radiusBottomMode(options),
@@ -94,7 +94,7 @@ export const radius = (options) => {
 export const emptyRadius = (options) => {
   const modes = {
     multiple: () => baseRadius(options) - previousCirclesThickness(options),
-    normal: () => emptyRadiusNormalMode(options),
+    center: () => emptyRadiusCenterMode(options),
     in: () => emptyRadiusInMode(options),
     "in-over": () => emptyRadiusInOverMode(options),
     out: () => emptyRadiusOutMode(options),
