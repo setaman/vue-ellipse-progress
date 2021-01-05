@@ -92,7 +92,9 @@ export default {
         });
         const loaderOptions = { ...parsedOptions, ...parsedOptions.loader };
         loaderOptions.thickness = calcThickness(loaderOptions.thickness, parsedOptions.size);
-        loaderOptions.lineMode = parsedOptions.loader.lineMode ? lineModeParser(loaderOptions) : parsedOptions.lineMode;
+        loaderOptions.lineMode = parsedOptions.loader.lineMode
+          ? lineModeParser(loaderOptions.lineMode)
+          : parsedOptions.lineMode;
         normalizedCircles.push({ ...parsedOptions, loader: loaderOptions });
         const { gap, thickness, dot } = normalizedCircles[i];
         previousCircles.push({ gap, thickness, dot });
