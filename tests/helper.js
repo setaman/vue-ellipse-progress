@@ -55,7 +55,15 @@ const mockProps = {
   },
   reverse: false,
   legendFormatter: null,
-  loader: {},
+  loader: {
+    color: "#3f79ff",
+    line: "round",
+    lineMode: {
+      mode: "center",
+      offset: 0,
+    },
+    thickness: 10,
+  },
   previousCircles: [],
 };
 mockProps.loaderOptions = mockProps;
