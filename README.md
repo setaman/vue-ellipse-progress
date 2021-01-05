@@ -116,7 +116,7 @@ The **[`progress`](#progress)** is the only required property and you are ready 
 | **[`size`](#size)** | Number | >=0 |  200       |     |     
 | **[`line`](#line)** | String | "round \| square \| butt" |  "round"|   
 | **[`thickness`](#thickness)** | Number \| String | \>=0 as Number or percent value as String|  "5%" |      
-| **[`lineMode`](#linemode)** | String | "normal \| out \| out-over \| in \| in-over \| top \| bottom [offset]" | "normal 0" |   
+| **[`lineMode`](#linemode)** | String | "center \| out \| out-over \| in \| in-over \| top \| bottom [offset]" | "center" |   
 | **[`linePosition`](#lineposition)** | String | "center \| out \| in [offset]" | "center" |   
 | **[`emptyLinePosition`](#emptylineposition)** | String | "center \| out \| in [offset]" | "center" |   
 | **[`emptyThickness`](#emptythickness)** | Number \| String | \>=0 as Number or percent value as String |  "5%" |     
@@ -233,7 +233,7 @@ The first value ist the `mode` and the optional second is the `offset`. You can 
 help you to align lines as you want to. 
 
 - `mode`:
-  - `normal`: this is the default value and both lines are aligned at the base line (centered).
+  - `center`: this is the default value and both lines are aligned at the base line (centered).
   <img width="100" height="50" src="https://github.com/setaman/Bilder/blob/master/ellipse-normal.png">
   
   - `in`: the progress line is inside the empty line
