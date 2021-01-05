@@ -6,7 +6,7 @@
       :cx="position"
       :cy="position"
       fill="transparent"
-      :stroke="color"
+      :stroke="loaderColor"
       :stroke-width="options.thickness"
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
@@ -36,6 +36,11 @@ export default {
     },
     opacity() {
       return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
+    },
+    loaderColor() {
+      return Array.isArray(this.options.loader.color.colors)
+        ? `url(#ep-loader-gradient-${this.options.id})`
+        : this.options.color;
     },
   },
 };

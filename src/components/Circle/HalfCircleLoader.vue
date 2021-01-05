@@ -5,7 +5,7 @@
       class="ep-half-circle--loader animation__loading"
       :d="path"
       fill="transparent"
-      :stroke="color"
+      :stroke="halfLoaderColor"
       :stroke-dasharray="circumference"
       :stroke-linecap="options.line"
       :style="{
@@ -45,6 +45,11 @@ export default {
     },
     opacity() {
       return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
+    },
+    halfLoaderColor() {
+      return Array.isArray(this.options.loader.color.colors)
+        ? `url(#ep-loader-gradient-${this.options.id})`
+        : this.options.color;
     },
   },
 };

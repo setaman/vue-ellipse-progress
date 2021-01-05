@@ -12,6 +12,7 @@
             type="empty-fill"
             :id="options.id"
           />
+          <gradient v-if="isLoaderColorGradient" :color="options.loader.color" type="loader" :id="options.id" />
         </defs>
         <component :is="circleType" :options="options" :id="options.id" />
       </g>
@@ -50,6 +51,9 @@ export default {
     },
     isEmptyColorFillGradient() {
       return Array.isArray(this.options.emptyColorFill.colors);
+    },
+    isLoaderColorGradient() {
+      return Array.isArray(this.options.loader.color.colors);
     },
   },
 };

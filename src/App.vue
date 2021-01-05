@@ -38,7 +38,32 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress :progress="progress" :loading="loading" :thickness="10" :empty-thickness="20" line-mode="center">
+        <ve-progress
+          :progress="progress"
+          :loading="loading"
+          :thickness="10"
+          :empty-thickness="20"
+          line-mode="center"
+          :color="{
+            colors: [
+              { color: 'red', offset: '0' },
+              { color: 'green', offset: '50' },
+              { color: 'blue', offset: '100' },
+            ],
+          }"
+          :loader="{
+            color: {
+              colors: [
+                { color: 'yellow', offset: '0' },
+                { color: 'black', offset: '50' },
+                { color: 'blue', offset: '100' },
+              ],
+            },
+            thickness: 20,
+            lineMode: 'in 10',
+            opacity: '0.6',
+          }"
+        >
         </ve-progress>
       </div>
       <ve-progress
