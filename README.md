@@ -4,8 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 ![Travis (.org)](https://img.shields.io/travis/setaman/vue-ellipse-progress?style=for-the-badge)
 
-A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circle progress bars, implemented with SVG. 
-
+A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful circle progress bars, implemented with SVG.
 Start creating circles in three steps:
 ```js
 // install
@@ -16,7 +15,7 @@ createApp(App).use(veProgress);
 // use
 <ve-progress :progress="50"/>
 ```
-- [Installation](#installation-options)
+- [Installation options](#installation-options)
 - [Usage](#usage)
 - [Options](#options)
 - [Compatibility](#compatibility)
@@ -667,10 +666,10 @@ This code ...
 <ve-progress ....>
   
 <template #legend>
-  <span slot="legend-value">/200</span>
+  <span>/200</span>
 </template>
 <template #legend-caption>
-  <p slot="legend-caption">TASKS DONE</p>
+  <p>TASKS DONE</p>
 </template>
   
 </ve-progress>
