@@ -45,7 +45,7 @@
           :thickness="10"
           :empty-thickness="10"
           line-mode="out"
-          :loader="{ lineMode: 'in ', opacity: 0.5 }"
+          :loader="{ lineMode: 'in ', opacity: 1 }"
         >
         </ve-progress>
       </div>
