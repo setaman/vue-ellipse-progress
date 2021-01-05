@@ -41,8 +41,9 @@
         <ve-progress
           :progress="progress"
           :loading="loading"
+          determinate
           :thickness="10"
-          :empty-thickness="20"
+          :empty-thickness="10"
           line-mode="center"
           :color="{
             colors: [
@@ -55,13 +56,12 @@
             color: {
               colors: [
                 { color: 'yellow', offset: '0' },
-                { color: 'black', offset: '50' },
-                { color: 'blue', offset: '100' },
+                { color: 'black', offset: '100' },
               ],
             },
-            thickness: 20,
-            lineMode: 'in 10',
-            opacity: '0.6',
+            thickness: 10,
+            lineMode: 'out-over',
+            opacity: 1,
           }"
         >
         </ve-progress>

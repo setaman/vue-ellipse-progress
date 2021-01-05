@@ -32,16 +32,8 @@ export default {
     path() {
       return ` M ${this.position}, ${this.options.size / 2} a ${this.radius},${this.radius} 0 1,1 ${this.radius * 2},0`;
     },
-    emptyPath() {
-      return ` M ${this.emptyPosition}, ${this.options.size / 2} a ${this.emptyRadius},${this.emptyRadius} 0 1,1 ${
-        this.emptyRadius * 2
-      },0`;
-    },
     position() {
       return this.options.size / 2 - this.radius;
-    },
-    emptyPosition() {
-      return this.options.size / 2 - this.emptyRadius;
     },
     opacity() {
       return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
