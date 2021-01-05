@@ -1,5 +1,5 @@
 # vue-ellipse-progress
-![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/alpha?style=for-the-badge)
+![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/beta?color=yellow&label=NPM&style=for-the-badge)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/setaman/vue-ellipse-progress?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 ![Travis (.org)](https://img.shields.io/travis/setaman/vue-ellipse-progress?style=for-the-badge)
