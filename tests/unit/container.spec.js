@@ -335,7 +335,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     describe("#lineMode parser", () => {
       it("parses default value correctly", () => {
         const defaultLineMode = {
-          mode: "normal",
+          mode: "center",
           offset: 0,
         };
         const { mode, offset } = lineModeParser(props.lineMode.default, false);
