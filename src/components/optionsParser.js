@@ -62,6 +62,12 @@ export const linePositionParser = (linePosition) => {
   };
 };
 
+export const loaderParser = (loader) => ({
+  ...loader,
+  lineMode: loader.lineMode ? lineModeParser(loader.lineMode) : undefined,
+  thickness: loader.thickness ? calcThickness(loader.thickness) : undefined,
+});
+
 export const parseOptions = (options) => ({
   ...options,
   thickness: calcThickness(options.thickness, options.size),
@@ -74,4 +80,5 @@ export const parseOptions = (options) => ({
   linePosition: linePositionParser(options.linePosition),
   emptyLinePosition: linePositionParser(options.emptyLinePosition),
   animation: animationParser(options.animation),
+  loader: loaderParser(options.loader),
 });
