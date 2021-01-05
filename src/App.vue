@@ -41,10 +41,11 @@
         <ve-progress
           :progress="progress"
           :loading="loading"
+          determinate
           :thickness="10"
-          :empty-thickness="20"
-          line-mode="center"
-          :loader="{ thickness: 20, color: 'green', lineMode: 'in 0', opacity: '0.6' }"
+          :empty-thickness="10"
+          line-mode="out"
+          :loader="{ lineMode: 'in ', opacity: 1 }"
         >
         </ve-progress>
       </div>

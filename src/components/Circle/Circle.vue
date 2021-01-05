@@ -50,7 +50,7 @@
     </circle>
     <fade-in-transition>
       <g v-if="isLoading">
-        <circle-loader :options="options.loader" />
+        <circle-loader :options="{ ...options, ...options.loader }" />
       </g>
     </fade-in-transition>
     <circle

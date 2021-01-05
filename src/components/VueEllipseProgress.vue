@@ -39,7 +39,7 @@ import { getNumberIfValid, isValidNumber } from "../utils";
 import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
-import { parseOptions, calcThickness, lineModeParser } from "./optionsParser";
+import { parseOptions } from "./optionsParser";
 
 export default {
   name: "VueEllipseProgress",
@@ -90,12 +90,7 @@ export default {
           globalThickness: this.thickness,
           previousCircles: [...previousCircles],
         });
-        const loaderOptions = { ...parsedOptions, ...parsedOptions.loader };
-        loaderOptions.thickness = calcThickness(loaderOptions.thickness, parsedOptions.size);
-        loaderOptions.lineMode = parsedOptions.loader.lineMode
-          ? lineModeParser(loaderOptions.lineMode)
-          : parsedOptions.lineMode;
-        normalizedCircles.push({ ...parsedOptions, loader: loaderOptions });
+        normalizedCircles.push(parsedOptions);
         const { gap, thickness, dot } = normalizedCircles[i];
         previousCircles.push({ gap, thickness, dot });
       }

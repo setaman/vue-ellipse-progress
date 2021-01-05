@@ -43,7 +43,7 @@
     </path>
     <fade-in-transition>
       <g v-if="isLoading">
-        <half-circle-loader :options="options.loader" />
+        <half-circle-loader :options="{ ...options, ...options.loader }" />
       </g>
     </fade-in-transition>
     <path
