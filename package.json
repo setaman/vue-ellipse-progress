@@ -50,8 +50,7 @@
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "sass-loader": "^10.1.0",
-    "vue": "^3.0.3",
-    "vue-loader": "^16.1.0"
+    "vue": "^3.0.3"
   },
   "files": [
     "dist"
