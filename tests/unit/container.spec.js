@@ -110,12 +110,12 @@ describe("[ EllipseProgressContainer.vue ]", () => {
   });
   // FIXME: blocked by vue-test-utils v2 beta
   /* describe("#slots", () => {
-    describe("#legend-value", () => {
+    describe("#legend", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            legendValue: '<span id="my-slot">Hello Circle</span>',
+            legend: '<span id="my-slot">Hello Circle</span>',
           },
         });
         const c = wrapper.vm.$slots;
