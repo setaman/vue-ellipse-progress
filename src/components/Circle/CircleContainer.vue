@@ -14,10 +14,10 @@
           />
           <gradient v-if="isLoaderColorGradient" :color="options.loader.color" type="loader" :id="options.id" />
         </defs>
-        <component :is="circleType" :options="options" :id="options.id" />
+        <component :is="circleType" :options="options" />
       </g>
     </svg>
-    <circle-dot v-if="options.dot" :options="options" :id="options.id" />
+    <circle-dot v-if="options.dot" :options="options" />
   </div>
 </template>
 
