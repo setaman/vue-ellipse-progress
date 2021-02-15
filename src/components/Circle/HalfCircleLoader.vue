@@ -40,7 +40,7 @@ export default {
     },
     halfLoaderColor() {
       return Array.isArray(this.options.loader.color.colors)
-        ? `url(#ep-loader-gradient-${this.options.id})`
+        ? `url(#ep-loader-gradient-${this.options.uid})`
         : this.options.color;
     },
   },

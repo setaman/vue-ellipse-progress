@@ -45,8 +45,17 @@
           :thickness="10"
           :empty-thickness="10"
           line-mode="out"
-          :color="emptyColorFill"
-          :loader="{ lineMode: 'in ', opacity: 1 }"
+          :color="gradient"
+          :loader="{
+            lineMode: 'in ',
+            opacity: 1,
+            color: {
+              colors: [
+                { color: 'yellow', offset: '0' },
+                { color: 'red', offset: '100' },
+              ],
+            },
+          }"
         >
         </ve-progress>
       </div>
@@ -59,7 +68,6 @@
         half
         :no-data="noData"
         :determinate="determinate"
-        :loader="{ thickness: 40, color: 'red' }"
       >
         <template #legend>
           <span>/ hey</span>
@@ -138,6 +146,21 @@ export default {
         },
       ],
       radial: true,
+    },
+    gradient: {
+      colors: [
+        {
+          color: "red",
+          offset: "0",
+          opacity: "1",
+        },
+        {
+          color: "blue",
+          offset: "100",
+          opacity: "1",
+        },
+      ],
+      radial: false,
     },
     animation: "rs 1000 500",
   }),
