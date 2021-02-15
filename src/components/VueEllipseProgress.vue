@@ -83,7 +83,6 @@ export default {
         const options = this.circlesData[i];
         const parsedOptions = parseOptions({
           index: i,
-          id: i,
           ...options,
           globalDot: this.dot,
           globalGap: this.gap,

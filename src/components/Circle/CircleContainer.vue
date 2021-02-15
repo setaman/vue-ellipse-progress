@@ -3,21 +3,16 @@
     <svg class="ep-svg" :height="options.size" :width="options.size" xmlns="http://www.w3.org/2000/svg">
       <g class="ep-circle--container">
         <defs>
-          <gradient v-if="isColorGradient" :color="options.color" type="progress" :id="options.id" />
-          <gradient v-if="isColorFillGradient" :color="options.colorFill" type="progress-fill" :id="options.id" />
-          <gradient v-if="isEmptyColorGradient" :color="options.emptyColor" type="empty" :id="options.id" />
-          <gradient
-            v-if="isEmptyColorFillGradient"
-            :color="options.emptyColorFill"
-            type="empty-fill"
-            :id="options.id"
-          />
-          <gradient v-if="isLoaderColorGradient" :color="options.loader.color" type="loader" :id="options.id" />
+          <gradient v-if="isColorGradient" :color="options.color" type="progress" :uid="uid" />
+          <gradient v-if="isColorFillGradient" :color="options.colorFill" type="progress-fill" :uid="uid" />
+          <gradient v-if="isEmptyColorGradient" :color="options.emptyColor" type="empty" :uid="uid" />
+          <gradient v-if="isEmptyColorFillGradient" :color="options.emptyColorFill" type="empty-fill" :uid="uid" />
+          <gradient v-if="isLoaderColorGradient" :color="options.loader.color" type="loader" :uid="uid" />
         </defs>
-        <component :is="circleType" :options="options" :id="options.id" />
+        <component :is="circleType" :options="computedOptions" />
       </g>
     </svg>
-    <circle-dot v-if="options.dot" :options="options" :id="options.id" />
+    <circle-dot v-if="options.dot" :options="computedOptions" />
   </div>
 </template>
 
@@ -37,6 +32,12 @@ export default {
     },
   },
   computed: {
+    computedOptions() {
+      return {
+        ...this.options,
+        uid: this.uid,
+      };
+    },
     circleType() {
       return this.options.half ? "half-circle-progress" : "circle-progress";
     },
@@ -54,6 +55,9 @@ export default {
     },
     isLoaderColorGradient() {
       return Array.isArray(this.options.loader.color.colors);
+    },
+    uid() {
+      return this.$.uid;
     },
   },
 };
