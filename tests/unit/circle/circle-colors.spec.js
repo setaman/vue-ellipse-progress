@@ -45,8 +45,8 @@ const colorAsStringTests = (colorProp, color, selector, fill = false, half) => {
 const gradientColorTests = (colorProp, selector, gradientURLPrefix, fill = false, half) => {
   describe("applies gradient color correctly", () => {
     const wrapper = localFactory({ ...colorProp, half });
+    const { uid } = wrapper.componentVM;
     const circleWrapper = wrapper.find(selector);
-    const id = 0;
     const stopColorWrappers = wrapper.findAll("stop");
 
     it("recognizes gradient colors", () => {
@@ -59,7 +59,7 @@ const gradientColorTests = (colorProp, selector, gradientURLPrefix, fill = false
     });
     it(`applies gradient URL to SVG ${fill ? "fill" : "stroke"}`, () => {
       expect(circleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(
-        `url(#${gradientURLPrefix}-gradient-${id})`
+        `url(#${gradientURLPrefix}-gradient-${uid})`
       );
     });
     it("renders corresponding amount of stop colors SVG elements", () => {
