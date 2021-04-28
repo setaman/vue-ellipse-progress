@@ -1,3 +1,4 @@
+/*
 import { expect } from "chai";
 import Circle from "@/components/Circle/Circle.vue";
 import Gradient from "@/components/Gradient.vue";
@@ -135,3 +136,4 @@ describe("Colors", () => {
     });
   });
 });
+*/
