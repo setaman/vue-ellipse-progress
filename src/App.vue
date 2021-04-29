@@ -59,23 +59,7 @@
         >
         </ve-progress>
       </div>
-      <ve-progress
-        :loading="loading"
-        :size="200"
-        :thickness="10"
-        :progress="50"
-        :legend-value="125.1"
-        half
-        :no-data="noData"
-        :determinate="determinate"
-      >
-        <template #legend>
-          <span>/ hey</span>
-        </template>
-        <template v-slot:legend-caption>
-          <p id="slot-id" slot="legend-caption">TASKS DONE</p>
-        </template>
-      </ve-progress>
+      <ve-progress half color-fill="red" line-position="center"> </ve-progress>
     </div>
   </div>
 </template>

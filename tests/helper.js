@@ -13,7 +13,7 @@ const mockProps = {
   emptyThickness: 10,
   line: "round",
   lineMode: {
-    mode: "normal",
+    mode: "center",
     offset: 0,
   },
   linePosition: {

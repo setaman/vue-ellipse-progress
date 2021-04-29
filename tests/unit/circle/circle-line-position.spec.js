@@ -1,139 +1,168 @@
-/*
 import { expect } from "chai";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Circle from "@/components/Circle/Circle.vue";
-import Gradient from "@/components/Gradient.vue";
+import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import { factory } from "@/../tests/helper";
 
-const localFactory = (props) => factory({ container: Circle, props });
-
-const colorAsStringTests = (colorProp, color, selector, fill = false, half) => {
-  describe("applies color as string", () => {
-    const wrapper = localFactory({ ...colorProp, half });
-    const circleWrapper = wrapper.find(selector);
-
-    it("do not recognize gradient colors", () => {
-      const type = selector.includes("empty") ? "EmptyColor" : "Color";
-      const fillType = fill ? "Fill" : "";
-      expect(wrapper.vm[`is${type}${fillType}Gradient`]).to.be.false;
-    });
-
-    it("do not renders Gradient component", () => {
-      expect(wrapper.findComponent(Gradient).exists()).to.be.false;
-    });
-
-    it("applies color correctly to SVG stroke", () => {
-      expect(circleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(`${color}`);
-    });
-  });
-};
+const localFactory = (props) =>
+  factory({ container: CircleContainer, props: { colorFill: "black", emptyColorFill: "black", ...props } });
 
 const linePositionTests = (linePositionProp, selector, half = false, empty = false) => {
   describe("linePosition.mode", () => {
     describe("linePosition.mode.center", () => {
-      const thickness = 10;
-      const wrapper = localFactory({ ...linePositionProp, half, thickness, emptyThickness: thickness });
+      const wrapper = localFactory({ [linePositionProp]: { position: "center" }, half });
       const fillCircleWrapper = wrapper.find(selector);
+      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
 
-      it("calculations the radius correctly", () => {
-        const expectedRadius = (empty ? wrapper.vm.emptyRadius : wrapper.vm.radius) - thickness / 2;
-        const radius = fillCircleWrapper.element.getAttribute("r");
-        expect(radius).to.equal(`${expectedRadius}`);
+      it("calculates the radius correctly", () => {
+        const expectedRadius = empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius;
+        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
+        expect(fillCircleRadius).to.equal(expectedRadius);
+      });
+
+      it("applies the radius to SVG elements correctly", () => {
+        let expectedValue = "";
+        if (half) {
+          expectedValue = empty ? circleWrapper.vm.emptyFillPath : circleWrapper.vm.fillPath;
+        } else {
+          expectedValue = empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius;
+        }
+        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
+        expect(value).to.equal(`${expectedValue}`);
       });
     });
-
-    it("does not render the fill circle by default", () => {
-      expect(localFactory({ half }).find(selector).exists()).to.be.false;
-    });
-
-    it("does not render the fill circle with 'transparent' color", () => {
-      expect(localFactory({ half }).find(selector).exists()).to.be.false;
-    });
-
-    it("renders Gradient component", () => {
-      expect(wrapper.findComponent(Gradient).exists()).to.be.true;
-    });
-    it(`applies gradient URL to SVG ${fill ? "fill" : "stroke"}`, () => {
-      expect(fillCircleWrapper.element.getAttribute(`${fill ? "fill" : "stroke"}`)).to.equal(
-        `url(#${gradientURLPrefix}-gradient-${id})`
-      );
-    });
-    it("renders corresponding amount of stop colors SVG elements", () => {
-      expect(stopColorWrappers.length).to.equal(gradientColor.colors.length);
-    });
-    for (let i = 0; i < stopColorWrappers.length; i++) {
-      it("applies opacity correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers[i].element.getAttribute("stop-opacity")).to.equal(
-          `${gradientColor.colors[i].opacity}`
-        );
+    describe("linePosition.mode.in", () => {
+      const thickness = 20;
+      const size = 200;
+      const wrapper = localFactory({
+        [linePositionProp]: { position: "in" },
+        half,
+        size,
+        thickness,
+        emptyThickness: thickness,
       });
-      it("applies color correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers[i].element.getAttribute("stop-color")).to.equal(`${gradientColor.colors[i].color}`);
+      const fillCircleWrapper = wrapper.find(selector);
+      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
+
+      it("calculates the radius correctly", () => {
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) + thickness / 2;
+        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
+        expect(fillCircleRadius).to.equal(expectedRadius);
       });
-      it("applies offset correctly to each stop color SVG element", () => {
-        expect(stopColorWrappers[i].element.getAttribute("offset")).to.equal(`${gradientColor.colors[i].offset}%`);
+
+      it("applies the radius to SVG elements correctly", () => {
+        let expectedValue = "";
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) + thickness / 2;
+        if (half) {
+          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
+            expectedRadius * 2
+          },0`;
+        } else {
+          expectedValue = expectedRadius;
+        }
+        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
+        expect(value).to.equal(`${expectedValue}`);
       });
-    }
+    });
+    describe("linePosition.mode.out", () => {
+      const thickness = 20;
+      const size = 200;
+      const offset = 0;
+      const wrapper = localFactory({
+        [linePositionProp]: { position: "out", offset },
+        half,
+        size,
+        thickness,
+        emptyThickness: thickness,
+      });
+      const fillCircleWrapper = wrapper.find(selector);
+      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
+
+      it("calculates the radius correctly", () => {
+        const calculatedOffset = thickness / 2 + offset;
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
+        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
+        expect(fillCircleRadius).to.equal(expectedRadius);
+      });
+
+      it("applies the radius to SVG elements correctly", () => {
+        const calculatedOffset = thickness / 2 + offset;
+        let expectedValue = "";
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
+        if (half) {
+          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
+            expectedRadius * 2
+          },0`;
+        } else {
+          expectedValue = expectedRadius;
+        }
+        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
+        expect(value).to.equal(`${expectedValue}`);
+      });
+    });
+    describe("linePosition.mode.out and offset", () => {
+      const thickness = 20;
+      const size = 200;
+      const offset = 20;
+      const wrapper = localFactory({
+        [linePositionProp]: { position: "out", offset },
+        half,
+        size,
+        thickness,
+        emptyThickness: thickness,
+      });
+      const fillCircleWrapper = wrapper.find(selector);
+      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
+
+      it("calculates the radius correctly", () => {
+        const calculatedOffset = thickness / 2 + offset;
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
+        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
+        expect(fillCircleRadius).to.equal(expectedRadius);
+      });
+
+      it("applies the radius to SVG elements correctly", () => {
+        const calculatedOffset = thickness / 2 + offset;
+        let expectedValue = "";
+        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
+        if (half) {
+          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
+            expectedRadius * 2
+          },0`;
+        } else {
+          expectedValue = expectedRadius;
+        }
+        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
+        expect(value).to.equal(`${expectedValue}`);
+      });
+    });
   });
 };
 
-const colorTests = (colorProp, half = false, empty = false, gradientURLPrefix) => {
-  const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
-  const circleClassPostfix = `${empty ? "empty" : "progress"}`;
-  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}__fill`;
-
-  colorAsStringTests({ [colorProp]: color }, color, circleSelector, false, half);
-  linePositionTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, false, half);
-};
-
-const colorFillTests = (colorProp, half = false, empty = false, gradientURLPrefix) => {
+const runTest = (linePositionProp, half = false, empty = false) => {
   const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
   const circleClassPostfix = `${empty ? "empty" : "progress"}__fill`;
   const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
-
-  const color = "#ff0020";
-
-  it("renders fill circle", () => {
-    expect(
-      localFactory({ [colorProp]: color, half })
-        .find(circleSelector)
-        .exists()
-    ).to.be.true;
-  });
-
-  colorAsStringTests({ [colorProp]: color }, color, circleSelector, true, half);
-  linePositionTests({ [colorProp]: gradientColor }, circleSelector, gradientURLPrefix, true, half);
+  linePositionTests(linePositionProp, circleSelector, half, empty);
 };
 
-describe("Colors", () => {
+describe("Line Position", () => {
   describe("Circle", () => {
     const half = false;
-    describe("#color", () => {
-      colorTests("color", half, false, "ep-progress");
+    describe("#linePosition", () => {
+      runTest("linePosition", half, false);
     });
-    describe("#emptyColor", () => {
-      colorTests("emptyColor", half, true, "ep-empty");
-    });
-    describe("#colorFill", () => {
-      colorFillTests("colorFill", half, false, "ep-progress-fill");
-    });
-    describe("#emptyColorFill", () => {
-      colorFillTests("emptyColorFill", half, true, "ep-empty-fill");
+    describe("#emptyLinePosition", () => {
+      runTest("emptyLinePosition", half, true);
     });
   });
   describe("Half Circle", () => {
     const half = true;
-    describe("#color", () => {
-      colorTests("color", half, false, "ep-progress");
+    describe("#linePosition", () => {
+      runTest("linePosition", half, false);
     });
-    describe("#emptyColor", () => {
-      colorTests("emptyColor", half, true, "ep-empty");
-    });
-    describe("#colorFill", () => {
-      colorFillTests("colorFill", half, false, "ep-progress-fill");
-    });
-    describe("#emptyColorFill", () => {
-      colorFillTests("emptyColorFill", half, true, "ep-empty-fill");
+    describe("#emptyLinePosition", () => {
+      runTest("emptyLinePosition", half, true);
     });
   });
 });
-*/
