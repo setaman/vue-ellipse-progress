@@ -55,22 +55,22 @@ export default {
 
     color() {
       return Array.isArray(this.options.color.colors)
-        ? `url(#ep-progress-gradient-${this.options.id})`
+        ? `url(#ep-progress-gradient-${this.options.uid})`
         : this.options.color;
     },
     emptyColor() {
       return Array.isArray(this.options.emptyColor.colors)
-        ? `url(#ep-empty-gradient-${this.options.id})`
+        ? `url(#ep-empty-gradient-${this.options.uid})`
         : this.options.emptyColor;
     },
     colorFill() {
       return Array.isArray(this.options.colorFill.colors)
-        ? `url(#ep-progress-fill-gradient-${this.options.id})`
+        ? `url(#ep-progress-fill-gradient-${this.options.uid})`
         : this.options.colorFill;
     },
     emptyColorFill() {
       return Array.isArray(this.options.emptyColorFill.colors)
-        ? `url(#ep-empty-fill-gradient-${this.options.id})`
+        ? `url(#ep-empty-fill-gradient-${this.options.uid})`
         : this.options.emptyColorFill;
     },
 
