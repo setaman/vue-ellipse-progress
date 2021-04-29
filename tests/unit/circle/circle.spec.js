@@ -195,32 +195,24 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("renders the loading circle", () => {
       expect(wrapper.find(".ep-circle--loader").exists()).to.be.true;
     });
-  });
-  /* describe("#determinate", () => {
-    const progress = 60;
-    const color = "gray";
-    const thickness = 15;
-    const wrapper = localFactory({
-      progress,
-      color,
-      thickness,
-      determinate: true,
-    });
-
-    it("shows the loading circle", () => {
+    it("loader circle has the loading animation class", () => {
       expect(wrapper.find(".animation__loading").exists()).to.be.true;
     });
-    it("applies same styles to loading circle as to progress circle", () => {
-      const determinateCircleWrapper = wrapper.find(".animation__loading");
-      expect(determinateCircleWrapper.element.getAttribute("stroke")).to.equal(`${color}`);
-      expect(determinateCircleWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
-      expect(determinateCircleWrapper.element.getAttribute("fill")).to.equal("transparent");
+  });
+  describe("#determinate", () => {
+    const wrapper = localFactory({ determinate: true });
+
+    it("loader circle has the loading animation class", () => {
+      expect(wrapper.find(".animation__loading").exists()).to.be.true;
     });
-    it("applies 0.45 opacity to loading circle container", () => {
-      const determinateCircleWrapper = wrapper.find(".ep-circle--loading__container");
-      expect(determinateCircleWrapper.element.style.opacity).to.equal("0.45");
+    it("renders the loading circle", () => {
+      expect(wrapper.find(".ep-circle--loader").exists()).to.be.true;
     });
-  }); */
+    it("applies default 0.55 opacity to loading circle container", () => {
+      const determinateCircleWrapper = wrapper.find(".ep-circle--loader__container");
+      expect(determinateCircleWrapper.element.style.opacity).to.equal("0.55");
+    });
+  });
   describe("#angle", () => {
     const circleWrapper = localFactory({ progress: 50 });
     it("sets the rotation of the svg container to default, if not defined", () => {
