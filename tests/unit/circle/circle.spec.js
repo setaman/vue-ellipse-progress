@@ -171,7 +171,7 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
       expect(circleProgressWrapper.element.style.opacity).to.equal("0");
     });
   });
-  /* describe("#loading", () => {
+  describe("#loading", () => {
     const size = 200;
     const thickness = 10;
 
@@ -188,14 +188,14 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     it("applies 0 opacity to progress circle", () => {
       expect(circleProgressWrapper.element.style.opacity).to.equal("0");
     });
-    it("applies 1 opacity to loading circle container", () => {
-      const determinateCircleWrapper = wrapper.find(".ep-circle--loading__container");
-      expect(determinateCircleWrapper.element.style.opacity).to.equal("1");
+    it("applies default 0.55 opacity to loading circle container", () => {
+      const determinateCircleWrapper = wrapper.find(".ep-circle--loader__container");
+      expect(determinateCircleWrapper.element.style.opacity).to.equal("0.55");
     });
     it("renders the loading circle", () => {
-      expect(wrapper.find(".ep-circle--loading").exists()).to.be.true;
+      expect(wrapper.find(".ep-circle--loader").exists()).to.be.true;
     });
-  }); */
+  });
   /* describe("#determinate", () => {
     const progress = 60;
     const color = "gray";
