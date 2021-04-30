@@ -108,7 +108,6 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
-  // FIXME: blocked by vue-test-utils v2 beta
   describe("#slots", () => {
     describe("#legend", () => {
       it("renders provided slot content", () => {
@@ -136,26 +135,20 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       const wrapper = mount(VueEllipseProgress, {
         props: { progress: 35, animation: "default 0 0" },
         slots: {
-          scoped: `
-              <template #default="counterParams" >
-                <span class="my-formatter-slot">Formatted {{ counterParams.counterTick.currentValue }}</span>
+          default: `
+              <template #default="{ counterTick }" >
+                <span id="my-formatter-slot">Formatted {{ counterTick.currentValue }}</span>
               </template>`,
         },
       });
 
-      it("renders provided slot", () => {
-        expect(wrapper.find(".my-formatter-slot").exists()).to.be.true;
-      });
+      it("renders provided slot", () => expect(wrapper.find("#my-formatter-slot").exists()).to.be.true);
 
       it("renders via provided slot formatted value", (done) => {
         setTimeout(() => {
-          expect(wrapper.html()).to.contain("35");
+          expect(wrapper.html()).to.contain("Formatted 35");
           done();
         }, 100);
-      });
-
-      it("do not renders other elements", () => {
-        expect(wrapper.findComponent(Counter).findAll("span")).to.have.lengthOf(2);
       });
     });
   });
