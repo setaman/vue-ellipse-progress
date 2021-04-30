@@ -109,7 +109,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   // FIXME: blocked by vue-test-utils v2 beta
-  /* describe("#slots", () => {
+  describe("#slots", () => {
     describe("#legend", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
@@ -118,7 +118,6 @@ describe("[ EllipseProgressContainer.vue ]", () => {
             legend: '<span id="my-slot">Hello Circle</span>',
           },
         });
-        const c = wrapper.vm.$slots;
         expect(wrapper.find("#my-slot").exists()).to.be.true;
       });
     });
@@ -150,7 +149,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
 
       it("renders via provided slot formatted value", (done) => {
         setTimeout(() => {
-          expect(wrapper.find(".my-formatter-slot").element.textContent).to.equal("Formatted 35");
+          expect(wrapper.html()).to.contain("35");
           done();
         }, 100);
       });
@@ -159,7 +158,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(wrapper.findComponent(Counter).findAll("span")).to.have.lengthOf(2);
       });
     });
-  }); */
+  });
   describe("#data", () => {
     const data = [
       { progress: 25, color: "red" },

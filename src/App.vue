@@ -57,7 +57,18 @@
         >
         </ve-progress>
       </div>
-      <ve-progress half color-fill="red" line-position="center"> </ve-progress>
+      <ve-progress
+        half
+        line-position="center"
+        :progress="50"
+        :legend-formatter="
+          ({ currentValue }) => `<span><b>${currentValue}</b></span> <span><b>${currentValue}</b></span> `
+        "
+      >
+        <template #default="{ counterTick }">
+          <span> Olechka {{ counterTick.currentValue }} </span>
+        </template>
+      </ve-progress>
     </div>
   </div>
 </template>
