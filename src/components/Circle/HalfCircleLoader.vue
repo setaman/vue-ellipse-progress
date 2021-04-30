@@ -7,7 +7,7 @@
       fill="transparent"
       :stroke="halfLoaderColor"
       :stroke-dasharray="circumference"
-      :troke-linecap="options.line"
+      :stroke-linecap="options.line"
       :style="{
         transitionTimingFunction: styles.transitionTimingFunction,
         transformOrigin: styles.transformOrigin,
