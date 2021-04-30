@@ -10,36 +10,47 @@ const loaderTests = (selector, half = false) => {
   describe("loader", () => {
     it("do not renders loader component by default", () => {
       expect(
-        localFactory({ half })
+        localFactory(parseRawOptions({ half }))
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.false;
     });
     it("do not renders loader component in loading und noData states", () => {
       expect(
-        localFactory({ half, loading: true, noData: true })
+        localFactory(parseRawOptions({ half, loading: true, noData: true }))
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.false;
     });
     it("renders loader component in loading mod", () => {
       expect(
-        localFactory({ half, loading: true })
+        localFactory(parseRawOptions({ half, loading: true }))
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.true;
     });
     it("renders loader component in determinate mod", () => {
       expect(
-        localFactory({ half, determinate: true })
+        localFactory(parseRawOptions({ half, determinate: true }))
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.true;
     });
     it("has a loading animation class", () => {
-      expect(localFactory({ half, determinate: true }).find(selector).classes())
+      expect(
+        localFactory(parseRawOptions({ half, loading: true }))
+          .find(selector)
+          .classes()
+      )
         .to.be.an("array")
         .that.includes("animation__loading");
+    });
+    it("has transparent fill color", () => {
+      expect(
+        localFactory(parseRawOptions({ half, loading: true }))
+          .find(selector)
+          .element.getAttribute("fill")
+      ).to.equal("transparent");
     });
     describe("replicates progress circle by default", () => {
       const props = {
@@ -68,6 +79,67 @@ const loaderTests = (selector, half = false) => {
           testsMap[prop]();
         });
       }
+    });
+  });
+  describe("loader.color", () => {
+    it("applies color as string", () => {
+      expect(
+        localFactory({ half, loading: true, loader: { color: "green" } })
+          .find(selector)
+          .element.getAttribute("stroke")
+      ).to.equal("green");
+    });
+    it("applies gradient color", () => {
+      expect(
+        localFactory({
+          half,
+          loading: true,
+          loader: {
+            color: {
+              colors: [
+                { color: "red", offset: "0" },
+                { color: "yellow", offset: "100" },
+              ],
+            },
+          },
+        })
+          .find(selector)
+          .element.getAttribute("stroke")
+      ).to.contain("url(#ep-loader-gradient-");
+    });
+  });
+  describe("loader.thickness", () => {
+    it("applies thickness correctly", () => {
+      expect(
+        localFactory(parseRawOptions({ half, loading: true, loader: { thickness: 15 } }))
+          .find(selector)
+          .element.getAttribute("stroke-width")
+      ).to.equal("15");
+    });
+  });
+  describe("loader.opacity", () => {
+    it("has default 0.55 opacity", () => {
+      expect(
+        localFactory(parseRawOptions({ half, loading: true })).find(
+          `.ep-${half ? "half-" : ""}circle--loader__container`
+        ).element.style.opacity
+      ).to.equal("0.55");
+    });
+    it("applies opacity value correctly", () => {
+      expect(
+        localFactory(parseRawOptions({ half, loading: true, loader: { opacity: 0.3 } })).find(
+          `.ep-${half ? "half-" : ""}circle--loader__container`
+        ).element.style.opacity
+      ).to.equal("0.3");
+    });
+  });
+  describe("loader.line", () => {
+    it("applies line prop correctly", () => {
+      expect(
+        localFactory(parseRawOptions({ half, loading: true, loader: { line: "butt" } }))
+          .find(`.ep-${half ? "half-" : ""}circle--loader`)
+          .element.getAttribute("stroke-linecap")
+      ).to.equal("butt");
     });
   });
 };

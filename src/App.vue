@@ -46,12 +46,13 @@
           :thickness="10"
           :empty-thickness="10"
           line-mode="out"
+          line="butt"
           :color="gradient"
-          line="square"
           :loader="{
             lineMode: 'in ',
             opacity: 1,
-            color: 'green',
+            line: 'round',
+            thickness: 15,
           }"
         >
         </ve-progress>
