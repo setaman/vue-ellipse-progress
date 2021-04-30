@@ -204,16 +204,16 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         done();
       }, 100);
     });
+    it("isHTML returns false by default ", () => {
+      expect(factory({ legendFormatter: () => "Custom" }).vm.isHTML).to.be.false;
+    });
     describe("#legendFormatter HTML return value", () => {
       const customFormat = (value) => `<span class="my-custom-format">Formatted ${value}</span>`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
       const counterWrapper = factory({ value: 50, legendFormatter: formatter, animation: "default 0 0" });
 
-      it("recognises HTML formatter return value ", (done) => {
-        setTimeout(() => {
-          expect(counterWrapper.vm.isHTML).to.be.true;
-          done();
-        }, 10);
+      it("recognises HTML formatter return value ", () => {
+        expect(counterWrapper.vm.isHTML).to.be.true;
       });
       it("renders the formatter returned HTML", () => {
         expect(counterWrapper.find(".my-custom-format").exists()).to.be.true;

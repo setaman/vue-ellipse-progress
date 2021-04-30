@@ -57,16 +57,9 @@
         >
         </ve-progress>
       </div>
-      <ve-progress
-        half
-        line-position="center"
-        :progress="50"
-        :legend-formatter="
-          ({ currentValue }) => `<span><b>${currentValue}</b></span> <span><b>${currentValue}</b></span> `
-        "
-      >
+      <ve-progress half line-position="center" :progress="50">
         <template #default="{ counterTick }">
-          <span> Olechka {{ counterTick.currentValue }} </span>
+          <span> Olechka {{ counterTick.currentValue }} {{ logStuff(counterTick) }} </span>
         </template>
       </ve-progress>
     </div>
@@ -163,6 +156,9 @@ export default {
     },
   },
   methods: {
+    logStuff(stuff) {
+      console.log(stuff);
+    },
     formattedPrice(value) {
       return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
     },
