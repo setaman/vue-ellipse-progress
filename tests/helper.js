@@ -1,4 +1,23 @@
 import { mount } from "@vue/test-utils";
+import interfaceProps from "@/components/interface";
+import { parseOptions } from "@/components/optionsParser";
+
+const defaultProps = {
+  progress: 50,
+  index: 0,
+  id: 0,
+};
+for (const prop in interfaceProps) {
+  defaultProps[prop] = interfaceProps[prop].default;
+}
+defaultProps.progress = 50;
+defaultProps.index = 0;
+defaultProps.id = 0;
+defaultProps.globalThickness = defaultProps.thickness;
+defaultProps.globalDot = defaultProps.dot;
+defaultProps.globalGap = defaultProps.gap;
+defaultProps.loader = {};
+defaultProps.data = [];
 
 const mockProps = {
   id: 0,
@@ -13,7 +32,7 @@ const mockProps = {
   emptyThickness: 10,
   line: "round",
   lineMode: {
-    mode: "center",
+    mode: "normal",
     offset: 0,
   },
   linePosition: {
@@ -75,6 +94,11 @@ export const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => reso
 export const setCircleProps = async (wrapper, props = {}) => {
   return wrapper.setProps({ options: { ...wrapper.props("options"), ...props } });
 };
+
+export const parseRawOptions = (props) => {
+  return parseOptions({ ...defaultProps, ...props });
+};
+
 export const factory = ({ container, props = {}, isCircleFactory = true }) => {
   const propsData = isCircleFactory ? { options: { ...mockProps, ...props } } : props;
   return mount(container, {

@@ -1,162 +1,94 @@
 import { expect } from "chai";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
-import Circle from "@/components/Circle/Circle.vue";
-import HalfCircle from "@/components/Circle/HalfCircle.vue";
-import { factory } from "@/../tests/helper";
+import CircleLoader from "@/components/Circle/CircleLoader.vue";
+import HalfCircleLoader from "@/components/Circle/HalfCircleLoader.vue";
+import { factory, parseRawOptions } from "@/../tests/helper";
 
-const localFactory = (props) =>
-  factory({ container: CircleContainer, props: { colorFill: "black", emptyColorFill: "black", ...props } });
+const localFactory = (props) => factory({ container: CircleContainer, props });
 
-const linePositionTests = (linePositionProp, selector, half = false, empty = false) => {
-  describe("linePosition.mode", () => {
-    describe("linePosition.mode.center", () => {
-      const wrapper = localFactory({ [linePositionProp]: { position: "center" }, half });
-      const fillCircleWrapper = wrapper.find(selector);
-      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
-
-      it("calculates the radius correctly", () => {
-        const expectedRadius = empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius;
-        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
-        expect(fillCircleRadius).to.equal(expectedRadius);
-      });
-
-      it("applies the radius to SVG elements correctly", () => {
-        let expectedValue = "";
-        if (half) {
-          expectedValue = empty ? circleWrapper.vm.emptyFillPath : circleWrapper.vm.fillPath;
-        } else {
-          expectedValue = empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius;
-        }
-        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
-        expect(value).to.equal(`${expectedValue}`);
-      });
+const loaderTests = (selector, half = false) => {
+  describe("loader", () => {
+    it("do not renders loader component by default", () => {
+      expect(
+        localFactory({ half })
+          .findComponent(half ? HalfCircleLoader : CircleLoader)
+          .exists()
+      ).to.be.false;
     });
-    describe("linePosition.mode.in", () => {
-      const thickness = 20;
-      const size = 200;
-      const wrapper = localFactory({
-        [linePositionProp]: { position: "in" },
-        half,
-        size,
-        thickness,
-        emptyThickness: thickness,
-      });
-      const fillCircleWrapper = wrapper.find(selector);
-      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
-
-      it("calculates the radius correctly", () => {
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) + thickness / 2;
-        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
-        expect(fillCircleRadius).to.equal(expectedRadius);
-      });
-
-      it("applies the radius to SVG elements correctly", () => {
-        let expectedValue = "";
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) + thickness / 2;
-        if (half) {
-          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
-            expectedRadius * 2
-          },0`;
-        } else {
-          expectedValue = expectedRadius;
-        }
-        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
-        expect(value).to.equal(`${expectedValue}`);
-      });
+    it("do not renders loader component in loading und noData states", () => {
+      expect(
+        localFactory({ half, loading: true, noData: true })
+          .findComponent(half ? HalfCircleLoader : CircleLoader)
+          .exists()
+      ).to.be.false;
     });
-    describe("linePosition.mode.out", () => {
-      const thickness = 20;
-      const size = 200;
-      const offset = 0;
-      const wrapper = localFactory({
-        [linePositionProp]: { position: "out", offset },
-        half,
-        size,
-        thickness,
-        emptyThickness: thickness,
-      });
-      const fillCircleWrapper = wrapper.find(selector);
-      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
-
-      it("calculates the radius correctly", () => {
-        const calculatedOffset = thickness / 2 + offset;
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
-        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
-        expect(fillCircleRadius).to.equal(expectedRadius);
-      });
-
-      it("applies the radius to SVG elements correctly", () => {
-        const calculatedOffset = thickness / 2 + offset;
-        let expectedValue = "";
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
-        if (half) {
-          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
-            expectedRadius * 2
-          },0`;
-        } else {
-          expectedValue = expectedRadius;
-        }
-        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
-        expect(value).to.equal(`${expectedValue}`);
-      });
+    it("renders loader component in loading mod", () => {
+      expect(
+        localFactory({ half, loading: true })
+          .findComponent(half ? HalfCircleLoader : CircleLoader)
+          .exists()
+      ).to.be.true;
     });
-    describe("linePosition.mode.out and offset", () => {
-      const thickness = 20;
-      const size = 200;
-      const offset = 20;
-      const wrapper = localFactory({
-        [linePositionProp]: { position: "out", offset },
-        half,
-        size,
-        thickness,
-        emptyThickness: thickness,
-      });
-      const fillCircleWrapper = wrapper.find(selector);
-      const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
+    it("renders loader component in determinate mod", () => {
+      expect(
+        localFactory({ half, determinate: true })
+          .findComponent(half ? HalfCircleLoader : CircleLoader)
+          .exists()
+      ).to.be.true;
+    });
+    it("has a loading animation class", () => {
+      expect(localFactory({ half, determinate: true }).find(selector).classes())
+        .to.be.an("array")
+        .that.includes("animation__loading");
+    });
+    describe("replicates progress circle by default", () => {
+      const props = {
+        color: "gray",
+        line: "square",
+        lineMode: "in 10",
+        thickness: 15,
+      };
 
-      it("calculates the radius correctly", () => {
-        const calculatedOffset = thickness / 2 + offset;
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
-        const fillCircleRadius = empty ? circleWrapper.vm.emptyFillRadius : circleWrapper.vm.fillRadius;
-        expect(fillCircleRadius).to.equal(expectedRadius);
-      });
+      const parsedProps = parseRawOptions({ color: props.color, thickness: props.thickness, line: props.line });
+      const wrapper = localFactory({ ...parsedProps, half, loading: true });
+      const loaderWrapper = wrapper.find(selector);
+      const expectedRadius = wrapper
+        .find(`.ep-${half ? "half-" : ""}circle--progress`)
+        .element.getAttribute(half ? "d" : "r");
 
-      it("applies the radius to SVG elements correctly", () => {
-        const calculatedOffset = thickness / 2 + offset;
-        let expectedValue = "";
-        const expectedRadius = (empty ? circleWrapper.vm.emptyRadius : circleWrapper.vm.radius) - calculatedOffset;
-        if (half) {
-          expectedValue = ` M ${size / 2 - expectedRadius}, ${size / 2} a ${expectedRadius},${expectedRadius} 0 1,1 ${
-            expectedRadius * 2
-          },0`;
-        } else {
-          expectedValue = expectedRadius;
-        }
-        const value = fillCircleWrapper.element.getAttribute(half ? "d" : "r");
-        expect(value).to.equal(`${expectedValue}`);
-      });
+      const testsMap = {
+        color: () => expect(loaderWrapper.element.getAttribute("stroke")).to.equal(`${props.color}`),
+        line: () => expect(loaderWrapper.element.getAttribute("stroke-linecap")).to.equal(`${props.line}`),
+        thickness: () => expect(loaderWrapper.element.getAttribute("stroke-width")).to.equal(`${props.thickness}`),
+        lineMode: () => expect(loaderWrapper.element.getAttribute(half ? "d" : "r")).to.equal(`${expectedRadius}`),
+      };
+
+      for (const prop in props) {
+        it(`replicates ${prop} prop`, () => {
+          testsMap[prop]();
+        });
+      }
     });
   });
 };
 
 const runTest = (half = false) => {
   const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
-  const circleClassPostfix = `${empty ? "empty" : "progress"}__fill`;
-  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
-  linePositionTests(linePositionProp, circleSelector, half, empty);
+  const circleSelector = `.${circleClassPrefix}loader`;
+  loaderTests(circleSelector, half);
 };
 
 describe("Loader", () => {
   describe("Circle", () => {
     const half = false;
     describe("#loader", () => {
-      runTest("linePosition", half);
+      runTest(half);
     });
   });
   describe("Half Circle", () => {
     const half = true;
-    describe("#linePosition", () => {
-      runTest("linePosition", half);
+    describe("#loader", () => {
+      runTest(half);
     });
   });
 });

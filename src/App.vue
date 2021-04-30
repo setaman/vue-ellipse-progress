@@ -41,20 +41,17 @@
         <ve-progress
           :progress="progress"
           :loading="loading"
+          :no-data="noData"
           determinate
           :thickness="10"
           :empty-thickness="10"
           line-mode="out"
           :color="gradient"
+          line="square"
           :loader="{
             lineMode: 'in ',
             opacity: 1,
-            color: {
-              colors: [
-                { color: 'yellow', offset: '0' },
-                { color: 'red', offset: '100' },
-              ],
-            },
+            color: 'green',
           }"
         >
         </ve-progress>
