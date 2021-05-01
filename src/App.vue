@@ -42,11 +42,8 @@
           :progress="progress"
           :loading="loading"
           :no-data="noData"
-          determinate
-          :thickness="10"
-          :empty-thickness="10"
+          :thickness="20"
           line-mode="out"
-          line="butt"
           :color="gradient"
           :loader="{
             lineMode: 'in ',
@@ -56,8 +53,9 @@
           }"
         >
         </ve-progress>
+        <ve-progress :progress="progress" :thickness="50"> </ve-progress>
       </div>
-      <ve-progress half line-position="center" :progress="50">
+      <ve-progress half line-position="center" :progress="0" :line="parseInt(progress) === 0 ? 'butt' : 'round'">
         <template #default="{ counterTick }">
           <span> Olechka {{ counterTick.currentValue }} {{ logStuff(counterTick) }} </span>
         </template>
