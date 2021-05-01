@@ -2,7 +2,7 @@ import { expect } from "chai";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
-import { dotParser, calcThickness, animationParser } from "@/components/optionsParser";
+import { dotParser, calcThickness } from "@/components/optionsParser";
 import { factory, parseRawOptions, setCircleProps } from "@/../tests/helper";
 
 const localFactory = (props, container = Circle) => factory({ container, props });
