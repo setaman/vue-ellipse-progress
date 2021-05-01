@@ -59,7 +59,7 @@ export default {
         },
         bounce: {
           opacity: 0,
-          "animation-duration": `${this.animationDuration + 500}ms`,
+          "animation-duration": `${this.options.animation.duration + (this.options.animation.duration * 10) / 100}ms`,
         },
       };
       return styles[this.options.animation.type];

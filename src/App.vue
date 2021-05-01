@@ -53,7 +53,7 @@
           }"
         >
         </ve-progress>
-        <ve-progress :progress="progress" dot="20" animation="loop 1000 2000" half> </ve-progress>
+        <ve-progress :progress="progress" dot="20" animation="bounce 1000 2000"> </ve-progress>
       </div>
       <ve-progress half line-position="center" :progress="0" :line="parseInt(progress) === 0 ? 'butt' : 'round'">
         <template #default="{ counterTick }">

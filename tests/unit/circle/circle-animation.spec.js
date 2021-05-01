@@ -131,7 +131,7 @@ describe("#animation", () => {
           parseRawOptions({ progress: 50, dot: 5, animation: "bounce 500 0" }),
           CircleContainer
         ).findComponent(CircleDot).element.style.animationDuration
-      ).to.equal(`${expectedDuration}`);
+      ).to.equal(`${expectedDuration}ms`);
     });
   });
 
