@@ -40,37 +40,16 @@
       <div style="border: 1px solid red; display: inline-block">
         <ve-progress
           :progress="progress"
-          :loading="loading"
-          :no-data="noData"
-          :thickness="20"
-          line-mode="out"
-          :color="gradient"
-          :loader="{
-            lineMode: 'in ',
-            opacity: 1,
-            line: 'round',
-            thickness: 15,
-          }"
+          animation="rs 2000 3000"
+          :legend-formatter="
+            (c) => {
+              logStuff(c);
+              return parseInt(c.progress);
+            }
+          "
         >
         </ve-progress>
-        <ve-progress :progress="progress" dot="20" animation="bounce 1000 2000"> </ve-progress>
       </div>
-      <ve-progress
-        half
-        line-position="center"
-        :progress="50"
-        animation="rs 3000"
-        :legend-formatter="
-          (counterTIck) => {
-            logStuff(counterTIck);
-            return `Hey`;
-          }
-        "
-      >
-        <template #default="{ counterTick }">
-          <span> Olechka {{ counterTick.currentValue }} {{ logStuff(counterTick) }} </span>
-        </template>
-      </ve-progress>
     </div>
   </div>
 </template>
