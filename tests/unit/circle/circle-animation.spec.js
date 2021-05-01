@@ -3,7 +3,7 @@ import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
-import { factory, setCircleProps, wait } from "@/../tests/helper";
+import { factory, parseRawOptions, setCircleProps, wait } from "@/../tests/helper";
 import { animationParser } from "@/components/optionsParser";
 
 const localFactory = (props = {}, container = Circle) => {
@@ -124,16 +124,15 @@ describe("#animation", () => {
         done();
       }, 5);
     });
-    /* it("circle dot | disables initial animation for @bounce/@loop types", (done) => {
-      const wrapper = factory({ progress: 50, dot: 5, animation: "bounce 500 0" }, CircleContainer);
-      const cDWrapper = wrapper.find(CircleDot);
-      setTimeout(() => {
-        expect(cDWrapper.classes()).to.be.an("array").that.include("animation__bounce");
-        const { animationName } = getComputedStyle(cDWrapper.element);
-        expect(animationName).to.equal("ep-dot--init__disabled");
-        done();
-      }, 10);
-    }); */
+    it("circle dot | adds additional 10% animation duration for @bounce type", () => {
+      const expectedDuration = 500 + 500 * (10 / 100);
+      expect(
+        localFactory(
+          parseRawOptions({ progress: 50, dot: 5, animation: "bounce 500 0" }),
+          CircleContainer
+        ).findComponent(CircleDot).element.style.animationDuration
+      ).to.equal(`${expectedDuration}`);
+    });
   });
 
   describe("#animation.duration", () => {
@@ -165,9 +164,12 @@ describe("#animation", () => {
           "animation__loop",
         ]);
     });
-    /* it(`circle dot | do not applies rotation before delay`, () => {
-      expect(cdWrapper.element.style.transform).to.equal(`rotate(${startRotation}deg)`);
-    }); */
+    it(`circle dot | do not applies rotation before delay`, () => {
+      expect(
+        localFactory({ dot: 5, animation: animationParser("rs 500 200") }, CircleContainer).findComponent(CircleDot)
+          .element.style.transform
+      ).to.equal(`rotate(${startRotation}deg)`);
+    });
     it(`circle dot | applies rotation after delay`, (done) => {
       const endRotation = startRotation + (progress * 360) / 100;
       setTimeout(() => {

@@ -268,8 +268,6 @@ describe("[ CircleProgress.vue | HalfCircleProgress.vue ]", () => {
     });
     const circleWrappers = wrapper.findAllComponents(Circle);
 
-    // const calculateThickness = (t) => (t.toString().includes("%") ? (parseFloat(t) * size) / 100 : t);
-
     for (let i = 0; i < data.length; i++) {
       const circleData = data[i];
       it(`calculates the radius of circle #${i} correctly
