@@ -108,17 +108,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
-  // FIXME: blocked by vue-test-utils v2 beta
-  /* describe("#slots", () => {
-    describe("#legend-value", () => {
+  describe("#slots", () => {
+    describe("#legend", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            legendValue: '<span id="my-slot">Hello Circle</span>',
+            legend: '<span id="my-slot">Hello Circle</span>',
           },
         });
-        const c = wrapper.vm.$slots;
         expect(wrapper.find("#my-slot").exists()).to.be.true;
       });
     });
@@ -137,29 +135,23 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       const wrapper = mount(VueEllipseProgress, {
         props: { progress: 35, animation: "default 0 0" },
         slots: {
-          scoped: `
-              <template #default="counterParams" >
-                <span class="my-formatter-slot">Formatted {{ counterParams.counterTick.currentValue }}</span>
+          default: `
+              <template #default="{ counterTick }" >
+                <span id="my-formatter-slot">Formatted {{ counterTick.currentValue }}</span>
               </template>`,
         },
       });
 
-      it("renders provided slot", () => {
-        expect(wrapper.find(".my-formatter-slot").exists()).to.be.true;
-      });
+      it("renders provided slot", () => expect(wrapper.find("#my-formatter-slot").exists()).to.be.true);
 
       it("renders via provided slot formatted value", (done) => {
         setTimeout(() => {
-          expect(wrapper.find(".my-formatter-slot").element.textContent).to.equal("Formatted 35");
+          expect(wrapper.html()).to.contain("Formatted 35");
           done();
         }, 100);
       });
-
-      it("do not renders other elements", () => {
-        expect(wrapper.findComponent(Counter).findAll("span")).to.have.lengthOf(2);
-      });
     });
-  }); */
+  });
   describe("#data", () => {
     const data = [
       { progress: 25, color: "red" },
@@ -196,6 +188,21 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#legendFormatter", () => {
+    it("calls the #legendFormatter method with counter tick object data as argument ", () => {
+      const formatter = (counterTickData) => {
+        expect(counterTickData).to.be.an("object");
+        return "Nice!";
+      };
+      factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
+    });
+    it("passes at least progress and currentValue properties to #legendFormatter", () => {
+      const formatter = (counterTick) => {
+        expect(counterTick.currentValue).to.be.a("number");
+        // expect(counterTick.progress).to.be.a("number");
+        return "Nice!";
+      };
+      factory({ progress: 1, legendFormatter: formatter, animation: "default 0 0" });
+    });
     it("renders the custom formatted value", (done) => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
@@ -205,16 +212,16 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         done();
       }, 100);
     });
+    it("isHTML returns false by default ", () => {
+      expect(factory({ legendFormatter: () => "Custom" }).vm.isHTML).to.be.false;
+    });
     describe("#legendFormatter HTML return value", () => {
       const customFormat = (value) => `<span class="my-custom-format">Formatted ${value}</span>`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
       const counterWrapper = factory({ value: 50, legendFormatter: formatter, animation: "default 0 0" });
 
-      it("recognises HTML formatter return value ", (done) => {
-        setTimeout(() => {
-          expect(counterWrapper.vm.isHTML).to.be.true;
-          done();
-        }, 10);
+      it("recognises HTML formatter return value ", () => {
+        expect(counterWrapper.vm.isHTML).to.be.true;
       });
       it("renders the formatter returned HTML", () => {
         expect(counterWrapper.find(".my-custom-format").exists()).to.be.true;

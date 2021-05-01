@@ -1,41 +1,56 @@
 import { expect } from "chai";
-import Circle from "@/components/Circle/Circle.vue";
-import { factory } from "@/../tests/helper";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import { factory, parseRawOptions } from "@/../tests/helper";
 import { calcThickness } from "@/components/optionsParser";
 
-const localFactory = (props) => factory({ container: Circle, props });
+const localFactory = (props) => factory({ container: CircleContainer, props: parseRawOptions(props) });
 
-describe("#thickness", () => {
-  it("renders the progress circle line stroke thickness correctly", () => {
+const thicknessTests = (thicknessProp, selector, half) => {
+  it("applies default 5% thickness", () => {
+    const expectedThickness = calcThickness("5%", 200);
+    const thickness = localFactory({ half }).find(selector).element.getAttribute("stroke-width");
+    expect(`${expectedThickness}`).to.equal(`${thickness}`);
+  });
+  it("renders the circle line stroke thickness correctly", () => {
     const thickness = 4;
 
-    const wrapper = localFactory({ thickness });
-    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+    const wrapper = localFactory({ [thicknessProp]: thickness, half });
+    const circleProgressWrapper = wrapper.find(selector);
 
     expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
   });
-  it("renders and calculates the progress circle line stroke relative thickness correctly", () => {
-    const size = 200;
-    const thickness = calcThickness("5%", size);
+  it("renders and calculates circle line stroke relative thickness correctly", () => {
+    const thickness = "8%";
 
-    const circleProgressWrapper = localFactory({ thickness }).find("circle.ep-circle--progress");
-    expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
+    const circleProgressWrapper = localFactory({ [thicknessProp]: thickness, half }).find(selector);
+    expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${calcThickness(thickness, 200)}`);
   });
-});
-describe("#emptyTthickness", () => {
-  it("renders the empty circle line stroke thickness correctly", () => {
-    const emptyThickness = 4;
+};
 
-    const wrapper = localFactory({ emptyThickness });
-    const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
+const runTest = (thicknessProp, half = false, empty = false) => {
+  const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
+  const circleClassPostfix = `${empty ? "empty" : "progress"}`;
+  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
+  thicknessTests(thicknessProp, circleSelector, half, empty);
+};
 
-    expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${emptyThickness}`);
+describe("Thickness", () => {
+  describe("Circle", () => {
+    const half = false;
+    describe("#thickness", () => {
+      runTest("thickness", half, false);
+    });
+    describe("#emptyThickness", () => {
+      runTest("emptyThickness", half, true);
+    });
   });
-  it("renders the empty circle line stroke relative thickness correctly", () => {
-    const size = 200;
-    const emptyThickness = calcThickness("5%", size);
-
-    const circleEmptyWrapper = localFactory({ emptyThickness }).find("circle.ep-circle--empty");
-    expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${emptyThickness}`);
+  describe("Half Circle", () => {
+    const half = true;
+    describe("#thickness", () => {
+      runTest("thickness", half, false);
+    });
+    describe("#emptyThickness", () => {
+      runTest("emptyThickness", half, true);
+    });
   });
 });

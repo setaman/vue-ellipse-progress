@@ -40,42 +40,16 @@
       <div style="border: 1px solid red; display: inline-block">
         <ve-progress
           :progress="progress"
-          :loading="loading"
-          determinate
-          :thickness="10"
-          :empty-thickness="10"
-          line-mode="out"
-          :color="gradient"
-          :loader="{
-            lineMode: 'in ',
-            opacity: 1,
-            color: {
-              colors: [
-                { color: 'yellow', offset: '0' },
-                { color: 'red', offset: '100' },
-              ],
-            },
-          }"
+          animation="rs 2000 3000"
+          :legend-formatter="
+            (c) => {
+              logStuff(c);
+              return parseInt(c.progress);
+            }
+          "
         >
         </ve-progress>
       </div>
-      <ve-progress
-        :loading="loading"
-        :size="200"
-        :thickness="10"
-        :progress="50"
-        :legend-value="125.1"
-        half
-        :no-data="noData"
-        :determinate="determinate"
-      >
-        <template #legend>
-          <span>/ hey</span>
-        </template>
-        <template v-slot:legend-caption>
-          <p id="slot-id" slot="legend-caption">TASKS DONE</p>
-        </template>
-      </ve-progress>
     </div>
   </div>
 </template>
@@ -170,13 +144,25 @@ export default {
     },
   },
   methods: {
+    logStuff(stuff) {
+      console.log(stuff);
+    },
     formattedPrice(value) {
+      console.log(value);
       return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
     },
-    customFormatter({ currentValue /* start, end, startTime, previousCountStepValue, elapsed, currentRawValue */ }) {
-      this.price = new Intl.NumberFormat("fr-FR").format(currentValue);
-      // console.log(this.price, currentValue, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
-      return `My ${this.price} Format`;
+    customFormatter({
+      currentValue,
+      progress,
+      start,
+      end,
+      startTime,
+      previousCountStepValue,
+      elapsed,
+      currentRawValue,
+    }) {
+      console.log(currentValue, progress, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
+      return `My ${progress} Format`;
       /* return `
         <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
         <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>

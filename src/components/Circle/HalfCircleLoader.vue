@@ -1,5 +1,5 @@
 <template>
-  <g :style="{ opacity: opacity }">
+  <g class="ep-half-circle--loader__container" :style="{ opacity: opacity }">
     <path
       :stroke-width="options.thickness"
       class="ep-half-circle--loader animation__loading"

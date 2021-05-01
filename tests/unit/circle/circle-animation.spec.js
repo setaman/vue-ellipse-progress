@@ -3,11 +3,11 @@ import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import CircleDot from "@/components/Circle/CircleDot.vue";
-import { factory, setCircleProps, wait } from "@/../tests/helper";
+import { factory, parseRawOptions, setCircleProps, wait } from "@/../tests/helper";
 import { animationParser } from "@/components/optionsParser";
 
 const localFactory = (props = {}, container = Circle) => {
-  return factory({ container, props });
+  return factory({ container, props: parseRawOptions(props) });
 };
 
 const animationTypeTests = (container, circleClass, prefix = "circle |") => {
@@ -54,13 +54,13 @@ const animationDurationTests = (container, circleClass, prefix = "circle | ") =>
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("1000ms");
   });
   it(`${prefix} applies provided duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = localFactory({ animation: animationParser("rs 500") }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: "rs 500" }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("500ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("500ms");
   });
   it(`${prefix} applies @0 duration value as transition and animation duration`, () => {
-    const circleProgressWrapper = localFactory({ animation: animationParser("rs 0") }, container).find(circleClass);
+    const circleProgressWrapper = localFactory({ animation: "rs 0" }, container).find(circleClass);
 
     expect(circleProgressWrapper.element.style.transition).to.include("0ms");
     expect(circleProgressWrapper.element.style.animationDuration).to.equal("0ms");
@@ -86,7 +86,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 
   it(`${prefix} don not applies progress before delay`, () => {
     const wrapper = localFactory(
-      { progress, size, thickness, emptyThickness: thickness, animation: animationParser("rs 500 100") },
+      { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
       container
     );
     const circleProgressWrapper = wrapper.find(circleClass);
@@ -95,7 +95,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
   });
   it(`${prefix} applies the progress after delay`, (done) => {
     const wrapper = localFactory(
-      { progress, size, thickness, emptyThickness: thickness, animation: animationParser("rs 500 100") },
+      { progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" },
       container
     );
     const circleProgressWrapper = wrapper.find(circleClass);
@@ -108,10 +108,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 };
 
 describe("#animation", () => {
-  const circleContainerWrapper = localFactory(
-    { progress: 50, dot: 5, animation: animationParser("rs 500 5") },
-    CircleContainer
-  );
+  const circleContainerWrapper = localFactory({ progress: 50, dot: 5, animation: "rs 500 5" }, CircleContainer);
   const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
 
   describe("#animation.type", () => {
@@ -124,16 +121,13 @@ describe("#animation", () => {
         done();
       }, 5);
     });
-    /* it("circle dot | disables initial animation for @bounce/@loop types", (done) => {
-      const wrapper = factory({ progress: 50, dot: 5, animation: "bounce 500 0" }, CircleContainer);
-      const cDWrapper = wrapper.find(CircleDot);
-      setTimeout(() => {
-        expect(cDWrapper.classes()).to.be.an("array").that.include("animation__bounce");
-        const { animationName } = getComputedStyle(cDWrapper.element);
-        expect(animationName).to.equal("ep-dot--init__disabled");
-        done();
-      }, 10);
-    }); */
+    it("circle dot | adds additional 10% animation duration for @bounce type", () => {
+      const expectedDuration = 500 + 500 * (10 / 100);
+      expect(
+        localFactory({ progress: 50, dot: 5, animation: "bounce 500 0" }, CircleContainer).findComponent(CircleDot)
+          .element.style.animationDuration
+      ).to.equal(`${expectedDuration}ms`);
+    });
   });
 
   describe("#animation.duration", () => {
@@ -150,7 +144,7 @@ describe("#animation", () => {
     animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
 
     const progress = 50;
-    const wrapper = localFactory({ dot: 5, animation: animationParser("rs 500 50") }, CircleContainer);
+    const wrapper = localFactory({ dot: 5, animation: "rs 500 50" }, CircleContainer);
     const cdWrapper = wrapper.findComponent(CircleDot);
     const startRotation = wrapper.props("options").angle + 90;
 
@@ -165,9 +159,12 @@ describe("#animation", () => {
           "animation__loop",
         ]);
     });
-    /* it(`circle dot | do not applies rotation before delay`, () => {
-      expect(cdWrapper.element.style.transform).to.equal(`rotate(${startRotation}deg)`);
-    }); */
+    it(`circle dot | do not applies rotation before delay`, () => {
+      expect(
+        localFactory({ dot: 5, animation: "rs 500 200" }, CircleContainer).findComponent(CircleDot).element.style
+          .transform
+      ).to.equal(`rotate(${startRotation}deg)`);
+    });
     it(`circle dot | applies rotation after delay`, (done) => {
       const endRotation = startRotation + (progress * 360) / 100;
       setTimeout(() => {

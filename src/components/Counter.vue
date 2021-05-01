@@ -60,6 +60,7 @@ export default {
     counterProps() {
       return {
         currentValue: parseFloat(this.formattedValue),
+        progress: (this.currentValue * 100) / (this.end || 1),
         currentFormattedValue: this.formattedValue,
         currentRawValue: this.currentValue,
         duration: this.duration,

@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import Circle from "@/components/Circle/Circle.vue";
-import { factory, setCircleProps } from "@/../tests/helper";
-import { lineModeParser, animationParser } from "@/components/optionsParser";
+import { factory, setCircleProps, parseRawOptions } from "@/../tests/helper";
+import { lineModeParser } from "@/components/optionsParser";
 
-const localFactory = (props) => factory({ container: Circle, props });
+const localFactory = (props) => factory({ container: Circle, props: parseRawOptions(props) });
 const localLineModeParser = (lineMode) => lineModeParser(lineMode, false);
 
 const compareRadiusValues = (circleWrapper, expectedProgressCircleRadius, expectedEmptyCircleRadius) => {
@@ -22,20 +22,20 @@ const size = 200;
 const baseRadius = size / 2;
 
 describe("#line", () => {
-  it("renders line type correctly", async () => {
-    let line = "round";
-
-    const wrapper = localFactory({ line });
-    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
-    expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
-
-    line = "butt";
-    await setCircleProps(wrapper, { line });
-    expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
-
-    line = "square";
-    await setCircleProps(wrapper, { line });
-    expect(circleProgressWrapper.element.getAttribute("stroke-linecap")).to.equal(`${line}`);
+  it("renders 'round' line type correctly ", () => {
+    expect(
+      localFactory({ line: "round" }).find("circle.ep-circle--progress").element.getAttribute("stroke-linecap")
+    ).to.equal("round");
+  });
+  it("renders 'butt' line type correctly ", () => {
+    expect(
+      localFactory({ line: "butt" }).find("circle.ep-circle--progress").element.getAttribute("stroke-linecap")
+    ).to.equal("butt");
+  });
+  it("renders 'square' line type correctly ", () => {
+    expect(
+      localFactory({ line: "square" }).find("circle.ep-circle--progress").element.getAttribute("stroke-linecap")
+    ).to.equal("square");
   });
 });
 describe("#lineMode", () => {
@@ -46,8 +46,8 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser("center"),
-        animation: animationParser("default 0 0"),
+        lineMode: "center",
+        animation: "default 0 0",
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -110,7 +110,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`in ${offset}`),
+        lineMode: `in ${offset}`,
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -126,7 +126,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`in-over ${offset}`),
+        lineMode: `in-over ${offset}`,
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -143,7 +143,7 @@ describe("#lineMode", () => {
         progress,
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`out ${offset}`),
+        lineMode: `out ${offset}`,
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -159,7 +159,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`out-over ${offset}`),
+        lineMode: `out-over ${offset}`,
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -195,7 +195,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`top ${offset}`),
+        lineMode: `top ${offset}`,
       });
 
       it("circles does not exceed the size and aligns properly in relation to each other", () => {
@@ -211,7 +211,7 @@ describe("#lineMode", () => {
       const wrapper = localFactory({
         thickness,
         emptyThickness,
-        lineMode: localLineModeParser(`bottom ${offset}`),
+        lineMode: `bottom ${offset}`,
       });
 
       describe("radius of the circles does not exceed the size and aligns properly in relation to each other", () => {

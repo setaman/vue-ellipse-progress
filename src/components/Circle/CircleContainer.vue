@@ -12,7 +12,7 @@
         <component :is="circleType" :options="computedOptions" />
       </g>
     </svg>
-    <circle-dot v-if="options.dot" :options="computedOptions" />
+    <circle-dot v-if="options.dot.size" :options="computedOptions" />
   </div>
 </template>
 

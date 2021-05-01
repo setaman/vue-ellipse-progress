@@ -34,23 +34,23 @@
     "vue": "^3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.10",
-    "@vue/cli-plugin-eslint": "^4.5.10",
-    "@vue/cli-plugin-unit-mocha": "^4.5.10",
-    "@vue/cli-service": "^4.5.10",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/cli-plugin-babel": "^4.5.12",
+    "@vue/cli-plugin-eslint": "^4.5.12",
+    "@vue/cli-plugin-unit-mocha": "^4.5.12",
+    "@vue/cli-service": "^4.5.12",
+    "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-airbnb": "^5.3.0",
-    "@vue/test-utils": "^2.0.0-rc.0",
+    "@vue/test-utils": "^2.0.0-rc.6",
     "babel-eslint": "^10.1.0",
-    "chai": "^4.2.0",
-    "eslint": "^7.17.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.4.1",
+    "chai": "^4.3.4",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.9.0",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
-    "sass-loader": "^10.1.0",
-    "vue": "^3.0.5"
+    "sass-loader": "^10.1.1",
+    "vue": "^3.0.6"
   },
   "files": [
     "dist"

@@ -16,11 +16,11 @@
           :style="{ fontSize, color: fontColor }"
         >
           <counter :value="computedLegend" :animation="normalizedCircles[0].animation" :loading="loading">
-            <template v-slot:default="{ counterTick }">
-              <span v-if="legendFormatter">
+            <template #default="{ counterTick }">
+              <template v-if="legendFormatter">
                 <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
                 <span v-else>{{ legendFormatter(counterTick) }}</span>
-              </span>
+              </template>
               <slot v-else :counterTick="counterTick">
                 <span>{{ counterTick.currentFormattedValue }}</span>
               </slot>
