@@ -17,15 +17,6 @@ describe("#dot", () => {
     expect(localFactory().findComponent(CircleDot).exists()).to.be.false;
   });
 
-  it("applies default dot value correctly", () => {
-    const wrapper = localFactory({});
-    const dotSpanWrapper = wrapper.find(".ep-circle--progress__dot");
-
-    expect(dotSpanWrapper.element.style.width).to.equal("0px");
-    expect(dotSpanWrapper.element.style.height).to.equal("0px");
-    expect(dotSpanWrapper.element.style.backgroundColor).to.equal("white");
-  });
-
   it(`calculates and applies correct rotation of the dot container depending on progress`, (done) => {
     const wrapper = localFactory({ progress, dot: 5, animation: "default 0 0" });
     const circleDotWrapper = wrapper.findComponent(CircleDot);

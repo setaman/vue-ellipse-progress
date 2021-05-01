@@ -86,7 +86,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 
   it(`${prefix} don not applies progress before delay`, () => {
     const wrapper = localFactory(
-      { progress, size, thickness, emptyThickness: thickness, animation: animationParser("rs 500 100") },
+      parseRawOptions({ progress, size, thickness, emptyThickness: thickness, animation: "rs 500 100" }),
       container
     );
     const circleProgressWrapper = wrapper.find(circleClass);
@@ -109,7 +109,7 @@ const animationDelayTests = (container, circleClass, prefix = "circle | ") => {
 
 describe("#animation", () => {
   const circleContainerWrapper = localFactory(
-    { progress: 50, dot: 5, animation: animationParser("rs 500 5") },
+    parseRawOptions({ progress: 50, dot: 5, animation: "rs 500 5" }),
     CircleContainer
   );
   const circleDotWrapper = circleContainerWrapper.findComponent(CircleDot);
@@ -149,7 +149,7 @@ describe("#animation", () => {
     animationDelayTests(HalfCircle, "path.ep-half-circle--progress", "half circle |");
 
     const progress = 50;
-    const wrapper = localFactory({ dot: 5, animation: animationParser("rs 500 50") }, CircleContainer);
+    const wrapper = localFactory(parseRawOptions({ dot: 5, animation: "rs 500 50" }), CircleContainer);
     const cdWrapper = wrapper.findComponent(CircleDot);
     const startRotation = wrapper.props("options").angle + 90;
 
@@ -166,7 +166,7 @@ describe("#animation", () => {
     });
     it(`circle dot | do not applies rotation before delay`, () => {
       expect(
-        localFactory({ dot: 5, animation: animationParser("rs 500 200") }, CircleContainer).findComponent(CircleDot)
+        localFactory(parseRawOptions({ dot: 5, animation: "rs 500 200" }), CircleContainer).findComponent(CircleDot)
           .element.style.transform
       ).to.equal(`rotate(${startRotation}deg)`);
     });
