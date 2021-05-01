@@ -188,6 +188,21 @@ describe("[ EllipseProgressContainer.vue ]", () => {
     });
   });
   describe("#legendFormatter", () => {
+    it("calls the #legendFormatter method with counter tick object data as argument ", () => {
+      const formatter = (counterTickData) => {
+        expect(counterTickData).to.be.an("object");
+        return "Nice!";
+      };
+      factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
+    });
+    it("passes at least progress and currentValue properties to #legendFormatter", () => {
+      const formatter = (counterTick) => {
+        expect(counterTick.currentValue).to.be.a("number");
+        expect(counterTick.progress).to.be.a("number");
+        return "Nice!";
+      };
+      factory({ progress: 1, legendFormatter: formatter, animation: "default 0 0" });
+    });
     it("renders the custom formatted value", (done) => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);

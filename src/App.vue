@@ -55,7 +55,18 @@
         </ve-progress>
         <ve-progress :progress="progress" dot="20" animation="bounce 1000 2000"> </ve-progress>
       </div>
-      <ve-progress half line-position="center" :progress="0" :line="parseInt(progress) === 0 ? 'butt' : 'round'">
+      <ve-progress
+        half
+        line-position="center"
+        :progress="50"
+        animation="rs 3000"
+        :legend-formatter="
+          (counterTIck) => {
+            logStuff(counterTIck);
+            return `Hey`;
+          }
+        "
+      >
         <template #default="{ counterTick }">
           <span> Olechka {{ counterTick.currentValue }} {{ logStuff(counterTick) }} </span>
         </template>
@@ -158,12 +169,21 @@ export default {
       console.log(stuff);
     },
     formattedPrice(value) {
+      console.log(value);
       return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
     },
-    customFormatter({ currentValue /* start, end, startTime, previousCountStepValue, elapsed, currentRawValue */ }) {
-      this.price = new Intl.NumberFormat("fr-FR").format(currentValue);
-      // console.log(this.price, currentValue, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
-      return `My ${this.price} Format`;
+    customFormatter({
+      currentValue,
+      progress,
+      start,
+      end,
+      startTime,
+      previousCountStepValue,
+      elapsed,
+      currentRawValue,
+    }) {
+      console.log(currentValue, progress, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
+      return `My ${progress} Format`;
       /* return `
         <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
         <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
