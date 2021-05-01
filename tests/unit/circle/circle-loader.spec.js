@@ -4,53 +4,45 @@ import CircleLoader from "@/components/Circle/CircleLoader.vue";
 import HalfCircleLoader from "@/components/Circle/HalfCircleLoader.vue";
 import { factory, parseRawOptions } from "@/../tests/helper";
 
-const localFactory = (props) => factory({ container: CircleContainer, props });
+const localFactory = (props) => factory({ container: CircleContainer, props: parseRawOptions(props) });
 
 const loaderTests = (selector, half = false) => {
   describe("loader", () => {
     it("do not renders loader component by default", () => {
       expect(
-        localFactory(parseRawOptions({ half }))
+        localFactory({ half })
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.false;
     });
     it("do not renders loader component in loading und noData states", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true, noData: true }))
+        localFactory({ half, loading: true, noData: true })
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.false;
     });
     it("renders loader component in loading mod", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true }))
+        localFactory({ half, loading: true })
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.true;
     });
     it("renders loader component in determinate mod", () => {
       expect(
-        localFactory(parseRawOptions({ half, determinate: true }))
+        localFactory({ half, determinate: true })
           .findComponent(half ? HalfCircleLoader : CircleLoader)
           .exists()
       ).to.be.true;
     });
     it("has a loading animation class", () => {
-      expect(
-        localFactory(parseRawOptions({ half, loading: true }))
-          .find(selector)
-          .classes()
-      )
+      expect(localFactory({ half, loading: true }).find(selector).classes())
         .to.be.an("array")
         .that.includes("animation__loading");
     });
     it("has transparent fill color", () => {
-      expect(
-        localFactory(parseRawOptions({ half, loading: true }))
-          .find(selector)
-          .element.getAttribute("fill")
-      ).to.equal("transparent");
+      expect(localFactory({ half, loading: true }).find(selector).element.getAttribute("fill")).to.equal("transparent");
     });
     describe("replicates progress circle by default", () => {
       const props = {
@@ -60,8 +52,13 @@ const loaderTests = (selector, half = false) => {
         thickness: 15,
       };
 
-      const parsedProps = parseRawOptions({ color: props.color, thickness: props.thickness, line: props.line });
-      const wrapper = localFactory({ ...parsedProps, half, loading: true });
+      const wrapper = localFactory({
+        color: props.color,
+        thickness: props.thickness,
+        line: props.line,
+        half,
+        loading: true,
+      });
       const loaderWrapper = wrapper.find(selector);
       const expectedRadius = wrapper
         .find(`.ep-${half ? "half-" : ""}circle--progress`)
@@ -111,7 +108,7 @@ const loaderTests = (selector, half = false) => {
   describe("loader.thickness", () => {
     it("applies thickness correctly", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true, loader: { thickness: 15 } }))
+        localFactory({ half, loading: true, loader: { thickness: 15 } })
           .find(selector)
           .element.getAttribute("stroke-width")
       ).to.equal("15");
@@ -120,14 +117,13 @@ const loaderTests = (selector, half = false) => {
   describe("loader.opacity", () => {
     it("has default 0.55 opacity", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true })).find(
-          `.ep-${half ? "half-" : ""}circle--loader__container`
-        ).element.style.opacity
+        localFactory({ half, loading: true }).find(`.ep-${half ? "half-" : ""}circle--loader__container`).element.style
+          .opacity
       ).to.equal("0.55");
     });
     it("applies opacity value correctly", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true, loader: { opacity: 0.3 } })).find(
+        localFactory({ half, loading: true, loader: { opacity: 0.3 } }).find(
           `.ep-${half ? "half-" : ""}circle--loader__container`
         ).element.style.opacity
       ).to.equal("0.3");
@@ -136,7 +132,7 @@ const loaderTests = (selector, half = false) => {
   describe("loader.line", () => {
     it("applies line prop correctly", () => {
       expect(
-        localFactory(parseRawOptions({ half, loading: true, loader: { line: "butt" } }))
+        localFactory({ half, loading: true, loader: { line: "butt" } })
           .find(`.ep-${half ? "half-" : ""}circle--loader`)
           .element.getAttribute("stroke-linecap")
       ).to.equal("butt");

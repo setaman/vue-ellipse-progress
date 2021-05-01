@@ -2,15 +2,18 @@ import { expect } from "chai";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Circle from "@/components/Circle/Circle.vue";
 import HalfCircle from "@/components/Circle/HalfCircle.vue";
-import { factory } from "@/../tests/helper";
+import { factory, parseRawOptions } from "@/../tests/helper";
 
 const localFactory = (props) =>
-  factory({ container: CircleContainer, props: { colorFill: "black", emptyColorFill: "black", ...props } });
+  factory({
+    container: CircleContainer,
+    props: parseRawOptions({ colorFill: "black", emptyColorFill: "black", ...props }),
+  });
 
 const linePositionTests = (linePositionProp, selector, half = false, empty = false) => {
   describe("linePosition.mode", () => {
     describe("linePosition.mode.center", () => {
-      const wrapper = localFactory({ [linePositionProp]: { position: "center" }, half });
+      const wrapper = localFactory({ [linePositionProp]: "center", half });
       const fillCircleWrapper = wrapper.find(selector);
       const circleWrapper = wrapper.findComponent(half ? HalfCircle : Circle);
 
@@ -35,7 +38,7 @@ const linePositionTests = (linePositionProp, selector, half = false, empty = fal
       const thickness = 20;
       const size = 200;
       const wrapper = localFactory({
-        [linePositionProp]: { position: "in" },
+        [linePositionProp]: "in",
         half,
         size,
         thickness,
@@ -69,7 +72,7 @@ const linePositionTests = (linePositionProp, selector, half = false, empty = fal
       const size = 200;
       const offset = 0;
       const wrapper = localFactory({
-        [linePositionProp]: { position: "out", offset },
+        [linePositionProp]: `out ${offset}`,
         half,
         size,
         thickness,
@@ -105,7 +108,7 @@ const linePositionTests = (linePositionProp, selector, half = false, empty = fal
       const size = 200;
       const offset = 20;
       const wrapper = localFactory({
-        [linePositionProp]: { position: "out", offset },
+        [linePositionProp]: `out ${offset}`,
         half,
         size,
         thickness,

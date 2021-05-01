@@ -1,9 +1,18 @@
 import { expect } from "chai";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Gradient from "@/components/Gradient.vue";
-import { factory } from "@/../tests/helper";
+import { factory, parseRawOptions } from "@/../tests/helper";
 
-const localFactory = (props) => factory({ container: CircleContainer, props });
+const localFactory = (props) =>
+  factory({
+    container: CircleContainer,
+    props: parseRawOptions({
+      ...props,
+      loader: {
+        color: "red",
+      },
+    }),
+  });
 
 const gradientColor = {
   radial: false,

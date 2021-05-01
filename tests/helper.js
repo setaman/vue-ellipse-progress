@@ -85,7 +85,7 @@ const mockProps = {
   },
   previousCircles: [],
 };
-mockProps.loaderOptions = mockProps;
+mockProps.loader = mockProps;
 
 export { mockProps };
 
