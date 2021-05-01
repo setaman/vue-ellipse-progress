@@ -130,10 +130,10 @@ describe("[ Counter.vue ]", () => {
         animation: "default 200 600",
       }).findComponent(Counter);
       expect(counterWrapper.vm.currentValue).to.equal(0);
-      // expect(counterWrapper.element.textContent).to.equal("0");
+      expect(counterWrapper.element.textContent).to.equal("0");
       setTimeout(() => {
         expect(counterWrapper.vm.currentValue).to.equal(0);
-        // expect(counterWrapper.element.textContent).to.equal("0");
+        expect(counterWrapper.element.textContent).to.equal("0");
         done();
       }, 500);
     });
