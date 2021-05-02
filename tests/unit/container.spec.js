@@ -5,6 +5,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
+import { defaultCounterTick } from "@/../tests/helper";
 
 const factory = (propsData, slots = {}) => {
   return mount(VueEllipseProgress, {
@@ -193,12 +194,13 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         expect(counterTickData).to.be.an("object");
         return "Nice!";
       };
-      factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
+      factory({ legendFormatter: formatter, animation: "default 0 0" });
     });
     it("passes at least progress and currentValue properties to #legendFormatter", () => {
       const formatter = (counterTick) => {
-        expect(counterTick.currentValue).to.be.a("number");
-        // expect(counterTick.progress).to.be.a("number");
+        for (const prop in defaultCounterTick) {
+          expect(counterTick).to.have.a.property(prop);
+        }
         return "Nice!";
       };
       factory({ progress: 1, legendFormatter: formatter, animation: "default 0 0" });

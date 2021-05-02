@@ -87,6 +87,22 @@ const mockProps = {
 };
 mockProps.loader = mockProps;
 
+export const defaultCounterTick = {
+  currentValue: 0,
+  countProgress: 0,
+  currentFormattedValue: "0",
+  currentRawValue: 0,
+  duration: 0,
+  previousCountStepValue: 0,
+  start: 0,
+  end: 0,
+  difference: 0,
+  currentDifference: 0,
+  oneStepDifference: 0,
+  startTime: 0,
+  elapsed: 0,
+};
+
 export { mockProps };
 
 export const wait = (ms = 400) => new Promise((resolve) => setTimeout(() => resolve(), ms));

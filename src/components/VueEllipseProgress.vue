@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getNumberIfValid, isValidNumber } from "../utils";
+import { getNumberIfValid, isValidNumber, defaultCounterTick } from "../utils";
 import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
@@ -62,7 +62,7 @@ export default {
       return this.data.length > 1;
     },
     isHTML() {
-      return /<[a-z/][\s\S]*>/i.test((this.legendFormatter({}) || "").toString().trim());
+      return /<[a-z/][\s\S]*>/i.test((this.legendFormatter(defaultCounterTick) || "").toString().trim());
     },
     circlesData() {
       if (this.isMultiple) {
