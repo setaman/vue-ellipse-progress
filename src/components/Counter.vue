@@ -24,6 +24,7 @@ export default {
   data: () => ({
     start: 0,
     startTime: 0,
+    elapsed: 0,
     currentValue: 0,
     raf: null,
     previousCountStepValue: 0,
@@ -42,6 +43,9 @@ export default {
     difference() {
       return Math.abs(this.end - this.start);
     },
+    currentDifference() {
+      return Math.abs(this.end - this.currentValue);
+    },
     oneStepDifference() {
       return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
@@ -57,10 +61,13 @@ export default {
     duration() {
       return this.animation.duration;
     },
+    countProgress() {
+      return (Math.abs(this.currentDifference - this.difference) * 100) / (this.difference || 1);
+    },
     counterProps() {
       return {
         currentValue: parseFloat(this.formattedValue),
-        progress: (this.currentValue * 100) / (this.end || 1),
+        countProgress: this.countProgress,
         currentFormattedValue: this.formattedValue,
         currentRawValue: this.currentValue,
         duration: this.duration,
@@ -68,9 +75,10 @@ export default {
         start: this.start,
         end: this.end,
         difference: this.difference,
+        currentDifference: this.currentDifference,
         oneStepDifference: this.oneStepDifference,
         startTime: this.startTime,
-        elapsed: 0,
+        elapsed: this.elapsed,
       };
     },
   },
@@ -83,28 +91,28 @@ export default {
       if (!this.startTime) {
         this.startTime = timeStamp;
       }
-      const elapsed = timeStamp - this.startTime;
+      this.elapsed = timeStamp - this.startTime;
       if (this.end >= this.start) {
-        this.countUp(elapsed);
+        this.countUp();
       } else {
-        this.countDown(elapsed);
+        this.countDown();
       }
-      if (elapsed < this.duration && this.difference > 0.1) {
+      if (this.elapsed < this.duration && this.difference > 0.1) {
         cancelAnimationFrame(this.raf);
         this.raf = requestAnimationFrame(this.count);
       }
-      if (elapsed >= this.duration) {
+      if (this.elapsed >= this.duration) {
         this.currentValue = this.end;
         this.reset();
       }
     },
-    countDown(elapsed) {
-      const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+    countDown() {
+      const decreaseValue = Math.min(this.oneStepDifference * (this.elapsed || 1), this.difference);
       this.currentValue -= decreaseValue - this.previousCountStepValue;
       this.previousCountStepValue = decreaseValue;
     },
-    countUp(elapsed) {
-      const increaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+    countUp() {
+      const increaseValue = Math.min(this.oneStepDifference * (this.elapsed || 1), this.difference);
       this.currentValue += increaseValue - this.previousCountStepValue;
       this.previousCountStepValue = increaseValue;
     },

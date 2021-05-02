@@ -38,17 +38,7 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress
-          :progress="progress"
-          animation="rs 2000 3000"
-          :legend-formatter="
-            (c) => {
-              logStuff(c);
-              return parseInt(c.progress);
-            }
-          "
-        >
-        </ve-progress>
+        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter"> </ve-progress>
       </div>
     </div>
   </div>
@@ -151,22 +141,19 @@ export default {
       console.log(value);
       return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
     },
-    customFormatter({
-      currentValue,
-      progress,
-      start,
-      end,
-      startTime,
-      previousCountStepValue,
-      elapsed,
-      currentRawValue,
-    }) {
-      console.log(currentValue, progress, currentRawValue, previousCountStepValue, start, end, startTime, elapsed);
-      return `My ${progress} Format`;
-      /* return `
-        <span style="font-weight: bold; font-size: 1.6rem">${this.price.slice(0, this.price.indexOf(","))}</span>
-        <span>${this.price.slice(this.price.indexOf(","), this.price.length)}</span>
-      `; */
+    customFormatter(c) {
+      console.log(c);
+      const f = "0000";
+      const f2 = "00";
+      const cv = (c.currentRawValue || 0.0).toFixed(2).toString().split(".");
+      const pre = `${f.slice(cv[0]?.length)}${cv[0]}`;
+      const post = `${f2.slice((cv[1] ?? []).length)}${cv[1] ?? []}`;
+      return `
+        <span>
+          <span style="font-size: 2rem; font-weight: bold">${[...pre].map((v) => v).join(" ")}</span> .
+          <span>${[...post].map((v) => v).join(" ")}</span>
+        </span>
+      `;
     },
     updateProgress() {
       this.progress = parseFloat(Math.floor(Math.random() * 100).toFixed(2));
