@@ -66,7 +66,7 @@ export const loaderParser = (loader, options) => ({
   ...loader,
   color: loader.color || options.color,
   line: loader.line || options.line,
-  lineMode: lineModeParser(loader.lineMode || options.lineMode, false),
+  lineMode: lineModeParser(loader.lineMode || options.lineMode, options.multiple),
   thickness: calcThickness(loader.thickness || options.thickness, options.size),
 });
 
