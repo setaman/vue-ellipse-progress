@@ -9,7 +9,8 @@
     "build": "vue-cli-service build --target lib --formats umd-min --name veprogress ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "test": "vue-cli-service test:unit --colors",
-    "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta"
+    "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta",
+    "changelog": "auto-changelog --template changelog-template.hbs"
   },
   "author": {
     "name": "Sergej Atamantschuk",
@@ -41,6 +42,7 @@
     "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-airbnb": "^5.3.0",
     "@vue/test-utils": "^2.0.0-rc.6",
+    "auto-changelog": "^2.2.1",
     "babel-eslint": "^10.1.0",
     "chai": "^4.3.4",
     "eslint": "^7.25.0",
@@ -54,5 +56,12 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "auto-changelog": {
+    "unreleased": true,
+    "commitLimit": false,
+    "breakingPattern": ".!:.",
+    "startingVersion": "v2.0.0-alpha.4",
+    "package": false
+  }
 }
