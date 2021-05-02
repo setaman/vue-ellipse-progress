@@ -38,7 +38,9 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter"> </ve-progress>
+        <!--        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter">
+        </ve-progress>-->
+        <ve-progress :progress="progress" animation="default 2500 1000" legend="0001239,5465"></ve-progress>
       </div>
     </div>
   </div>
@@ -142,7 +144,7 @@ export default {
       return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(value);
     },
     customFormatter(c) {
-      console.log(c);
+      // console.log(c);
       const f = "0000";
       const f2 = "00";
       const cv = (c.currentRawValue || 0.0).toFixed(2).toString().split(".");

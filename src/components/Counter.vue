@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { isString } from "../utils";
+
 export default {
   name: "Counter",
   props: {
@@ -50,9 +52,18 @@ export default {
       return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
     delimiter() {
-      return this.value.toString().search(",") >= 0 ? "," : ".";
+      return this.value.toString().includes(",") ? "," : ".";
     },
     formattedValue() {
+      if (isString(this.value)) {
+        let [preFormat] = this.value.toString().replace(/\s/g, "").split(this.delimiter);
+        preFormat = [...preFormat].fill("0").join("");
+        const [pre, post] = this.currentValue
+          .toFixed(this.decimalsCount)
+          .replace(".", this.delimiter)
+          .split(this.delimiter);
+        return `${preFormat.slice(pre.length)}${pre}${post ? this.delimiter + post : ""}`;
+      }
       return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
     },
     delay() {
@@ -63,6 +74,10 @@ export default {
     },
     countProgress() {
       return (Math.abs(this.currentDifference - this.difference) * 100) / (this.difference || 1);
+    },
+    decimalsCount() {
+      if (!isString(this.value) && this.value % 1 === 0) return 0;
+      return this.value.toString().replace(/\s/g, "").split(this.delimiter)[1].length;
     },
     counterProps() {
       return {
@@ -85,7 +100,7 @@ export default {
   methods: {
     countDecimals() {
       if (this.value % 1 === 0) return 0;
-      return this.value.toString().split(this.delimiter)[1].length;
+      return this.value.toString().replace(/\s/g, "").split(this.delimiter)[1].length;
     },
     count(timeStamp) {
       if (!this.startTime) {

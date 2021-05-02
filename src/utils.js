@@ -1,4 +1,5 @@
 const isValidNumber = (prop) => prop !== undefined && prop !== "" && prop !== null && !Number.isNaN(parseFloat(prop));
+export const isString = (prop) => typeof prop === "string" || prop instanceof String;
 
 const getNumberIfValid = (prop) => {
   if (isValidNumber(prop)) {
