@@ -366,11 +366,11 @@ Boolean value that defines whether the **[`progress`](#progress)** or from you d
 
 ###### Animated: ✔️
 
-Is any Number or String. Use this property if you want to show progress value as the legend of the circle that is not in
-the range [-100, 100]. If defined, `legend` will replace [`progress`](#progress) as the circle legend!
-You can set any precision of the decimal numbers. If the prop is defined as a string, you can specify the `","` 
-as decimals delimiter (e.g "123,123" for german numbers), apart from this the value must generally be a valid JavaScript Number.
-For more customization possibilities please use [`legendFormatter`](#legendformatter) or [`scoped slot`](#default). 
+Is any Number or String. Use this property if you want to show the progress value as the legend of the circle that is not in
+the range [-100, 100]. If defined, `legend` will replace [`progress`](#progress) as the circle legend! Defining the value as 
+string you can apply very simple formatting with `"."` or `","` as delimiter to set initial counter placeholder (e.g "0045.00"). 
+Apart from this the value must generally be a valid JavaScript Number. For more customization possibilities please 
+use [`legendFormatter`](#legendformatter) or [`scoped slot`](#default). 
 
 ###### Example: 📜
 
@@ -387,7 +387,7 @@ this.progress = this.rating * 100 / 5; // the rating percentage
 Now you can display custom progress value that still animated and circle progress fills properly!
 
 ```vue
-<ve-progress legend="345,12345" /> // set "," as delimiter defining the value as string
+<ve-progress legend="0100,450" /> // counts up from "0000,000"
 ```
 
 >❗ note that `legend` replaces **[`progress`](#progress)** as circle legend.
