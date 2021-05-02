@@ -51,12 +51,12 @@ describe("[ Counter.vue ]", () => {
       {
         legend: 56.34,
         count: 2,
-        start: "0.00",
+        start: "00.00",
       },
       {
         legend: "25,564",
         count: 3,
-        start: "0,000",
+        start: "00,000",
       },
       {
         legend: "-30,5",
@@ -77,7 +77,7 @@ describe("[ Counter.vue ]", () => {
       const counterWrapper = wrapper.findComponent(Counter);
 
       it("counts the decimals correctly", () => {
-        expect(counterWrapper.vm.countDecimals()).to.equal(count);
+        expect(counterWrapper.vm.decimalsCount).to.equal(count);
       });
 
       it("renders the start value with the correct number of decimals places", () => {

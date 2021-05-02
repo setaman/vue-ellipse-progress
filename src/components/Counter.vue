@@ -55,7 +55,7 @@ export default {
       return this.value.toString().includes(",") ? "," : ".";
     },
     formattedValue() {
-      if (isString(this.value)) {
+      if (isString(this.value) && !this.value.includes("-")) {
         let [preFormat] = this.value.toString().replace(/\s/g, "").split(this.delimiter);
         preFormat = [...preFormat].fill("0").join("");
         const [pre, post] = this.currentValue
@@ -64,7 +64,7 @@ export default {
           .split(this.delimiter);
         return `${preFormat.slice(pre.length)}${pre}${post ? this.delimiter + post : ""}`;
       }
-      return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
+      return this.currentValue.toFixed(this.decimalsCount).replace(".", this.delimiter);
     },
     delay() {
       return this.animation.delay;
@@ -77,7 +77,7 @@ export default {
     },
     decimalsCount() {
       if (!isString(this.value) && this.value % 1 === 0) return 0;
-      return this.value.toString().replace(/\s/g, "").split(this.delimiter)[1].length;
+      return (this.value.toString().replace(/\s/g, "").split(this.delimiter)[1] || "").length;
     },
     counterProps() {
       return {
@@ -98,10 +98,6 @@ export default {
     },
   },
   methods: {
-    countDecimals() {
-      if (this.value % 1 === 0) return 0;
-      return this.value.toString().replace(/\s/g, "").split(this.delimiter)[1].length;
-    },
     count(timeStamp) {
       if (!this.startTime) {
         this.startTime = timeStamp;
