@@ -40,7 +40,7 @@
       <div style="border: 1px solid red; display: inline-block">
         <!--        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter">
         </ve-progress>-->
-        <ve-progress :progress="progress" animation="default 2500 1000" :legend="-123"></ve-progress>
+        <ve-progress :progress="progress" animation="default 2500 1000" :legend="-123.1"></ve-progress>
       </div>
     </div>
   </div>

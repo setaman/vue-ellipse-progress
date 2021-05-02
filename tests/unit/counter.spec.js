@@ -33,11 +33,11 @@ describe("[ Counter.vue ]", () => {
   describe("#value", async () => {
     it("renders the final value correctly", (done) => {
       const counterWrapper = factory({
-        legend: 50,
+        legend: "50.00",
         animation: `default 0 0`,
       }).findComponent(Counter);
       setTimeout(() => {
-        expect(counterWrapper.element.textContent).to.equal("50");
+        expect(counterWrapper.element.textContent).to.equal("50.00");
       }, 100);
       done();
     });
@@ -45,22 +45,47 @@ describe("[ Counter.vue ]", () => {
     const values = [
       {
         legend: -45.2456,
-        count: 4,
+        decimalsCount: 4,
         start: "0.0000",
       },
       {
         legend: 56.34,
-        count: 2,
+        decimalsCount: 2,
+        start: "0.00",
+      },
+      {
+        legend: 98.0,
+        decimalsCount: 0,
+        start: "0",
+      },
+      {
+        legend: "98.0",
+        decimalsCount: 1,
+        start: "00.0",
+      },
+      {
+        legend: "100.00",
+        decimalsCount: 2,
+        start: "000.00",
+      },
+      {
+        legend: "00100.00",
+        decimalsCount: 2,
+        start: "00000.00",
+      },
+      {
+        legend: "56.34",
+        decimalsCount: 2,
         start: "00.00",
       },
       {
         legend: "25,564",
-        count: 3,
+        decimalsCount: 3,
         start: "00,000",
       },
       {
         legend: "-30,5",
-        count: 1,
+        decimalsCount: 1,
         start: "0,0",
       },
     ];
@@ -69,57 +94,60 @@ describe("[ Counter.vue ]", () => {
       delay: 1000,
     };
     for (const val of values) {
-      const { legend, count, start } = val;
+      const { legend, decimalsCount, start } = val;
       const wrapper = factory({
         legend,
         animation: `default ${animation.duration} ${animation.delay}`,
       });
-      const counterWrapper = wrapper.findComponent(Counter);
 
-      it("counts the decimals correctly", () => {
-        expect(counterWrapper.vm.decimalsCount).to.equal(count);
-      });
+      describe(`${legend}`, () => {
+        const counterWrapper = wrapper.findComponent(Counter);
 
-      it("renders the start value with the correct number of decimals places", () => {
-        expect(counterWrapper.element.textContent).to.equal(start);
-      });
-
-      if (legend.toString().includes(",")) {
-        it("accepts `,` as delimiter", () => {
-          expect(counterWrapper.vm.delimiter).to.equal(",");
+        it("counts the decimals correctly", () => {
+          expect(counterWrapper.vm.decimalsCount).to.equal(decimalsCount);
         });
 
-        it("displays the provided #value with `,` as delimiter", () => {
-          expect(counterWrapper.element.textContent).to.have.string(",");
+        it("renders the start value with the correct number of decimals and integer places", () => {
+          expect(counterWrapper.element.textContent).to.equal(start);
         });
 
-        it("converts #value to decimal correctly, if provided with `,` as delimiter", () => {
-          expect(counterWrapper.vm.end).to.equal(parseFloat(legend.toString().replace(",", ".")));
+        if (legend.toString().includes(",")) {
+          it("accepts `,` as delimiter", () => {
+            expect(counterWrapper.vm.delimiter).to.equal(",");
+          });
+
+          it("displays the provided #value with `,` as delimiter", () => {
+            expect(counterWrapper.element.textContent).to.have.string(",");
+          });
+
+          it("converts #value to decimal correctly, if provided with `,` as delimiter", () => {
+            expect(counterWrapper.vm.end).to.equal(parseFloat(legend.toString().replace(",", ".")));
+          });
+        }
+
+        it("calculates the difference between the start and end values correctly", () => {
+          const endValue = parseFloat(legend.toString().replace(",", "."));
+          const startValue = 0;
+          const diff = Math.abs(endValue - startValue);
+          expect(counterWrapper.vm.difference).to.equal(diff);
         });
-      }
 
-      it("calculates the difference between the start and end values correctly", () => {
-        const endValue = parseFloat(legend.toString().replace(",", "."));
-        const startValue = 0;
-        const diff = Math.abs(endValue - startValue);
-        expect(counterWrapper.vm.difference).to.equal(diff);
-      });
+        it("calculates the one step count value correctly", () => {
+          const endValue = parseFloat(legend.toString().replace(",", "."));
+          const startValue = 0;
+          const diff = Math.abs(endValue - startValue);
+          const duration = animation.duration;
+          const oneStepCountValue = diff / duration;
+          expect(counterWrapper.vm.oneStepDifference).to.equal(oneStepCountValue);
+        });
 
-      it("calculates the one step count value correctly", () => {
-        const endValue = parseFloat(legend.toString().replace(",", "."));
-        const startValue = 0;
-        const diff = Math.abs(endValue - startValue);
-        const duration = animation.duration;
-        const oneStepCountValue = diff / duration;
-        expect(counterWrapper.vm.oneStepDifference).to.equal(oneStepCountValue);
-      });
-
-      it("calculates the one step count value correctly with 0 duration", async () => {
-        await wrapper.setProps({ animation: "default 0 0" });
-        const endValue = parseFloat(legend.toString().replace(",", "."));
-        const startValue = 0;
-        const diff = Math.abs(endValue - startValue);
-        expect(counterWrapper.vm.oneStepDifference).to.equal(diff);
+        it("calculates the one step count value correctly with 0 duration", async () => {
+          await wrapper.setProps({ animation: "default 0 0" });
+          const endValue = parseFloat(legend.toString().replace(",", "."));
+          const startValue = 0;
+          const diff = Math.abs(endValue - startValue);
+          expect(counterWrapper.vm.oneStepDifference).to.equal(diff);
+        });
       });
     }
   });
