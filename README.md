@@ -32,7 +32,7 @@ createApp(App).use(veProgress);
 Use your package manager or CDN to install and initialize the component.
 
 ### NPM
-Install the library via npm:
+Installation via npm:
 ```
 npm i vue-ellipse-progress
 ```
