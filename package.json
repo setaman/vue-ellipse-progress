@@ -36,6 +36,7 @@
     "vue": "^3"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^12.1.4",
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-unit-mocha": "^4.5.13",
@@ -46,6 +47,7 @@
     "auto-changelog": "^2.2.1",
     "babel-eslint": "^10.1.0",
     "chai": "^4.3.4",
+    "commitlint": "^12.1.4",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
