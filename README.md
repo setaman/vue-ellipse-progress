@@ -1,5 +1,5 @@
 # vue-ellipse-progress
-[![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/beta?color=yellow&label=NPM&style=for-the-badge)](https://www.npmjs.com/package/vue-ellipse-progress)
+[![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/next?color=success&label=NPM&style=for-the-badge)](https://www.npmjs.com/package/vue-ellipse-progress)
 [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/setaman/vue-ellipse-progress?style=for-the-badge)](https://snyk.io/test/npm/vue-ellipse-progress/1.3.0)
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/setaman/vue-ellipse-progress/build?style=for-the-badge)](https://github.com/setaman/vue-ellipse-progress/actions/workflows/build.yml)
@@ -8,7 +8,7 @@ A dependency-free simple, flexible and smooth Vue.js plugin to create beautiful 
 Start creating circles in three steps:
 ```js
 // install
-npm i vue-ellipse-progress@beta
+npm i vue-ellipse-progress@next
 // initialize
 import veProgress from "vue-ellipse-progress";
 createApp(App).use(veProgress);
@@ -34,7 +34,7 @@ Use your package manager or CDN to install and initialize the component.
 ### NPM
 Installation via npm:
 ```
-npm i vue-ellipse-progress
+npm i vue-ellipse-progress@next
 ```
 After the installation you have the choice to initialize the component as a plugin or to import it directly.
 

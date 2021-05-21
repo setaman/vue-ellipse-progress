@@ -51,11 +51,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
 
-  {{#commit-list commits heading='##### 🚧 Fixes' message='fix: ' exclude='.!:.'}}
+  {{#commit-list commits heading='##### 🚧 Fixes' message='(fix|refac): ' exclude='.!:.'}}
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
 
-  {{#commit-list commits heading='##### 📜 Misc' message='(chore|test|doc): ' exclude='.!:.'}}
+  {{#commit-list commits heading='##### 📜 Misc' message='(chore|test|doc|docs): ' exclude='.!:.'}}
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
 
