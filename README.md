@@ -152,9 +152,8 @@ The **[`progress`](#progress)** is the only required property and you are ready 
 ###### Animated: ✔️ 
 
 Is any Number in range \[-100, 100] (including **decimals**). This property defines the filled area from progress circle line in 
-percent. `progress` is animated and counts up or down on any value changes with duration defined in 
-**[`animation.duration`](#animation)** property. The progress is shown by default as the **legend** in the middle of the circle.
-Set a negative value to fill the progress counterclockwise. Alternative you can use [`reverse`](#reverse).
+percent and is shown by default as the **legend** in the middle of the circle. `progress` is animated and counts up or down on any value changes with duration defined in 
+**[`animation.duration`](#animation)** property. Set a negative value to fill the progress line counterclockwise. Alternatively [`reverse`](#reverse) can be used.
 
 ###### Example: 📜
 
@@ -165,11 +164,10 @@ this.myProgress = 55.5;
 this.myProgress = this.tasksDone * 100 / maxTasks; // the percentage of done tasks
 ```
 
->❗ The `progress` is always used to fill the progress circle line. So you cannot customize this 
->value, it should be always in the range [-100, 100] and not valid Numbers lead to **[`noData`](#noData)** state. 
+>❗ The `progress` is always used to fill the progress circle line, it should be always in the range [-100, 100] and not valid Numbers lead to **[`noData`](#noData)** state. 
 >For customization purpose please use **[`legend`](#legend)** and take a look at **[`legendFormatter`](#legendformatter)**. 
 
->❗ If **[`legend`](#legend)** is defined the progress will **NOT** be displayed as circle legend.
+>❗ If **[`legend`](#legend)** is defined the `progress` will **not** be displayed as circle legend.
 
 <br>
 
@@ -189,7 +187,7 @@ circle depends on the properties **[`lineMode`](#linemode)**, **[`thickness`](#t
 
 ###### Animated: ✔️
 
-Is a string value from `round | square | butt`. Defines the progress circle line cap. Internally is used the CSS property `stroke-linecap`.
+Is a String value from `round | square | butt`. Defines the progress circle line cap. Internally the CSS property `stroke-linecap` is used.
 
 ###### Example: 📜
 
@@ -203,8 +201,7 @@ Is a string value from `round | square | butt`. Defines the progress circle line
 
 ###### Animated: ✔️
 
-Is a number >=0 or a string to define a percent value. It defines the progress line thickness. 
-If you set the value in percent as string, the thickness will be calculated in relation to **[`size`](#size)**.
+Is a Number >=0 or a String that defines the progress line thickness. If you set the value in percent as String, the thickness will be calculated in relation to **[`size`](#size)**.
 
 ###### Example: 📜
 
@@ -219,8 +216,7 @@ If you set the value in percent as string, the thickness will be calculated in r
 
 ###### Animated: ✔️
 
-Is a number >=0 or a string to define a percent value.
-It defines the empty circle line thickness. If you define the value in percent, thickness will be calculated in relation to **[`size`](#size)**.
+Is a Number >=0 or a String. It defines the empty circle line thickness. If you set the value in percent, thickness will be calculated in relation to **[`size`](#size)**.
 
 <br>
 
@@ -228,7 +224,7 @@ It defines the empty circle line thickness. If you define the value in percent, 
 
 ###### Animated: ✔️ 
 
-Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to empty line. 
+Descriptive string in form `"mode [offset]"` that defines, how the progress line is aligned in relation to empty line. 
 The first value ist the `mode` and the optional second is the `offset`. You can understand the modes as the presets that
 help you to align lines as you want to. 
 
@@ -254,7 +250,7 @@ help you to align lines as you want to.
   - `top`: the progress line is aligned at the top of the empty line
   <img width="100" height="35" src="https://github.com/setaman/Bilder/blob/master/ellipse-top.png">
 
-- `offset`: is any negative or positive number and defines the distance between the progress and empty lines. It can be **only** combined with the `in` and `out` modes
+- `offset`: is any negative or positive Number and defines the distance between the progress and empty lines. It can be **only** combined with the `in` and `out` modes
 
 ###### Example: 📜
 
@@ -264,7 +260,7 @@ Let's take a look at few examples:
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
-As you can see the second and fourth examples are similar to the modes `bottom` and `top`. Only with the modes `in` and `out` and the `offset` you can achieve the same result. But the provided modes like a presets take care about annoying calculations and do the job for you.
+In general, any positioning can already be achieved with values `in` and `out` in a combination with certain `offset`. The modes, however, act like presets, which reduce the effort for the manuall calculations. 
 
 <br>
 
@@ -273,7 +269,7 @@ As you can see the second and fourth examples are similar to the modes `bottom` 
 
 ###### Animated: ✔️
 
-Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the fill area. 
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the cirlce fill area. 
 Available modes are  `center`, `in` and `out`. Additionally, with the `out` mode you can provide an `offset` value as any Number.
 In general, this prop makes it possible to mimic the SVG2 `stroke-aligment`, which is currently not supported in any browser.
 
@@ -300,12 +296,12 @@ The usage is similar to [linePosition](#lineposition).
 
 ###### Animated: ✔️
 
-Defines the color of progress circle **line**. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
+Defines the color of progress circle line. Is any CSS color like `#123` or `lime` or an object that defines the gradient.
 
 - `color="#3f79ff"` - as String
 
 - `:color="{ colors [, radial ]}"` - as Object
-  - `radial` - default `false`. Defines whether the gradient is radial or linear
+  - `radial` - default `false`. Boolean that defines, whether the gradient is radial or linear
   - `colors` - array that contains the gradient colors as objects `{ color: "#6546f7", offset: "10" [, opacity: 1] }`
     
 ###### Example: 📜
@@ -358,7 +354,7 @@ Defines the fill color of the empty circle. Takes the same value as **[`color`](
 
 - ### `hideLegend`
 
-Boolean value that defines whether the **[`progress`](#progress)** or from you defined  **[`legend`](#legend)** is displayed as the legend of the circle.
+Boolean that defines whether the legend value (**[`progress`](#progress)** or  **[`legend`](#legend)**) is hidden.
 
 <br>
 
@@ -398,24 +394,24 @@ Now you can display custom progress value that still animated and circle progres
 - ### `legendFormatter` 
 
 Is a Function that must return your custom formatted value. The function takes counter properties object as argument and 
-is called on every tick of the counter. Here the formatting of [legend](#legend) or [progress](#progress) 
-is completely up to you and you have full freedom to adjust the presentation to your needs. The function can return any 
+is called on every counter tick. Here the formatting of [legend](#legend) or [progress](#progress) 
+is completely up to you and you have the full freedom to adjust the presentation to your needs. The function can return any 
 value, even HTML.   
 
 >❕ alternatively you can use **[`scoped slot`](#default)** for custom formatting.
 
 ###### Example: 📜
 
-Let's see how it works. The function takes counter properties object as argument that you can use to define custom formatting.
+The function takes counter properties Object as argument that you can use to define custom formatting.
 `currentValue` is the most relevant value, as it is the actual value at specific counter tick. The return value will be 
 displayed as the legend of the circle.
 
 ```js
-const myFormatter = ({ currentValue, currentRawValue, duration, previousCountStepValue, start, end, difference, oneStepDifference, startTime, elapsed }) => {
+const myFormatter = ({ currentValue, ...otherProps }) => {
   return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue); 
 }
 ```
-You can also return HTML:
+The funtion can also return HTML:
 ```js
 const myFormatter = ({ currentValue }) => {
      return `
@@ -429,7 +425,7 @@ Finally, set your formatter as prop:
 
 ```vue
 <ve-progress :legend-formatter="myFormatter"/>
-<!-- shorter version if you wish-->
+<!-- shorter version-->
 <ve-progress :legend-formatter="({ currentValue }) => `My Format ${currentValue}`"/>
 ````
 
@@ -437,7 +433,7 @@ Finally, set your formatter as prop:
 
 - ### `animation`
 
-Descriptive string in form `"type [duration delay]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are number values. Note that the order is important and that you can only define the `delay` after `duration`. 
+Descriptive string in form `"type [duration delay]"` that defines the initial animation of progress circle line filling. `type` is one from predefined animations and the optional `duration` and `delay` are Number values. Note that the order is important and that you can only define `delay` after `duration`. 
 
 - `type` - is one of the predefined animations: `default | rs | reverse | bounce| loop`
 - `duration` - number in milliseconds, default `1000`
@@ -454,7 +450,7 @@ animation="bounce 1000"
 
 - ### `loading`
 
-Forces loading state. The component provides an indeterminate loading state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
+Boolean that forces loading state. The component provides an indeterminate loading state for the case that your data is not available immediately. With this property set to `true` you can use the component as the indeterminate progress. 
 
 <br>
 
@@ -474,7 +470,7 @@ With this option defined as Object you can customize the loading circle that is 
 
 - ### `determinate`
 
-Provides a determinate loading state that indicates that your data loading is still in progress but allows to show the **[`progress`](#progress)**. 
+Boolean that provides a determinate loading state that indicates that your data loading is still in progress but allows to show the **[`progress`](#progress)**. 
 
 <br>
 
@@ -482,7 +478,7 @@ Provides a determinate loading state that indicates that your data loading is st
 
 ###### Animated: ✔️
 
-Forces no data state. The component provides a no data state for the case that your data is not available. The circle progress is still empty.
+Boolean that forces no data state. The component provides a no data state for the case that your data is not available. The circle progress is still empty.
 
 >❗ The component will take the no data state even if you provide an invalid **[`progress`](#progress)** value 
 
@@ -525,15 +521,15 @@ Adds class to the circles legend to give you the possibility to style it.
 Descriptive string in form `"[strict] count spacing"` that adds dashed empty progress line. This property provides the optional `strict` mode. In this mode you can define the explicit number of dashes as `count` with the given relative `spacing` as number in range >= 0 and < 1. Without `strict` the default behavior of the SVG `stroke-dasharray` property is used, where the size and spacings of the dashes are defined.
 
 ###### Example: 📜
-`dash="strict 60 0.5"` - 60 dashes with 0.5 relative spacing
+`<ve-progress dash="strict 60 0.5" />` - 60 dashes with 0.5 relative spacing
 
-`dash="10 10"` - 10 pixels big dashes with 10 pixels spacing, the number of dashes depends on the empty circle circumference
+`<ve-progress dash="10 10" />` - 10 pixels big dashes with 10 pixels spacing, the number of dashes depends on the empty circle circumference
 
 <br>
 
 - ### `half` 
 
-Boolean value that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn.
+Boolean that specifies the type of the circle. If it is set to true, only the half of the circle will be drawn.
 
 ###### Example: 📜
 ```vue
@@ -590,7 +586,7 @@ dot="5% red" // adds red dot
 
 - ### `reverse`
 
-Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternative you can just set 
+Is a Boolean. `reverse` prop flips the circle, and the progress circle fills counterclockwise. Alternatively you can just set 
 a negative value for [`progress`](#progress).
 
 ###### Example: 📜
@@ -603,7 +599,7 @@ a negative value for [`progress`](#progress).
 
 - ### `data`
 
-You can specify 2 or more circles as objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
+You can specify 2 or more circles as Objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
 
 >❗ Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. These properties will be ignored, if `data` is specified. The legend of this circle is also not shown. 
 
