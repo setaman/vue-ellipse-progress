@@ -98,13 +98,13 @@ After you have initialized the component, you are ready to create your circles:
   reverse
   font-size="5rem">
   
-  <span slot="legend-value">/200</span>
+  <span slot="legend">/200</span>
   <p slot="legend-caption">GOOD JOB</p>
   
 </ve-progress>
 ``` 
 ## Options
-The **[`progress`](#progress)** is the only required property and you are ready to go with just following line:
+The **[`progress`](#progress)** is the only required property, and you are ready to go with just following line:
 ```html
 <ve-progress :progress="progress"/>
 ```
@@ -125,7 +125,7 @@ The **[`progress`](#progress)** is the only required property and you are ready 
 | **[`emptyColor`](#emptycolor)** | String \| Object | same as `color` |  "#e6e9f0" |
 | **[`emptyColorFill`](#emptycolorfill)** | String \| Object | same as `color` |  "transparent" |
 | **[`hideLegend`](#hideLegend)** | Boolean | |  true |
-| **[`legend`](#legend)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter |   |
+| **[`legend`](#legend)** | Number \| String | any number, accepts a `.` or `","` as decimals delimiter and simple formatting |   |
 | **[`legendFormatter`](#legendformatter)** | Function | Function that returns formatted value  |   |
 | **[`animation`](#animation)** | String | "default \| rs \| loop \| reverse \| bounce [duration delay]" | "default 1000 400"|
 | **[`loading`](#loading)** | Boolean |  |false|
@@ -139,7 +139,7 @@ The **[`progress`](#progress)** is the only required property and you are ready 
 | **[`dash`](#dash)** | String | "[strict] count spacing" |  |
 | **[`half`](#half)** | Boolean |  | false |
 | **[`gap`](#gap)** | Number | any Number that defines the gap between multiple circles in pixel | 0 |
-| **[`dot`](#dot)** | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"10% red"` or object `{size : 10, backgroundColor: "red", widht: "2px", borderRadius: "5px" ...}`  | 0 |
+| **[`dot`](#dot)** | String \| Number \| Object | Accepts size, color and other styles as Number, descriptive string `"size [color]"` or object `{size [, backgroundColor, widht, borderRadius ...]}`  | 0 |
 | **[`reverse`](#reverse)** | Boolean | | false |
 | **[`data`](#data)** | Array | defines multiple circles, takes as values Objects with almost all props defined above | |
 
@@ -229,7 +229,7 @@ The first value ist the `mode` and the optional second is the `offset`. You can 
 help you to align lines as you want to. 
 
 - `mode`:
-  - `center`: this is the default value and both lines are aligned at the base line (centered).
+  - `center`: this is the default value and both lines are aligned at the baseline (centered).
   <img width="100" height="50" src="https://github.com/setaman/Bilder/blob/master/ellipse-normal.png">
   
   - `in`: the progress line is inside the empty line
@@ -260,7 +260,7 @@ Let's take a look at few examples:
 |----------|--------|---------|---------|
 | <img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp1.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp2.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp3.png">|<img width="100" height="100" src="https://github.com/setaman/Bilder/blob/master/ellipse-exmp4.png"> |
 
-In general, any positioning can already be achieved with values `in` and `out` in a combination with certain `offset`. The modes, however, act like presets, which reduce the effort for the manuall calculations. 
+In general, any positioning can already be achieved with values `in` and `out` in a combination with certain `offset`. The modes, however, act like presets, which reduce the effort for the manual calculations. 
 
 <br>
 
@@ -269,7 +269,7 @@ In general, any positioning can already be achieved with values `in` and `out` i
 
 ###### Animated: ✔️
 
-Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the cirlce fill area. 
+Descriptive string in form `"mode [offset]"` that defines how the progress line is aligned in relation to the circle fill area. 
 Available modes are  `center`, `in` and `out`. Additionally, with the `out` mode you can provide an `offset` value as any Number.
 In general, this prop makes it possible to mimic the SVG2 `stroke-aligment`, which is currently not supported in any browser.
 
@@ -411,7 +411,7 @@ const myFormatter = ({ currentValue, ...otherProps }) => {
   return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(currentValue); 
 }
 ```
-The funtion can also return HTML:
+The function can also return HTML:
 ```js
 const myFormatter = ({ currentValue }) => {
      return `
@@ -561,7 +561,7 @@ The dot property lets you define a point indicator at the end of the progress li
 
 **Number**: `:dot="10"` - specifies a round dot with 10px width and height and default `#713dfd` color
 
-**Descriptive string**: `dot="size [color]"` - `size` can be just a Number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the String and you can set the `color` only if the `size` is defined.
+**Descriptive string**: `dot="size [color]"` - `size` can be just a Number or a percent value like `5%`, the calculation for percent values is similar to **[`thickness`](#thickness)** and depends on the **[`size`](#size)**. `color` is optional and lets you quickly define the color of the dot. The order of properties is important for parsing the String, and you can set the `color` only if the `size` is defined.
 
 **Object**: `:dot="{ size: Number | String [, any CSS inline style with Vue syntax] }"` - to customize the point, you can define the prop as an Object. `size` is required and can be just a Number or a String to define a percent value. Only defining the prop as an Object you have the possibility to add any styles to the dot you want to, using Vue syntax for defining inline styles, you can even completely break the positioning of the dot, if you need. You cannot override the `height` of the dot since it is important for internal calculation and must be controllable. 
 
@@ -599,7 +599,7 @@ a negative value for [`progress`](#progress).
 
 - ### `data`
 
-You can specify 2 or more circles as Objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props and the specified props will overwrite the global. The circles are rendered inside each other.
+You can specify 2 or more circles as Objects in an array as `data`. For each circle you can use almost every available property. It is not necessary to specify all properties, they will be merged with global props, the specified props will overwrite the global. The circles are rendered inside each other.
 
 >❗ Excluded props: **[`lineMode`](#lineMode)**, **[`emptyThickness`](#emptyThickness)**, **[`legend`](#legend)**. These properties will be ignored, if `data` is specified. The legend of this circle is also not shown. 
 
