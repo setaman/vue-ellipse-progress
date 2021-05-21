@@ -1,6 +1,6 @@
 # vue-ellipse-progress
-![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/beta?color=yellow&label=NPM&style=for-the-badge)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/setaman/vue-ellipse-progress?style=for-the-badge)
+[![npm (tag)](https://img.shields.io/npm/v/vue-ellipse-progress/beta?color=yellow&label=NPM&style=for-the-badge)](https://www.npmjs.com/package/vue-ellipse-progress)
+[![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/setaman/vue-ellipse-progress?style=for-the-badge)](https://snyk.io/test/npm/vue-ellipse-progress/1.3.0)
 ![GitHub](https://img.shields.io/github/license/setaman/vue-ellipse-progress?style=for-the-badge)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/setaman/vue-ellipse-progress/build?style=for-the-badge)](https://github.com/setaman/vue-ellipse-progress/actions/workflows/build.yml)
 
