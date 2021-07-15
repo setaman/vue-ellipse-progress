@@ -62,7 +62,9 @@ export default {
       return this.data.length > 1;
     },
     isHTML() {
-      return /<[a-z/][\s\S]*>/i.test((this.legendFormatter(defaultCounterTick) || "").toString().trim());
+      return /<[a-z/][\s\S]*>/i.test(
+        ((this.legendFormatter && this.legendFormatter(defaultCounterTick)) || "").toString().trim()
+      );
     },
     circlesData() {
       if (this.isMultiple) {

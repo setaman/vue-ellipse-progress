@@ -53,7 +53,11 @@
           :line-mode="lineMode"
           animation="default 1500 1000"
           :legend="-123.1"
-        ></ve-progress>
+        >
+          <template #legend-caption>
+            <p>hello</p>
+          </template>
+        </ve-progress>
       </div>
     </div>
   </div>
