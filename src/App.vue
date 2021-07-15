@@ -3,7 +3,7 @@
     <div class="ep-test-card" :style="{ maxHeight: size.height + 2000 + 'px' }">
       <div>
         <label for="progress"> Progress </label>
-        <input v-model="progress" max="100" min="-100" type="number" id="progress" />
+        <input v-model.number="progress" max="100" min="-100" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <button @click="updateTasksDone">Update Tasks</button>
         <label for="size"> Size </label>
@@ -32,7 +32,7 @@
         </label>
         <label for="line-mode">
           Line mode
-          <select v-model="lineMode">
+          <select id="line-mode" v-model="lineMode">
             <option v-for="option in lineModes" :key="option" :value="option">{{ option }}</option>
           </select>
         </label>
@@ -51,8 +51,11 @@
           :determinate="determinate"
           :size="size"
           :line-mode="lineMode"
+          :loading="loading"
           animation="default 1500 1000"
+          :hide-legend="lineMode === 'in'"
           :legend="-123.1"
+          font-size="2rem"
         >
           <template #legend-caption>
             <p>hello</p>
