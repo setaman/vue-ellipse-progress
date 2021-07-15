@@ -11,7 +11,9 @@
       :stroke-linecap="options.line"
       :stroke-dasharray="circumference"
       :style="{
+        transition: 'all',
         transitionTimingFunction: styles.transitionTimingFunction,
+        transitionDuration: styles['animation-duration'],
         transformOrigin: styles.transformOrigin,
         '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
         '--ep-circumference': styles['--ep-circumference'],
