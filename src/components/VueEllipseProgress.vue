@@ -113,7 +113,6 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.log(this.$refs.legend.clientHeight);
       this.legendHeight = this.$refs.legend.clientHeight;
     });
   },
