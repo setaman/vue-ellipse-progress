@@ -57,9 +57,12 @@
           :legend="-123.1"
           font-size="2rem"
         >
-          <template #legend-caption>
-            <p>hello</p>
+          <template #legend>
+            <img style="width: 50px; height: 50px" src="../public/vue_ellipse.png" />
           </template>
+          <!--          <template #legend-caption>
+            <p>hello</p>
+          </template>-->
         </ve-progress>
       </div>
     </div>
