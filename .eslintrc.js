@@ -7,8 +7,8 @@ module.exports = {
   extends: ["plugin:vue/essential", "@vue/airbnb", "plugin:prettier/recommended"],
   rules: {
     "prettier/prettier": "warn",
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "warn",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "warn",
     "no-underscore-dangle": "off",
     "no-plusplus": "off",
     "max-len": [2, 120, 8],

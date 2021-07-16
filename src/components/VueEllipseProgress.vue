@@ -10,23 +10,26 @@
       <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options" />
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
+          v-if="!isMultiple"
           class="ep-legend--value"
-          v-if="!hideLegend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
-          :style="{ fontSize, color: fontColor }"
+          :style="{ height: `${legendHeight}px`, fontSize, color: fontColor }"
+          style="transition: 0.3s"
         >
-          <counter :value="computedLegend" :animation="normalizedCircles[0].animation" :loading="loading">
-            <template #default="{ counterTick }">
-              <template v-if="legendFormatter">
-                <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
-                <span v-else>{{ legendFormatter(counterTick) }}</span>
+          <div ref="legend">
+            <counter :value="computedLegend" :animation="normalizedCircles[0].animation" :loading="loading">
+              <template #default="{ counterTick }">
+                <template v-if="legendFormatter">
+                  <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
+                  <span v-else>{{ legendFormatter(counterTick) }}</span>
+                </template>
+                <slot v-else :counterTick="counterTick">
+                  <span>{{ counterTick.currentFormattedValue }}</span>
+                </slot>
               </template>
-              <slot v-else :counterTick="counterTick">
-                <span>{{ counterTick.currentFormattedValue }}</span>
-              </slot>
-            </template>
-          </counter>
-          <slot name="legend"></slot>
+            </counter>
+            <slot name="legend"></slot>
+          </div>
         </div>
         <slot name="legend-caption"></slot>
       </div>
@@ -45,6 +48,16 @@ export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
   props,
+  data: () => ({
+    legendHeight: null,
+  }),
+  watch: {
+    hideLegend() {
+      this.$nextTick(() => {
+        this.legendHeight = this.hideLegend ? 0 : this.$refs.legend.clientHeight;
+      });
+    },
+  },
   computed: {
     computedLegend() {
       if (this.loading || this.noData) {
@@ -53,7 +66,7 @@ export default {
       return this.legend ? this.legend : getNumberIfValid(this.progress) || 0;
     },
     shouldHideLegendValue() {
-      return !this.isDataAvailable || this.loading;
+      return !this.isDataAvailable || this.loading || this.hideLegend;
     },
     isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
@@ -62,7 +75,9 @@ export default {
       return this.data.length > 1;
     },
     isHTML() {
-      return /<[a-z/][\s\S]*>/i.test((this.legendFormatter(defaultCounterTick) || "").toString().trim());
+      return /<[a-z/][\s\S]*>/i.test(
+        ((this.legendFormatter && this.legendFormatter(defaultCounterTick)) || "").toString().trim()
+      );
     },
     circlesData() {
       if (this.isMultiple) {
@@ -95,6 +110,11 @@ export default {
       }
       return normalizedCircles;
     },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.legendHeight = this.$refs.legend.clientHeight;
+    });
   },
 };
 </script>
