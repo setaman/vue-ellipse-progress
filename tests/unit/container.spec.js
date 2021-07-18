@@ -5,7 +5,8 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
-import { defaultCounterTick } from "@/../tests/helper";
+import { defaultCounterTick, wait } from "@/../tests/helper";
+import { nextTick } from "vue";
 
 const factory = (propsData, slots = {}) => {
   return mount(VueEllipseProgress, {
@@ -72,6 +73,25 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       await wrapper.setProps({ legend });
       expect(wrapper.vm.computedLegend).to.equal(legend);
       expect(wrapper.vm.progress).to.equal(progress);
+    });
+  });
+  describe("#hideLegend", () => {
+    const wrapper = factory({ hideLegend: true });
+    const legendWrapper = wrapper.find(".ep-legend--value");
+
+    it("adds hide class to the legend element", async () => {
+      expect(legendWrapper.classes()).to.be.an("array").that.include("ep-hidden");
+    });
+
+    it("applies height to the style attribute", () => {
+      // anything we can test about it as jsdom does not render actual layout
+      expect(legendWrapper.element.style).to.be.an("object").that.have.property("height");
+    });
+
+    it("removes the hide class from the legend element, if false", async () => {
+      await wrapper.setProps({ hideLegend: false });
+      await nextTick();
+      expect(legendWrapper.classes()).to.be.an("array").that.not.include("ep-hidden");
     });
   });
   describe("#noData", () => {

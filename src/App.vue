@@ -3,7 +3,7 @@
     <div class="ep-test-card" :style="{ maxHeight: size.height + 2000 + 'px' }">
       <div>
         <label for="progress"> Progress </label>
-        <input v-model="progress" max="100" min="-100" type="number" id="progress" />
+        <input v-model.number="progress" max="100" min="-100" type="number" id="progress" />
         <button @click="updateProgress">Update</button>
         <button @click="updateTasksDone">Update Tasks</button>
         <label for="size"> Size </label>
@@ -30,6 +30,12 @@
           <input id="determinate1" type="checkbox" v-model="circles[0].determinate" />
           <input id="determinate2" type="checkbox" v-model="determinate" />
         </label>
+        <label for="line-mode">
+          Line mode
+          <select id="line-mode" v-model="lineMode">
+            <option v-for="option in lineModes" :key="option" :value="option">{{ option }}</option>
+          </select>
+        </label>
       </div>
       <!--<div>
         <input type="checkbox" v-model="circles[0].loading" />
@@ -40,7 +46,24 @@
       <div style="border: 1px solid red; display: inline-block">
         <!--        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter">
         </ve-progress>-->
-        <ve-progress :progress="progress" animation="default 2500 1000" :legend="-123.1"></ve-progress>
+        <ve-progress
+          :progress="progress"
+          :determinate="determinate"
+          :size="size"
+          :line-mode="lineMode"
+          :loading="loading"
+          animation="default 1500 1000"
+          :hide-legend="lineMode === 'in'"
+          :legend="-123.1"
+          font-size="2rem"
+        >
+          <template #legend>
+            <img style="width: 50px; height: 50px" src="../public/vue_ellipse.png" />
+          </template>
+          <!--          <template #legend-caption>
+            <p>hello</p>
+          </template>-->
+        </ve-progress>
       </div>
     </div>
   </div>
@@ -129,6 +152,8 @@ export default {
       radial: false,
     },
     animation: "rs 1000 500",
+    lineMode: "center",
+    lineModes: ["center", "in", "in-over", "out", "out-over", "bottom", "top"],
   }),
   computed: {
     tasksDonePercent() {
