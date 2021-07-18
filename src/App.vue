@@ -55,7 +55,9 @@
           animation="default 1500 1000"
           :hide-legend="lineMode === 'in'"
           :legend="-123.1"
+          half
           font-size="2rem"
+          :loader="{ duration: 5500 }"
         >
           <template #legend>
             <img style="width: 50px; height: 50px" src="../public/vue_ellipse.png" />

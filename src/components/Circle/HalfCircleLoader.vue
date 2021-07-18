@@ -10,7 +10,9 @@
       :stroke-linecap="options.line"
       :style="{
         transitionTimingFunction: styles.transitionTimingFunction,
+        transitionDuration: `${styles['animation-duration']}ms`,
         transformOrigin: styles.transformOrigin,
+        animationDuration: animationDurationStyle,
         '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
         '--ep-circumference': styles['--ep-circumference'],
         '--ep-negative-circumference': styles['--ep-negative-circumference'],
@@ -37,6 +39,12 @@ export default {
     },
     opacity() {
       return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
+    },
+    animationDuration() {
+      return this.options.duration && this.options.duration >= 0 ? this.options.duration : 1000;
+    },
+    animationDurationStyle() {
+      return `${this.animationDuration}ms`;
     },
     halfLoaderColor() {
       return Array.isArray(this.options.loader.color.colors)
