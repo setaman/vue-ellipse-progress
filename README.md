@@ -458,12 +458,15 @@ Boolean that forces loading state. The component provides an indeterminate loadi
 
 With this option defined as Object you can customize the loading circle that is shown in the states 
 [loading](#loading) and [determinate](#determinate). Accepted properties are [`color`](#color), [`thickness`](#thickness), [`line`](#line),
-[`lineMode`](#linemode) and `opactity`. `opacity` is specific for loading circle and can be any valid CSS opacity value. If the option is not specified, the loading circle replicates the progress circle with a 0.55 default value for `opacity`.
+[`lineMode`](#linemode), `duration` and `opactity`. `duration` and `opacity` are specific for loading circle.
+Any valid CSS opacity value can be set as `opacity`. `duration` specifies the speed of the loader animation
+If the `loader` option is not specified, the loading circle replicates the progress circle with a 0.55 default value for `opacity`
+and 1000 `duration`.
 
 ###### Example: 📜
 
 ```vue
-<ve-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6' }" />
+<ve-progress :loader="{ color: 'green', lineMode: 'in 10', opacity: '0.6', duration: 1500 }" />
 ```
 
 <br>
