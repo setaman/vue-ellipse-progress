@@ -54,7 +54,7 @@
           :loading="loading"
           animation="default 1500 1000"
           :hide-legend="lineMode === 'in'"
-          :legend="-123.1"
+          legend="-123.100"
           font-size="2rem"
         >
           <template #legend>
