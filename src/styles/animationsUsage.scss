@@ -21,7 +21,7 @@
   &.animation__loading {
     animation-name: ep-progress--loading, ep-progress--loading__rotation;
     animation-iteration-count: infinite !important;
-    animation-duration: 2s, 1s !important;
+    animation-duration: 2s, 1s;
     animation-timing-function: ease-in-out, linear;
   }
 }
@@ -30,7 +30,7 @@
   &.animation__loading {
     animation-name: ep-half-progress--loading;
     animation-iteration-count: infinite !important;
-    animation-duration: 2s !important;
+    animation-duration: 2s;
     animation-timing-function: ease-in-out;
   }
 }

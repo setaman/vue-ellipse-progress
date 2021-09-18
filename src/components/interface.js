@@ -17,7 +17,7 @@ const colorConfig = (defaultColor = "transparent") => ({
 
 const validateLoaderProps = (loaderOptions) =>
   Object.keys(loaderOptions).every((option) => {
-    if (option === "opacity") {
+    if (["opacity", "duration"].includes(option)) {
       return isValidNumber(loaderOptions[option]) && loaderOptions[option] >= 0;
     }
     return options[option].validator(loaderOptions[option]);
@@ -193,7 +193,7 @@ const options = {
     default: () => ({}),
     validator: (value) => {
       const propsAllowed = Object.keys(value).every((prop) =>
-        ["thickness", "color", "lineMode", "line", "opacity"].includes(prop)
+        ["thickness", "color", "lineMode", "line", "opacity", "duration"].includes(prop)
       );
       if (propsAllowed) {
         return validateLoaderProps(value);

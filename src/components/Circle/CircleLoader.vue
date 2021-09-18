@@ -13,8 +13,9 @@
       :style="{
         transition: 'all',
         transitionTimingFunction: styles.transitionTimingFunction,
-        transitionDuration: styles['animation-duration'],
+        transitionDuration: `${styles['animation-duration']}ms`,
         transformOrigin: styles.transformOrigin,
+        animationDuration: animationDurationStyle,
         '--ep-loading-stroke-offset': styles['--ep-loading-stroke-offset'],
         '--ep-circumference': styles['--ep-circumference'],
       }"
@@ -38,6 +39,12 @@ export default {
     },
     opacity() {
       return this.options.opacity && this.options.opacity >= 0 ? this.options.opacity : 0.55;
+    },
+    animationDuration() {
+      return this.options.duration && this.options.duration >= 0 ? this.options.duration : 1000;
+    },
+    animationDurationStyle() {
+      return `${this.animationDuration * 2}ms, ${this.animationDuration}ms`;
     },
     loaderColor() {
       return Array.isArray(this.options.loader.color.colors)
