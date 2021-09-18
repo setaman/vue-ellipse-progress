@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16.05
+          node-version: 14.16
       - run: git branch
       - run: npm ci
       - run: npm run build
@@ -30,8 +30,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16.05
-      - run: git branch
+          node-version: 14.16
       - run: npm ci
       - run: npm run lint
 
@@ -41,6 +40,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16.05
+          node-version: 14.16
       - run: npm ci
       - run: npm run test
