@@ -47,46 +47,62 @@ describe("[ Counter.vue ]", () => {
         legend: -45.2456,
         decimalsCount: 4,
         start: "0.0000",
+        delimiter: ".",
       },
       {
         legend: 56.34,
         decimalsCount: 2,
         start: "0.00",
+        delimiter: ".",
       },
       {
         legend: 98.0,
         decimalsCount: 0,
         start: "0",
+        delimiter: ".",
       },
       {
         legend: "98.0",
         decimalsCount: 1,
         start: "00.0",
+        delimiter: ".",
       },
       {
         legend: "100.00",
         decimalsCount: 2,
         start: "000.00",
+        delimiter: ".",
       },
       {
         legend: "00100.00",
         decimalsCount: 2,
         start: "00000.00",
+        delimiter: ".",
       },
       {
         legend: "56.34",
         decimalsCount: 2,
         start: "00.00",
+        delimiter: ".",
       },
       {
         legend: "25,564",
         decimalsCount: 3,
         start: "00,000",
+        delimiter: ",",
       },
       {
         legend: "-30,5",
         decimalsCount: 1,
+        // templating not supported for negative values in integer part
         start: "0,0",
+        delimiter: ",",
+      },
+      {
+        legend: "-40,500",
+        decimalsCount: 3,
+        start: "0,000",
+        delimiter: ",",
       },
     ];
     const animation = {
@@ -94,7 +110,7 @@ describe("[ Counter.vue ]", () => {
       delay: 1000,
     };
     for (const val of values) {
-      const { legend, decimalsCount, start } = val;
+      const { legend, decimalsCount, start, delimiter } = val;
       const wrapper = factory({
         legend,
         animation: `default ${animation.duration} ${animation.delay}`,
@@ -107,8 +123,24 @@ describe("[ Counter.vue ]", () => {
           expect(counterWrapper.vm.decimalsCount).to.equal(decimalsCount);
         });
 
-        it("renders the start value with the correct number of decimals and integer places", () => {
-          expect(counterWrapper.element.textContent).to.equal(start);
+        it("renders the start value with the correct number of decimals places", () => {
+          const textContent = counterWrapper.element.textContent;
+          const delimiterIndex = textContent.indexOf(delimiter);
+          let renderedDecimalsCount = 0;
+          if (delimiterIndex >= 0) {
+            renderedDecimalsCount = textContent.slice(delimiterIndex + 1).length;
+          }
+          expect(renderedDecimalsCount).to.equal(decimalsCount);
+        });
+
+        it("renders the start value with the correct number of integer places", () => {
+          if (typeof legend === "string") {
+            const renderedIntegerPart = counterWrapper.element.textContent.split(delimiter)[0].replace("-", "");
+            const legendIntegerPart = start.split(delimiter)[0];
+            expect(renderedIntegerPart.length).to.equal(legendIntegerPart.length);
+          } else {
+            expect(true).to.equal(true);
+          }
         });
 
         if (legend.toString().includes(",")) {
