@@ -187,7 +187,7 @@ describe("[ Counter.vue ]", () => {
     it("do not count the value before delay", (done) => {
       const counterWrapper = factory({
         legend: 50,
-        animation: "default 200 600",
+        animation: "default 500 1000",
       }).findComponent(Counter);
       expect(counterWrapper.vm.currentValue).to.equal(0);
       expect(counterWrapper.element.textContent).to.equal("0");
@@ -195,7 +195,7 @@ describe("[ Counter.vue ]", () => {
         expect(counterWrapper.vm.currentValue).to.equal(0);
         expect(counterWrapper.element.textContent).to.equal("0");
         done();
-      }, 500);
+      }, 300);
     });
   });
 });
