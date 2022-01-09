@@ -122,10 +122,10 @@ export default {
   },
   methods: {
     getDashSpacingPercent() {
-      return this.dash.spacing / this.dash.count;
+      return this.options.dash.spacing / this.options.dash.count;
     },
     getDashPercent() {
-      return (1 - this.dash.spacing) / this.dash.count;
+      return (1 - this.options.dash.spacing) / this.options.dash.count;
     },
     /* Animations helper Methods */
     getNegativeCircumference() {
