@@ -6,11 +6,19 @@ on:
       - master
       - dev
       - v2-dev
+    paths:
+      - "src/**"
+      - "!*.md"
+      - "!package-lock.json"
   pull_request:
     branches:
       - master
       - dev
       - v2-dev
+    paths:
+      - "src/**"
+      - "!*.md"
+      - "!package-lock.json"
 
 jobs:
   build:
