@@ -32,4 +32,4 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. stock browser, safari]
  - Version [e.g. 22]
 
-**Plugin Version : [e.g. v2.1.0]**
+**Plugin Version:** [e.g. v2.1.0]
