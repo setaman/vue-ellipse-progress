@@ -12,6 +12,5 @@ if (globalVue) {
   globalVue.use({ install });
 }
 
-export default {
-  install,
-};
+export { VueEllipseProgress, install };
+export default install;
