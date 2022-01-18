@@ -1,8 +1,8 @@
 import Vue from "vue";
-import VueEllipseProgress from "@/plugin";
+import vueEllipseProgress from "@/plugin";
 import App from "./App.vue";
 
-Vue.use(VueEllipseProgress);
+Vue.use(vueEllipseProgress);
 
 Vue.config.productionTip = false;
 
