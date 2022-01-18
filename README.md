@@ -46,6 +46,21 @@ Vue.use(VueEllipseProgress);
 // Vue.use(VueEllipseProgress, "vep"); you can define a name and use the plugin like <vep/>
 ```
 
+Usage direct as component:
+```vue
+<template>
+  <vue-ellipse-progress :progress="50" />
+</template>
+<script>
+import { VueEllipseProgress } from "vue-ellipse-progress";
+
+export default {
+  name: "MyComponent",
+  components: { VueEllipseProgress },
+};
+</script>
+```
+
 ### CDN
 Use this option where you have a global Vue.js instance available. You can customize and get the bundled and minified 
 component from [JSDelivr](https://www.jsdelivr.com/package/npm/vue-ellipse-progress).
