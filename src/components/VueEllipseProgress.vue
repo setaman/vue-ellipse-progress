@@ -113,7 +113,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.legendHeight = this.$refs.legend.offsetHeight;
+      this.legendHeight = this.hideLegend ? 0 : this.$refs.legend.clientHeight;
     });
   },
 };
