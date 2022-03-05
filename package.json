@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --formats umd-min --name veprogress ./src/plugin.js",
-    "lint:fix": "vue-cli-service lint --fix",
+    "lint:fix": "vue-cli-service lint --fix --ignore-path App.vue",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit --colors",
     "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta",
