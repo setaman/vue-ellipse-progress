@@ -10,7 +10,8 @@
     "lint": "vue-cli-service lint --fix",
     "test": "vue-cli-service test:unit --colors",
     "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta",
-    "changelog": "auto-changelog --template changelog-template.hbs"
+    "changelog": "auto-changelog --template changelog-template.hbs",
+    "prepare": "husky install"
   },
   "author": {
     "name": "Sergej Atamantschuk",
@@ -55,7 +56,8 @@
     "node-sass": "^5.0.0",
     "prettier": "^2.3.0",
     "sass-loader": "^10.1.1",
-    "vue": "^3.0.6"
+    "vue": "^3.0.6",
+    "husky": "^7.0.0"
   },
   "files": [
     "dist"
