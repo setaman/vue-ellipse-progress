@@ -5,7 +5,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
-import { defaultCounterTick, wait } from "@/../tests/helper";
+import { defaultCounterTick } from "@/../tests/helper";
 import { nextTick } from "vue";
 
 const factory = (propsData, slots = {}) => {
