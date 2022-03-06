@@ -53,9 +53,7 @@ export default {
   }),
   watch: {
     hideLegend() {
-      this.$nextTick(() => {
-        this.legendHeight = this.hideLegend ? 0 : this.$refs.legend.clientHeight;
-      });
+      this.updateLegendHeight();
     },
   },
   computed: {
@@ -111,10 +109,15 @@ export default {
       return normalizedCircles;
     },
   },
+  methods: {
+    updateLegendHeight() {
+      this.$nextTick(() => {
+        this.legendHeight = this.hideLegend ? 0 : this.$refs.legend?.clientHeight ?? 0;
+      });
+    },
+  },
   mounted() {
-    this.$nextTick(() => {
-      this.legendHeight = this.$refs.legend.offsetHeight;
-    });
+    this.updateLegendHeight();
   },
 };
 </script>
