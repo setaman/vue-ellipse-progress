@@ -44,8 +44,11 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <!--        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter">
-        </ve-progress>-->
+        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter" >
+          <template #legend>
+            <span id="my-slot">Hello Circle</span>
+          </template>
+        </ve-progress>
         <ve-progress
           :progress="progress"
           :determinate="determinate"
@@ -53,16 +56,17 @@
           :line-mode="lineMode"
           :loading="loading"
           animation="default 1500 1000"
-          :hide-legend="lineMode === 'in'"
+          :data="[{progress: 10}, {progress: 10}]"
+          :hide-legend="false"
           legend="-123.100"
           font-size="2rem"
         >
           <template #legend>
             <img style="width: 50px; height: 50px" src="../public/vue_ellipse.png" />
           </template>
-          <!--          <template #legend-caption>
+          <template #legend-caption>
             <p>hello</p>
-          </template>-->
+          </template>
         </ve-progress>
       </div>
     </div>

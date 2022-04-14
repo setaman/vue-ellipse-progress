@@ -118,6 +118,6 @@ export const parseRawOptions = (props) => {
 export const factory = ({ container, props = {}, isCircleFactory = true }) => {
   const propsData = isCircleFactory ? { options: { ...mockProps, ...props } } : props;
   return mount(container, {
-    propsData,
+    props: propsData,
   });
 };
