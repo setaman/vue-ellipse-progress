@@ -5,7 +5,7 @@ import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
 
 const factory = (propsData, slots) => {
   return mount(VueEllipseProgress, {
-    propsData: {
+    props: {
       progress: 50,
       loading: false,
       animation: "default 100 200",
