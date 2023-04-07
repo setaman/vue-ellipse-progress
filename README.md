@@ -100,8 +100,12 @@ After you have initialized the component, use it everywhere you want in your app
   reverse
   fontSize="5rem">
   
-  <span slot="legend-value">/200</span>
-  <p slot="legend-caption">GOOD JOB</p>
+  <template #legend-value>
+    <span slot="legend-value">/200</span>
+  </template>
+  <template #legend-caption>
+    <p slot="legend-caption">GOOD JOB</p>
+  </template>
   
 </vue-ellipse-progress>
 ``` 
