@@ -98,8 +98,12 @@ After you have initialized the component, you are ready to create your circles:
   reverse
   font-size="5rem">
   
-  <span slot="legend">/200</span>
-  <p slot="legend-caption">GOOD JOB</p>
+  <template #legend>
+    <span>/200</span>
+  </template>
+  <template #legend-caption>
+    <p>TASKS DONE</p>
+  </template>
   
 </ve-progress>
 ``` 
