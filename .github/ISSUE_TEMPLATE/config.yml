@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question or get support
+    url: https://github.com/setaman/vue-ellipse-progress/discussions
+    about: You have general questions, you feel that the documentation is lacking important details, need clarification, or require further examples, we encourage you to use the Discussions section
