@@ -54,6 +54,7 @@
       </g>
     </fade-in-transition>
     <circle
+      ref="circleProgress"
       class="ep-circle--progress"
       :class="animationClass"
       :r="radius"

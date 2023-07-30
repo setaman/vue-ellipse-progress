@@ -44,12 +44,12 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress :progress="progress" animation="rs 2000 2000" :legend-formatter="customFormatter" >
+        <ve-progress :progress="progress" animation="bounce 3000 300" :legend-formatter="customFormatter" :loading="loading" half >
           <template #legend>
             <span id="my-slot">Hello Circle</span>
           </template>
         </ve-progress>
-        <ve-progress
+<!--        <ve-progress
           :progress="progress"
           :determinate="determinate"
           :size="size"
@@ -67,7 +67,7 @@
           <template #legend-caption>
             <p>hello</p>
           </template>
-        </ve-progress>
+        </ve-progress>-->
       </div>
     </div>
   </div>

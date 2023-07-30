@@ -257,6 +257,10 @@ g.ep-circle--container {
 
 .ep-circle--progress {
   animation-timing-function: ease-in-out;
+  &.ep-animation-playing {
+    // Workaround only required for older Apple systems and Safari browser
+    transition: none !important;
+  }
   &.animation__default {
     animation-name: ep-progress--init__default;
   }
