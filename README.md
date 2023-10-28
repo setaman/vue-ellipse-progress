@@ -5,16 +5,12 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#vue-ellipse-progress)
 [![Build Status](https://travis-ci.org/setaman/vue-ellipse-progress.svg?branch=master)](https://travis-ci.org/setaman/vue-ellipse-progress)
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
-
 A dependency-free Vue.js plugin to create beautiful and animated circular progress bars, implemented with SVG. The purpose of this plugin is to combine the best properties of other available libraries and to add unique features, delivered in a simple to use component with friendly interface. 
 
 With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit of imagination you can create really exciting things.
 
-
->⚠️ Heads-up, Vue 3 users! Vue 3 compatible version 2 with new features and a lot of improvements is availibale in the [v2-dev](https://github.com/setaman/vue-ellipse-progress/tree/v2-dev) branch! Get the new version with `npm i vue-ellipse-progress@next`
+> **Warning**
+> Attention Vue 3 users! A Vue 3-compatible version 2, packed with new features, a new [documentation site](https://setaman.github.io/vue-ellipse-progress-docs/) and a lot of improvements is availibale in the [v2-dev](https://github.com/setaman/vue-ellipse-progress/tree/v2-dev) branch! Get the new version with `npm i vue-ellipse-progress@next`
 
 - [Installation](#installation)
 - [Usage](#usage)
