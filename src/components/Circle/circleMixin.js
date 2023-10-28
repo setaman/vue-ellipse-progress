@@ -13,6 +13,7 @@ export default {
   },
   data: () => ({
     isInitialized: false,
+    isAnimationPlaying: false,
   }),
   computed: {
     progress() {
@@ -44,6 +45,7 @@ export default {
 
     animationClass() {
       return [
+        this.isAnimationPlaying && "ep-animation-playing",
         `animation__${
           !this.options.loading && this.dataIsAvailable && this.isInitialized ? this.options.animation.type : "none"
         }`,
@@ -146,12 +148,32 @@ export default {
     getBounceInOffset() {
       return this.circumference - this.progressOffset < 100 ? this.progressOffset : this.progressOffset + 100;
     },
+    toggleIsAnimationPlaying() {
+      this.$nextTick(() => {
+        this.isAnimationPlaying = !this.isAnimationPlaying;
+      });
+    },
   },
   async mounted() {
+    const circle = this.$refs.circleProgress;
+    if (circle) {
+      // this is only required for older MacOS/IOS versions and Safari. On Apple system the transition is triggered
+      // right after initial animation causing the progress line rendered twice. So we track animation state to
+      // add/remove CSS transition properties
+      circle.addEventListener("animationstart", this.toggleIsAnimationPlaying, false);
+      circle.addEventListener("animationend", this.toggleIsAnimationPlaying, false);
+    }
     if (!this.options.loading) {
       // await initial delay before applying animations
       await wait(this.options.animation.delay);
     }
     this.isInitialized = true;
+  },
+  unmounted() {
+    const circle = this.$refs.circleProgress;
+    if (circle) {
+      circle.removeEventListener("animationstart", this.toggleIsAnimationPlaying, false);
+      circle.removeEventListener("animationend", this.toggleIsAnimationPlaying, false);
+    }
   },
 };

@@ -47,6 +47,7 @@
       </g>
     </fade-in-transition>
     <path
+      ref="circleProgress"
       :stroke-width="options.thickness"
       class="ep-half-circle--progress ep-circle--progress"
       :class="animationClass"
