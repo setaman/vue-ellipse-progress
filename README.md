@@ -21,7 +21,8 @@ createApp(App).use(veProgress);
 - [Development](#development)
 - [Contributing](https://github.com/setaman/vue-ellipse-progress/blob/master/CONTRIBUTING.md)
 
-❕ Take a look at some interesting examples on the [Demo page](https://vue-ellipse-progress-demo.netlify.com) ❕
+> **Note**
+> A new [documentation site](https://setaman.github.io/vue-ellipse-progress-docs/) is now availiable. Dive into better structured and informative sections about installation, configuration and a wide range of interactive examples showcasing various styles, animations, and use cases.  
 
 <div align="center" style="text-align: center;">
   <img src="https://github.com/setaman/Bilder/blob/master/vue-ellipse-demo.gif" alt="Component demo">  
