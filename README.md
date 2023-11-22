@@ -9,7 +9,7 @@ A dependency-free Vue.js plugin to create beautiful and animated circular progre
 
 With the available options you can create simple circles very quickly. But playing with the combinations of props and with a bit of imagination you can create really exciting things.
 
-> **Warning**
+> [!WARNING]
 > Attention Vue 3 users! A Vue 3-compatible version 2, packed with new features, a new [documentation site](https://setaman.github.io/vue-ellipse-progress-docs/) and a lot of improvements is availibale in the [v2-dev](https://github.com/setaman/vue-ellipse-progress/tree/v2-dev) branch! Get the new version with `npm i vue-ellipse-progress@next`
 
 - [Installation](#installation)
