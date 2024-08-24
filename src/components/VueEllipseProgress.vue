@@ -7,7 +7,11 @@
     }"
   >
     <div class="ep-content">
-      <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options" />
+      <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options">
+        <template #circle-progress="{ attrs }">
+          <slot name="circle-progress" :attrs="attrs"></slot>
+        </template>
+      </circle-container>
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
           v-if="!isMultiple"

@@ -21,9 +21,7 @@ export default {
     },
 
     progressOffset() {
-      const offset = this.circumference - (this.progress / 100) * this.circumference;
-      if (Math.abs(this.circumference - offset) < 1) return this.circumference - 0.5;
-      return offset;
+      return this.calculateProgressOffset(this.circumference);
     },
 
     radius() {
@@ -123,6 +121,11 @@ export default {
     },
   },
   methods: {
+    calculateProgressOffset(pathLength) {
+      const offset = pathLength - (this.progress / 100) * pathLength;
+      if (Math.abs(pathLength - offset) < 1) return pathLength - 0.5;
+      return offset;
+    },
     getDashSpacingPercent() {
       return this.options.dash.spacing / this.options.dash.count;
     },

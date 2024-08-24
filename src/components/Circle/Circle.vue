@@ -53,21 +53,23 @@
         <circle-loader :options="{ ...options, ...options.loader }" />
       </g>
     </fade-in-transition>
-    <circle
-      ref="circleProgress"
-      class="ep-circle--progress"
-      :class="animationClass"
-      :r="radius"
-      :cx="position"
-      :cy="position"
-      fill="transparent"
-      :stroke="color"
-      :stroke-width="options.thickness"
-      :stroke-linecap="options.line"
-      :stroke-dasharray="circumference"
-      :style="styles"
-    >
-    </circle>
+    <slot name="circle-progress" :attrs="slotAttrs">
+      <circle
+        ref="circleProgress"
+        class="ep-circle--progress"
+        :class="animationClass"
+        :r="radius"
+        :cx="position"
+        :cy="position"
+        fill="transparent"
+        :stroke="color"
+        :stroke-width="options.thickness"
+        :stroke-linecap="options.line"
+        :stroke-dasharray="circumference"
+        :style="styles"
+      >
+      </circle>
+    </slot>
   </g>
 </template>
 
@@ -86,6 +88,33 @@ export default {
     },
     circumference() {
       return this.radius * 2 * Math.PI;
+    },
+    slotAttrs() {
+      return {
+        ...this.options,
+        // progress circle
+        position: this.position,
+        radius: this.radius,
+        circumference: this.circumference,
+        strokeDashOffset: this.strokeDashOffset,
+        class: "ep-circle--progress",
+        animationClass: this.animationClass,
+        // empty circle
+        emptyDasharray: this.emptyDasharray,
+        emptyColor: this.emptyColor,
+        emptyRadius: this.emptyRadius,
+        calculateProgressOffset: this.calculateProgressOffset,
+        // all circle styles
+        styles: this.styles,
+        // base styles applicable to all paths
+        baseStyles: {
+          transition: this.styles.transition,
+          transitionTimingFunction: this.styles.transitionTimingFunction,
+          opacity: this.styles.opacity,
+          "animation-duration": this.styles.animationDuration,
+          transformOrigin: this.styles.transformOrigin,
+        },
+      };
     },
   },
 };
