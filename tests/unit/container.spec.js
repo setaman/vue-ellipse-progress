@@ -174,6 +174,30 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         }, 100);
       });
     });
+    describe("#circle-progress", () => {
+      const wrapper = mount(VueEllipseProgress, {
+        props: { progress: 35 },
+        slots: {
+          "circle-progress": `
+              <template #default="attrs" >
+                <polygon
+                  ref="polygon"
+                  :stroke-dashoffset="attrs.strokeDashOffset"
+                  :stroke-dasharray="582.4922485351562"
+                  points="10,10 190,100 10,190"
+                  style="fill: lime; stroke: purple; stroke-width: 3"
+                  :style="attrs.styles"
+                />
+              </template>`,
+        },
+      });
+
+      it("renders provided slot", () => expect(wrapper.find("polygon").exists()).to.be.true);
+
+      it("replaces default progress circle", () => {
+        expect(wrapper.find(".ep-circle--progress").exists()).to.be.false;
+      });
+    });
   });
   describe("#data", () => {
     const data = [
