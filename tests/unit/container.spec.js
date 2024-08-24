@@ -131,22 +131,19 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
-  // FIXME: throws "TypeError: Cannot convert undefined or null to object" for some unknown reason
-  /*describe("#slots", () => {
+  describe("#slots", () => {
     describe("#legend", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            legend: `<template #legend>
-             <span id="my-slot">Hello Circle</span>
-          </template>`,
+            legend: `<template #legend><span id="my-slot">Hello Circle</span></template>`,
           },
         });
         expect(wrapper.find("#my-slot").exists()).to.be.true;
       });
     });
-    /!*describe("#legend-caption", () => {
+    describe("#legend-caption", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
@@ -176,8 +173,8 @@ describe("[ EllipseProgressContainer.vue ]", () => {
           done();
         }, 100);
       });
-    });*!/
-  });*/
+    });
+  });
   describe("#data", () => {
     const data = [
       { progress: 25, color: "red" },
