@@ -166,7 +166,7 @@ export default {
       circle.addEventListener("animationstart", this.toggleIsAnimationPlaying, false);
       circle.addEventListener("animationend", this.toggleIsAnimationPlaying, false);
     }
-    if (!this.options.loading) {
+    if (this.options.animation.delay && !this.options.loading) {
       // await initial delay before applying animations
       await wait(this.options.animation.delay);
     }

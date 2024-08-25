@@ -5,7 +5,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
-import { defaultCounterTick } from "@/../tests/helper";
+import { defaultCounterTick, wait } from "@/../tests/helper";
 import { nextTick } from "vue";
 
 const factory = (propsData, slots = {}) => {
@@ -251,14 +251,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       };
       factory({ progress: 1, legendFormatter: formatter, animation: "default 0 0" });
     });
-    it("renders the custom formatted value", (done) => {
+    it("renders the custom formatted value", async () => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
       const wrapper = factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
-      setTimeout(() => {
-        expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
-        done();
-      }, 100);
+
+      await wait(200);
+      await nextTick();
+
+      expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
     });
     it("isHTML returns false by default ", () => {
       expect(factory({ legendFormatter: () => "Custom" }).vm.isHTML).to.be.false;

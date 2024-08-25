@@ -11,10 +11,12 @@ export const lineModeParser = (lineMode, multiple) => {
 
 export const animationParser = (animation) => {
   const animationConfig = animation.trim().split(" ");
+  const duration = isValidNumber(animationConfig[1]) ? parseFloat(animationConfig[1]) : 1000;
+  const delay = isValidNumber(animationConfig[2]) ? parseFloat(animationConfig[2]) : 400;
   return {
     type: animationConfig[0],
-    duration: isValidNumber(animationConfig[1]) ? parseFloat(animationConfig[1]) : 1000,
-    delay: isValidNumber(animationConfig[2]) ? parseFloat(animationConfig[2]) : 400,
+    duration: duration >= 0 ? duration : 0,
+    delay: delay >= 0 ? delay : 0,
   };
 };
 

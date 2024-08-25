@@ -44,7 +44,10 @@
         <input type="checkbox" v-model="circles[3].loading" />
       </div>-->
       <div style="border: 1px solid red; display: inline-block">
-        <ve-progress :progress="progress" animation="bounce 3000 300" :legend-formatter="customFormatter"
+        <ve-progress :progress="progress" animation="default 0 0" :legend="120" :legend-formatter="({ currentValue }) => `Formatted: ${currentValue}`">
+        </ve-progress>
+
+<!--        <ve-progress :progress="progress" animation="bounce 3000 300" :legend-formatter="customFormatter"
                      :loading="loading">
           <template #legend>
             <span id="my-slot">Hello Circle</span>
@@ -68,7 +71,7 @@
               fill="transparent"
               :style="attrs.styles"
             />
-            <!--              <line
+            &lt;!&ndash;              <line
               ref="polygon"
               :stroke-dashoffset="attrs.strokeDashOffset / 4"
               :stroke-dasharray="lineLength"
@@ -80,7 +83,7 @@
               stroke="blue"
               stroke-width="4"
               fill="none"
-            />-->
+            />&ndash;&gt;
           </template>
           <template #legend>
             <span id="my-slot">Hello custom Circle</span>
@@ -173,7 +176,7 @@
           <template #legend>
             <span id="my-slot">Hello custom Circle</span>
           </template>
-        </ve-progress>
+        </ve-progress>-->
         <!--        <ve-progress
                   :progress="progress"
                   :determinate="determinate"
