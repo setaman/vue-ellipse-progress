@@ -5,7 +5,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
-import { defaultCounterTick, wait } from "@/../tests/helper";
+import { defaultCounterTick, wait } from "../helper";
 import { nextTick } from "vue";
 
 const factory = (propsData, slots = {}) => {
@@ -137,7 +137,7 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            legend: `<template #legend><span id="my-slot">Hello Circle</span></template>`,
+            legend: `<span id="my-slot">Hello Circle</span>`,
           },
         });
         expect(wrapper.find("#my-slot").exists()).to.be.true;
@@ -179,11 +179,11 @@ describe("[ EllipseProgressContainer.vue ]", () => {
         props: { progress: 35 },
         slots: {
           "circle-progress": `
-              <template #default="attrs" >
+              <template #default="{ attrs }" >
                 <polygon
                   ref="polygon"
                   :stroke-dashoffset="attrs.strokeDashOffset"
-                  :stroke-dasharray="582.4922485351562"
+                  :stroke-dasharray="attrs.circumference"
                   points="10,10 190,100 10,190"
                   style="fill: lime; stroke: purple; stroke-width: 3"
                   :style="attrs.styles"
