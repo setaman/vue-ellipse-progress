@@ -9,7 +9,11 @@
           <gradient v-if="isEmptyColorFillGradient" :color="options.emptyColorFill" type="empty-fill" :uid="uid" />
           <gradient v-if="isLoaderColorGradient" :color="options.loader.color" type="loader" :uid="uid" />
         </defs>
-        <component :is="circleType" :options="computedOptions" />
+        <component :is="circleType" :options="computedOptions">
+          <template #circle-progress="{ attrs }">
+            <slot name="circle-progress" :attrs="attrs"></slot>
+          </template>
+        </component>
       </g>
     </svg>
     <circle-dot v-if="options.dot.size" :options="computedOptions" />

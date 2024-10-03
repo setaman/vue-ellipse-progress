@@ -134,7 +134,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.loading) {
+    if (!this.loading && this.duration) {
       setTimeout(() => {
         this.raf = requestAnimationFrame(this.count);
       }, this.delay);

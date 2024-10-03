@@ -2,6 +2,8 @@ import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import Counter from "@/components/Counter.vue";
 import VueEllipseProgress from "@/components/VueEllipseProgress.vue";
+import { nextTick } from "vue";
+import { wait } from "../helper";
 
 const factory = (propsData, slots) => {
   return mount(VueEllipseProgress, {
@@ -31,15 +33,17 @@ global.cancelAnimationFrame = (id) => clearTimeout(id);
 
 describe("[ Counter.vue ]", () => {
   describe("#value", async () => {
-    it("renders the final value correctly", (done) => {
+    it("renders the final value correctly", async () => {
       const counterWrapper = factory({
         legend: "50.00",
         animation: `default 0 0`,
       }).findComponent(Counter);
-      setTimeout(() => {
-        expect(counterWrapper.element.textContent).to.equal("50.00");
-      }, 100);
-      done();
+
+      // need to await RAF tick, tests is flaky
+      await wait(200);
+      await nextTick();
+
+      expect(counterWrapper.element.textContent).to.equal("50.00");
     });
 
     const values = [

@@ -5,7 +5,7 @@ import CircleContainer from "@/components/Circle/CircleContainer.vue";
 import Counter from "@/components/Counter.vue";
 import { animationParser, dotParser, dashParser, lineModeParser, linePositionParser } from "@/components/optionsParser";
 import props from "@/components/interface";
-import { defaultCounterTick } from "@/../tests/helper";
+import { defaultCounterTick, wait } from "../helper";
 import { nextTick } from "vue";
 
 const factory = (propsData, slots = {}) => {
@@ -131,22 +131,19 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       expect(spanWrapper.classes()).to.include("applied-class");
     });
   });
-  // FIXME: throws "TypeError: Cannot convert undefined or null to object" for some unknown reason
-  /*describe("#slots", () => {
+  describe("#slots", () => {
     describe("#legend", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
           slots: {
-            legend: `<template #legend>
-             <span id="my-slot">Hello Circle</span>
-          </template>`,
+            legend: `<span id="my-slot">Hello Circle</span>`,
           },
         });
         expect(wrapper.find("#my-slot").exists()).to.be.true;
       });
     });
-    /!*describe("#legend-caption", () => {
+    describe("#legend-caption", () => {
       it("renders provided slot content", () => {
         const wrapper = mount(VueEllipseProgress, {
           props: { progress: 50 },
@@ -176,8 +173,32 @@ describe("[ EllipseProgressContainer.vue ]", () => {
           done();
         }, 100);
       });
-    });*!/
-  });*/
+    });
+    describe("#circle-progress", () => {
+      const wrapper = mount(VueEllipseProgress, {
+        props: { progress: 35 },
+        slots: {
+          "circle-progress": `
+              <template #default="{ attrs }" >
+                <polygon
+                  ref="polygon"
+                  :stroke-dashoffset="attrs.strokeDashOffset"
+                  :stroke-dasharray="attrs.circumference"
+                  points="10,10 190,100 10,190"
+                  style="fill: lime; stroke: purple; stroke-width: 3"
+                  :style="attrs.styles"
+                />
+              </template>`,
+        },
+      });
+
+      it("renders provided slot", () => expect(wrapper.find("polygon").exists()).to.be.true);
+
+      it("replaces default progress circle", () => {
+        expect(wrapper.find(".ep-circle--progress").exists()).to.be.false;
+      });
+    });
+  });
   describe("#data", () => {
     const data = [
       { progress: 25, color: "red" },
@@ -230,14 +251,15 @@ describe("[ EllipseProgressContainer.vue ]", () => {
       };
       factory({ progress: 1, legendFormatter: formatter, animation: "default 0 0" });
     });
-    it("renders the custom formatted value", (done) => {
+    it("renders the custom formatted value", async () => {
       const customFormat = (value) => `Formatted: ${value}`;
       const formatter = ({ currentValue }) => customFormat(currentValue);
       const wrapper = factory({ legend: 120, legendFormatter: formatter, animation: "default 0 0" });
-      setTimeout(() => {
-        expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
-        done();
-      }, 100);
+
+      await wait(200);
+      await nextTick();
+
+      expect(wrapper.find(".ep-legend--value__counter").element.textContent).to.equal(customFormat(120));
     });
     it("isHTML returns false by default ", () => {
       expect(factory({ legendFormatter: () => "Custom" }).vm.isHTML).to.be.false;
