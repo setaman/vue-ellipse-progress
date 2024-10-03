@@ -8,7 +8,7 @@ implemented with SVG.
 Follow these three steps to get started:
 ```js
 // install
-npm i vue-ellipse-progress@next
+npm i vue-ellipse-progress
 // initialize
 import veProgress from "vue-ellipse-progress";
 createApp(App).use(veProgress);
