@@ -1,0 +1,36 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - v2-dev
+    paths:
+      - "src/**"
+      - "!*.md"
+  pull_request:
+    branches:
+      - master
+      - dev
+      - v2-dev
+    paths:
+      - "src/**"
+      - "!*.md"
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Unit tests
+        run: npm run test

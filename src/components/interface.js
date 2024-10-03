@@ -1,10 +1,12 @@
+import { isValidNumber } from "@/utils";
+
 const colorConfig = (defaultColor = "transparent") => ({
   type: [String, Object],
   required: false,
   default: defaultColor,
   validator: (value) => {
-    if (typeof value === "string" && value) {
-      return true;
+    if (typeof value === "string") {
+      return value;
     }
     if (typeof value === "object" && value.colors) {
       return value.colors.every((config) => config.color && config.offset);
@@ -13,7 +15,26 @@ const colorConfig = (defaultColor = "transparent") => ({
   },
 });
 
-const props = {
+const validateLoaderProps = (loaderOptions) =>
+  Object.keys(loaderOptions).every((option) => {
+    if (["opacity", "duration"].includes(option)) {
+      return isValidNumber(loaderOptions[option]) && loaderOptions[option] >= 0;
+    }
+    return options[option].validator(loaderOptions[option]);
+  });
+
+const linePosition = {
+  type: String,
+  required: false,
+  default: "center",
+  validator: (value) => {
+    const [position, offset] = value.toString().split(" ");
+    const isValidOffset = offset ? !Number.isNaN(parseFloat(offset)) : true;
+    return ["center", "out", "in"].includes(position) && isValidOffset;
+  },
+};
+
+const options = {
   data: {
     type: Array,
     required: false,
@@ -24,7 +45,7 @@ const props = {
     require: true,
     validator: (val) => val >= -100 && val <= 100,
   },
-  legendValue: {
+  legend: {
     type: [Number, String],
     required: false,
     validator: (value) => !Number.isNaN(parseFloat(value.toString().replace(",", "."))),
@@ -56,15 +77,17 @@ const props = {
   lineMode: {
     type: String,
     required: false,
-    default: "normal",
+    default: "center",
     validator: (value) => {
       const lineModeConfig = value.split(" ");
-      const isValidType = ["normal", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
+      const isValidType = ["center", "out", "out-over", "in", "in-over", "top", "bottom"].includes(lineModeConfig[0]);
       const isValidOffset = lineModeConfig[1] ? !Number.isNaN(parseFloat(lineModeConfig[1])) : true;
 
       return isValidType && isValidOffset;
     },
   },
+  linePosition,
+  emptyLinePosition: linePosition,
   color: colorConfig("#3f79ff"),
   emptyColor: colorConfig("#e6e9f0"),
   colorFill: colorConfig(),
@@ -89,10 +112,10 @@ const props = {
       return isValidType && isValidDuration && isValidDelay;
     },
   },
-  legend: {
+  hideLegend: {
     type: Boolean,
     required: false,
-    default: true,
+    default: false,
   },
   legendClass: {
     type: String,
@@ -160,15 +183,24 @@ const props = {
     required: false,
     default: false,
   },
+  legendFormatter: {
+    type: Function,
+    required: false,
+  },
+  loader: {
+    type: Object,
+    required: false,
+    default: () => ({}),
+    validator: (value) => {
+      const propsAllowed = Object.keys(value).every((prop) =>
+        ["thickness", "color", "lineMode", "line", "opacity", "duration"].includes(prop)
+      );
+      if (propsAllowed) {
+        return validateLoaderProps(value);
+      }
+      return false;
+    },
+  },
 };
 
-const simplifiedProps = {};
-
-for (const p in props) {
-  simplifiedProps[p] = {
-    type: props[p].type,
-    default: props[p].default,
-  };
-}
-
-export { props, simplifiedProps };
+export default options;

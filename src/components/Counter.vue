@@ -1,12 +1,11 @@
 <template>
   <span class="ep-legend--value__counter">
-    <slot :counterTick="counterProps"> </slot>
-    <span v-if="!$scopedSlots.default">{{ formattedValue }}</span>
+    <slot :counterTick="counterProps"></slot>
   </span>
 </template>
 
 <script>
-import { animationParser } from "./optionsParser";
+import { isString } from "../utils";
 
 export default {
   name: "Counter",
@@ -16,7 +15,7 @@ export default {
       required: true,
     },
     animation: {
-      type: String,
+      type: Object,
       required: true,
     },
     loading: {
@@ -27,6 +26,7 @@ export default {
   data: () => ({
     start: 0,
     startTime: 0,
+    elapsed: 0,
     currentValue: 0,
     raf: null,
     previousCountStepValue: 0,
@@ -45,24 +45,44 @@ export default {
     difference() {
       return Math.abs(this.end - this.start);
     },
+    currentDifference() {
+      return Math.abs(this.end - this.currentValue);
+    },
     oneStepDifference() {
       return this.duration === 0 ? this.difference : this.difference / this.duration;
     },
     delimiter() {
-      return this.value.toString().search(",") >= 0 ? "," : ".";
+      return this.value.toString().includes(",") ? "," : ".";
     },
     formattedValue() {
-      return this.currentValue.toFixed(this.countDecimals()).replace(".", this.delimiter);
+      if (isString(this.value) && !this.value.includes("-")) {
+        let [preFormat] = this.value.toString().replace(/\s/g, "").split(this.delimiter);
+        preFormat = [...preFormat].fill("0").join("");
+        const [pre, post] = this.currentValue
+          .toFixed(this.decimalsCount)
+          .replace(".", this.delimiter)
+          .split(this.delimiter);
+        return `${preFormat.slice(pre.length)}${pre}${post ? this.delimiter + post : ""}`;
+      }
+      return this.currentValue.toFixed(this.decimalsCount).replace(".", this.delimiter);
     },
     delay() {
-      return animationParser(this.animation).delay;
+      return this.animation.delay;
     },
     duration() {
-      return animationParser(this.animation).duration;
+      return this.animation.duration;
+    },
+    countProgress() {
+      return (Math.abs(this.currentDifference - this.difference) * 100) / (this.difference || 1);
+    },
+    decimalsCount() {
+      if (!isString(this.value) && this.value % 1 === 0) return 0;
+      return (this.value.toString().replace(/\s/g, "").split(this.delimiter)[1] || "").length;
     },
     counterProps() {
       return {
         currentValue: parseFloat(this.formattedValue),
+        countProgress: this.countProgress,
         currentFormattedValue: this.formattedValue,
         currentRawValue: this.currentValue,
         duration: this.duration,
@@ -70,43 +90,40 @@ export default {
         start: this.start,
         end: this.end,
         difference: this.difference,
+        currentDifference: this.currentDifference,
         oneStepDifference: this.oneStepDifference,
         startTime: this.startTime,
-        elapsed: 0,
+        elapsed: this.elapsed,
       };
     },
   },
   methods: {
-    countDecimals() {
-      if (this.value % 1 === 0) return 0;
-      return this.value.toString().split(this.delimiter)[1].length;
-    },
     count(timeStamp) {
       if (!this.startTime) {
         this.startTime = timeStamp;
       }
-      const elapsed = timeStamp - this.startTime;
+      this.elapsed = timeStamp - this.startTime;
       if (this.end >= this.start) {
-        this.countUp(elapsed);
+        this.countUp();
       } else {
-        this.countDown(elapsed);
+        this.countDown();
       }
-      if (elapsed < this.duration && this.difference > 0.1) {
+      if (this.elapsed < this.duration && this.difference > 0.1) {
         cancelAnimationFrame(this.raf);
         this.raf = requestAnimationFrame(this.count);
       }
-      if (elapsed >= this.duration) {
+      if (this.elapsed >= this.duration) {
         this.currentValue = this.end;
         this.reset();
       }
     },
-    countDown(elapsed) {
-      const decreaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+    countDown() {
+      const decreaseValue = Math.min(this.oneStepDifference * (this.elapsed || 1), this.difference);
       this.currentValue -= decreaseValue - this.previousCountStepValue;
       this.previousCountStepValue = decreaseValue;
     },
-    countUp(elapsed) {
-      const increaseValue = Math.min(this.oneStepDifference * (elapsed || 1), this.difference);
+    countUp() {
+      const increaseValue = Math.min(this.oneStepDifference * (this.elapsed || 1), this.difference);
       this.currentValue += increaseValue - this.previousCountStepValue;
       this.previousCountStepValue = increaseValue;
     },
@@ -117,7 +134,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.loading) {
+    if (!this.loading && this.duration) {
       setTimeout(() => {
         this.raf = requestAnimationFrame(this.count);
       }, this.delay);

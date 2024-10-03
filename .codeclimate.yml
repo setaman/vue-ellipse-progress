@@ -1,0 +1,8 @@
+version: 2
+exclude_patterns:
+  - "tests"
+  - "demo"
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-7"

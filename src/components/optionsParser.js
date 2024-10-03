@@ -1,23 +1,26 @@
 import { getNumberIfValid, isValidNumber } from "@/utils";
 
-const lineModeParser = (lineMode) => {
+export const lineModeParser = (lineMode, multiple) => {
   const lineModeConfig = lineMode.trim().split(" ");
+  const mode = multiple ? "multiple" : lineModeConfig[0];
   return {
-    mode: lineModeConfig[0],
+    mode,
     offset: getNumberIfValid(lineModeConfig[1]) || 0,
   };
 };
 
-const animationParser = (animation) => {
+export const animationParser = (animation) => {
   const animationConfig = animation.trim().split(" ");
+  const duration = isValidNumber(animationConfig[1]) ? parseFloat(animationConfig[1]) : 1000;
+  const delay = isValidNumber(animationConfig[2]) ? parseFloat(animationConfig[2]) : 400;
   return {
     type: animationConfig[0],
-    duration: isValidNumber(animationConfig[1]) ? parseFloat(animationConfig[1]) : 1000,
-    delay: isValidNumber(animationConfig[2]) ? parseFloat(animationConfig[2]) : 400,
+    duration: duration >= 0 ? duration : 0,
+    delay: delay >= 0 ? delay : 0,
   };
 };
 
-const dashParser = (dash) => {
+export const dashParser = (dash) => {
   const dashConfig = dash.trim().split(" ");
   const isStrict = dashConfig[0] === "strict";
   if (!isStrict) {
@@ -29,7 +32,7 @@ const dashParser = (dash) => {
   };
 };
 
-const dotParser = (dot) => {
+export const dotParser = (dot, circleSize) => {
   let dotSize = 0;
   let dotColor = "white";
   let styles = {};
@@ -43,9 +46,43 @@ const dotParser = (dot) => {
   }
   return {
     ...styles,
-    size: dotSize,
+    size: calcThickness(dotSize, circleSize),
     color: dotColor,
   };
 };
 
-export { lineModeParser, animationParser, dashParser, dotParser };
+export const calcThickness = (thickness, circleSize) => {
+  const value = parseFloat(thickness);
+  return thickness.toString().includes("%") ? (value * circleSize) / 100 : value;
+};
+
+export const linePositionParser = (linePosition) => {
+  const [position, offset] = linePosition.toString().split(" ");
+  return {
+    position,
+    offset: parseFloat(offset) || 0,
+  };
+};
+
+export const loaderParser = (loader, options) => ({
+  ...loader,
+  color: loader.color || options.color,
+  line: loader.line || options.line,
+  lineMode: lineModeParser(loader.lineMode || options.lineMode, options.multiple),
+  thickness: calcThickness(loader.thickness || options.thickness, options.size),
+});
+
+export const parseOptions = (options) => ({
+  ...options,
+  thickness: calcThickness(options.thickness, options.size),
+  emptyThickness: calcThickness(options.emptyThickness, options.size),
+  globalThickness: calcThickness(options.globalThickness, options.size),
+  dot: dotParser(options.dot, options.size),
+  globalDot: dotParser(options.globalDot, options.size),
+  dash: dashParser(options.dash),
+  lineMode: lineModeParser(options.lineMode, options.multiple),
+  linePosition: linePositionParser(options.linePosition),
+  emptyLinePosition: linePositionParser(options.emptyLinePosition),
+  animation: animationParser(options.animation),
+  loader: loaderParser(options.loader, options),
+});

@@ -7,34 +7,33 @@
     }"
   >
     <div class="ep-content">
-      <circle-container
-        v-for="(options, i) in circlesData"
-        :key="i"
-        v-bind="options"
-        :multiple="isMultiple"
-        :index="i"
-        :globalThickness="thickness"
-        :globalGap="gap"
-        :globalDot="dot"
-      />
+      <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options">
+        <template #circle-progress="{ attrs }">
+          <slot name="circle-progress" :attrs="attrs"></slot>
+        </template>
+      </circle-container>
       <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
         <div
+          v-if="!isMultiple"
           class="ep-legend--value"
-          v-if="legend && !isMultiple"
           :class="[legendClass, { 'ep-hidden': shouldHideLegendValue }]"
-          :style="{ fontSize, color: fontColor }"
+          :style="{ height: `${legendHeight}px`, fontSize, color: fontColor }"
+          style="transition: 0.3s"
         >
-          <counter :value="legendVal" :animation="animation" :loading="loading">
-            <template v-slot:default="{ counterTick }">
-              <slot v-if="$scopedSlots.default" :counterTick="counterTick"></slot>
-              <span v-if="legendFormatter">
-                <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
-                <span v-else>{{ legendFormatter(counterTick) }}</span>
-              </span>
-              <span v-else-if="!$scopedSlots.default">{{ counterTick.currentFormattedValue }}</span>
-            </template>
-          </counter>
-          <slot name="legend-value"></slot>
+          <div ref="legend">
+            <counter :value="computedLegend" :animation="normalizedCircles[0].animation" :loading="loading">
+              <template #default="{ counterTick }">
+                <template v-if="legendFormatter">
+                  <span v-if="isHTML" v-html="legendFormatter(counterTick)"></span>
+                  <span v-else>{{ legendFormatter(counterTick) }}</span>
+                </template>
+                <slot v-else :counterTick="counterTick">
+                  <span>{{ counterTick.currentFormattedValue }}</span>
+                </slot>
+              </template>
+            </counter>
+            <slot name="legend"></slot>
+          </div>
         </div>
         <slot name="legend-caption"></slot>
       </div>
@@ -43,33 +42,33 @@
 </template>
 
 <script>
-import { getNumberIfValid, isValidNumber } from "../utils";
-import { props } from "./interface";
+import { getNumberIfValid, isValidNumber, defaultCounterTick } from "../utils";
+import props from "./interface";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
+import { parseOptions } from "./optionsParser";
 
 export default {
   name: "VueEllipseProgress",
   components: { Counter, CircleContainer },
-  props: {
-    ...props,
-    legendFormatter: {
-      type: Function,
-      required: false,
+  props,
+  data: () => ({
+    legendHeight: null,
+  }),
+  watch: {
+    hideLegend() {
+      this.updateLegendHeight();
     },
   },
-  data: () => ({
-    counterTick: {},
-  }),
   computed: {
-    legendVal() {
+    computedLegend() {
       if (this.loading || this.noData) {
         return 0;
       }
-      return this.legendValue ? this.legendValue : getNumberIfValid(this.progress) || 0;
+      return this.legend ? this.legend : getNumberIfValid(this.progress) || 0;
     },
     shouldHideLegendValue() {
-      return !this.isDataAvailable || this.loading;
+      return !this.isDataAvailable || this.loading || this.hideLegend;
     },
     isDataAvailable() {
       return isValidNumber(this.progress) && !this.noData;
@@ -78,18 +77,51 @@ export default {
       return this.data.length > 1;
     },
     isHTML() {
-      return /<[a-z/][\s\S]*>/i.test(this.legendFormatter({ currentValue: 0 }).toString().trim());
+      return /<[a-z/][\s\S]*>/i.test(
+        ((this.legendFormatter && this.legendFormatter(defaultCounterTick)) || "").toString().trim()
+      );
     },
     circlesData() {
       if (this.isMultiple) {
-        return this.data.map((data) => ({
+        return this.data.map((options) => ({
           ...this.$props,
-          ...data,
-          emptyThickness: isValidNumber(data.thickness) ? data.thickness : this.$props.thickness,
+          ...options,
+          multiple: true,
+          emptyThickness: isValidNumber(options.thickness) ? options.thickness : this.$props.thickness,
+          data: undefined, // do not pass data prop
         }));
       }
       return [this.$props];
     },
+    normalizedCircles() {
+      const normalizedCircles = [];
+      const previousCircles = [];
+      for (let i = 0; i < this.circlesData.length; i++) {
+        const options = this.circlesData[i];
+        const parsedOptions = parseOptions({
+          index: i,
+          ...options,
+          globalDot: this.dot,
+          globalGap: this.gap,
+          globalThickness: this.thickness,
+          previousCircles: [...previousCircles],
+        });
+        normalizedCircles.push(parsedOptions);
+        const { gap, thickness, dot } = normalizedCircles[i];
+        previousCircles.push({ gap, thickness, dot });
+      }
+      return normalizedCircles;
+    },
+  },
+  methods: {
+    updateLegendHeight() {
+      this.$nextTick(() => {
+        this.legendHeight = this.hideLegend ? 0 : this.$refs.legend?.clientHeight ?? 0;
+      });
+    },
+  },
+  mounted() {
+    this.updateLegendHeight();
   },
 };
 </script>
@@ -116,14 +148,17 @@ export default {
   position: absolute;
   text-align: center;
 }
+
 .ep-legend--value {
   transition: 0.3s;
   text-align: center;
   opacity: 1;
 }
+
 .ep-hidden {
   opacity: 0;
 }
+
 svg.ep-svg {
   transition: inherit;
   transform-origin: 50% 50%;

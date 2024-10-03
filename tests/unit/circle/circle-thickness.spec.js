@@ -1,58 +1,56 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
-import Circle from "@/components/Circle/Circle.vue";
+import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import { factory, parseRawOptions } from "@/../tests/helper";
+import { calcThickness } from "@/components/optionsParser";
 
-const factory = (propsData) => {
-  return mount(Circle, {
-    propsData: {
-      progress: 50,
-      multiple: true,
-      id: 1,
-      index: 0,
-      ...propsData,
-    },
+const localFactory = (props) => factory({ container: CircleContainer, props: parseRawOptions(props) });
+
+const thicknessTests = (thicknessProp, selector, half) => {
+  it("applies default 5% thickness", () => {
+    const expectedThickness = calcThickness("5%", 200);
+    const thickness = localFactory({ half }).find(selector).element.getAttribute("stroke-width");
+    expect(`${expectedThickness}`).to.equal(`${thickness}`);
   });
-};
-
-describe("#thickness", () => {
-  it("renders the progress circle line stroke thickness correctly", () => {
+  it("renders the circle line stroke thickness correctly", () => {
     const thickness = 4;
 
-    const wrapper = factory({ thickness });
-    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
+    const wrapper = localFactory({ [thicknessProp]: thickness, half });
+    const circleProgressWrapper = wrapper.find(selector);
 
     expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${thickness}`);
   });
-  it("renders and calculates the progress circle line stroke relative thickness correctly", () => {
-    const size = 200;
-    const thickness = "5%";
-    const relativeThickness = (parseInt(thickness, 10) * size) / 100;
+  it("renders and calculates circle line stroke relative thickness correctly", () => {
+    const thickness = "8%";
 
-    const wrapper = factory({ thickness });
-    const circleProgressWrapper = wrapper.find("circle.ep-circle--progress");
-
-    expect(wrapper.vm.computedThickness).to.equal(relativeThickness);
-    expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${relativeThickness}`);
+    const circleProgressWrapper = localFactory({ [thicknessProp]: thickness, half }).find(selector);
+    expect(circleProgressWrapper.element.getAttribute("stroke-width")).to.equal(`${calcThickness(thickness, 200)}`);
   });
-});
-describe("#emptyTthickness", () => {
-  it("renders the empty circle line stroke thickness correctly", () => {
-    const emptyThickness = 4;
+};
 
-    const wrapper = factory({ emptyThickness });
-    const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
+const runTest = (thicknessProp, half = false, empty = false) => {
+  const circleClassPrefix = `ep-${half ? "half-" : ""}circle--`;
+  const circleClassPostfix = `${empty ? "empty" : "progress"}`;
+  const circleSelector = `.${circleClassPrefix}${circleClassPostfix}`;
+  thicknessTests(thicknessProp, circleSelector, half, empty);
+};
 
-    expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${emptyThickness}`);
+describe("Thickness", () => {
+  describe("Circle", () => {
+    const half = false;
+    describe("#thickness", () => {
+      runTest("thickness", half, false);
+    });
+    describe("#emptyThickness", () => {
+      runTest("emptyThickness", half, true);
+    });
   });
-  it("renders and calculates the empty circle line stroke relative thickness correctly", () => {
-    const size = 200;
-    const emptyThickness = "5%";
-    const relativeThickness = (parseInt(emptyThickness, 10) * size) / 100;
-
-    const wrapper = factory({ emptyThickness });
-    const circleEmptyWrapper = wrapper.find("circle.ep-circle--empty");
-
-    expect(wrapper.vm.computedEmptyThickness).to.equal(relativeThickness);
-    expect(circleEmptyWrapper.element.getAttribute("stroke-width")).to.equal(`${relativeThickness}`);
+  describe("Half Circle", () => {
+    const half = true;
+    describe("#thickness", () => {
+      runTest("thickness", half, false);
+    });
+    describe("#emptyThickness", () => {
+      runTest("emptyThickness", half, true);
+    });
   });
 });

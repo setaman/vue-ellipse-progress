@@ -1,22 +1,12 @@
 import { expect } from "chai";
-import { mount } from "@vue/test-utils";
 import CircleContainer from "@/components/Circle/CircleContainer.vue";
+import { factory, parseRawOptions } from "@/../tests/helper";
 
-const factory = (propsData) => {
-  return mount(CircleContainer, {
-    propsData: {
-      index: 0,
-      id: 123,
-      multiple: false,
-      progress: 50,
-      ...propsData,
-    },
-  });
-};
+const localFactory = (props) => factory({ container: CircleContainer, props: parseRawOptions(props) });
 
 describe("[ CircleContainer.vue ]", () => {
   describe("#reverse", () => {
-    const circleWrapper = factory({ reverse: true });
+    const circleWrapper = localFactory({ reverse: true });
     it("it applies .ep-revers class to circle container ", () => {
       expect(circleWrapper.classes("ep-reverse")).to.be.true;
     });
