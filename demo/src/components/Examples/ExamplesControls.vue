@@ -1,7 +1,11 @@
 <template>
   <v-row>
     <v-col style="min-height: 100px;">
-      <div id="examples-controls-container" class="text-center mb-10" :class="{ fixed: fixed }">
+      <div
+        id="examples-controls-container"
+        class="text-center mb-10"
+        :class="{ fixed: fixed }"
+      >
         <div id="examples-controls">
           <div>
             <v-btn v-if="!isRunning" icon color="primary" @click="run">

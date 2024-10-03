@@ -1,7 +1,17 @@
 <template>
   <div class="custom-btn" :class="{ disabled: disabled }">
-    <v-btn class="custom-v-btn" @click="emitClickEvent" v-bind="$props" target="_blank">
-      <v-icon v-if="buttonIcon" color="rgb(255, 93, 175)" class="mr-3" :small="buttonIcon.size === 'small'">
+    <v-btn
+      class="custom-v-btn"
+      @click="emitClickEvent"
+      v-bind="$props"
+      target="_blank"
+    >
+      <v-icon
+        v-if="buttonIcon"
+        color="rgb(255, 93, 175)"
+        class="mr-3"
+        :small="buttonIcon.size === 'small'"
+      >
         {{ buttonIcon.name }}
       </v-icon>
       <slot> </slot>
@@ -45,7 +55,11 @@ export default {
     left: -20px;
     top: 7px;
     //background-color: rgba(#443381, 0.7);
-    background-image: linear-gradient(to top right, rgba(#5a3fb3, 0.7) 0%, rgba(#764ba2, 0.7) 100%);
+    background-image: linear-gradient(
+      to top right,
+      rgba(#5a3fb3, 0.7) 0%,
+      rgba(#764ba2, 0.7) 100%
+    );
   }
   &:hover {
     &:before {

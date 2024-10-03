@@ -1,5 +1,6 @@
 <template>
-  <vue-ellipse-progress :color="color" :size="200" v-bind="$props"> </vue-ellipse-progress>
+  <vue-ellipse-progress :color="color" :size="200" v-bind="$props">
+  </vue-ellipse-progress>
 </template>
 
 <script>

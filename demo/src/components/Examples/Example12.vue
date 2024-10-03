@@ -47,7 +47,12 @@ export default {
         progress: randomNumberInRange(0, 20),
       },
     ],
-    colors: ["rgb(117,121,255)", "rgb(147, 112, 219)", "rgb(104,54,243)", "rgb(106, 90, 205)"],
+    colors: [
+      "rgb(117,121,255)",
+      "rgb(147, 112, 219)",
+      "rgb(104,54,243)",
+      "rgb(106, 90, 205)",
+    ],
     options: {
       determinate: true,
       color: "#7579ff",

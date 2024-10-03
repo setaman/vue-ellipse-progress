@@ -8,9 +8,24 @@
     />
     <v-container fluid class="fill-height">
       <v-row>
-        <example2 :loading="loading" :determinate="determinate" :no-data="noData" :test="false" />
-        <example2 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
-        <example3 :loading="loading" :determinate="determinate" :no-data="noData" :test="true" />
+        <example2
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+          :test="false"
+        />
+        <example2
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+          :test="true"
+        />
+        <example3
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+          :test="true"
+        />
       </v-row>
     </v-container>
   </section>

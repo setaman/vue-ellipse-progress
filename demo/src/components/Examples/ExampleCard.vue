@@ -5,7 +5,13 @@
         <slot> </slot>
       </div>
       <div class="example-card-btn pa-10">
-        <btn block small :href="link" target="_blank" :buttonIcon="{ name: 'mdi-open-in-new', size: 'small' }">
+        <btn
+          block
+          small
+          :href="link"
+          target="_blank"
+          :buttonIcon="{ name: 'mdi-open-in-new', size: 'small' }"
+        >
           see code
         </btn>
       </div>

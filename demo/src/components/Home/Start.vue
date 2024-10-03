@@ -6,13 +6,22 @@
           <v-row>
             <v-col cols="12">
               <div class="px-sm-3">
-                <h1>Vue.js component for creating beautiful animated circle progress bars</h1>
+                <h1 style="font-size: 2rem;">
+                  Vue.js component for creating beautiful animated circle
+                  progress bars
+                </h1>
                 <div class="my-8">
+                  <v-alert type="warning" dense text>
+                    <strong>Deprecation Notice:</strong> Version 1 is now
+                    deprecated in favor of the new Version 2, which comes with a
+                    newer and nicer documentation site.
+                  </v-alert>
+
                   <v-chip link color="primary" @click="copyNmpCommand">
                     {{ npm }}
                   </v-chip>
                   <v-chip class="ml-3" outlined color="primary">
-                    <span class="white--text">v {{ version }}</span>
+                    <span class="white--text">v2</span>
                   </v-chip>
                 </div>
               </div>
@@ -21,17 +30,12 @@
               <v-row class="px-10">
                 <v-col>
                   <btn
-                    href="https://github.com/setaman/vue-ellipse-progress"
+                    href="https://setaman.github.io/vue-ellipse-progress-docs/"
                     block
                     size="medium"
                     :buttonIcon="{ name: 'mdi-github-circle' }"
                   >
-                    See docs on github
-                  </btn>
-                </v-col>
-                <v-col>
-                  <btn block :buttonIcon="{ name: 'mdi-tune' }" disabled>
-                    build your own circle
+                    Check out new docs
                   </btn>
                 </v-col>
               </v-row>
@@ -43,11 +47,16 @@
             </div>
           </div>
         </v-col>
-        <v-col sm="12" md="7" style="position: relative;" class="d-flex align-center">
+        <v-col
+          sm="12"
+          md="7"
+          style="position: relative;"
+          class="d-flex align-center"
+        >
           <div id="overlay"></div>
           <div class="text-center fill-width">
             <vue-ellipse-progress
-              :progress="calculatedProgress"
+              :progress="ratingProgress"
               color="#7579ff"
               thickness="4px"
               empty-thickness="0px"
@@ -55,43 +64,24 @@
               line-mode="in 26"
               :size="300"
               animation="rs 700 300"
-              :legend-value="teamStats ? teamStats.won : 0"
+              :legend-value="rating"
               :loading="loading"
-              :no-data="error || (!loading && !teamStats)"
               font-size="2rem"
               font-color="#7579ff"
             >
               <span slot="legend-value">
-                <span class="mx-2">/</span>
-                <span>{{ teamStats ? teamStats.playedGames : "" }}</span>
+                <span class="mr-1">
+                  /
+                </span>
+                <span>
+                  5
+                </span>
               </span>
               <div slot="legend-caption" style="color: #7579ff;">
-                <div v-if="teamStats"><b>WON</b> VS <b>PLAYED</b></div>
-                <span>{{ teamStats ? teamStats.team.name : "" }}</span>
+                <p class="mb-0">24 REVIEWS</p>
+                <v-rating dense small v-model="rating"></v-rating>
               </div>
             </vue-ellipse-progress>
-            <v-row>
-              <v-col>
-                <form id="team-input-form" @submit.prevent="loadTeamStats">
-                  <div class="mb-3">
-                    <v-autocomplete
-                      v-model="teamName"
-                      label="Select an APL team"
-                      :items="teams"
-                      hide-details
-                      outlined
-                      :loading="loading"
-                      :dark="$vuetify.breakpoint.smAndDown"
-                    ></v-autocomplete>
-                  </div>
-                  <div>
-                    <btn block large :loading="loading" type="submit">
-                      load data
-                    </btn>
-                  </div>
-                </form>
-              </v-col>
-            </v-row>
           </div>
         </v-col>
       </v-row>
@@ -103,23 +93,19 @@
 </template>
 
 <script>
-import teamStats from "@/utils/teamStats";
 import Btn from "@/components/Base/Btn";
-import packageInfo from "../../../package";
-const wait = () => new Promise((resolve) => setTimeout(resolve, 2000));
+import randomNumberInRange from "@/utils/randomNumberInRange";
+
 const waveColor = "#237cef";
+
 export default {
   name: "Start",
   components: { Btn },
   data: () => ({
     teamName: "Manchester United",
     snackbar: false,
-    teams: ["Manchester United", "Manchester City", "Chelsea", "Liverpool", "Arsenal"],
     npm: "npm i vue-ellipse-progress",
-    version: packageInfo.dependencies["vue-ellipse-progress"].replace("^", ""),
-    teamStats: "",
     loading: true,
-    error: false,
     emptyColorFill: {
       radial: true,
       colors: [
@@ -150,27 +136,16 @@ export default {
         },
       ],
     },
+    rating: 3,
   }),
   computed: {
-    calculatedProgress() {
-      return !this.teamStats ? 0 : (this.teamStats.won * 100) / this.teamStats.playedGames;
+    ratingProgress() {
+      return (this.rating * 100) / 5;
     },
   },
   methods: {
-    async loadTeamStats() {
-      try {
-        this.loading = true;
-        this.error = false;
-        const response = await teamStats();
-        await wait();
-        this.teamStats = response.data.standings[0].table.filter((teamData) =>
-          teamData.team.name.toLowerCase().includes(this.teamName.toLowerCase())
-        )[0];
-      } catch (e) {
-        this.error = true;
-      } finally {
-        this.loading = false;
-      }
+    randomizeOptions() {
+      this.rating = randomNumberInRange(0, 5);
     },
     copyNmpCommand() {
       this.$clipboard(this.npm);
@@ -178,7 +153,12 @@ export default {
     },
   },
   mounted() {
-    this.loadTeamStats();
+    setInterval(() => {
+      this.randomizeOptions();
+    }, 1500);
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   },
 };
 </script>

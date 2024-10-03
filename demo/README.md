@@ -1,4 +1,5 @@
 # demo
+Legacy demo for the deprecated plugin version v1.
 
 ## Project setup
 ```

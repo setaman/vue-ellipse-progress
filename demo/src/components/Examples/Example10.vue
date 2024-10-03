@@ -48,7 +48,12 @@ export default {
         progress: randomNumberInRange(0, 20),
       },
     ],
-    colors: ["rgb(51,54,177)", "rgb(105,36,255)", "rgb(104,54,243)", "rgb(64,44,180)"],
+    colors: [
+      "rgb(51,54,177)",
+      "rgb(105,36,255)",
+      "rgb(104,54,243)",
+      "rgb(64,44,180)",
+    ],
     options: {
       determinate: true,
       color: "#7579ff",
@@ -90,7 +95,9 @@ export default {
         this.circlesData[n].gap = gap;
         this.circlesData[n].thickness = thickness;
         this.circlesData[n].angle = 20 * n;
-        this.circlesData[n].emptyColor = color.replace(")", `, ${opacity})`).replace("rgb", "rgba");
+        this.circlesData[n].emptyColor = color
+          .replace(")", `, ${opacity})`)
+          .replace("rgb", "rgba");
         this.circlesData[n].color = color;
       }
     },

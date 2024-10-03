@@ -48,7 +48,9 @@ export default {
   },
   methods: {
     randomizeOptions() {
-      const mode = this.lineModes[randomNumberInRange(0, this.lineModes.length - 1)];
+      const mode = this.lineModes[
+        randomNumberInRange(0, this.lineModes.length - 1)
+      ];
       const offset = randomNumberInRange(0, 15);
       this.lineMode = `${mode} ${offset}`.trim();
       this.progress = randomNumberInRange(0, 100);

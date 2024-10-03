@@ -11,35 +11,95 @@
     </v-container>
     <v-container fluid>
       <v-row>
-        <example1 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example1
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example2 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example2
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example3 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example3
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example4 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example4
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example5 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example5
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example6 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example6
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example7 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example7
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example8 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example8
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example9 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example9
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example10 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example10
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example11 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example11
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example12 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example12
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example13 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example13
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example14 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example14
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
 
-        <example15 :loading="loading" :determinate="determinate" :no-data="noData" />
+        <example15
+          :loading="loading"
+          :determinate="determinate"
+          :no-data="noData"
+        />
       </v-row>
     </v-container>
   </section>
