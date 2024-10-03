@@ -1,7 +1,7 @@
 <template>
   <component
     :is="gradientComponent"
-    :id="`ep-${type}-gradient-${id}`"
+    :id="`ep-${type}-gradient-${uid}`"
     x1="0%"
     y1="100%"
     x2="0%"
@@ -31,7 +31,7 @@ export default {
       type: String,
       required: true,
     },
-    id: {
+    uid: {
       type: Number,
       required: true,
     },

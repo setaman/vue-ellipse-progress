@@ -1,25 +1,65 @@
 {
   "name": "vue-ellipse-progress",
-  "version": "1.3.1",
+  "version": "2.1.2",
   "private": false,
-  "description": "A Vue.js component to create beautiful animated circular progress bars",
-  "main": "./dist/vue-ellipse-progress.umd.min.js",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --formats umd-min --name vue-ellipse-progress ./src/plugin.js",
-    "lint": "vue-cli-service lint --fix",
-    "test": "vue-cli-service test:unit --colors",
-    "publish-beta": "npm run lint && npm run build && npm publish --tag beta"
-  },
+  "description": "A Vue.js component to create beautiful animated circle progress bars",
   "author": {
     "name": "Sergej Atamantschuk",
     "email": "sergejatam@gmail.com"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --formats umd-min --name veprogress ./src/plugin.js",
+    "lint": "vue-cli-service lint",
+    "changelog": "auto-changelog --template changelog-template.hbs",
+    "lint:fix": "vue-cli-service lint --fix --ignore-path App.vue",
+    "prepare": "husky",
+    "publish-beta": "npm run lint && npm run test && npm run build && npm publish --tag beta",
+    "test": "vue-cli-service test:unit --colors"
+  },
+  "main": "./dist/veprogress.umd.min.js",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-unit-mocha": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/test-utils": "^2.4.6",
+    "auto-changelog": "^2.4.0",
+    "chai": "^4.5.0",
+    "commitlint": "^19.5.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "husky": "^9.1.6",
+    "prettier": "^2.6.2",
+    "sass": "^1.50.0",
+    "sass-loader": "^12.6.0",
+    "vue": "^3.4.38"
+  },
+  "peerDependencies": {
+    "vue": "^3"
+  },
+  "auto-changelog": {
+    "unreleased": false,
+    "commitLimit": false,
+    "breakingPattern": ".!:.",
+    "startingVersion": "v2.0.0-alpha.4",
+    "package": false
   },
   "bugs": "https://github.com/setaman/vue-ellipse-progress/issues",
   "homepage": "https://vue-ellipse-progress-demo.netlify.app/#/",
   "keywords": [
     "vue",
     "vue2",
+    "vue3",
     "circle",
     "half circle",
     "oval",
@@ -29,31 +69,5 @@
     "progress",
     "bar"
   ],
-  "repository": "github:setaman/vue-ellipse-progress",
-  "peerDependencies": {
-    "vue": "^2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.6",
-    "@vue/cli-plugin-eslint": "^4.5.6",
-    "@vue/cli-plugin-unit-mocha": "^4.5.6",
-    "@vue/cli-service": "^4.5.6",
-    "@vue/eslint-config-airbnb": "^5.1.0",
-    "@vue/test-utils": "1.1.0",
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.2.0",
-    "eslint": "^7.9.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
-    "prettier": "^2.1.2",
-    "sass-loader": "^10.0.2",
-    "vue": "^2.6.12",
-    "vue-template-compiler": "^2.6.12"
-  },
-  "files": [
-    "dist",
-    "README"
-  ]
+  "repository": "github:setaman/vue-ellipse-progress"
 }

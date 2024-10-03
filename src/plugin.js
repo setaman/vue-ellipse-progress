@@ -1,16 +1,5 @@
-import VueEllipseProgress from "./components/VueEllipseProgress.vue";
+import VeProgress from "./components/VueEllipseProgress.vue";
 
-const install = (Vue, name = "vue-ellipse-progress") => Vue.component(name, VueEllipseProgress);
-
-let globalVue = null;
-if (typeof window !== "undefined") {
-  globalVue = window.Vue;
-} else if (typeof global !== "undefined") {
-  globalVue = global.Vue;
-}
-if (globalVue) {
-  globalVue.use({ install });
-}
-
-export { VueEllipseProgress, install };
+const install = (app, name = "ve-progress") => app.component(name, VeProgress);
 export default install;
+export { VeProgress, install };
