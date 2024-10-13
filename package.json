@@ -55,7 +55,7 @@
     "package": false
   },
   "bugs": "https://github.com/setaman/vue-ellipse-progress/issues",
-  "homepage": "https://vue-ellipse-progress-demo.netlify.app/#/",
+  "homepage": "https://setaman.github.io/vue-ellipse-progress-docs/",
   "keywords": [
     "vue",
     "vue2",
