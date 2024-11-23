@@ -35,7 +35,7 @@ createApp(App).use(veProgress);
 
 Install via npm:
 ```
-npm i vue-ellipse-progress@next
+npm i vue-ellipse-progress
 ```
 
 Import and initialize the component in your `main.js`. After initialization, the component is available as `<ve-progress/>`.
