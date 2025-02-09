@@ -1,3 +1,3 @@
-npm type-check
-npm lint
-npm format
+npm run type-check
+npm run lint
+npm run format
