@@ -1,7 +1,9 @@
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
+[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue}]
+charset = utf-8
 indent_size = 2
-end_of_line = lf
-trim_trailing_whitespace = true
+indent_style = space
 insert_final_newline = true
-max_line_length = 120
+trim_trailing_whitespace = true
+
+end_of_line = lf
+max_line_length = 100

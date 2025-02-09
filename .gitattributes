@@ -1,6 +1,1 @@
-text=auto
-
-*.js    eol=lf
-*.jsx   eol=lf
-*.json  eol=lf
-*.vue  eol=lf
+* text=auto eol=lf
