@@ -16,8 +16,10 @@
     "test:e2e": "playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint .",
+    "format": "prettier --write src/",
+    "prepare": "husky"
   },
   "main": "./dist/veprogress.js",
   "files": [
@@ -44,6 +46,7 @@
     "eslint": "^9.20.0",
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-vue": "^9.32.0",
+    "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.0.0",
     "npm-run-all2": "^7.0.2",
