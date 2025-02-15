@@ -27,7 +27,7 @@
   ],
   "types": "./dist/types.d.ts",
   "dependencies": {
-    "@veprogress/local": "file:./vue-ellipse-progress-2.2.0.tgz"
+    "@veprogress/local": "file:./vue-ellipse-progress-3.0.0-alpha.0.tgz"
   },
   "peerDependencies": {
     "vue": "^3"

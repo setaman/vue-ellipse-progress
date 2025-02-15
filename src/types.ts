@@ -86,6 +86,7 @@ export interface Loader extends Pick<VeProgressProps, "color" | "thickness" | "l
   //@defaultValue 1000
   duration?: number;
 }
+export type Thickness = number | `${number}%`;
 export type DotSizeString = `${number}` | `${number}%`;
 export type DotColor = string;
 export type DotString = `${DotSizeString}` | `${DotSizeString} ${DotColor}`;
@@ -111,9 +112,9 @@ export interface VeProgressProps {
   //@defaultValue "transparent"
   emptyColorFill?: Color;
   //@defaultValue "5%"
-  thickness?: number | string;
+  thickness?: Thickness;
   //@defaultValue "5%"
-  emptyThickness?: number | string;
+  emptyThickness?: Thickness;
   //@defaultValue LineModes.center
   lineMode?: LineMode;
   //@defaultValue LinePositions.center
