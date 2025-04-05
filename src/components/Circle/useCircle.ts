@@ -49,6 +49,7 @@ export const useCircle = (props: MaybeRefOrGetter<CircleProps>) => {
   } = useParsedProps(props);
   const circleId = useId();
 
+  const circleRef = ref<SVGCircleElement | null>(null);
   const isInitialized = ref(false);
   const isAnimationPlaying = ref(false);
 
@@ -209,22 +210,24 @@ export const useCircle = (props: MaybeRefOrGetter<CircleProps>) => {
   }
 
   onMounted(async () => {
-    const circle = document.querySelector("#circleProgress");
-    if (circle) {
-      circle.addEventListener("animationstart", toggleIsAnimationPlaying, false);
-      circle.addEventListener("animationend", toggleIsAnimationPlaying, false);
+    if (circleRef.value) {
+      // this is only required for older MacOS/IOS versions and Safari. On Apple system the transition is triggered
+      // right after initial animation causing the progress line rendered twice. So we track animation state to
+      // add/remove CSS transition properties
+      circleRef.value.addEventListener("animationstart", toggleIsAnimationPlaying, false);
+      circleRef.value.addEventListener("animationend", toggleIsAnimationPlaying, false);
     }
-    if (animation.value.delay && loading.value) {
+    if (animation.value.delay && !loading.value) {
+      // await initial delay before applying animations
       await wait(animation.value.delay);
     }
     isInitialized.value = true;
   });
 
   onUnmounted(() => {
-    const circle = document.querySelector("#circleProgress");
-    if (circle) {
-      circle.removeEventListener("animationstart", toggleIsAnimationPlaying, false);
-      circle.removeEventListener("animationend", toggleIsAnimationPlaying, false);
+    if (circleRef.value) {
+      circleRef.value.removeEventListener("animationstart", toggleIsAnimationPlaying, false);
+      circleRef.value.removeEventListener("animationend", toggleIsAnimationPlaying, false);
     }
   });
 
