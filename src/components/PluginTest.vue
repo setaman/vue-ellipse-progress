@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import "../assets/ps.css";
 import type { VeProgressProps } from "@/types.ts";
+import { useParsedProps } from "@/components/Circle/useParsedProps.ts";
 
-defineProps<VeProgressProps>();
+const props = defineProps<VeProgressProps>();
+
+const { parsedProps, progress } = useParsedProps(props);
 </script>
 
 <template>
   <div>
     <h1 class="plugin-styles">PluginTest</h1>
-    <p>msg: {{ progress }}</p>
-    <p>test: {{ color }}</p>
+    parsedProps: {{ parsedProps.dot.size }} parsedProps: {{ progress }}
   </div>
 </template>
 

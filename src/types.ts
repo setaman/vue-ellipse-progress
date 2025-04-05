@@ -1,4 +1,4 @@
-import type { App, Component, ConcreteComponent, CSSProperties } from "vue";
+import type { App, ConcreteComponent, CSSProperties } from "vue";
 
 export type VeProgressComponent = ConcreteComponent<VeProgressProps>;
 export type VeProgressPluginInstallFunction = (app: App, props?: Partial<VeProgressProps>) => void;
@@ -31,7 +31,18 @@ export interface Gradient {
 
 export interface CounterTick {
   currentValue: number;
+  countProgress: number;
   currentFormattedValue: string;
+  currentRawValue: number;
+  duration: number;
+  previousCountStepValue: number;
+  start: number;
+  end: number;
+  difference: number;
+  currentDifference: number;
+  oneStepDifference: number;
+  startTime: number;
+  elapsed: number;
 }
 
 export type Color = string | Gradient;

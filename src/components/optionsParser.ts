@@ -1,30 +1,27 @@
 import { DEFAULT_THICKNESS, getNumberIfValid, isValidNumber } from "@/utils";
 import {
   type Animation,
+  Animations,
   type Dash,
   type Dot,
   type LineMode,
+  LineModes,
   type LinePosition,
   LinePositions,
   type Loader,
   type Thickness,
   type VeProgressProps,
 } from "@/types.ts";
-import { Animations, LineModes } from "@/types.ts";
 
-export interface PropsParserOptions {
-  globalDot?: Dot;
-  globalThickness?: Thickness;
-  multipleCircles: boolean;
-}
+export type ParsedDashObject = {
+  count: number;
+  spacing: number;
+};
 
-export type ParsedProps = ReturnType<typeof parseOptions>;
-
-export const lineModeParser = (lineMode: LineMode = LineModes.center, multiple: boolean) => {
+export const lineModeParser = (lineMode: LineMode = LineModes.center) => {
   const lineModeConfig = lineMode.trim().split(" ");
-  const mode = multiple ? "multiple" : lineModeConfig[0];
   return {
-    mode,
+    mode: lineModeConfig[0] as LineModes,
     offset: getNumberIfValid(lineModeConfig[1]) || 0,
   };
 };
@@ -85,25 +82,11 @@ export const linePositionParser = (linePosition: LinePosition = LinePositions.ce
   };
 };
 
-export const loaderParser = (loader: Loader, props: VeProgressProps, multiple: boolean) => ({
+export const loaderParser = (loader: Loader = {}, props: VeProgressProps) => ({
   ...loader,
+  ...props,
   color: loader.color || props.color,
   line: loader.line || props.line,
-  lineMode: lineModeParser(loader.lineMode || props.lineMode, multiple),
+  lineMode: lineModeParser(loader.lineMode || props.lineMode),
   thickness: calcThickness(loader.thickness || props.thickness, props.size),
-});
-
-export const parseOptions = (props: VeProgressProps, options: PropsParserOptions) => ({
-  ...props,
-  thickness: calcThickness(props.thickness, props.size),
-  emptyThickness: calcThickness(props.emptyThickness, props.size),
-  globalThickness: calcThickness(options.globalThickness, props.size),
-  dot: dotParser(props.dot, props.size),
-  globalDot: dotParser(options.globalDot, props.size),
-  dash: dashParser(props.dash),
-  lineMode: lineModeParser(props.lineMode, options.multipleCircles),
-  linePosition: linePositionParser(props.linePosition),
-  emptyLinePosition: linePositionParser(props.emptyLinePosition),
-  animation: animationParser(props.animation),
-  loader: props.loader ? loaderParser(props.loader, props, options.multipleCircles) : undefined,
 });

@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { getNumberIfValid, isValidNumber, defaultCounterTick } from "@/utils.ts";
+import {
+  getNumberIfValid,
+  isValidNumber,
+  defaultCounterTick,
+  type CircleProps,
+  DEFAULT_SIZE,
+  type PreviousCircle,
+} from "@/utils.ts";
 import CircleContainer from "./Circle/CircleContainer.vue";
 import Counter from "./Counter.vue";
-import { parseOptions, type PropsParserOptions } from "@/components/optionsParser";
 import { computed, nextTick, onMounted, ref, watchEffect } from "vue";
 import type { VeProgressProps } from "@/types.ts";
 
@@ -12,6 +18,9 @@ const legendHeight = ref<number | undefined>(undefined);
 // for better Vue 3 compatibility, sacrifice useTemplateRef
 const legendRef = ref<HTMLElement | null>(null);
 
+const size = computed(() => {
+  return `${props.size || DEFAULT_SIZE}px`;
+});
 const computedLegend = computed(() => {
   if (props.loading || props.noData) {
     return 0;
@@ -26,53 +35,43 @@ const shouldHideLegendValue = computed(() => {
   return !isDataAvailable.value || props.loading || props.hideLegend;
 });
 const isMultiple = computed(() => {
-  return (props.data?.length ?? 0) > 1;
+  return !!props.data?.length;
 });
 const isHTML = computed(() => {
   return /<[a-z/][\s\S]*>/i.test(
     ((props.legendFormatter && props.legendFormatter(defaultCounterTick)) || "").toString().trim()
   );
 });
-const circlesProps = computed(() => {
+const circlesProps = computed<CircleProps[]>(() => {
   if (isMultiple.value) {
-    return props.data!.map((circleProps) => ({
+    const previousCircles: PreviousCircle[] = [];
+    return props.data!.map((circleProps, i) => ({
+      // merge global props with circle props
       ...props,
       ...circleProps,
-      multiple: true,
+      index: i,
       // for multiple circles, emptyThickness is not allowed
       emptyThickness: isValidNumber(circleProps.thickness)
         ? circleProps.thickness
         : props.thickness,
-      data: undefined, // do not pass data prop
+      data: undefined, // do not propagate data prop
+      globalDot: props.dot,
+      globalThickness: props.thickness,
+      multipleCircles: true,
+      // in the "multiple circles" mode, we need to keep track of previous circles
+      // to correctly calculate the circumference of each circle
+      previousCircles:
+        i > 0
+          ? [
+              ...previousCircles,
+              { dot: circleProps.dot, thickness: circleProps.thickness, gap: circleProps.gap },
+            ]
+          : [],
     }));
   }
-  return [props];
-});
-const normalizedCircles = computed(() => {
-  const normalizedCircles = [];
-  const previousCircles = [];
-  for (let i = 0; i < circlesProps.value.length; i++) {
-    const cProps = circlesProps.value[i];
-    const options: PropsParserOptions = {
-      globalDot: cProps.dot,
-      globalThickness: cProps.thickness,
-      multipleCircles: isMultiple.value,
-    };
-    const parsedOptions = parseOptions(
-      {
-        index: i,
-        ...cProps,
-        //globalGap: props.gap,
-        //globalThickness: props.thickness,
-        //previousCircles: [...previousCircles],
-      },
-      options
-    );
-    normalizedCircles.push(parsedOptions);
-    const { gap, thickness, dot } = normalizedCircles[i];
-    previousCircles.push({ gap, thickness, dot });
-  }
-  return normalizedCircles;
+  return [
+    { ...props, index: 0, globalDot: props.dot, multipleCircles: false, previousCircles: [] },
+  ];
 });
 
 const updateLegendHeight = () => {
@@ -93,17 +92,17 @@ onMounted(() => {
   <div
     class="ep-container"
     :style="{
-      width: `${size}px`,
-      height: `${size}px`,
+      width: size,
+      height: size,
     }"
   >
     <div class="ep-content">
-      <circle-container v-for="(options, i) in normalizedCircles" :key="i" :options="options">
+      <circle-container v-for="(props, i) in circlesProps" v-bind="props" :key="i">
         <template #circle-progress="{ attrs }">
           <slot name="circle-progress" :attrs="attrs"></slot>
         </template>
       </circle-container>
-      <div class="ep-legend--container" :style="{ maxWidth: `${size}px` }">
+      <div class="ep-legend--container" :style="{ maxWidth: size }">
         <div
           v-if="!isMultiple"
           class="ep-legend--value"
@@ -114,7 +113,7 @@ onMounted(() => {
           <div ref="legend">
             <counter
               :value="computedLegend"
-              :animation="normalizedCircles[0].animation"
+              :animation="circlesProps[0].animation"
               :loading="loading"
             >
               <template #default="{ counterTick }">
