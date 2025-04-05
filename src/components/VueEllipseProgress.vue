@@ -8,8 +8,8 @@ import {
   type PreviousCircle,
 } from "@/utils.ts";
 import CircleContainer from "./Circle/CircleContainer.vue";
-import Counter from "./Counter.vue";
-import { computed, nextTick, onMounted, ref, watchEffect } from "vue";
+import LegendCounter from "./LegendCounter.vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import type { VeProgressProps } from "@/types.ts";
 
 const props = defineProps<VeProgressProps>();
@@ -80,9 +80,12 @@ const updateLegendHeight = () => {
   });
 };
 
-watchEffect(() => {
-  updateLegendHeight();
-});
+watch(
+  () => props.hideLegend,
+  () => {
+    updateLegendHeight();
+  }
+);
 onMounted(() => {
   updateLegendHeight();
 });
@@ -110,8 +113,8 @@ onMounted(() => {
           :style="{ height: `${legendHeight}px`, fontSize, color: fontColor }"
           style="transition: 0.3s"
         >
-          <div ref="legend">
-            <counter
+          <div ref="legendRef">
+            <legend-counter
               :value="computedLegend"
               :animation="circlesProps[0].animation"
               :loading="loading"
@@ -125,7 +128,7 @@ onMounted(() => {
                   <span>{{ counterTick.currentFormattedValue }}</span>
                 </slot>
               </template>
-            </counter>
+            </legend-counter>
             <slot name="legend"></slot>
           </div>
         </div>
